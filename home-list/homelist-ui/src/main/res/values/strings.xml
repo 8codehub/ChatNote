@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">SendMe</string>
+    <string name="new_folder">New Folder</string>
+    <string name="name">Name</string>
+    <string name="cancel">Cancel</string>
+    <string name="edit_details">Edit details</string>
+    <string name="done">Done</string>
+    <string name="random">Random</string>
+    <string name="validation_error_empty_name">Name cannot be empty</string>
+    <string name="validation_error_empty_folder_name">Folder name cannot be empty</string>
+</resources>
