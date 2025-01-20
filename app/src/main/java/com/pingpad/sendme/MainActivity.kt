@@ -1,4 +1,4 @@
-package com.sendme.sendme
+package com.pingpad.sendme
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -15,7 +15,7 @@ import androidx.navigation.compose.rememberNavController
 import com.sendme.coreui.component.ui.theme.SendMeTheme
 import com.sendme.directnotesui.screen.DirectNotesScreen
 import com.sendme.navigation.NavigationRoute
-import com.sendme.ui.HomeListScreen
+import com.sendme.ui.FolderListScreen
 import com.sendme.ui.newfolder.content.FolderEditorScreen
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -41,18 +41,18 @@ fun SendMeApp(navController: NavHostController) {
         startDestination = NavigationRoute.HomeList
     ) {
         composable<NavigationRoute.HomeList> {
-            HomeListScreen(
+            FolderListScreen(
                 onFolderClick = { uiEvent ->
                     navController.navigate(
                         uiEvent.route
                     )
                 },
-                onCreateFolderClick = {
-                    navController.navigate(NavigationRoute.FolderEditor())
+                navigateTo = {
+                    navController.navigate(it)
                 }
             )
         }
-        composable<NavigationRoute.DirectNotes> { backStackEntry ->
+        composable<NavigationRoute.DirectNotes> {
             DirectNotesScreen(
                 onBackClick = { navController.popBackStack() },
                 onOptionsClick = {

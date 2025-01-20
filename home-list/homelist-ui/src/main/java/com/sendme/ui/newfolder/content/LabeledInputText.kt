@@ -35,7 +35,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.sendme.coreui.component.ui.component.CircularImage
 import com.sendme.coreui.component.ui.component.StyledText
-import com.sendme.coreui.component.ui.decorations.AppHorizontalDivider
+import com.pingpad.coreui.component.ui.decorations.AppHorizontalDivider
 import com.sendme.homelistui.R
 import kotlinx.coroutines.launch
 

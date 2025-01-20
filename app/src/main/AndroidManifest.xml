@@ -14,7 +14,7 @@
         android:name="com.sendme.sendme.app.SendMeApp"
         tools:targetApi="31">
         <activity
-            android:name="com.sendme.sendme.MainActivity"
+            android:name="com.pingpad.sendme.MainActivity"
             android:exported="true"
             android:label="@string/app_name"
             android:windowSoftInputMode="adjustResize"

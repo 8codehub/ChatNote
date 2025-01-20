@@ -8,9 +8,14 @@ sealed class NavigationRoute {
     data object HomeList : NavigationRoute()
 
     @Serializable
-    data class FolderEditor(val folderId: Long? = null) : NavigationRoute()
+    data class FolderEditor(
+        val folderId: Long? = null
+    ) : NavigationRoute()
 
     @Serializable
-    data class DirectNotes(val folderId: Long, val folderName: String, val folderIconUri: String) :
-        NavigationRoute()
+    data class DirectNotes(
+        val folderId: Long,
+        val folderName: String,
+        val folderIconUri: String
+    ) : NavigationRoute()
 }

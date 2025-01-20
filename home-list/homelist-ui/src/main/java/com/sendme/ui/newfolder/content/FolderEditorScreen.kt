@@ -28,7 +28,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.sendme.coreui.component.ui.appbar.CustomTopBar
+import com.pingpad.coreui.component.ui.appbar.CustomTopBar
 import com.sendme.coreui.component.ui.component.CircularImage
 import com.sendme.coreui.component.ui.component.StyledText
 import com.sendme.homelistui.R
