@@ -9,6 +9,7 @@ val LightSecondary = Color(0xFFC2C6CC) // done
 val LightOnSecondary = Color(0xFF8E8E93) // done
 val LightBackground = Color(0xFFFFFFFF)//done //Background should be the dominant canvas color.
 val LightOnBackground = Color(0xFF000000)//done //Ensure OnBackground text is legible for key content.
+val LightError = Color.Red
 
 
 // Dark Theme Colors
@@ -18,3 +19,4 @@ val DarkSecondary = Color(0xFF43474D) // done
 val DarkOnSecondary = Color(0xFF8E8E93) // done
 val DarkBackground = Color(0xFF000000) //done
 val DarkOnBackground = Color(0xFFFFFFFF) // done
+val DarkError = Color.Red // done

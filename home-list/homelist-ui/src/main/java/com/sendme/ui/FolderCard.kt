@@ -9,8 +9,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
-import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -21,6 +19,137 @@ import com.sendme.domain.model.Folder
 import com.sendme.coreui.component.ui.component.StyledText
 import com.sendme.coreui.component.ui.component.CircularImage
 import com.sendme.homelistui.R
+
+import androidx.compose.foundation.background
+import androidx.compose.foundation.gestures.detectHorizontalDragGestures
+import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.*
+import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.input.pointer.pointerInput
+import androidx.compose.ui.unit.dp
+import kotlinx.coroutines.launch
+
+import androidx.compose.animation.core.Animatable
+import androidx.compose.animation.core.tween
+import androidx.compose.foundation.background
+import androidx.compose.foundation.gestures.detectHorizontalDragGestures
+import androidx.compose.foundation.layout.*
+import androidx.compose.material3.*
+import androidx.compose.runtime.*
+import androidx.compose.ui.input.pointer.pointerInput
+import androidx.compose.ui.unit.dp
+import kotlinx.coroutines.launch
+
+@Composable
+fun ImprovedSwipableFolderItem(
+    folderName: String,
+    onEdit: () -> Unit,
+    onDelete: () -> Unit,
+    onPin: () -> Unit
+) {
+    val actionWidth = 180f // Width of the actions (60dp * 3 buttons)
+    val swipeOffset = remember { Animatable(0f) }
+    val scope = rememberCoroutineScope()
+
+    Box(
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(60.dp)
+            .pointerInput(Unit) {
+                detectHorizontalDragGestures(
+                    onDragEnd = {
+                        scope.launch {
+                            if (swipeOffset.value < -actionWidth / 2) {
+                                // Snap to fully reveal actions
+                                swipeOffset.animateTo(-actionWidth, tween(300))
+                            } else {
+                                // Snap back to idle position
+                                swipeOffset.animateTo(0f, tween(300))
+                            }
+                        }
+                    },
+                    onDragCancel = {
+                        scope.launch {
+                            // Reset to idle position
+                            swipeOffset.animateTo(0f, tween(300))
+                        }
+                    },
+                    onHorizontalDrag = { change, dragAmount ->
+                        scope.launch {
+                            val target = swipeOffset.value + dragAmount
+                            // Restrict swipe between 0 and -actionWidth
+                            swipeOffset.snapTo(target.coerceIn(-actionWidth, 0f))
+                        }
+                    }
+                )
+            }
+    ) {
+        // Background with action buttons
+        Row(
+            modifier = Modifier
+                .fillMaxSize()
+                .background(MaterialTheme.colorScheme.secondary),
+            horizontalArrangement = Arrangement.End,
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            ActionIcon(
+                title = "Edit",
+                color = Color.Blue,
+                onClick = onEdit
+            )
+            ActionIcon(
+                title = "Delete",
+                color = Color.Red,
+                onClick = onDelete
+            )
+            ActionIcon(
+                title = "Pin",
+                color = Color.Green,
+                onClick = onPin
+            )
+        }
+
+        // Foreground content
+        Box(
+            modifier = Modifier
+                .offset(x = swipeOffset.value.dp)
+                .fillMaxWidth()
+                .height(60.dp)
+                .background(MaterialTheme.colorScheme.surface, RoundedCornerShape(8.dp))
+                .padding(16.dp),
+            contentAlignment = Alignment.CenterStart
+        ) {
+            Text(
+                text = folderName,
+                style = MaterialTheme.typography.bodyLarge,
+                color = MaterialTheme.colorScheme.onSurface
+            )
+        }
+    }
+}
+
+@Composable
+fun ActionIcon(title: String, color: Color, onClick: () -> Unit) {
+    Box(
+        modifier = Modifier
+            .width(60.dp)
+            .fillMaxHeight()
+            .background(color)
+            .clickable { onClick() },
+        contentAlignment = Alignment.Center
+    ) {
+        Text(
+            text = title,
+            color = Color.White,
+            style = MaterialTheme.typography.labelSmall
+        )
+    }
+}
+
 
 @Composable
 fun FolderCard(

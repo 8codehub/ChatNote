@@ -28,5 +28,4 @@ class FolderListViewModel @Inject constructor(
     init {
         FolderListContract.FolderListEvent.LoadFolders.processWithLaunch()
     }
-
 }
