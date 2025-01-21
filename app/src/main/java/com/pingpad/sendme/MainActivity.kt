@@ -9,13 +9,15 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavHostController
+import androidx.navigation.NavOptions
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.sendme.coreui.component.ui.theme.SendMeTheme
 import com.sendme.directnotesui.screen.DirectNotesScreen
 import com.sendme.navigation.NavigationRoute
-import com.sendme.ui.FolderListScreen
+import com.sendme.navigation.UiEvent
+import com.sendme.ui.folderlist.FolderListScreen
 import com.sendme.ui.newfolder.content.FolderEditorScreen
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -42,11 +44,6 @@ fun SendMeApp(navController: NavHostController) {
     ) {
         composable<NavigationRoute.HomeList> {
             FolderListScreen(
-                onFolderClick = { uiEvent ->
-                    navController.navigate(
-                        uiEvent.route
-                    )
-                },
                 navigateTo = {
                     navController.navigate(it)
                 }
@@ -64,7 +61,10 @@ fun SendMeApp(navController: NavHostController) {
         composable<NavigationRoute.FolderEditor> { _ ->
             FolderEditorScreen(
                 onCreateFolder = { uiEvent ->
-                    navController.navigate(uiEvent.route)
+                    navigateWithClearBackStack(
+                        navController = navController,
+                        targetRoute = uiEvent.route
+                    )
                 },
                 onCancel = {
                     navController.popBackStack()
@@ -73,18 +73,12 @@ fun SendMeApp(navController: NavHostController) {
     }
 }
 
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    SendMeTheme {
-        Greeting("Android")
+fun navigateWithClearBackStack(
+    navController: NavHostController,
+    targetRoute: NavigationRoute
+) {
+    navController.navigate(targetRoute) {
+        popUpTo(NavigationRoute.HomeList) { inclusive = false } // Retain HomeList in the back stack
+        launchSingleTop = true // Avoid multiple instances of the target route
     }
 }

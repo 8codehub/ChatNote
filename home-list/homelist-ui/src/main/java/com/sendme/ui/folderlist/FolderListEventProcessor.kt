@@ -34,6 +34,7 @@ class FolderListStatefulEventHandler @Inject constructor(
                 updateUiState {
                     isLoading = false
                     folders = it
+                    foldersCount = it.size
                 }
 
             }
@@ -41,6 +42,7 @@ class FolderListStatefulEventHandler @Inject constructor(
             updateUiState {
                 isLoading = false
                 errorMessage = e.message
+                foldersCount = null
             }
         }
     }

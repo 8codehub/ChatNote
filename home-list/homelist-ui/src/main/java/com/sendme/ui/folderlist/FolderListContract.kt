@@ -13,6 +13,7 @@ object FolderListContract {
     data class FolderListState(
         val isLoading: Boolean = false,
         val folders: List<Folder> = emptyList(),
+        val foldersCount: Int? = null,
         val errorMessage: String? = null
     ) : ConvertibleState<FolderListState, MutableFolderListState> {
 
@@ -20,7 +21,8 @@ object FolderListContract {
             return MutableFolderListState(
                 isLoading = isLoading,
                 folders = folders,
-                errorMessage = errorMessage
+                errorMessage = errorMessage,
+                foldersCount = foldersCount,
             )
         }
     }
@@ -29,14 +31,16 @@ object FolderListContract {
     data class MutableFolderListState(
         var isLoading: Boolean = false,
         var folders: List<Folder> = emptyList(),
-        var errorMessage: String? = null
+        var errorMessage: String? = null,
+        var foldersCount: Int? = null
     ) : MutableConvertibleState<FolderListState> {
 
         override fun toImmutable(): FolderListState {
             return FolderListState(
                 isLoading = isLoading,
                 folders = folders,
-                errorMessage = errorMessage
+                errorMessage = errorMessage,
+                foldersCount = foldersCount
             )
         }
     }

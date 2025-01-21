@@ -1,6 +1,5 @@
 package com.pingpad.coreui.arch
 
-import androidx.compose.runtime.MutableState
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow

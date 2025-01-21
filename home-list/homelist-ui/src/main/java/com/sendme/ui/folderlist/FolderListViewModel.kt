@@ -29,6 +29,4 @@ class FolderListViewModel @Inject constructor(
         FolderListContract.FolderListEvent.LoadFolders.processWithLaunch()
     }
 
-    override fun initialState() = FolderListContract.FolderListState()
-
 }

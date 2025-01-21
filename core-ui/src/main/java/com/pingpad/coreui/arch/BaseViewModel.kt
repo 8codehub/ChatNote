@@ -25,13 +25,6 @@ abstract class BaseViewModel<
     private val _oneTimeEvent = MutableSharedFlow<O>()
     val oneTimeEvent: SharedFlow<O> = _oneTimeEvent.asSharedFlow()
 
-    // Intent processing
-    fun processIntent(intent: E) {
-        viewModelScope.launch {
-            processEvent(intent)
-        }
-    }
-
     // Emit one-time events
     protected suspend fun emitOneTimeEvent(event: O) {
         _oneTimeEvent.emit(event)
@@ -47,11 +40,7 @@ abstract class BaseViewModel<
         processEvent(this)
     }
 
-    // Abstract method for handling intents
     private suspend fun processEvent(event: E) {
         statefulEventHandler.process(event)
-
     }
-
-    protected abstract fun initialState(): S
 }

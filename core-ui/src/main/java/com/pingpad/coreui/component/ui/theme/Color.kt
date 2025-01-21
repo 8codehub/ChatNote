@@ -1,4 +1,4 @@
-package com.sendme.coreui.component.ui.theme
+package com.pingpad.coreui.component.ui.theme
 
 import androidx.compose.ui.graphics.Color
 

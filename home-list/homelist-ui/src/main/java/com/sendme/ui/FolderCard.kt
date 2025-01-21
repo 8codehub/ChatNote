@@ -11,6 +11,8 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
@@ -18,6 +20,7 @@ import androidx.compose.ui.unit.sp
 import com.sendme.domain.model.Folder
 import com.sendme.coreui.component.ui.component.StyledText
 import com.sendme.coreui.component.ui.component.CircularImage
+import com.sendme.homelistui.R
 
 @Composable
 fun FolderCard(
@@ -39,10 +42,10 @@ fun FolderCard(
             modifier = Modifier.padding(vertical = 4.dp),
             imageUrl = folder.iconUri.orEmpty(),
             iconSize = 56.dp,
-         //   borderColor = MaterialTheme.colorScheme.primary,
+            //   borderColor = MaterialTheme.colorScheme.primary,
             iconPadding = 0.dp,
-           // imageColorFilter = ColorFilter.tint(MaterialTheme.colorScheme.onPrimary),
-         //   backgroundColor = MaterialTheme.colorScheme.t,
+            // imageColorFilter = ColorFilter.tint(MaterialTheme.colorScheme.onPrimary),
+            //   backgroundColor = MaterialTheme.colorScheme.t,
             borderWidth = 0.dp
         )
 
@@ -59,10 +62,17 @@ fun FolderCard(
             )
 
             StyledText(
-                text = folder.lastNote,
+                text = folder.lastNote.ifEmpty {
+                    stringResource(R.string.empty_folder_hint)
+                },
                 fontWeight = FontWeight.Medium,
                 fontSize = 14.sp,
                 maxLines = 2,
+                fontStyle = if (folder.lastNote.isEmpty()) {
+                    FontStyle.Italic
+                } else {
+                    FontStyle.Normal
+                },
                 overflow = TextOverflow.Ellipsis,
                 color = MaterialTheme.colorScheme.secondary
             )
