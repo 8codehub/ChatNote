@@ -10,12 +10,14 @@ import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.LocalContext
 import com.pingpad.coreui.component.ui.theme.DarkBackground
+import com.pingpad.coreui.component.ui.theme.DarkError
 import com.pingpad.coreui.component.ui.theme.DarkOnBackground
 import com.pingpad.coreui.component.ui.theme.DarkOnPrimary
 import com.pingpad.coreui.component.ui.theme.DarkOnSecondary
 import com.pingpad.coreui.component.ui.theme.DarkPrimary
 import com.pingpad.coreui.component.ui.theme.DarkSecondary
 import com.pingpad.coreui.component.ui.theme.LightBackground
+import com.pingpad.coreui.component.ui.theme.LightError
 import com.pingpad.coreui.component.ui.theme.LightOnBackground
 import com.pingpad.coreui.component.ui.theme.LightOnPrimary
 import com.pingpad.coreui.component.ui.theme.LightOnSecondary
@@ -29,6 +31,7 @@ private val DarkColorScheme = darkColorScheme(
     onSecondary = DarkOnSecondary,
     background = DarkBackground,
     onBackground = DarkOnBackground,
+    error = DarkError
 
 )
 
@@ -39,6 +42,7 @@ private val LightColorScheme = lightColorScheme(
     onSecondary = LightOnSecondary, // like search hint
     background = LightBackground, // app main background
     onBackground = LightOnBackground, // text on background
+    error = LightError
 )
 
 @Composable

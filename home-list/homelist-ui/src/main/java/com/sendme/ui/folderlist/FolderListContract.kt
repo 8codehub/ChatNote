@@ -1,6 +1,5 @@
 package com.sendme.ui.folderlist
 
-import com.pingpad.coreui.arch.BaseState
 import com.pingpad.coreui.arch.ConvertibleState
 import com.pingpad.coreui.arch.MutableConvertibleState
 import com.pingpad.coreui.arch.UiEvent
@@ -28,7 +27,7 @@ object FolderListContract {
     }
 
     // Mutable state
-    data class MutableFolderListState(
+    class MutableFolderListState(
         var isLoading: Boolean = false,
         var folders: List<Folder> = emptyList(),
         var errorMessage: String? = null,
