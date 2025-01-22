@@ -28,4 +28,12 @@ class FolderListViewModel @Inject constructor(
     init {
         FolderListContract.FolderListEvent.LoadFolders.processWithLaunch()
     }
+
+    fun pinFolder(folderId: Long) {
+        FolderListContract.FolderListEvent.PinFolder(folderId = folderId).processWithLaunch()
+    }
+
+    fun unPinFolder(folderId: Long) {
+        FolderListContract.FolderListEvent.UnpinFolder(folderId = folderId).processWithLaunch()
+    }
 }

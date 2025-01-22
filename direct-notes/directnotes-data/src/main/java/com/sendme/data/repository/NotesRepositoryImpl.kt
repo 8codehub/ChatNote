@@ -1,13 +1,12 @@
 package com.sendme.data.repository
 
-import com.sendme.coredomain.navigation.bridge.FolderUpdateHandler
+import com.pingpad.coredomain.navigation.bridge.FolderUpdateHandler
 import com.sendme.coredomain.navigation.mapper.Mapper
 import com.sendme.data.db.NoteDao
 import com.sendme.data.model.NoteEntity
 import com.sendme.directnotsdomain.SendMeNote
 import com.sendme.directnotsdomain.repository.NotesRepository
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
 class NotesRepositoryImpl @Inject constructor(
@@ -23,11 +22,12 @@ class NotesRepositoryImpl @Inject constructor(
 
     override suspend fun addNote(folderId: Long, note: SendMeNote) {
         val createdDate = System.currentTimeMillis()
-        val noteEntity = domainToEntityMapper.map(note).copy(folderId = folderId, createdAt = createdDate)
+        val noteEntity =
+            domainToEntityMapper.map(note).copy(folderId = folderId, createdAt = createdDate)
         noteDao.insertNote(noteEntity)
         // After inserting the note, update the folder
         folderUpdateHandler.updateFolderWithLastNote(
-            folderId = folderId.toInt(),
+            folderId = folderId,
             lastNote = note.content,
             lastNoteDate = createdDate
         )

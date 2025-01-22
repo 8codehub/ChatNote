@@ -6,7 +6,15 @@ import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface FolderDao {
-    @Query("SELECT * FROM folders ORDER BY createdAt DESC")
+    @Query(
+        """
+    SELECT * FROM folders
+    ORDER BY 
+        CASE WHEN pinnedDate > 0 THEN 0 ELSE 1 END,
+        pinnedDate DESC,
+        createdAt DESC 
+"""
+    )
     fun getAllFolders(): Flow<List<FolderEntity>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
@@ -16,6 +24,11 @@ interface FolderDao {
     suspend fun deleteFolder(folderEntity: FolderEntity)
 
     @Query("UPDATE folders SET lastNoteContent = :lastNote, lastNoteCreatedAt = :lastNoteDate WHERE id = :folderId")
-    suspend fun updateFolderLastNote(folderId: Int, lastNote: String, lastNoteDate: Long)
+    suspend fun updateFolderLastNote(folderId: Long, lastNote: String, lastNoteDate: Long)
 
+    @Query("UPDATE folders SET pinnedDate = :pinnedDate WHERE id = :folderId")
+    suspend fun pinFolder(folderId: Long, pinnedDate: Long = System.currentTimeMillis()): Int
+
+    @Query("UPDATE folders SET pinnedDate = 0 WHERE id = :folderId")
+    suspend fun unpinFolder(folderId: Long): Int
 }

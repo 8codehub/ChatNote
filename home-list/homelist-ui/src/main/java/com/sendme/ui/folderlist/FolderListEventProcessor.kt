@@ -2,6 +2,8 @@ package com.sendme.ui.folderlist
 
 import com.pingpad.coreui.arch.StatefulEventHandler
 import com.sendme.domain.usecase.GetFoldersUseCase
+import com.sendme.domain.usecase.PinFolderUseCase
+import com.sendme.domain.usecase.UnpinFolderUseCase
 import com.sendme.ui.folderlist.FolderListContract.FolderListEvent
 import com.sendme.ui.folderlist.FolderListContract.FolderListState
 import com.sendme.ui.folderlist.FolderListContract.MutableFolderListState
@@ -13,7 +15,9 @@ import javax.inject.Inject
 
 
 class FolderListStatefulEventHandler @Inject constructor(
-    private val getFoldersUseCase: GetFoldersUseCase
+    private val getFoldersUseCase: GetFoldersUseCase,
+    private val pinFolder: PinFolderUseCase,
+    private val unpinFolder: UnpinFolderUseCase
 ) : StatefulEventHandler<FolderListEvent, FolderListState, MutableFolderListState>(FolderListState()) {
 
     override suspend fun process(event: FolderListEvent, args: Any?) {
@@ -22,8 +26,24 @@ class FolderListStatefulEventHandler @Inject constructor(
                 fetchFolders()
             }
 
+            is FolderListEvent.PinFolder -> {
+                makeFolderPinned(event.folderId)
+            }
+
+            is FolderListEvent.UnpinFolder -> {
+                makeFolderUnPinned(event.folderId)
+            }
+
             is FolderListEvent.DeleteFolder -> {}
         }
+    }
+
+    private suspend fun makeFolderPinned(folderId: Long) {
+        pinFolder(folderId = folderId)
+    }
+
+    private suspend fun makeFolderUnPinned(folderId: Long) {
+        unpinFolder(folderId = folderId)
     }
 
     private suspend fun fetchFolders() {

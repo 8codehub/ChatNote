@@ -11,8 +11,9 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.offset
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
@@ -21,19 +22,39 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.layout.Layout
 import androidx.compose.ui.unit.dp
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 @Composable
 fun SwipeableItem(
+    modifier: Modifier = Modifier,
     content: @Composable () -> Unit,
-    actionButtonsContent: @Composable RowScope.() -> Unit
+    onStateChange: (SwipeableItemState) -> Unit,
+    actionButtonsContent: @Composable RowScope.() -> Unit,
+    swipeableItemState: SwipeableItemState = SwipeableItemState.Default
 ) {
-    var actionWidth by remember { mutableStateOf(0f) }
+    var actionWidth by remember { mutableFloatStateOf(0f) }
     val swipeOffset = remember { Animatable(0f) }
     val scope = rememberCoroutineScope()
 
+    LaunchedEffect(swipeableItemState) {
+        when (swipeableItemState) {
+            SwipeableItemState.Open -> {
+                swipeOffset.animateTo(-actionWidth, tween(300)) // Open with animation
+                onStateChange(SwipeableItemState.Default) // Reset state to Default
+            }
+            SwipeableItemState.Close -> {
+                swipeOffset.animateTo(0f, tween(300)) // Close with animation
+                onStateChange(SwipeableItemState.Default) // Reset state to Default
+            }
+            SwipeableItemState.Default -> {
+                // Do nothing
+            }
+        }
+    }
+
     Box(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxWidth()
             .pointerInput(Unit) {
                 detectHorizontalDragGestures(
@@ -105,4 +126,8 @@ fun SwipeableItem(
             content()
         }
     }
+}
+
+enum class SwipeableItemState {
+    Open, Close, Default
 }

@@ -7,5 +7,6 @@ data class Folder(
     val lastNote: String,
     val iconUri: String?,
     val lastNoteCreatedDate: String,
-    val createdAt: Long
+    val createdAt: Long,
+    val isPinned: Boolean
 )

@@ -1,5 +1,5 @@
-package com.sendme.coredomain.navigation.bridge
+package com.pingpad.coredomain.navigation.bridge
 
 interface FolderUpdateHandler {
-    suspend fun updateFolderWithLastNote(folderId: Int, lastNote: String, lastNoteDate: Long)
+    suspend fun updateFolderWithLastNote(folderId: Long, lastNote: String, lastNoteDate: Long)
 }

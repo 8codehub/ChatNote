@@ -11,5 +11,6 @@ data class FolderEntity(
     val iconUri: String?,
     val lastNoteContent: String?,
     val lastNoteCreatedAt: Long?,
-    val createdAt: Long = System.currentTimeMillis()
+    val createdAt: Long = System.currentTimeMillis(),
+    val pinnedDate: Long = 0 //0 for unpinned folders
 )

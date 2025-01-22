@@ -28,6 +28,32 @@ class FolderRepositoryImpl @Inject constructor(
         )
     }
 
+    override suspend fun pinFolder(folderId: Long): Result<Unit> {
+        return try {
+            val rowsUpdated = folderDao.pinFolder(folderId)
+            if (rowsUpdated > 0) {
+                Result.success(Unit)
+            } else {
+                Result.failure(Exception("Folder not found or already pinned")) // Failure
+            }
+        } catch (e: Exception) {
+            Result.failure(e) // Handle unexpected errors
+        }
+    }
+
+    override suspend fun unpinFolder(folderId: Long): Result<Unit> {
+        return try {
+            val rowsUpdated = folderDao.unpinFolder(folderId)
+            if (rowsUpdated > 0) {
+                Result.success(Unit)
+            } else {
+                Result.failure(Exception("Folder not found or already pinned")) // Failure
+            }
+        } catch (e: Exception) {
+            Result.failure(e) // Handle unexpected errors
+        }
+    }
+
     override fun getFolders(): Flow<List<Folder>> {
         return mapperFolderEntityToFolder.mapFlow(folderDao.getAllFolders())
     }

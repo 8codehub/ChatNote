@@ -30,16 +30,17 @@ fun CircularImage(
     @DrawableRes drawableRes: Int,
     modifier: Modifier = Modifier,
     borderWidth: Dp = 0.dp,
+    imageColorFilter: ColorFilter? = null,
     borderColor: Color = Color.Transparent,
-    backgroundColor: Color = Color.Transparent, // Default background color
-    contentScale: ContentScale = ContentScale.Crop, // To switch between Crop and Fill
-    iconPadding: Dp = 0.dp, // Padding for the icon
-    iconSize: Dp? = null, // Fixed size for the icon (optional)
-    onClick: (() -> Unit)? = null // Optional click listener
+    backgroundColor: Color = Color.Transparent,
+    contentScale: ContentScale = ContentScale.Crop,
+    iconPadding: Dp = 0.dp,
+    iconSize: Dp? = null,
+    onClick: (() -> Unit)? = null
 ) {
     Box(
         modifier = modifier
-          //  .aspectRatio(1f)
+            //  .aspectRatio(1f)
             .clip(CircleShape)
             .background(backgroundColor)
             .border(
@@ -48,17 +49,18 @@ fun CircularImage(
                 shape = CircleShape
             )
             .then(if (onClick != null) Modifier.clickable { onClick() } else Modifier),
-        contentAlignment = Alignment.Center // Center the icon within the circle
+        contentAlignment = Alignment.Center
     ) {
         Box(
             modifier = Modifier
-                .padding(iconPadding) // Add padding inside the circular background
+                .padding(iconPadding)
                 .clip(CircleShape)
         ) {
             Image(
                 painter = painterResource(id = drawableRes),
                 contentDescription = null,
-                contentScale = contentScale, // Allows switching between Crop and Fill
+                colorFilter = imageColorFilter,
+                contentScale = contentScale,
                 modifier = if (iconSize != null) Modifier.size(iconSize) else Modifier.wrapContentSize() // Wrap content if no size is provided
             )
         }
@@ -72,15 +74,14 @@ fun CircularImage(
     borderWidth: Dp = 0.dp,
     imageColorFilter: ColorFilter? = null,
     borderColor: Color = Color.Transparent,
-    backgroundColor: Color = Color.Transparent, // Default background color
-    contentScale: ContentScale = ContentScale.Crop, // To switch between Crop and Fill
-    iconPadding: Dp = 0.dp, // Padding for the icon
-    iconSize: Dp? = null, // Fixed size for the icon (optional)
-    onClick: (() -> Unit)? = null // Optional click listener
+    backgroundColor: Color = Color.Transparent,
+    contentScale: ContentScale = ContentScale.Crop,
+    iconPadding: Dp = 0.dp,
+    iconSize: Dp? = null,
+    onClick: (() -> Unit)? = null
 ) {
     Box(
         modifier = modifier
-           // .aspectRatio(1f)
             .clip(CircleShape)
             .background(backgroundColor)
             .border(
@@ -93,7 +94,7 @@ fun CircularImage(
     ) {
         Box(
             modifier = Modifier
-                .padding(iconPadding) // Add padding inside the circular background
+                .padding(iconPadding)
                 .clip(CircleShape)
         ) {
             AsyncImage(
@@ -111,33 +112,33 @@ fun CircularImage(
 fun CircularBackgroundIcon(
     icon: ImageVector,
     modifier: Modifier = Modifier,
-    backgroundColor: Color = Color.Transparent, // Default background color
-    borderColor: Color = Color.Transparent, // Default border color
-    borderWidth: Dp = 0.dp, // Default border width
-    iconSize: Dp = 24.dp, // Default icon size
-    backgroundSize: Dp = 48.dp, // Default background size
-    iconPadding: Dp = 0.dp, // Padding around the icon
-    onClick: (() -> Unit)? = null // Optional click listener
+    backgroundColor: Color = Color.Transparent,
+    borderColor: Color = Color.Transparent,
+    borderWidth: Dp = 0.dp,
+    iconSize: Dp = 24.dp,
+    backgroundSize: Dp = 48.dp,
+    iconPadding: Dp = 0.dp,
+    onClick: (() -> Unit)? = null
 ) {
     Box(
         modifier = modifier
-            .size(backgroundSize) // Circular background size
-            .aspectRatio(1f) // Ensure it remains circular
-            .background(backgroundColor, shape = CircleShape) // Circular background
+            .size(backgroundSize)
+            .aspectRatio(1f)
+            .background(backgroundColor, shape = CircleShape)
             .border(
                 width = borderWidth,
                 color = borderColor,
                 shape = CircleShape
             )
             .then(if (onClick != null) Modifier.clickable { onClick() } else Modifier),
-        contentAlignment = Alignment.Center // Center the icon within the circular background
+        contentAlignment = Alignment.Center
     ) {
         Image(
             imageVector = icon,
             contentDescription = null,
             modifier = Modifier
-                .size(iconSize) // Size of the icon itself
-                .padding(iconPadding), // Padding around the icon
+                .size(iconSize)
+                .padding(iconPadding),
         )
     }
 }
@@ -146,7 +147,7 @@ fun CircularBackgroundIcon(
 fun CircularBackgroundIcon(
     @DrawableRes drawableRes: Int,
     modifier: Modifier = Modifier,
-    backgroundColor: Color = Color.Transparent, // Default background color
+    backgroundColor: Color = Color.Transparent,
     borderColor: Color = Color.Transparent, // Default border color
     borderWidth: Dp = 0.dp, // Default border width
     iconSize: Dp = 24.dp, // Default icon size

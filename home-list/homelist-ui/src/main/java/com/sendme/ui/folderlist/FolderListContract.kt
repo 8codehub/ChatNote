@@ -47,10 +47,9 @@ object FolderListContract {
     // UI Events
     sealed class FolderListEvent : UiEvent {
         data object LoadFolders : FolderListEvent()
+        data class PinFolder(val folderId: Long) : FolderListEvent()
+        data class UnpinFolder(val folderId: Long) : FolderListEvent()
         data class DeleteFolder(val folderId: String) : FolderListEvent()
-        /*
-                data class CreateFolder(val folderName: String) : FolderListEvent()
-        */
     }
 
     // One-Time Events
