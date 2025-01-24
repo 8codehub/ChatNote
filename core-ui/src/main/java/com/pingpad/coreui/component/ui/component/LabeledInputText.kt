@@ -85,7 +85,7 @@ fun LabeledInputText(
                     onValueChange = onTextChange,
                     singleLine = true,
                     keyboardOptions = KeyboardOptions.Default.copy(
-                        capitalization = KeyboardCapitalization.Sentences // Capitalize the first letter
+                        capitalization = KeyboardCapitalization.Sentences
                     ),
                     textStyle = MaterialTheme.typography.bodyLarge.copy(
                         fontSize = 16.sp

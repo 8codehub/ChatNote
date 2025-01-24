@@ -16,7 +16,7 @@ import kotlinx.coroutines.flow.onEach
 import javax.inject.Inject
 
 class DirectNotesStatefulEventHandler @Inject constructor(
-    private val getNotesUseCase: GetNotesUseCase,
+    private val observeNotes: GetNotesUseCase,
     private val addNoteUseCase: AddNoteUseCase,
     private val observeFolderUseCase: ObserveFolderUseCase
 ) : StatefulEventHandler<DirectNotesEvent, DirectNotesOneTimeEvent, DirectNotesState, MutableDirectNotesState>(
@@ -40,9 +40,11 @@ class DirectNotesStatefulEventHandler @Inject constructor(
     }
 
     private suspend fun onLoadAllNotesEvent(folderId: Long) {
-
-        getNotesUseCase(folderId).onEach {
-            updateUiState { notes = it }
+        observeNotes(folderId).onEach {
+            updateUiState {
+                notes = it
+                emptyNotes = it.isEmpty()
+            }
         }.catch {
             updateUiState {
                 error

@@ -16,6 +16,7 @@ object DirectNotesContract {
         val folderName: String = "",
         val folderIconUri: String? = null,
         val notes: List<SendMeNote> = emptyList(),
+        val emptyNotes: Boolean? = null,
         val isLoading: Boolean = false,
         @StringRes val error: Int? = null
     ) : ConvertibleState<DirectNotesState, MutableDirectNotesState> {
@@ -27,7 +28,8 @@ object DirectNotesContract {
                 folderIconUri = folderIconUri,
                 notes = notes,
                 isLoading = isLoading,
-                error = error
+                error = error,
+                emptyNotes = emptyNotes
             )
         }
     }
@@ -39,7 +41,8 @@ object DirectNotesContract {
         var folderIconUri: String? = null,
         var notes: List<SendMeNote> = emptyList(),
         var isLoading: Boolean = false,
-        @StringRes var error: Int? = null
+        var emptyNotes: Boolean? = null,
+        @StringRes var error: Int? = null,
     ) : MutableConvertibleState<DirectNotesState> {
 
         override fun toImmutable(): DirectNotesState {
@@ -49,7 +52,8 @@ object DirectNotesContract {
                 folderIconUri = folderIconUri,
                 notes = notes,
                 isLoading = isLoading,
-                error = error
+                error = error,
+                emptyNotes = emptyNotes
             )
         }
     }

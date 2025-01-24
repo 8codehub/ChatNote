@@ -8,6 +8,8 @@ import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -61,9 +63,14 @@ private fun DirectNotesTitleText(
             color = MaterialTheme.colorScheme.onBackground,
             fontWeight = FontWeight.W700
         )
+        val notesText = when {
+            notesCount == 0 -> stringResource(R.string.no_notes)
+            notesCount == 1 -> stringResource(R.string.one_note)
+            else -> stringResource(R.string.notes_count, notesCount)
+        }
         StyledText(
             modifier = Modifier.wrapContentHeight(),
-            text = stringResource(R.string.notes_count, notesCount),
+            text = notesText,
             fontSize = 12.sp,
             maxLines = 1,
             lineHeight = 12.sp,

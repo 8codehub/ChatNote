@@ -1,4 +1,7 @@
 <resources>
     <string name="notes_count">%s notes</string>
+    <string name="one_note">One note</string>
+    <string name="no_notes">No notes</string>
+    <string name="empty_notes_message">No notes yet. Start adding your thoughts and organize them in this folder!</string>
 
 </resources>
