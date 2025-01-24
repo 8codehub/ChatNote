@@ -14,14 +14,18 @@ import javax.inject.Inject
 
 @HiltViewModel
 class FolderEditorViewModel @Inject constructor(
-    private val savedStateHandle: SavedStateHandle,
+    savedStateHandle: SavedStateHandle,
     folderEditorStatefulEventHandler: StatefulEventHandler<
             FolderEditorEvent,
             FolderEditorOneTimeEvent,
             FolderEditorState,
             MutableFolderEditorState
             >
-) : BaseViewModel<FolderEditorState, MutableFolderEditorState, FolderEditorEvent, FolderEditorOneTimeEvent,
+) : BaseViewModel<
+        FolderEditorState,
+        MutableFolderEditorState,
+        FolderEditorEvent,
+        FolderEditorOneTimeEvent,
         StatefulEventHandler<
                 FolderEditorEvent,
                 FolderEditorOneTimeEvent,
@@ -30,6 +34,14 @@ class FolderEditorViewModel @Inject constructor(
                 >
         >(folderEditorStatefulEventHandler) {
 
+    private var args = savedStateHandle.toRoute<NavigationRoute.FolderEditor>()
+
+    init {
+        FolderEditorEvent.LoadFolderInitialState(args.folderId != null).processWithLaunch()
+        args.folderId?.let {
+            FolderEditorEvent.LoadFolder(folderId = it).processWithLaunch()
+        }
+    }
 
     fun done(name: String, selectedIconUri: String) {
         FolderEditorEvent.EditOrAddFolder(
@@ -37,16 +49,6 @@ class FolderEditorViewModel @Inject constructor(
             iconUri = selectedIconUri
         ).processWithLaunch()
 
-    }
-
-
-    var args = savedStateHandle.toRoute<NavigationRoute.FolderEditor>()
-
-    init {
-        FolderEditorEvent.LoadFolderInitialState(args.folderId != null).processWithLaunch()
-        args.folderId?.let {
-            FolderEditorEvent.LoadFolder(folderId = it).processWithLaunch()
-        }
     }
 
 }

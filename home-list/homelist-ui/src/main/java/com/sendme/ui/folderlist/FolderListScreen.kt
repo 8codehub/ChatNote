@@ -41,10 +41,10 @@ import com.sendme.homelistui.R
 import com.sendme.navigation.NavigationRoute
 import com.sendme.ui.AddNewFolderButton
 
-@OptIn(ExperimentalMaterial3Api::class, ExperimentalFoundationApi::class)
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun FolderListScreen(
-    viewModel: FolderListViewModel = hiltViewModel(), // Inject ViewModel
+    viewModel: FolderListViewModel = hiltViewModel(),
     navigateTo: (NavigationRoute) -> Unit = {},
 ) {
     val state by viewModel.state.collectAsStateWithLifecycle()
