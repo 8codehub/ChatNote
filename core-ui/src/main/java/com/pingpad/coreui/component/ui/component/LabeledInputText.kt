@@ -1,5 +1,6 @@
-package com.sendme.ui.newfolder.content
+package com.pingpad.coreui.component.ui.component
 
+import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.background
@@ -36,7 +37,6 @@ import androidx.compose.ui.unit.sp
 import com.sendme.coreui.component.ui.component.CircularImage
 import com.sendme.coreui.component.ui.component.StyledText
 import com.pingpad.coreui.component.ui.decorations.AppHorizontalDivider
-import com.sendme.homelistui.R
 import kotlinx.coroutines.launch
 
 @Composable
@@ -45,6 +45,7 @@ fun LabeledInputText(
     text: String,
     modifier: Modifier = Modifier,
     @StringRes inputError: Int? = null,
+    @DrawableRes clearTextIcon: Int? = null,
     onTextChange: (String) -> Unit,
     onClearClick: () -> Unit,
     hint: String = "",
@@ -116,14 +117,15 @@ fun LabeledInputText(
                 )
             }
 
-            AnimatedVisibility(text.isNotEmpty()) {
-                CircularImage(
-                    drawableRes = R.drawable.ic_clear,
-                    iconPadding = 2.dp,
-                    onClick = onClearClick
-                )
+            clearTextIcon?.let {
+                AnimatedVisibility(text.isNotEmpty()) {
+                    CircularImage(
+                        drawableRes = clearTextIcon,
+                        iconPadding = 2.dp,
+                        onClick = onClearClick
+                    )
+                }
             }
-
         }
 
         Spacer(modifier = Modifier.height(10.dp))

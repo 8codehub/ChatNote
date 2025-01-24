@@ -1,15 +1,13 @@
 package com.sendme.data.repository
 
 
-import com.sendme.coredomain.navigation.mapper.Mapper
+import com.pingpad.coredomain.navigation.mapper.Mapper
 import com.sendme.data.db.FolderDao
 import com.sendme.data.models.FolderEntity
 import com.sendme.domain.model.Folder
 import com.sendme.domain.repository.FolderRepository
-import dagger.Provides
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
-import javax.inject.Singleton
 
 class FolderRepositoryImpl @Inject constructor(
     private val folderDao: FolderDao,
@@ -17,15 +15,29 @@ class FolderRepositoryImpl @Inject constructor(
     private val mapperFolderEntityToFolder: Mapper<FolderEntity, Folder>,
 ) : FolderRepository {
 
-    override suspend fun createFolder(folderName: String, iconUri: String): Long {
-        return folderDao.insertFolder(
-            FolderEntity(
-                name = folderName,
-                lastNoteContent = "",
-                iconUri = iconUri,
-                lastNoteCreatedAt = System.currentTimeMillis()
+    override suspend fun addOrUpdateFolder(
+        folderId: Long?,
+        name: String,
+        iconUri: String
+    ): Long {
+        return if (folderId == null) {
+            folderDao.insertOrReplaceFolder(
+                FolderEntity(
+                    name = name,
+                    iconUri = iconUri,
+                    lastNoteContent = null,
+                    lastNoteCreatedAt = null
+                )
             )
-        )
+        } else {
+            val updatedNote =
+                folderDao.getFolderById(folderId)?.copy(name = name, iconUri = iconUri)
+            updatedNote?.let {
+                folderDao.insertOrReplaceFolder(
+                    it
+                )
+            } ?: 0
+        }
     }
 
     override suspend fun pinFolder(folderId: Long): Result<Unit> {
@@ -48,6 +60,20 @@ class FolderRepositoryImpl @Inject constructor(
                 Result.success(Unit)
             } else {
                 Result.failure(Exception("Folder not found or already pinned")) // Failure
+            }
+        } catch (e: Exception) {
+            Result.failure(e) // Handle unexpected errors
+        }
+    }
+
+    override suspend fun getFolderById(folderId: Long): Result<Folder> {
+        return try {
+            val folderEntity = folderDao.getFolderById(folderId)
+            if (folderEntity != null) {
+                val folder = mapperFolderEntityToFolder.map(folderEntity)
+                Result.success(folder)
+            } else {
+                Result.failure(Exception("Folder not found"))
             }
         } catch (e: Exception) {
             Result.failure(e) // Handle unexpected errors

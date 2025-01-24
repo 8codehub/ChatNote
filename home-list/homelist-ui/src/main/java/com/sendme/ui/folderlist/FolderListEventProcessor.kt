@@ -5,6 +5,7 @@ import com.sendme.domain.usecase.GetFoldersUseCase
 import com.sendme.domain.usecase.PinFolderUseCase
 import com.sendme.domain.usecase.UnpinFolderUseCase
 import com.sendme.ui.folderlist.FolderListContract.FolderListEvent
+import com.sendme.ui.folderlist.FolderListContract.FolderListOneTimeEvent
 import com.sendme.ui.folderlist.FolderListContract.FolderListState
 import com.sendme.ui.folderlist.FolderListContract.MutableFolderListState
 import kotlinx.coroutines.flow.catch
@@ -18,7 +19,7 @@ class FolderListStatefulEventHandler @Inject constructor(
     private val getFoldersUseCase: GetFoldersUseCase,
     private val pinFolder: PinFolderUseCase,
     private val unpinFolder: UnpinFolderUseCase
-) : StatefulEventHandler<FolderListEvent, FolderListState, MutableFolderListState>(FolderListState()) {
+) : StatefulEventHandler<FolderListEvent, FolderListOneTimeEvent, FolderListState, MutableFolderListState>(FolderListState()) {
 
     override suspend fun process(event: FolderListEvent, args: Any?) {
         when (event) {

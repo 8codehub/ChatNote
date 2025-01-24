@@ -2,6 +2,10 @@ package com.sendme.ui.folderlist
 
 import com.pingpad.coreui.arch.BaseViewModel
 import com.pingpad.coreui.arch.StatefulEventHandler
+import com.sendme.ui.folderlist.FolderListContract.FolderListEvent
+import com.sendme.ui.folderlist.FolderListContract.FolderListOneTimeEvent
+import com.sendme.ui.folderlist.FolderListContract.FolderListState
+import com.sendme.ui.folderlist.FolderListContract.MutableFolderListState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
@@ -9,31 +13,29 @@ import javax.inject.Inject
 @HiltViewModel
 class FolderListViewModel @Inject constructor(
     folderListStatefulEventHandler: StatefulEventHandler<
-            FolderListContract.FolderListEvent,
-            FolderListContract.FolderListState,
-            FolderListContract.MutableFolderListState
+            FolderListEvent,
+            FolderListOneTimeEvent,
+            FolderListState,
+            MutableFolderListState
             >
-) : BaseViewModel<
-        FolderListContract.FolderListState,
-        FolderListContract.MutableFolderListState,
-        FolderListContract.FolderListEvent,
-        FolderListContract.FolderListOneTimeEvent,
+) : BaseViewModel<FolderListState, MutableFolderListState, FolderListEvent, FolderListOneTimeEvent,
         StatefulEventHandler<
-                FolderListContract.FolderListEvent,
-                FolderListContract.FolderListState,
-                FolderListContract.MutableFolderListState
+                FolderListEvent,
+                FolderListOneTimeEvent,
+                FolderListState,
+                MutableFolderListState
                 >
         >(folderListStatefulEventHandler) {
 
     init {
-        FolderListContract.FolderListEvent.LoadFolders.processWithLaunch()
+        FolderListEvent.LoadFolders.processWithLaunch()
     }
 
     fun pinFolder(folderId: Long) {
-        FolderListContract.FolderListEvent.PinFolder(folderId = folderId).processWithLaunch()
+        FolderListEvent.PinFolder(folderId = folderId).processWithLaunch()
     }
 
     fun unPinFolder(folderId: Long) {
-        FolderListContract.FolderListEvent.UnpinFolder(folderId = folderId).processWithLaunch()
+        FolderListEvent.UnpinFolder(folderId = folderId).processWithLaunch()
     }
 }

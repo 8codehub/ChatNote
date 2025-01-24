@@ -1,7 +1,7 @@
 package com.sendme.data.mapping
 
 
-import com.sendme.coredomain.navigation.mapper.Mapper
+import com.pingpad.coredomain.navigation.mapper.Mapper
 import com.sendme.data.models.FolderEntity
 import com.sendme.domain.model.Folder
 import javax.inject.Inject
@@ -29,7 +29,7 @@ internal class FolderToFolderEntityMapper @Inject constructor() : Mapper<Folder,
             iconUri = from.iconUri,
             lastNoteCreatedAt = System.currentTimeMillis(),
             lastNoteContent = from.lastNote,
-            pinnedDate = 0
+            pinnedDate = 0L
         )
     }
 }

@@ -16,4 +16,5 @@
     <string name="random">Random</string>
     <string name="validation_error_empty_name">Name cannot be empty</string>
     <string name="validation_error_empty_folder_name">Folder name cannot be empty</string>
+    <string name="general_error">Something went wrong</string>
 </resources>

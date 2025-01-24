@@ -17,8 +17,12 @@ interface FolderDao {
     )
     fun getAllFolders(): Flow<List<FolderEntity>>
 
+
+    @Query("SELECT * FROM folders WHERE id = :folderId LIMIT 1;\n")
+    suspend fun getFolderById(folderId: Long): FolderEntity?
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertFolder(folderEntity: FolderEntity): Long
+    suspend fun insertOrReplaceFolder(folderEntity: FolderEntity): Long
 
     @Delete
     suspend fun deleteFolder(folderEntity: FolderEntity)

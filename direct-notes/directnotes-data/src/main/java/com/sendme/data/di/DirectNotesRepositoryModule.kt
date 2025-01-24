@@ -1,7 +1,7 @@
 package com.sendme.data.di
 
 import com.pingpad.coredomain.navigation.bridge.FolderUpdateHandler
-import com.sendme.coredomain.navigation.mapper.Mapper
+import com.pingpad.coredomain.navigation.mapper.Mapper
 import com.sendme.data.db.NoteDao
 import com.sendme.data.model.NoteEntity
 import com.sendme.data.repository.NotesRepositoryImpl

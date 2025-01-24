@@ -1,4 +1,4 @@
-package com.sendme.ui.newfolder.state
+package com.sendme.ui.editor.state
 
 import androidx.annotation.StringRes
 

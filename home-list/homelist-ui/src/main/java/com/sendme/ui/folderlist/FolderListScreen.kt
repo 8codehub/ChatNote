@@ -50,7 +50,7 @@ fun FolderListScreen(
                     StyledText(
                         color = MaterialTheme.colorScheme.onBackground,
                         text = stringResource(R.string.folders_count, "$it"),
-                        fontSize = 30.sp,
+                        fontSize = 26.sp,
                         fontWeight = FontWeight.W700,
                     )
                 }
@@ -72,7 +72,7 @@ fun FolderListScreen(
                         modifier = Modifier, navigateTo = navigateTo
                     )
                 }
-                items(state.folders.size, key = { state.folders[it].id }) { index ->
+                items(state.folders.size, key = { state.folders[it].id ?: 0 }) { index ->
                     val item = state.folders[index]
                     SwipeableItem(
                         modifier = Modifier.animateItem(
@@ -85,7 +85,7 @@ fun FolderListScreen(
                                 navigateTo(
                                     NavigationRoute.DirectNotes(
                                         folderName = item.name,
-                                        folderId = item.id,
+                                        folderId = item.id?:0,
                                         folderIconUri = item.iconUri.orEmpty()
                                     )
                                 )
@@ -104,11 +104,11 @@ fun FolderListScreen(
                                 },
                                 onFolderPin = {
                                     swipeState = SwipeableItemState.Close
-                                    viewModel.pinFolder(folderId = item.id)
+                                    viewModel.pinFolder(folderId = item.id?:0)
                                 },
                                 onFolderUnPin = {
                                     swipeState = SwipeableItemState.Close
-                                    viewModel.unPinFolder(folderId = item.id)
+                                    viewModel.unPinFolder(folderId = item.id?:0)
                                 },
                                 onFolderDelete = {
                                     swipeState = SwipeableItemState.Close

@@ -1,5 +1,7 @@
-package com.sendme.ui.newfolder.content
+package com.sendme.ui.editor
 
+import android.util.Log
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -29,25 +31,43 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.pingpad.coreui.component.ui.appbar.CustomTopBar
+import com.pingpad.coreui.component.ui.component.LabeledInputText
 import com.sendme.coreui.component.ui.component.CircularImage
 import com.sendme.coreui.component.ui.component.StyledText
 import com.sendme.homelistui.R
-import com.sendme.navigation.UiEvent
-import com.sendme.ui.newfolder.viewmodel.FolderEditorViewModel
+import com.sendme.navigation.NavigationRoute
+import com.sendme.ui.editor.viewmodel.FolderEditorViewModel
 
 @Composable
 fun FolderEditorScreen(
     viewModel: FolderEditorViewModel = hiltViewModel(),
-    onCreateFolder: (UiEvent.Navigate) -> Unit,
+    navigateTo: (NavigationRoute) -> Unit,
     onCancel: () -> Unit
 ) {
     val state by viewModel.state.collectAsStateWithLifecycle()
-    var selectedIconUri by remember { mutableStateOf(state.icons.firstOrNull().orEmpty()) }
-    val navigateToNewFolder by viewModel.navigationEvent.collectAsStateWithLifecycle(null)
+    val oneTimeEvent by viewModel.oneTimeEvent.collectAsStateWithLifecycle(null)
+    var localFolderName by remember(state.folderName) { mutableStateOf(state.folderName ?: "") }
+    var selectedIconUri by remember(key1 = state.folderIconUri, key2 = state.icons) {
+        mutableStateOf(
+            state.folderIconUri.takeUnless { it.isNullOrEmpty() }
+                ?: state.icons.firstOrNull().orEmpty()
+        )
+    }
 
-    LaunchedEffect(navigateToNewFolder) {
-        navigateToNewFolder?.let {
-            onCreateFolder(it)
+
+    LaunchedEffect(selectedIconUri) {
+        Log.e("localFolderName__", " + localFolderName " + selectedIconUri)
+        //viewModel.onFolderNameChanged(localFolderName)
+    }
+
+    LaunchedEffect(oneTimeEvent) {
+
+        oneTimeEvent?.let {
+            when (it) {
+                is FolderEditorContract.FolderEditorOneTimeEvent.NavigateBack -> onCancel()
+                is FolderEditorContract.FolderEditorOneTimeEvent.NavigateTo -> navigateTo(it.route)
+                is FolderEditorContract.FolderEditorOneTimeEvent.ShowToast -> {}
+            }
         }
     }
     Scaffold(
@@ -71,21 +91,26 @@ fun FolderEditorScreen(
                     )
                 },
                 centerContent = {
-                    StyledText(
-                        text = stringResource(R.string.edit_details),
-                        fontSize = 16.sp,
-                        maxLines = 1,
-                        fontWeight = FontWeight.W500,
-                        overflow = TextOverflow.Ellipsis,
-                        color = MaterialTheme.colorScheme.onBackground
-                    )
+                    AnimatedVisibility(state.title != null) {
+                        StyledText(
+                            text = state.title?.let { stringResource(it) },
+                            fontSize = 16.sp,
+                            maxLines = 1,
+                            fontWeight = FontWeight.W500,
+                            overflow = TextOverflow.Ellipsis,
+                            color = MaterialTheme.colorScheme.onBackground
+                        )
+                    }
                 },
                 endContent = {
                     StyledText(
                         modifier = Modifier
                             .padding(end = 12.dp)
                             .clickable {
-                                viewModel.createNewFolder(name = state.folderName, selectedIconUri)
+                                viewModel.done(
+                                    name = localFolderName,
+                                    selectedIconUri = selectedIconUri
+                                )
                             },
                         text = stringResource(R.string.done),
                         fontSize = 16.sp,
@@ -118,13 +143,14 @@ fun FolderEditorScreen(
                 modifier = Modifier.padding(horizontal = 12.dp),
                 hint = stringResource(R.string.random),
                 label = stringResource(R.string.name),
-                text = state.folderName,
+                clearTextIcon = R.drawable.ic_clear,
+                text = localFolderName,
                 inputError = state.inputError,
                 onTextChange = {
-                    viewModel.onFolderNameChanged(it)
+                    localFolderName = it
                 },
                 onClearClick = {
-                    viewModel.onFolderNameChanged("")
+                    localFolderName = ""
                 },
             )
 
@@ -132,7 +158,7 @@ fun FolderEditorScreen(
                 LazyVerticalGrid(
                     modifier = Modifier.padding(horizontal = 36.dp),
                     columns = GridCells.Fixed(4),
-                    contentPadding = PaddingValues(top = 24.dp) // Add general padding for the grid
+                    contentPadding = PaddingValues(top = 24.dp)
                 ) {
                     items(state.icons.size) { index ->
                         val iconUri = state.icons[index]

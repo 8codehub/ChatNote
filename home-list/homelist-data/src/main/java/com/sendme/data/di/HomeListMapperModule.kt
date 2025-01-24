@@ -1,6 +1,6 @@
 package com.sendme.data.di
 
-import com.sendme.coredomain.navigation.mapper.Mapper
+import com.pingpad.coredomain.navigation.mapper.Mapper
 import com.sendme.data.mapping.FolderEntityToFolderMapper
 import com.sendme.data.mapping.FolderToFolderEntityMapper
 import com.sendme.data.models.FolderEntity

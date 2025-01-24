@@ -1,6 +1,6 @@
 package com.sendme.data.mapper
 
-import com.sendme.coredomain.navigation.mapper.Mapper
+import com.pingpad.coredomain.navigation.mapper.Mapper
 import com.sendme.data.model.NoteEntity
 import com.sendme.directnotsdomain.SendMeNote
 import javax.inject.Inject

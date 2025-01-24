@@ -2,10 +2,8 @@ package com.pingpad.coreui.arch
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import kotlinx.coroutines.flow.MutableSharedFlow
-import kotlinx.coroutines.flow.SharedFlow
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.launch
 
 abstract class BaseViewModel<
@@ -13,7 +11,7 @@ abstract class BaseViewModel<
         M : MutableConvertibleState<S>,
         E : UiEvent,
         O : UiOneTimeEvent,
-        H : StatefulEventHandler<E, S, M>
+        H : StatefulEventHandler<E, O, S, M>
         >(
     private val statefulEventHandler: H
 ) : ViewModel() {
@@ -21,14 +19,7 @@ abstract class BaseViewModel<
     // State exposed to subclasses
     val state: StateFlow<S> = statefulEventHandler.state
 
-    // One-time events
-    private val _oneTimeEvent = MutableSharedFlow<O>()
-    val oneTimeEvent: SharedFlow<O> = _oneTimeEvent.asSharedFlow()
-
-    // Emit one-time events
-    protected suspend fun emitOneTimeEvent(event: O) {
-        _oneTimeEvent.emit(event)
-    }
+    val oneTimeEvent: Flow<O> = statefulEventHandler.uiEvent
 
     fun E.processWithLaunch() {
         viewModelScope.launch {

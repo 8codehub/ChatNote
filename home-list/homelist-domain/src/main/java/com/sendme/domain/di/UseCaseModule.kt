@@ -1,7 +1,9 @@
 package com.sendme.domain.di
 
-import com.sendme.domain.usecase.CreateFolderUseCase
-import com.sendme.domain.usecase.CreateFolderUseCaseImpl
+import com.sendme.domain.usecase.AddOrUpdateFolderUseCase
+import com.sendme.domain.usecase.AddOrUpdateFolderUseCaseImpl
+import com.sendme.domain.usecase.GetFolderByIdUseCase
+import com.sendme.domain.usecase.GetFolderByIdUseCaseImpl
 import com.sendme.domain.usecase.GetFoldersUseCase
 import com.sendme.domain.usecase.GetFoldersUseCaseImpl
 import com.sendme.domain.usecase.GetFolderIconsUseCase
@@ -25,6 +27,11 @@ internal abstract class UseCaseModule {
     ): GetFoldersUseCase
 
     @Binds
+    abstract fun bindGetFolderByIdUseCase(
+        implementation: GetFolderByIdUseCaseImpl
+    ): GetFolderByIdUseCase
+
+    @Binds
     abstract fun bindUnpinFolderUseCase(
         implementation: PinFolderUseCaseImpl
     ): PinFolderUseCase
@@ -36,8 +43,8 @@ internal abstract class UseCaseModule {
 
     @Binds
     abstract fun bindCreateFolderUseCase(
-        implementation: CreateFolderUseCaseImpl
-    ): CreateFolderUseCase
+        implementation: AddOrUpdateFolderUseCaseImpl
+    ): AddOrUpdateFolderUseCase
 
     @Binds
     abstract fun bindGetIconUrisUseCase(

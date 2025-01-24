@@ -15,7 +15,7 @@ import com.sendme.coreui.component.PoppinsFontFamily
 
 @Composable
 fun StyledText(
-    text: String,
+    text: String? = null,
     modifier: Modifier = Modifier,
     fontSize: TextUnit = 16.sp,
     fontWeight: FontWeight = FontWeight.Normal,
@@ -26,7 +26,7 @@ fun StyledText(
     overflow: TextOverflow = TextOverflow.Clip
 ) {
     Text(
-        text = text,
+        text = text.orEmpty(),
         modifier = modifier,
         fontSize = fontSize,
         fontWeight = fontWeight,

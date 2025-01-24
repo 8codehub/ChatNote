@@ -8,6 +8,10 @@ interface GetFoldersUseCase {
     operator fun invoke(): Flow<List<Folder>>
 }
 
+interface GetFolderByIdUseCase {
+    suspend operator fun invoke(folderId: Long): Result<Folder>
+}
+
 interface PinFolderUseCase {
     suspend operator fun invoke(folderId: Long): Result<Unit>
 }
@@ -16,8 +20,8 @@ interface UnpinFolderUseCase {
     suspend operator fun invoke(folderId: Long): Result<Unit>
 }
 
-interface CreateFolderUseCase {
-    suspend operator fun invoke(folderName: String, iconUri: String): Long
+interface AddOrUpdateFolderUseCase {
+    suspend operator fun invoke(folderId: Long?, name: String, iconUri: String): Long
 }
 
 interface GetFolderIconsUseCase {
