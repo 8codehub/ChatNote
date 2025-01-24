@@ -1,6 +1,5 @@
 package com.sendme.ui.editor
 
-import android.util.Log
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
@@ -126,7 +125,7 @@ fun FolderEditorScreen(
                 modifier = Modifier
                     .padding(top = 32.dp)
                     .align(Alignment.CenterHorizontally),
-                imageUrl = selectedIconUri,
+                imageUri = selectedIconUri,
                 iconSize = 100.dp,
                 iconPadding = 0.dp,
             )
@@ -185,7 +184,7 @@ fun IconItem(
         CircularImage(
             modifier = Modifier,
             iconSize = 64.dp,
-            imageUrl = iconUri,
+            imageUri = iconUri,
             borderColor = if (isSelected) {
                 MaterialTheme.colorScheme.primary
             } else {

@@ -1,5 +1,5 @@
 package com.pingpad.coredomain.navigation.bridge
 
-interface FolderNotesHandler {
+interface NotesRepositoryFacade {
     suspend fun deleteNotesByFolderId(folderId: Long):Result<Int>
 }

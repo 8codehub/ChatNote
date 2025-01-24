@@ -1,6 +1,8 @@
 package com.sendme.data.di
 
 import com.pingpad.coredomain.navigation.mapper.Mapper
+import com.pingpad.coredomain.navigation.models.FolderBaseInfo
+import com.sendme.data.mapping.FolderEntityToFolderBaseInfoMapper
 import com.sendme.data.mapping.FolderEntityToFolderMapper
 import com.sendme.data.mapping.FolderToFolderEntityMapper
 import com.sendme.data.models.FolderEntity
@@ -26,5 +28,12 @@ object HomeListMapperModule {
     @Singleton
     fun provideFolderToFolderEntityMapper(): Mapper<Folder, FolderEntity> {
         return FolderToFolderEntityMapper()
+    }
+
+    // Provides the mapper to convert Folder to FolderBaseInfo
+    @Provides
+    @Singleton
+    fun provideFolderToFolderBaseInfoMapper(): Mapper<FolderEntity, FolderBaseInfo> {
+        return FolderEntityToFolderBaseInfoMapper()
     }
 }

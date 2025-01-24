@@ -71,8 +71,8 @@ fun AddNewFolderButton(
             modifier = Modifier.padding(vertical = 4.dp),
             drawableRes = R.drawable.ic_plus,
             backgroundColor = MaterialTheme.colorScheme.secondary,
-            iconSize = 34.dp,
-            iconPadding = 12.dp,
+            iconSize = 20.dp,
+            iconPadding = 18.dp,
             borderWidth = 0.dp
         )
 

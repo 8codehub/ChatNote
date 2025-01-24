@@ -94,6 +94,6 @@ class FolderRepositoryImpl @Inject constructor(
     }
 
     override fun getFolders(): Flow<List<Folder>> {
-        return mapperFolderEntityToFolder.mapFlow(folderDao.getAllFolders())
+        return mapperFolderEntityToFolder.mapFlow(folderDao.observeAllFolders())
     }
 }

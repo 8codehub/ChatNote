@@ -54,6 +54,7 @@ dependencies {
     implementation(libs.kotlinx.serialization.json)
     implementation(libs.androidx.navigation.runtime.ktx)
     implementation(project(":core-ui"))
+    implementation(project(":core-domain"))
     implementation(project(":direct-notes:directnotes-domain"))
     implementation(project(":navigation"))
 }

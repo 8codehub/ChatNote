@@ -69,7 +69,7 @@ fun CircularImage(
 
 @Composable
 fun CircularImage(
-    imageUrl: String,
+    imageUri: String,
     modifier: Modifier = Modifier,
     borderWidth: Dp = 0.dp,
     imageColorFilter: ColorFilter? = null,
@@ -98,7 +98,7 @@ fun CircularImage(
                 .clip(CircleShape)
         ) {
             AsyncImage(
-                model = imageUrl,
+                model = imageUri,
                 contentDescription = null,
                 colorFilter = imageColorFilter,
                 contentScale = contentScale, // Allows switching between Crop and Fill

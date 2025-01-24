@@ -2,6 +2,7 @@ package com.sendme.data.mapping
 
 
 import com.pingpad.coredomain.navigation.mapper.Mapper
+import com.pingpad.coredomain.navigation.models.FolderBaseInfo
 import com.sendme.data.models.FolderEntity
 import com.sendme.domain.model.Folder
 import javax.inject.Inject
@@ -16,6 +17,17 @@ internal class FolderEntityToFolderMapper @Inject constructor() : Mapper<FolderE
             iconUri = from.iconUri,
             lastNoteCreatedDate = "Date",
             isPinned = from.pinnedDate > 0
+        )
+    }
+}
+
+internal class FolderEntityToFolderBaseInfoMapper @Inject constructor() :
+    Mapper<FolderEntity, FolderBaseInfo> {
+    override fun map(from: FolderEntity): FolderBaseInfo {
+        return FolderBaseInfo(
+            id = from.id ?: 0,
+            name = from.name,
+            iconUri = from.iconUri.orEmpty()
         )
     }
 }

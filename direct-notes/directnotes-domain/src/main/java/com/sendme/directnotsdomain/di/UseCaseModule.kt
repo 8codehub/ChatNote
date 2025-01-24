@@ -2,6 +2,8 @@ package com.sendme.directnotsdomain.di
 
 import com.sendme.directnotsdomain.usecase.AddNoteUseCase
 import com.sendme.directnotsdomain.usecase.AddNoteUseCaseImpl
+import com.sendme.directnotsdomain.usecase.ObserveFolderUseCase
+import com.sendme.directnotsdomain.usecase.ObserveFolderUseCaseImpl
 import com.sendme.directnotsdomain.usecase.GetNotesUseCase
 import com.sendme.directnotsdomain.usecase.GetNotesUseCaseImpl
 import dagger.Binds
@@ -22,4 +24,9 @@ internal abstract class UseCaseModule {
     abstract fun bindCreateFolderUseCase(
         implementation: AddNoteUseCaseImpl
     ): AddNoteUseCase
+
+    @Binds
+    abstract fun bindObserveFolderUseCase(
+        implementation: ObserveFolderUseCaseImpl
+    ): ObserveFolderUseCase
 }

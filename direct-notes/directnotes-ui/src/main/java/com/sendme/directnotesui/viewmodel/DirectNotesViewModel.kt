@@ -37,10 +37,11 @@ class DirectNotesViewModel @Inject constructor(
     private var args = savedStateHandle.toRoute<NavigationRoute.DirectNotes>()
 
     init {
-        DirectNotesEvent.InitData(
-            folderId = args.folderId,
-            folderName = args.folderName,
-            folderIconUri = args.folderIconUri
+        DirectNotesEvent.LoadFolderBasicInfo(
+            folderId = args.folderId
+        ).processWithLaunch()
+        DirectNotesEvent.LoadAllNotes(
+            folderId = args.folderId
         ).processWithLaunch()
     }
 

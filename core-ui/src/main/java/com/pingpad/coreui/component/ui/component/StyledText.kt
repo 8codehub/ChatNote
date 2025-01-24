@@ -24,6 +24,7 @@ fun StyledText(
     fontStyle: FontStyle = FontStyle.Normal,
     color: Color = MaterialTheme.colorScheme.onBackground,
     textAlign: TextAlign? = null,
+    lineHeight: TextUnit = TextUnit.Unspecified,
     maxLines: Int = Int.MAX_VALUE,
     overflow: TextOverflow = TextOverflow.Clip
 ) {
@@ -35,6 +36,7 @@ fun StyledText(
             fontWeight = fontWeight,
             fontStyle = fontStyle,
             color = color,
+            lineHeight = lineHeight,
             textAlign = textAlign,
             fontFamily = PoppinsFontFamily,
             maxLines = maxLines,
@@ -47,6 +49,7 @@ fun StyledText(
         fontWeight = fontWeight,
         fontStyle = fontStyle,
         color = color,
+        lineHeight = lineHeight,
         textAlign = textAlign,
         fontFamily = PoppinsFontFamily,
         maxLines = maxLines,

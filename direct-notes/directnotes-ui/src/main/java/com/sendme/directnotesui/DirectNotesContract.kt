@@ -56,10 +56,12 @@ object DirectNotesContract {
 
     // UI Events
     sealed class DirectNotesEvent : UiEvent {
-        data class InitData(
-            val folderId: Long?,
-            val folderName: String?,
-            val folderIconUri: String?
+        data class LoadFolderBasicInfo(
+            val folderId: Long
+        ) : DirectNotesEvent()
+
+        data class LoadAllNotes(
+            val folderId: Long
         ) : DirectNotesEvent()
 
         data class AddNote(

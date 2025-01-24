@@ -47,8 +47,8 @@ fun SendMeApp(navController: NavHostController) {
         composable<NavigationRoute.DirectNotes> {
             DirectNotesScreen(
                 onBackClick = { navController.popBackStack() },
-                onOptionsClick = {
-                    // Handle options menu
+                navigateTo = {
+                    navController.navigate(it)
                 }
             )
         }

@@ -148,11 +148,12 @@ fun ActionIcon(title: String, color: Color, onClick: () -> Unit) {
 @Composable
 fun FolderCard(
     folder: Folder,
-    onClick: () -> Unit
+    onClick: () -> Unit,
+    modifier: Modifier = Modifier
 ) {
     Row(
         verticalAlignment = Alignment.CenterVertically,
-        modifier = Modifier
+        modifier = modifier
             .fillMaxWidth()
             .clickable {
                 onClick()
@@ -162,7 +163,7 @@ fun FolderCard(
 
         CircularImage(
             modifier = Modifier.padding(vertical = 4.dp),
-            imageUrl = folder.iconUri.orEmpty(),
+            imageUri = folder.iconUri.orEmpty(),
             iconSize = 56.dp,
             //   borderColor = MaterialTheme.colorScheme.primary,
             iconPadding = 0.dp,

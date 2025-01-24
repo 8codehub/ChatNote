@@ -123,7 +123,10 @@ fun FolderListScreen(
                             placementSpec = tween(300)
                         ),
                         content = {
-                            FolderCard(folder = item, onClick = {
+                            FolderCard(
+                                modifier = Modifier.background(color = MaterialTheme.colorScheme.background),
+                                folder = item,
+                                onClick = {
                                 navigateTo(
                                     NavigationRoute.DirectNotes(
                                         folderName = item.name,

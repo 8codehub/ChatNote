@@ -15,8 +15,10 @@ interface FolderDao {
         createdAt DESC 
 """
     )
-    fun getAllFolders(): Flow<List<FolderEntity>>
+    fun observeAllFolders(): Flow<List<FolderEntity>>
 
+    @Query("SELECT * FROM folders WHERE id = :folderId LIMIT 1;\n")
+    fun observeFolderById(folderId: Long): Flow<FolderEntity>
 
     @Query("SELECT * FROM folders WHERE id = :folderId LIMIT 1;\n")
     suspend fun getFolderById(folderId: Long): FolderEntity?
