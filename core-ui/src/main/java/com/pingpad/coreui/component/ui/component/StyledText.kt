@@ -1,10 +1,11 @@
-package com.sendme.coreui.component.ui.component
+package com.pingpad.coreui.component.ui.component
 
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -16,6 +17,7 @@ import com.sendme.coreui.component.PoppinsFontFamily
 @Composable
 fun StyledText(
     text: String? = null,
+    annotatedText: AnnotatedString? = null,
     modifier: Modifier = Modifier,
     fontSize: TextUnit = 16.sp,
     fontWeight: FontWeight = FontWeight.Normal,
@@ -25,7 +27,20 @@ fun StyledText(
     maxLines: Int = Int.MAX_VALUE,
     overflow: TextOverflow = TextOverflow.Clip
 ) {
-    Text(
+    annotatedText?.let {
+        Text(
+            text = it,
+            modifier = modifier,
+            fontSize = fontSize,
+            fontWeight = fontWeight,
+            fontStyle = fontStyle,
+            color = color,
+            textAlign = textAlign,
+            fontFamily = PoppinsFontFamily,
+            maxLines = maxLines,
+            overflow = overflow
+        )
+    } ?: Text(
         text = text.orEmpty(),
         modifier = modifier,
         fontSize = fontSize,

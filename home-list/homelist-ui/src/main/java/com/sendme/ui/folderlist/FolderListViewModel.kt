@@ -35,6 +35,12 @@ class FolderListViewModel @Inject constructor(
         FolderListEvent.PinFolder(folderId = folderId).processWithLaunch()
     }
 
+    fun deleteFolder(folderId: Long?) {
+        folderId?.let {
+            FolderListEvent.DeleteFolder(folderId = it).processWithLaunch()
+        }
+    }
+
     fun unPinFolder(folderId: Long) {
         FolderListEvent.UnpinFolder(folderId = folderId).processWithLaunch()
     }

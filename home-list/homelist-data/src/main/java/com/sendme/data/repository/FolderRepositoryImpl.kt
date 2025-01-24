@@ -49,7 +49,20 @@ class FolderRepositoryImpl @Inject constructor(
                 Result.failure(Exception("Folder not found or already pinned")) // Failure
             }
         } catch (e: Exception) {
-            Result.failure(e) // Handle unexpected errors
+            Result.failure(e)
+        }
+    }
+
+    override suspend fun deleteFolder(folderId: Long): Result<Unit> {
+        return try {
+            val rowsUpdated = folderDao.deleteFolder(folderId)
+            if (rowsUpdated > 0) {
+                Result.success(Unit)
+            } else {
+                Result.failure(Exception("Folder not found or already pinned"))
+            }
+        } catch (e: Exception) {
+            Result.failure(e)
         }
     }
 
@@ -59,10 +72,10 @@ class FolderRepositoryImpl @Inject constructor(
             if (rowsUpdated > 0) {
                 Result.success(Unit)
             } else {
-                Result.failure(Exception("Folder not found or already pinned")) // Failure
+                Result.failure(Exception("Folder not found or already pinned"))
             }
         } catch (e: Exception) {
-            Result.failure(e) // Handle unexpected errors
+            Result.failure(e)
         }
     }
 
@@ -76,7 +89,7 @@ class FolderRepositoryImpl @Inject constructor(
                 Result.failure(Exception("Folder not found"))
             }
         } catch (e: Exception) {
-            Result.failure(e) // Handle unexpected errors
+            Result.failure(e)
         }
     }
 

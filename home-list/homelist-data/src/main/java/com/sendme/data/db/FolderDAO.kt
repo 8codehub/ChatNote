@@ -35,4 +35,7 @@ interface FolderDao {
 
     @Query("UPDATE folders SET pinnedDate = 0 WHERE id = :folderId")
     suspend fun unpinFolder(folderId: Long): Int
+
+    @Query("DELETE from folders  WHERE id = :folderId")
+    suspend fun deleteFolder(folderId: Long): Int
 }

@@ -16,7 +16,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.sendme.domain.model.Folder
-import com.sendme.coreui.component.ui.component.StyledText
+import com.pingpad.coreui.component.ui.component.StyledText
 import com.sendme.coreui.component.ui.component.CircularImage
 import com.sendme.homelistui.R
 

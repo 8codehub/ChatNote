@@ -33,7 +33,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.pingpad.coreui.component.ui.appbar.CustomTopBar
 import com.pingpad.coreui.component.ui.component.LabeledInputText
 import com.sendme.coreui.component.ui.component.CircularImage
-import com.sendme.coreui.component.ui.component.StyledText
+import com.pingpad.coreui.component.ui.component.StyledText
 import com.sendme.homelistui.R
 import com.sendme.navigation.NavigationRoute
 import com.sendme.ui.editor.viewmodel.FolderEditorViewModel
@@ -54,14 +54,7 @@ fun FolderEditorScreen(
         )
     }
 
-
-    LaunchedEffect(selectedIconUri) {
-        Log.e("localFolderName__", " + localFolderName " + selectedIconUri)
-        //viewModel.onFolderNameChanged(localFolderName)
-    }
-
     LaunchedEffect(oneTimeEvent) {
-
         oneTimeEvent?.let {
             when (it) {
                 is FolderEditorContract.FolderEditorOneTimeEvent.NavigateBack -> onCancel()
@@ -70,6 +63,7 @@ fun FolderEditorScreen(
             }
         }
     }
+
     Scaffold(
         modifier = Modifier,
         topBar = {

@@ -49,12 +49,11 @@ object FolderListContract {
         data object LoadFolders : FolderListEvent()
         data class PinFolder(val folderId: Long) : FolderListEvent()
         data class UnpinFolder(val folderId: Long) : FolderListEvent()
-        data class DeleteFolder(val folderId: String) : FolderListEvent()
+        data class DeleteFolder(val folderId: Long) : FolderListEvent()
     }
 
     // One-Time Events
     sealed class FolderListOneTimeEvent : UiOneTimeEvent {
         data class ShowToast(val message: String) : FolderListOneTimeEvent()
-        data class NavigateToFolderDetails(val folderId: Long) : FolderListOneTimeEvent()
     }
 }

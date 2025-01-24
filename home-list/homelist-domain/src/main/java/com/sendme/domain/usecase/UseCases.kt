@@ -16,6 +16,10 @@ interface PinFolderUseCase {
     suspend operator fun invoke(folderId: Long): Result<Unit>
 }
 
+interface DeleteFolderUseCase {
+    suspend operator fun invoke(folderId: Long): Result<Int>
+}
+
 interface UnpinFolderUseCase {
     suspend operator fun invoke(folderId: Long): Result<Unit>
 }

@@ -1,6 +1,7 @@
 package com.sendme.ui.folderlist
 
 import com.pingpad.coreui.arch.StatefulEventHandler
+import com.sendme.domain.usecase.DeleteFolderUseCase
 import com.sendme.domain.usecase.GetFoldersUseCase
 import com.sendme.domain.usecase.PinFolderUseCase
 import com.sendme.domain.usecase.UnpinFolderUseCase
@@ -16,39 +17,51 @@ import javax.inject.Inject
 
 
 class FolderListStatefulEventHandler @Inject constructor(
-    private val getFoldersUseCase: GetFoldersUseCase,
+    private val getFolders: GetFoldersUseCase,
     private val pinFolder: PinFolderUseCase,
-    private val unpinFolder: UnpinFolderUseCase
-) : StatefulEventHandler<FolderListEvent, FolderListOneTimeEvent, FolderListState, MutableFolderListState>(FolderListState()) {
+    private val unpinFolder: UnpinFolderUseCase,
+    private val deleteFolder: DeleteFolderUseCase
+) : StatefulEventHandler<FolderListEvent, FolderListOneTimeEvent, FolderListState, MutableFolderListState>(
+    FolderListState()
+) {
 
     override suspend fun process(event: FolderListEvent, args: Any?) {
         when (event) {
             is FolderListEvent.LoadFolders -> {
-                fetchFolders()
+                onLoadFoldersEvent()
             }
 
             is FolderListEvent.PinFolder -> {
-                makeFolderPinned(event.folderId)
+                onPinFolderEvent(event.folderId)
             }
 
             is FolderListEvent.UnpinFolder -> {
-                makeFolderUnPinned(event.folderId)
+                onUnpinFolderEvent(event.folderId)
             }
 
-            is FolderListEvent.DeleteFolder -> {}
+            is FolderListEvent.DeleteFolder -> {
+                onDeleteFolderEvent(folderId = event.folderId)
+            }
         }
     }
 
-    private suspend fun makeFolderPinned(folderId: Long) {
+    private suspend fun onDeleteFolderEvent(folderId: Long) {
+        val result = deleteFolder(folderId = folderId)
+        if (result.isSuccess) {
+            _uiEvent.send(FolderListOneTimeEvent.ShowToast("Deleted " + result.getOrNull()))
+        }
+    }
+
+    private suspend fun onPinFolderEvent(folderId: Long) {
         pinFolder(folderId = folderId)
     }
 
-    private suspend fun makeFolderUnPinned(folderId: Long) {
+    private suspend fun onUnpinFolderEvent(folderId: Long) {
         unpinFolder(folderId = folderId)
     }
 
-    private suspend fun fetchFolders() {
-        getFoldersUseCase()
+    private suspend fun onLoadFoldersEvent() {
+        getFolders()
             .onEach { folders ->
                 updateUiState {
                     isLoading = false

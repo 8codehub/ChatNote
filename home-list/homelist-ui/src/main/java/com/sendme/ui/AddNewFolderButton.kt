@@ -19,7 +19,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -30,7 +29,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.sendme.coreui.component.ui.component.CircularImage
-import com.sendme.coreui.component.ui.component.StyledText
+import com.pingpad.coreui.component.ui.component.StyledText
 import com.sendme.homelistui.R
 import com.sendme.navigation.NavigationRoute
 import kotlinx.coroutines.delay
@@ -90,13 +89,12 @@ fun AddNewFolderButton(
                 color = MaterialTheme.colorScheme.onBackground
             )
 
-            // Animated Hint (Subtitle)
             AnimatedContent(
                 targetState = currentHintIndex,
                 transitionSpec = {
                     slideInVertically { height -> height } + fadeIn() with
                             slideOutVertically { height -> -height } + fadeOut()
-                }
+                }, label = ""
             ) { index ->
                 StyledText(
                     text = hints[index],

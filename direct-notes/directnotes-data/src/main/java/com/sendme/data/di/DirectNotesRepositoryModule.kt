@@ -1,10 +1,12 @@
 package com.sendme.data.di
 
+import com.pingpad.coredomain.navigation.bridge.FolderNotesHandler
 import com.pingpad.coredomain.navigation.bridge.FolderUpdateHandler
 import com.pingpad.coredomain.navigation.mapper.Mapper
 import com.sendme.data.db.NoteDao
 import com.sendme.data.model.NoteEntity
 import com.sendme.data.repository.NotesRepositoryImpl
+import com.sendme.data.repository.bridge.FolderNotesHandlerImpl
 import com.sendme.directnotsdomain.SendMeNote
 import com.sendme.directnotsdomain.repository.NotesRepository
 import dagger.Module
@@ -29,6 +31,16 @@ internal object DirectNotesRepositoryModule {
             folderUpdateHandler = folderUpdateHandler,
             entityToDomainMapper = entityToDomainMapper,
             domainToEntityMapper = domainToEntityMapper
+        )
+    }
+
+    @Provides
+    @Singleton
+    fun provideFolderNotesHandler(
+        noteDao: NoteDao
+    ): FolderNotesHandler {
+        return FolderNotesHandlerImpl(
+            noteDao = noteDao
         )
     }
 }
