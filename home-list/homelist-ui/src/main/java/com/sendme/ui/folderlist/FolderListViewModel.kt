@@ -27,9 +27,6 @@ class FolderListViewModel @Inject constructor(
                 >
         >(folderListStatefulEventHandler) {
 
-    init {
-        FolderListEvent.LoadFolders.processWithLaunch()
-    }
 
     fun pinFolder(folderId: Long) {
         FolderListEvent.PinFolder(folderId = folderId).processWithLaunch()
@@ -43,5 +40,9 @@ class FolderListViewModel @Inject constructor(
 
     fun unPinFolder(folderId: Long) {
         FolderListEvent.UnpinFolder(folderId = folderId).processWithLaunch()
+    }
+
+    override fun onStateReady() {
+        FolderListEvent.LoadFolders.processWithLaunch()
     }
 }

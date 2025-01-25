@@ -36,13 +36,6 @@ class FolderEditorViewModel @Inject constructor(
 
     private var args = savedStateHandle.toRoute<NavigationRoute.FolderEditor>()
 
-    init {
-        FolderEditorEvent.LoadFolderInitialState(args.folderId != null).processWithLaunch()
-        args.folderId?.let {
-            FolderEditorEvent.LoadFolder(folderId = it).processWithLaunch()
-        }
-    }
-
     fun done(name: String, selectedIconUri: String) {
         FolderEditorEvent.EditOrAddFolder(
             name = name,
@@ -53,6 +46,13 @@ class FolderEditorViewModel @Inject constructor(
 
     suspend fun onTextChanged() {
         FolderEditorEvent.InputTextChanged.process()
+    }
+
+    override fun onStateReady() {
+        FolderEditorEvent.LoadFolderInitialState(args.folderId != null).processWithLaunch()
+        args.folderId?.let {
+            FolderEditorEvent.LoadFolder(folderId = it).processWithLaunch()
+        }
     }
 
 }

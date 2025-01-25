@@ -35,10 +35,6 @@ class DirectNotesViewModel @Inject constructor(
 
     private val args = savedStateHandle.toRoute<NavigationRoute.DirectNotes>()
 
-    init {
-        loadFolderData(args.folderId)
-    }
-
     private fun loadFolderData(folderId: Long) {
         DirectNotesEvent.LoadFolderBasicInfo(folderId).processWithLaunch()
         DirectNotesEvent.LoadAllNotes(folderId).processWithLaunch()
@@ -46,5 +42,9 @@ class DirectNotesViewModel @Inject constructor(
 
     fun addNote(note: String) {
         DirectNotesEvent.AddNote(note).processWithLaunch()
+    }
+
+    override fun onStateReady() {
+        loadFolderData(args.folderId)
     }
 }
