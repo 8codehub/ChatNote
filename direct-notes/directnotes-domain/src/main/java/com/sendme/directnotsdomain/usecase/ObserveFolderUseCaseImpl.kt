@@ -1,8 +1,6 @@
 package com.sendme.directnotsdomain.usecase
 
-import com.pingpad.coredomain.bridge.FolderRepositoryFacade
-import com.pingpad.coredomain.models.FolderBaseInfo
-import kotlinx.coroutines.flow.Flow
+import com.pingpad.coredomain.facade.FolderRepositoryFacade
 import javax.inject.Inject
 
 class ObserveFolderUseCaseImpl @Inject constructor(

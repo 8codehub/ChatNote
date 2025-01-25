@@ -66,8 +66,8 @@ object FolderEditorContract {
     sealed class FolderEditorEvent : UiEvent {
         data class LoadFolder(val folderId: Long) : FolderEditorEvent()
         data class LoadFolderInitialState(val isEditMode: Boolean) : FolderEditorEvent()
-        data class EditOrAddFolder(val name: String, val iconUri: String) :
-            FolderEditorEvent()
+        data class EditOrAddFolder(val name: String, val iconUri: String) : FolderEditorEvent()
+        data class GeneralError(val throwable: Throwable) : FolderEditorEvent()
 
         data object InputTextChanged : FolderEditorEvent()
 

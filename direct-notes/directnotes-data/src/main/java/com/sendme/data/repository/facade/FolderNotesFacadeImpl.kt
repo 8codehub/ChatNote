@@ -1,6 +1,6 @@
 package com.sendme.data.repository.facade
 
-import com.pingpad.coredomain.bridge.NotesRepositoryFacade
+import com.pingpad.coredomain.facade.NotesRepositoryFacade
 import com.pingpad.coredomain.utils.ResultError
 import com.pingpad.coredomain.utils.failure
 import com.sendme.data.db.NoteDao

@@ -1,4 +1,4 @@
-package com.pingpad.coredata.di
+package com.sendme.common.di
 
 import dagger.Module
 import dagger.Provides

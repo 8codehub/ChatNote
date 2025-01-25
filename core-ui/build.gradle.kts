@@ -46,6 +46,7 @@ dependencies {
     implementation(libs.coil.compose)
     implementation(libs.coil.svg)
     implementation(project(":core-domain"))
+    api(project(":common"))
     implementation(libs.androidx.material3.android)
 
     implementation(libs.hilt.navigation.compose)

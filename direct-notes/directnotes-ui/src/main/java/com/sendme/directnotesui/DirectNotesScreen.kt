@@ -6,15 +6,19 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.pingpad.coreui.ui.component.StyledText
+import com.pingpad.coreui.ui.decorations.showToast
 import com.sendme.directnotesui.components.DirectNotesEmptyState
 import com.sendme.directnotesui.components.DirectNotesTitle
 import com.sendme.directnotesui.components.NoteItem
@@ -29,7 +33,25 @@ fun DirectNotesScreen(
     navigateTo: (NavigationRoute) -> Unit,
     viewModel: DirectNotesViewModel = hiltViewModel()
 ) {
-    val stateValue by viewModel.state.collectAsState()
+    val stateValue by viewModel.state.collectAsStateWithLifecycle()
+    val oneTimeEvent by viewModel.oneTimeEvent.collectAsStateWithLifecycle(null)
+    val context = LocalContext.current
+
+    LaunchedEffect(oneTimeEvent) {
+        oneTimeEvent?.let { event ->
+            when (event) {
+                is DirectNotesContract.DirectNotesOneTimeEvent.FailedOperation -> showToast(
+                    context = context, context.getString(
+                        com.sendme.coreui.R.string.general_error
+                    )
+                )
+
+                DirectNotesContract.DirectNotesOneTimeEvent.NavigateBack -> onBackClick()
+                is DirectNotesContract.DirectNotesOneTimeEvent.NavigateTo -> navigateTo(event.route)
+            }
+        }
+    }
+
 
     Scaffold(
         topBar = {

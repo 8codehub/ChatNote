@@ -2,7 +2,7 @@ package com.sendme.data.di
 
 import android.content.Context
 import androidx.room.Room
-import com.pingpad.coredata.di.IoDispatcher
+import com.sendme.common.di.IoDispatcher
 import com.sendme.data.db.FolderDao
 import com.sendme.data.db.HomeListDatabase
 import dagger.Module

@@ -1,6 +1,6 @@
 package com.sendme.data.repository.facade
 
-import com.pingpad.coredomain.bridge.FolderRepositoryFacade
+import com.pingpad.coredomain.facade.FolderRepositoryFacade
 import com.pingpad.coredomain.mapper.Mapper
 import com.pingpad.coredomain.models.FolderBaseInfo
 import com.pingpad.coredomain.utils.ResultError

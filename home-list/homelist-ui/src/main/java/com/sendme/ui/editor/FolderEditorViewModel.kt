@@ -2,18 +2,21 @@ package com.sendme.ui.editor
 
 import androidx.lifecycle.SavedStateHandle
 import androidx.navigation.toRoute
-import com.pingpad.coreui.arch.BaseViewModel
+import com.pingpad.coreui.arch.EventDrivenViewModel
 import com.pingpad.coreui.arch.StatefulEventHandler
+import com.sendme.common.di.IoDispatcher
 import com.sendme.navigation.NavigationRoute
 import com.sendme.ui.editor.FolderEditorContract.FolderEditorEvent
 import com.sendme.ui.editor.FolderEditorContract.FolderEditorOneTimeEvent
 import com.sendme.ui.editor.FolderEditorContract.FolderEditorState
 import com.sendme.ui.editor.FolderEditorContract.MutableFolderEditorState
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.CoroutineDispatcher
 import javax.inject.Inject
 
 @HiltViewModel
 class FolderEditorViewModel @Inject constructor(
+    @IoDispatcher dispatcher: CoroutineDispatcher,
     savedStateHandle: SavedStateHandle,
     folderEditorStatefulEventHandler: StatefulEventHandler<
             FolderEditorEvent,
@@ -21,7 +24,7 @@ class FolderEditorViewModel @Inject constructor(
             FolderEditorState,
             MutableFolderEditorState
             >
-) : BaseViewModel<
+) : EventDrivenViewModel<
         FolderEditorState,
         MutableFolderEditorState,
         FolderEditorEvent,
@@ -32,7 +35,7 @@ class FolderEditorViewModel @Inject constructor(
                 FolderEditorState,
                 MutableFolderEditorState
                 >
-        >(folderEditorStatefulEventHandler) {
+        >(statefulEventHandler = folderEditorStatefulEventHandler, ioDispatcher = dispatcher) {
 
     private var args = savedStateHandle.toRoute<NavigationRoute.FolderEditor>()
 
@@ -53,6 +56,10 @@ class FolderEditorViewModel @Inject constructor(
         args.folderId?.let {
             FolderEditorEvent.LoadFolder(folderId = it).processWithLaunch()
         }
+    }
+
+    override fun onGeneralError(throwable: Throwable) {
+        FolderEditorEvent.GeneralError(throwable = throwable).processWithLaunch()
     }
 
 }

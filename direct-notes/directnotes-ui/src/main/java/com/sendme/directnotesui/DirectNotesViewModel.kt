@@ -2,17 +2,20 @@ package com.sendme.directnotesui
 
 import androidx.lifecycle.SavedStateHandle
 import androidx.navigation.toRoute
-import com.pingpad.coreui.arch.BaseViewModel
+import com.pingpad.coreui.arch.EventDrivenViewModel
 import com.pingpad.coreui.arch.StatefulEventHandler
+import com.sendme.common.di.IoDispatcher
 import com.sendme.directnotesui.DirectNotesContract.DirectNotesEvent
 import com.sendme.directnotesui.DirectNotesContract.DirectNotesOneTimeEvent
 import com.sendme.directnotesui.DirectNotesContract.MutableDirectNotesState
 import com.sendme.navigation.NavigationRoute
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.CoroutineDispatcher
 import javax.inject.Inject
 
 @HiltViewModel
 class DirectNotesViewModel @Inject constructor(
+    @IoDispatcher dispatcher: CoroutineDispatcher,
     savedStateHandle: SavedStateHandle,
     statefulEventHandler: StatefulEventHandler<
             DirectNotesEvent,
@@ -20,7 +23,7 @@ class DirectNotesViewModel @Inject constructor(
             DirectNotesContract.DirectNotesState,
             MutableDirectNotesState
             >
-) : BaseViewModel<
+) : EventDrivenViewModel<
         DirectNotesContract.DirectNotesState,
         MutableDirectNotesState,
         DirectNotesEvent,
@@ -31,7 +34,7 @@ class DirectNotesViewModel @Inject constructor(
                 DirectNotesContract.DirectNotesState,
                 MutableDirectNotesState
                 >
-        >(statefulEventHandler) {
+        >(statefulEventHandler = statefulEventHandler, ioDispatcher = dispatcher) {
 
     private val args = savedStateHandle.toRoute<NavigationRoute.DirectNotes>()
 
@@ -46,5 +49,9 @@ class DirectNotesViewModel @Inject constructor(
 
     override fun onStateReady() {
         loadFolderData(args.folderId)
+    }
+
+    override fun onGeneralError(throwable: Throwable) {
+        DirectNotesEvent.GeneralError(throwable = throwable).processWithLaunch()
     }
 }

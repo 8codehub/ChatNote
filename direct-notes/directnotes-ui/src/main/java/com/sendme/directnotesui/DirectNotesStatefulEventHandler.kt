@@ -1,6 +1,5 @@
 package com.sendme.directnotesui
 
-import android.util.Log
 import com.pingpad.coredomain.mapper.Mapper
 import com.pingpad.coredomain.models.FolderBaseInfo
 import com.pingpad.coreui.arch.StatefulEventHandler
@@ -31,16 +30,23 @@ class DirectNotesStatefulEventHandler @Inject constructor(
 
     override suspend fun process(event: DirectNotesEvent, args: Any?) {
         when (event) {
-            is DirectNotesEvent.LoadFolderBasicInfo -> handleLoadFolderBasicInfo(event.folderId)
-            is DirectNotesEvent.LoadAllNotes -> handleLoadAllNotes(event.folderId)
-            is DirectNotesEvent.AddNote -> handleAddNote(
+            is DirectNotesEvent.LoadFolderBasicInfo -> onLoadFolderBasicInfoEvent(event.folderId)
+            is DirectNotesEvent.LoadAllNotes -> onLoadAllNotesEvent(event.folderId)
+            is DirectNotesEvent.AddNote -> onAddNoteEvent(
                 folderId = stateValue.folderId,
                 content = event.note
             )
+
+            is DirectNotesEvent.GeneralError -> onGeneralErrorEvent(throwable = event.throwable)
         }
     }
 
-    private suspend fun handleLoadAllNotes(folderId: Long) {
+    private suspend fun onGeneralErrorEvent(throwable: Throwable) {
+        DirectNotesOneTimeEvent.FailedOperation(error = errorResultMapper.map(throwable))
+            .processOneTimeEvent()
+    }
+
+    private suspend fun onLoadAllNotesEvent(folderId: Long) {
         observeNotes(folderId)
             .onEach { notes ->
                 updateUiState {
@@ -55,7 +61,7 @@ class DirectNotesStatefulEventHandler @Inject constructor(
             .collect()
     }
 
-    private suspend fun handleLoadFolderBasicInfo(folderId: Long) {
+    private suspend fun onLoadFolderBasicInfoEvent(folderId: Long) {
         observeFolderUseCase(folderId)
             .onEach { basicInfo ->
                 if (basicInfo != null) {
@@ -83,7 +89,7 @@ class DirectNotesStatefulEventHandler @Inject constructor(
         }
     }
 
-    private suspend fun handleAddNote(folderId: Long?, content: String) {
+    private suspend fun onAddNoteEvent(folderId: Long?, content: String) {
         folderId?.let {
             val newNote = SendMeNote(
                 id = System.currentTimeMillis(),

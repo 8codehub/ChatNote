@@ -1,31 +1,34 @@
 package com.sendme.ui.folderlist
 
-import com.pingpad.coreui.arch.BaseViewModel
+import com.pingpad.coreui.arch.EventDrivenViewModel
 import com.pingpad.coreui.arch.StatefulEventHandler
+import com.sendme.common.di.IoDispatcher
 import com.sendme.ui.folderlist.FolderListContract.FolderListEvent
 import com.sendme.ui.folderlist.FolderListContract.FolderListOneTimeEvent
 import com.sendme.ui.folderlist.FolderListContract.FolderListState
 import com.sendme.ui.folderlist.FolderListContract.MutableFolderListState
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.CoroutineDispatcher
 import javax.inject.Inject
 
 
 @HiltViewModel
 class FolderListViewModel @Inject constructor(
+    @IoDispatcher dispatcher: CoroutineDispatcher,
     folderListStatefulEventHandler: StatefulEventHandler<
             FolderListEvent,
             FolderListOneTimeEvent,
             FolderListState,
             MutableFolderListState
             >
-) : BaseViewModel<FolderListState, MutableFolderListState, FolderListEvent, FolderListOneTimeEvent,
+) : EventDrivenViewModel<FolderListState, MutableFolderListState, FolderListEvent, FolderListOneTimeEvent,
         StatefulEventHandler<
                 FolderListEvent,
                 FolderListOneTimeEvent,
                 FolderListState,
                 MutableFolderListState
                 >
-        >(folderListStatefulEventHandler) {
+        >(statefulEventHandler = folderListStatefulEventHandler, ioDispatcher = dispatcher) {
 
 
     fun pinFolder(folderId: Long) {
@@ -44,5 +47,8 @@ class FolderListViewModel @Inject constructor(
 
     override fun onStateReady() {
         FolderListEvent.LoadFolders.processWithLaunch()
+    }
+
+    override fun onGeneralError(throwable: Throwable) {
     }
 }

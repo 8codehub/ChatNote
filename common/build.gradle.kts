@@ -6,7 +6,7 @@ plugins {
 }
 
 android {
-    namespace = "com.sendme.coredomain"
+    namespace = "com.sendme.common"
     compileSdk = 34
 
     defaultConfig {
@@ -37,11 +37,9 @@ android {
 dependencies {
 
     implementation(libs.androidx.core.ktx)
-    implementation(libs.kotlinx.coroutines.core)
     implementation(libs.hilt.android)
     ksp(libs.hilt.compiler)
     ksp(libs.hilt.android.compiler)
-    api(project(":common"))
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)

@@ -5,15 +5,15 @@ import com.pingpad.coreui.arch.ConvertibleState
 import com.pingpad.coreui.arch.MutableConvertibleState
 import com.pingpad.coreui.arch.UiEvent
 import com.pingpad.coreui.arch.UiOneTimeEvent
-import com.sendme.domain.model.Folder
 import com.sendme.homelistui.R
+import com.sendme.ui.editor.FolderEditorContract.FolderEditorEvent
 import com.sendme.ui.model.UiFolder
 
 object FolderListContract {
 
     // Immutable state
     data class FolderListState(
-        override val isLoading: Boolean = false,
+        override val isLoading: Boolean = true,
         val folders: List<UiFolder> = emptyList(),
         val foldersCount: Int? = null,
         val errorMessage: String? = null,
@@ -57,6 +57,8 @@ object FolderListContract {
         data class PinFolder(val folderId: Long) : FolderListEvent()
         data class UnpinFolder(val folderId: Long) : FolderListEvent()
         data class DeleteFolder(val folderId: Long) : FolderListEvent()
+        data class GeneralError(val error: Throwable) : FolderListEvent()
+
     }
 
     // One-Time Events

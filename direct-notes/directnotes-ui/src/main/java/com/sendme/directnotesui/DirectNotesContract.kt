@@ -61,6 +61,7 @@ object DirectNotesContract {
         data class LoadFolderBasicInfo(val folderId: Long) : DirectNotesEvent()
         data class LoadAllNotes(val folderId: Long) : DirectNotesEvent()
         data class AddNote(val note: String) : DirectNotesEvent()
+        data class GeneralError(val throwable: Throwable) : DirectNotesEvent()
     }
 
     // One-Time Events

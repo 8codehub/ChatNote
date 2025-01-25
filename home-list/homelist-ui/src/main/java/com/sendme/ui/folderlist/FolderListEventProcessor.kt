@@ -12,7 +12,6 @@ import com.sendme.ui.folderlist.FolderListContract.FolderListEvent
 import com.sendme.ui.folderlist.FolderListContract.FolderListOneTimeEvent
 import com.sendme.ui.folderlist.FolderListContract.FolderListState
 import com.sendme.ui.folderlist.FolderListContract.MutableFolderListState
-import com.sendme.ui.mapping.FolderDomainToUiFolderMapper
 import com.sendme.ui.model.UiFolder
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collect
@@ -26,7 +25,8 @@ class FolderListStatefulEventHandler @Inject constructor(
     private val pinFolder: PinFolderUseCase,
     private val unpinFolder: UnpinFolderUseCase,
     private val deleteFolder: DeleteFolderUseCase,
-    private val folderToUiFolder: Mapper<Folder, UiFolder>
+    private val folderToUiFolder: Mapper<Folder, UiFolder>,
+    private val mapperResultErrorToErrorId: Mapper<Throwable?, Int>
 ) : StatefulEventHandler<FolderListEvent, FolderListOneTimeEvent, FolderListState, MutableFolderListState>(
     FolderListState()
 ) {
@@ -48,7 +48,14 @@ class FolderListStatefulEventHandler @Inject constructor(
             is FolderListEvent.DeleteFolder -> {
                 onDeleteFolderEvent(folderId = event.folderId)
             }
+
+            is FolderListEvent.GeneralError -> onGeneralError(throwable = event.error)
         }
+    }
+
+    private suspend fun onGeneralError(throwable: Throwable) {
+        FolderListOneTimeEvent.FailedOperation(error = mapperResultErrorToErrorId.map(throwable))
+            .processOneTimeEvent()
     }
 
     private suspend fun onDeleteFolderEvent(folderId: Long) {
@@ -76,6 +83,8 @@ class FolderListStatefulEventHandler @Inject constructor(
                 isLoading = true
             }
         }.onEach { folders ->
+            println("Current dispatcher: ${Thread.currentThread().name}")
+
             updateUiState {
                 isLoading = false
                 this.folders = folderToUiFolder.mapList(folders)

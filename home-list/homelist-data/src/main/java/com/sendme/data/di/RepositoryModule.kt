@@ -1,6 +1,6 @@
 package com.sendme.data.di
 
-import com.pingpad.coredomain.bridge.FolderRepositoryFacade
+import com.pingpad.coredomain.facade.FolderRepositoryFacade
 import com.pingpad.coredomain.mapper.Mapper
 import com.pingpad.coredomain.models.FolderBaseInfo
 import com.sendme.data.db.FolderDao

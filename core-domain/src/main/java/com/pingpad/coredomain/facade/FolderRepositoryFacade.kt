@@ -1,4 +1,4 @@
-package com.pingpad.coredomain.bridge
+package com.pingpad.coredomain.facade
 
 import com.pingpad.coredomain.models.FolderBaseInfo
 import kotlinx.coroutines.flow.Flow

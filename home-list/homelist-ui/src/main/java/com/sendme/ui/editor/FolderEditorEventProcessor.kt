@@ -33,6 +33,7 @@ class FolderEditorStatefulEventHandler @Inject constructor(
 
     override suspend fun process(event: FolderEditorEvent, args: Any?) {
         when (event) {
+            is FolderEditorEvent.GeneralError -> onGeneralErrorEvent(throwable = event.throwable)
             is FolderEditorEvent.EditOrAddFolder -> onEditOrAddFolderEvent(
                 name = event.name,
                 iconUri = event.iconUri
@@ -41,8 +42,14 @@ class FolderEditorStatefulEventHandler @Inject constructor(
             is FolderEditorEvent.LoadFolderInitialState -> onLoadFolderInitialStateEvent(isEditMode = event.isEditMode)
             is FolderEditorEvent.LoadFolder -> onLoadFolderEvent(folderId = event.folderId)
             FolderEditorEvent.InputTextChanged -> onInputTextChangedEvent()
+
         }
 
+    }
+
+    private suspend fun onGeneralErrorEvent(throwable: Throwable) {
+        FolderEditorOneTimeEvent.FailedOperation(mapperResultErrorToErrorId.map(throwable))
+            .processOneTimeEvent()
     }
 
     private fun onInputTextChangedEvent() {
@@ -110,7 +117,6 @@ class FolderEditorStatefulEventHandler @Inject constructor(
     }
 
     private suspend fun handleValidFolderData(name: String, iconUri: String) {
-
         val addOrUpdateFolderResult =
             addOrUpdateFolder(folderId = stateValue.folderId, name = name, iconUri = iconUri)
         addOrUpdateFolderResult
@@ -127,7 +133,6 @@ class FolderEditorStatefulEventHandler @Inject constructor(
     }
 
     private suspend fun onAddOrUpdateFolderResultFailure(error: Int) {
-
         FolderEditorOneTimeEvent.FailedOperation(error = error).processOneTimeEvent()
     }
 
@@ -141,13 +146,5 @@ class FolderEditorStatefulEventHandler @Inject constructor(
         ).processOneTimeEvent()
 
     }
-
-    private fun onFolderNameInputChangedEvent(folderName: String) {
-        updateUiState {
-            this.folderName = folderName
-            inputError = null
-        }
-    }
-
 
 }

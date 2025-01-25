@@ -93,82 +93,84 @@ fun FolderListScreen(
         }
     )
 
-    Scaffold(modifier = Modifier, topBar = {
-        TopAppBar(colors = TopAppBarDefaults.topAppBarColors(
-            containerColor = MaterialTheme.colorScheme.background,
-            titleContentColor = MaterialTheme.colorScheme.primary,
-        ),
-            title = {
-                state.foldersCount?.let {
-                    StyledText(
-                        color = MaterialTheme.colorScheme.onBackground,
-                        text = stringResource(R.string.folders_count, "$it"),
-                        fontSize = 26.sp,
-                        fontWeight = FontWeight.W700,
-                    )
-                }
-            }
-        )
-    }) { innerPadding ->
-        Column(
-            modifier = Modifier
-                .padding(innerPadding)
-                .fillMaxSize()
-                .background(MaterialTheme.colorScheme.background)
-        ) {
-            LoadingComponent(state.isLoading) {
-                LazyColumn(state = rememberLazyListState()) {
-                    item {
-                        AddNewFolderButton(
-                            modifier = Modifier, navigateTo = navigateTo
+    LoadingComponent(state.isLoading != false) {
+        Scaffold(modifier = Modifier, topBar = {
+            TopAppBar(colors = TopAppBarDefaults.topAppBarColors(
+                containerColor = MaterialTheme.colorScheme.background,
+                titleContentColor = MaterialTheme.colorScheme.primary,
+            ),
+                title = {
+                    state.foldersCount?.let {
+                        StyledText(
+                            color = MaterialTheme.colorScheme.onBackground,
+                            text = stringResource(R.string.folders_count, "$it"),
+                            fontSize = 26.sp,
+                            fontWeight = FontWeight.W700,
                         )
                     }
-                    items(state.folders.size, key = { state.folders[it].id ?: 0 }) { index ->
-                        val item = state.folders[index]
-                        SwappableItem(
-                            modifier = Modifier.animateItem(
-                                fadeInSpec = null,
-                                fadeOutSpec = null,
-                                placementSpec = tween(300)
-                            ),
-                            content = {
-                                FolderCard(
-                                    modifier = Modifier.background(color = MaterialTheme.colorScheme.background),
-                                    folder = item,
-                                    onClick = {
-                                        navigateTo(
-                                            NavigationRoute.DirectNotes(
-                                                folderId = item.id ?: 0,
+                }
+            )
+        }) { innerPadding ->
+            Column(
+                modifier = Modifier
+                    .padding(innerPadding)
+                    .fillMaxSize()
+                    .background(MaterialTheme.colorScheme.background)
+            ) {
+                LoadingComponent(state.isLoading) {
+                    LazyColumn(state = rememberLazyListState()) {
+                        item {
+                            AddNewFolderButton(
+                                modifier = Modifier, navigateTo = navigateTo
+                            )
+                        }
+                        items(state.folders.size, key = { state.folders[it].id ?: 0 }) { index ->
+                            val item = state.folders[index]
+                            SwappableItem(
+                                modifier = Modifier.animateItem(
+                                    fadeInSpec = null,
+                                    fadeOutSpec = null,
+                                    placementSpec = tween(300)
+                                ),
+                                content = {
+                                    FolderCard(
+                                        modifier = Modifier.background(color = MaterialTheme.colorScheme.background),
+                                        folder = item,
+                                        onClick = {
+                                            navigateTo(
+                                                NavigationRoute.DirectNotes(
+                                                    folderId = item.id ?: 0,
+                                                )
                                             )
-                                        )
-                                    })
-                            }, onStateChange = { newState ->
-                                swipeState = newState
-                            },
-                            swappableItemState = swipeState,
-                            actionButtonsContent = {
-                                FolderActionItems(
-                                    modifier = Modifier.padding(horizontal = 12.dp),
-                                    isPinned = item.isPinned,
-                                    onFolderEdit = {
-                                        swipeState = SwappableItemState.Close
-                                        navigateTo(NavigationRoute.FolderEditor(folderId = item.id))
-                                    },
-                                    onFolderPin = {
-                                        swipeState = SwappableItemState.Close
-                                        viewModel.pinFolder(folderId = item.id ?: 0)
-                                    },
-                                    onFolderUnPin = {
-                                        swipeState = SwappableItemState.Close
-                                        viewModel.unPinFolder(folderId = item.id ?: 0)
-                                    },
-                                    onFolderDelete = {
-                                        swipeState = SwappableItemState.Close
-                                        selectedFolderForDeletion = item
-                                    }
-                                )
-                            })
+                                        })
+                                }, onStateChange = { newState ->
+                                    swipeState = newState
+                                },
+                                swappableItemState = swipeState,
+                                actionButtonsContent = {
+                                    FolderActionItems(
+                                        modifier = Modifier.padding(horizontal = 12.dp),
+                                        isPinned = item.isPinned,
+                                        onFolderEdit = {
+                                            swipeState = SwappableItemState.Close
+                                            navigateTo(NavigationRoute.FolderEditor(folderId = item.id))
+                                        },
+                                        onFolderPin = {
+                                            swipeState = SwappableItemState.Close
+                                            viewModel.pinFolder(folderId = item.id ?: 0)
+                                        },
+                                        onFolderUnPin = {
+                                            swipeState = SwappableItemState.Close
+                                            viewModel.unPinFolder(folderId = item.id ?: 0)
+                                        },
+                                        onFolderDelete = {
+                                            swipeState = SwappableItemState.Close
+                                            selectedFolderForDeletion = item
+                                        }
+                                    )
+                                })
 
+                        }
                     }
                 }
             }

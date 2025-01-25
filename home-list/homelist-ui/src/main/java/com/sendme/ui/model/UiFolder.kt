@@ -1,5 +1,8 @@
 package com.sendme.ui.model
 
+import androidx.compose.runtime.Stable
+
+@Stable
 data class UiFolder(
     val id: Long? = null,
     val name: String,

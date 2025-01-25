@@ -1,7 +1,7 @@
 package com.sendme.data.di
 
-import com.pingpad.coredomain.bridge.FolderRepositoryFacade
-import com.pingpad.coredomain.bridge.NotesRepositoryFacade
+import com.pingpad.coredomain.facade.FolderRepositoryFacade
+import com.pingpad.coredomain.facade.NotesRepositoryFacade
 import com.pingpad.coredomain.mapper.Mapper
 import com.sendme.data.db.NoteDao
 import com.sendme.data.model.NoteEntity

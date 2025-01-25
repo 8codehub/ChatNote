@@ -1,6 +1,6 @@
 package com.sendme.domain.usecase
 
-import com.pingpad.coredomain.bridge.NotesRepositoryFacade
+import com.pingpad.coredomain.facade.NotesRepositoryFacade
 import com.pingpad.coredomain.utils.ResultError
 import com.pingpad.coredomain.utils.failure
 import com.sendme.domain.repository.FolderRepository
