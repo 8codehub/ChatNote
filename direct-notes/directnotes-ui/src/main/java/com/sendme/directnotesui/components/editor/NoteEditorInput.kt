@@ -52,7 +52,7 @@ fun NoteEditorInput(
             modifier = Modifier
                 .weight(1f)
                 .background(
-                    color = MaterialTheme.colorScheme.secondary,
+                    color = MaterialTheme.colorScheme.surface,
                     shape = MaterialTheme.shapes.large
                 )
                 .padding(horizontal = 8.dp, vertical = 2.dp)
@@ -60,7 +60,7 @@ fun NoteEditorInput(
             textStyle = LocalTextStyle.current.copy(
                 fontSize = 16.sp,
                 fontFamily = PoppinsFontFamily,
-                color = MaterialTheme.colorScheme.onSecondary
+                color = MaterialTheme.colorScheme.onSurface
             ),
             cursorBrush = SolidColor(MaterialTheme.colorScheme.primary)
         ) { innerTextField ->

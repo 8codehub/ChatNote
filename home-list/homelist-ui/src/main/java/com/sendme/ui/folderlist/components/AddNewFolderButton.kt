@@ -68,7 +68,7 @@ fun AddNewFolderButton(
         CircularImage(
             modifier = Modifier.padding(vertical = 4.dp),
             drawableRes = R.drawable.ic_plus,
-            backgroundColor = MaterialTheme.colorScheme.secondary,
+            backgroundColor = MaterialTheme.colorScheme.surface,
             iconSize = 20.dp,
             iconPadding = 18.dp,
             borderWidth = 0.dp
