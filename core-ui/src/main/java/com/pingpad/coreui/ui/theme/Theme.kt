@@ -1,4 +1,4 @@
-package com.sendme.coreui.component.ui.theme
+package com.pingpad.coreui.ui.theme
 
 import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme
@@ -9,21 +9,6 @@ import androidx.compose.material3.dynamicLightColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.LocalContext
-import com.pingpad.coreui.ui.theme.DarkBackground
-import com.pingpad.coreui.ui.theme.DarkError
-import com.pingpad.coreui.ui.theme.DarkOnBackground
-import com.pingpad.coreui.ui.theme.DarkOnPrimary
-import com.pingpad.coreui.ui.theme.DarkOnSecondary
-import com.pingpad.coreui.ui.theme.DarkPrimary
-import com.pingpad.coreui.ui.theme.DarkSecondary
-import com.pingpad.coreui.ui.theme.LightBackground
-import com.pingpad.coreui.ui.theme.LightError
-import com.pingpad.coreui.ui.theme.LightOnBackground
-import com.pingpad.coreui.ui.theme.LightOnPrimary
-import com.pingpad.coreui.ui.theme.LightOnSecondary
-import com.pingpad.coreui.ui.theme.LightPrimary
-import com.pingpad.coreui.ui.theme.LightSecondary
-import com.pingpad.coreui.ui.theme.Typography
 
 private val DarkColorScheme = darkColorScheme(
     primary = DarkPrimary,
@@ -37,12 +22,12 @@ private val DarkColorScheme = darkColorScheme(
 )
 
 private val LightColorScheme = lightColorScheme(
-    primary = LightPrimary, // primary actions like send button
-    onPrimary = LightOnPrimary, // text on primary button
-    secondary = LightSecondary, // secondary container like search area
-    onSecondary = LightOnSecondary, // like search hint
-    background = LightBackground, // app main background
-    onBackground = LightOnBackground, // text on background
+    primary = LightPrimary,
+    onPrimary = LightOnPrimary,
+    secondary = LightSecondary_SurfaceSubbed,
+    onSecondary = LightOnSecondary_TextSubbed,
+    background = LightBackground_SurfacePrimary,
+    onBackground = LightOnBackground_TextPrimary,
     error = LightError
 )
 

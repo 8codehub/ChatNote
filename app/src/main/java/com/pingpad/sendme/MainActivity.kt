@@ -9,7 +9,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.sendme.coreui.component.ui.theme.SendMeTheme
+import com.pingpad.coreui.ui.theme.SendMeTheme
 import com.sendme.directnotesui.DirectNotesScreen
 import com.sendme.navigation.NavigationRoute
 import com.sendme.ui.folderlist.FolderListScreen
