@@ -2,10 +2,10 @@ package com.sendme.directnotsdomain.di
 
 import com.sendme.directnotsdomain.usecase.AddNoteUseCase
 import com.sendme.directnotsdomain.usecase.AddNoteUseCaseImpl
-import com.sendme.directnotsdomain.usecase.ObserveFolderUseCase
-import com.sendme.directnotsdomain.usecase.ObserveFolderUseCaseImpl
 import com.sendme.directnotsdomain.usecase.GetNotesUseCase
 import com.sendme.directnotsdomain.usecase.GetNotesUseCaseImpl
+import com.sendme.directnotsdomain.usecase.ObserveFolderUseCase
+import com.sendme.directnotsdomain.usecase.ObserveFolderUseCaseImpl
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn

@@ -12,8 +12,8 @@ import androidx.navigation.compose.rememberNavController
 import com.pingpad.coreui.ui.theme.SendMeTheme
 import com.sendme.directnotesui.DirectNotesScreen
 import com.sendme.navigation.NavigationRoute
-import com.sendme.ui.folderlist.FolderListScreen
 import com.sendme.ui.editor.FolderEditorScreen
+import com.sendme.ui.folderlist.FolderListScreen
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

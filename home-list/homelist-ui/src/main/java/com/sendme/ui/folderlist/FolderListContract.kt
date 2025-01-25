@@ -6,7 +6,6 @@ import com.pingpad.coreui.arch.MutableConvertibleState
 import com.pingpad.coreui.arch.UiEvent
 import com.pingpad.coreui.arch.UiOneTimeEvent
 import com.sendme.homelistui.R
-import com.sendme.ui.editor.FolderEditorContract.FolderEditorEvent
 import com.sendme.ui.model.UiFolder
 
 object FolderListContract {

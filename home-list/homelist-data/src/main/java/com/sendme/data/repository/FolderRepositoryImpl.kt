@@ -1,9 +1,9 @@
 package com.sendme.data.repository
 
+import com.pingpad.coredomain.mapper.Mapper
 import com.pingpad.coredomain.utils.ResultError
 import com.pingpad.coredomain.utils.failure
 import com.pingpad.coredomain.utils.throwAsAppException
-import com.pingpad.coredomain.mapper.Mapper
 import com.sendme.data.db.FolderDao
 import com.sendme.data.models.FolderEntity
 import com.sendme.domain.model.Folder

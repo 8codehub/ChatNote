@@ -28,13 +28,12 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.pingpad.coreui.ui.component.LoadingComponent
+import com.pingpad.coreui.ui.component.StyledText
 import com.pingpad.coreui.ui.component.SwappableItem
 import com.pingpad.coreui.ui.component.SwappableItemState
-import com.pingpad.coreui.ui.dialog.AppAlertDialog
-import com.pingpad.coreui.ui.component.StyledText
 import com.pingpad.coreui.ui.decorations.getAnnotatedString
 import com.pingpad.coreui.ui.decorations.showToast
-import com.sendme.domain.model.Folder
+import com.pingpad.coreui.ui.dialog.AppAlertDialog
 import com.sendme.homelistui.R
 import com.sendme.navigation.NavigationRoute
 import com.sendme.ui.folderlist.components.AddNewFolderButton

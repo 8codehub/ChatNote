@@ -38,7 +38,7 @@ class NotesRepositoryImpl @Inject constructor(
                     lastNoteDate = createdDate
                 )
             } else {
-                 ResultError.DatabaseError().throwAsAppException()
+                ResultError.DatabaseError().throwAsAppException()
             }
         }.fold(
             onSuccess = {

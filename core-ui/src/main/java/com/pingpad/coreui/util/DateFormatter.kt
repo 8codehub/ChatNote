@@ -1,7 +1,9 @@
 package com.pingpad.coreui.util
 
 import java.text.SimpleDateFormat
-import java.util.*
+import java.util.Calendar
+import java.util.Date
+import java.util.Locale
 import javax.inject.Inject
 
 class DateFormatter @Inject constructor() {
