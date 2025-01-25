@@ -1,7 +1,6 @@
 package com.sendme.domain.usecase
 
 import com.sendme.domain.model.Folder
-import com.sendme.domain.model.FolderIcon
 import kotlinx.coroutines.flow.Flow
 
 interface GetFoldersUseCase {
@@ -26,8 +25,4 @@ interface UnpinFolderUseCase {
 
 interface AddOrUpdateFolderUseCase {
     suspend operator fun invoke(folderId: Long?, name: String, iconUri: String): Result<Long>
-}
-
-interface GetFolderIconsUseCase {
-    operator fun invoke(): List<FolderIcon>
 }

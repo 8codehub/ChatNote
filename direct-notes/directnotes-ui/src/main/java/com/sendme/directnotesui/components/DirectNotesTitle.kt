@@ -14,8 +14,8 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.pingpad.coreui.component.ui.component.CircularImage
-import com.pingpad.coreui.component.ui.component.StyledText
+import com.pingpad.coreui.ui.component.CircularImage
+import com.pingpad.coreui.ui.component.StyledText
 import com.sendme.directnotesui.R
 
 @Composable

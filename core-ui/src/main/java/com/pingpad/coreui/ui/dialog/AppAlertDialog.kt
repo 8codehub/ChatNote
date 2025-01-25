@@ -1,4 +1,4 @@
-package com.pingpad.coreui.component.ui.dialog
+package com.pingpad.coreui.ui.dialog
 
 import androidx.annotation.StringRes
 import androidx.compose.material3.AlertDialog
@@ -9,7 +9,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
-import com.pingpad.coreui.component.ui.component.StyledText
+import com.pingpad.coreui.ui.component.StyledText
 
 @Composable
 fun AppAlertDialog(

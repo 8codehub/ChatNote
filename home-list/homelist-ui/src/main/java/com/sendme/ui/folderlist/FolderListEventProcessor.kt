@@ -1,6 +1,8 @@
 package com.sendme.ui.folderlist
 
+import com.pingpad.coredomain.mapper.Mapper
 import com.pingpad.coreui.arch.StatefulEventHandler
+import com.sendme.domain.model.Folder
 import com.sendme.domain.usecase.DeleteFolderUseCase
 import com.sendme.domain.usecase.GetFoldersUseCase
 import com.sendme.domain.usecase.PinFolderUseCase
@@ -10,6 +12,8 @@ import com.sendme.ui.folderlist.FolderListContract.FolderListEvent
 import com.sendme.ui.folderlist.FolderListContract.FolderListOneTimeEvent
 import com.sendme.ui.folderlist.FolderListContract.FolderListState
 import com.sendme.ui.folderlist.FolderListContract.MutableFolderListState
+import com.sendme.ui.mapping.FolderDomainToUiFolderMapper
+import com.sendme.ui.model.UiFolder
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.onEach
@@ -21,7 +25,8 @@ class FolderListStatefulEventHandler @Inject constructor(
     private val getFolders: GetFoldersUseCase,
     private val pinFolder: PinFolderUseCase,
     private val unpinFolder: UnpinFolderUseCase,
-    private val deleteFolder: DeleteFolderUseCase
+    private val deleteFolder: DeleteFolderUseCase,
+    private val folderToUiFolder: Mapper<Folder, UiFolder>
 ) : StatefulEventHandler<FolderListEvent, FolderListOneTimeEvent, FolderListState, MutableFolderListState>(
     FolderListState()
 ) {
@@ -73,7 +78,7 @@ class FolderListStatefulEventHandler @Inject constructor(
         }.onEach { folders ->
             updateUiState {
                 isLoading = false
-                this.folders = folders
+                this.folders = folderToUiFolder.mapList(folders)
                 foldersCount = folders.size
             }
         }.catch { _ ->

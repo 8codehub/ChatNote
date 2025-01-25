@@ -7,13 +7,14 @@ import com.pingpad.coreui.arch.UiEvent
 import com.pingpad.coreui.arch.UiOneTimeEvent
 import com.sendme.domain.model.Folder
 import com.sendme.homelistui.R
+import com.sendme.ui.model.UiFolder
 
 object FolderListContract {
 
     // Immutable state
     data class FolderListState(
         override val isLoading: Boolean = false,
-        val folders: List<Folder> = emptyList(),
+        val folders: List<UiFolder> = emptyList(),
         val foldersCount: Int? = null,
         val errorMessage: String? = null,
         @StringRes override val generalError: Int = R.string.general_error,
@@ -33,7 +34,7 @@ object FolderListContract {
     // Mutable state
     class MutableFolderListState(
         override var isLoading: Boolean = false,
-        var folders: List<Folder> = emptyList(),
+        var folders: List<UiFolder> = emptyList(),
         var errorMessage: String? = null,
         var foldersCount: Int? = null,
         @StringRes override var generalError: Int = R.string.general_error,

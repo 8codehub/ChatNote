@@ -76,6 +76,7 @@ class FolderEditorStatefulEventHandler @Inject constructor(
         updateUiState {
             inputError = null
         }
+
         newFolderNameValidator(folderName = name)
             .onSuccess {
                 handleValidFolderData(name = name, iconUri = iconUri)

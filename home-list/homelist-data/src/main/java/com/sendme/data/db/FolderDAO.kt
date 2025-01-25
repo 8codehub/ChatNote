@@ -9,14 +9,24 @@ interface FolderDao {
 
     @Query(
         """
-        SELECT * FROM folders
-        ORDER BY 
-            CASE WHEN pinnedDate > 0 THEN 0 ELSE 1 END,
-            pinnedDate DESC,
-            createdAt DESC
-        """
+    SELECT * FROM folders
+    ORDER BY 
+        CASE 
+            WHEN pinnedDate > 0 THEN 0
+            ELSE 1
+        END, 
+        CASE 
+            WHEN lastNoteCreatedAt != 0 THEN lastNoteCreatedAt
+            ELSE pinnedDate
+        END DESC,
+        CASE 
+            WHEN lastNoteCreatedAt != 0 THEN lastNoteCreatedAt
+            ELSE createdAt
+        END DESC
+    """
     )
     fun observeAllFolders(): Flow<List<FolderEntity>>
+
 
     @Query("SELECT * FROM folders WHERE id = :folderId LIMIT 1")
     fun observeFolderById(folderId: Long): Flow<FolderEntity>

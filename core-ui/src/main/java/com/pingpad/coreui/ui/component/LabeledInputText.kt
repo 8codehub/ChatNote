@@ -1,4 +1,4 @@
-package com.pingpad.coreui.component.ui.component
+package com.pingpad.coreui.ui.component
 
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
@@ -23,7 +23,7 @@ import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.pingpad.coreui.component.ui.decorations.AppHorizontalDivider
+import com.pingpad.coreui.ui.decorations.AppHorizontalDivider
 import kotlinx.coroutines.launch
 
 @Composable

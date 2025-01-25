@@ -1,8 +1,7 @@
 package com.pingpad.coreui.di
 
 import com.pingpad.coredomain.mapper.Mapper
-import com.pingpad.coredomain.utils.ResultError
-import com.pingpad.coreui.mapper.ResultErrorToErrorMessageMapper
+import com.pingpad.coreui.mapping.ResultErrorToErrorMessageMapper
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

@@ -23,7 +23,7 @@ import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.pingpad.coreui.component.ui.theme.PoppinsFontFamily
-import com.pingpad.coreui.component.ui.component.CircularImage
+import com.pingpad.coreui.ui.component.CircularImage
 import com.sendme.directnotesui.R
 
 @Composable

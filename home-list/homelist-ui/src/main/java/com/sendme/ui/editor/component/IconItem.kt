@@ -6,7 +6,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import com.pingpad.coreui.component.ui.component.CircularImage
+import com.pingpad.coreui.ui.component.CircularImage
 
 @Composable
 fun IconItem(

@@ -2,6 +2,7 @@ package com.pingpad.coreui.arch
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
@@ -28,7 +29,7 @@ abstract class BaseViewModel<
     val oneTimeEvent: Flow<O> = statefulEventHandler.uiEvent
 
     fun E.processWithLaunch() {
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             process()
         }
     }

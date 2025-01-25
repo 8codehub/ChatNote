@@ -9,7 +9,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.pingpad.coreui.component.ui.component.StyledText
+import com.pingpad.coreui.ui.component.StyledText
 import com.sendme.directnotsdomain.SendMeNote
 
 @Composable

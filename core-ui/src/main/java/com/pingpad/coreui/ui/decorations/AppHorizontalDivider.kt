@@ -1,4 +1,4 @@
-package com.pingpad.coreui.component.ui.decorations
+package com.pingpad.coreui.ui.decorations
 
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height

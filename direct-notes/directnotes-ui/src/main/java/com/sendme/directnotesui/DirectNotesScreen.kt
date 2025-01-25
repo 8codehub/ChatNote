@@ -14,7 +14,7 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.pingpad.coreui.component.ui.component.StyledText
+import com.pingpad.coreui.ui.component.StyledText
 import com.sendme.directnotesui.components.DirectNotesEmptyState
 import com.sendme.directnotesui.components.DirectNotesTitle
 import com.sendme.directnotesui.components.NoteItem

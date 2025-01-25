@@ -9,7 +9,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
-import com.pingpad.coreui.component.ui.component.CircularImage
+import com.pingpad.coreui.ui.component.CircularImage
 import com.sendme.homelistui.R
 
 @Composable

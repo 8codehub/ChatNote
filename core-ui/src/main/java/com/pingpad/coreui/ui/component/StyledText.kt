@@ -1,4 +1,4 @@
-package com.pingpad.coreui.component.ui.component
+package com.pingpad.coreui.ui.component
 
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text

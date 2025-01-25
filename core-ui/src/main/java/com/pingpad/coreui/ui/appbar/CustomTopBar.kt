@@ -1,4 +1,4 @@
-package com.pingpad.coreui.component.ui.appbar
+package com.pingpad.coreui.ui.appbar
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
