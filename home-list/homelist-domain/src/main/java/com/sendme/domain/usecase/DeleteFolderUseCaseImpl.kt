@@ -12,11 +12,9 @@ internal class DeleteFolderUseCaseImpl @Inject constructor(
 ) : DeleteFolderUseCase {
 
     override suspend fun invoke(folderId: Long): Result<Int> {
-        val result = repository.deleteFolder(folderId = folderId)
-
-        return result.fold(
+        return repository.deleteFolder(folderId).fold(
             onSuccess = {
-                folderNotesHandler.deleteNotesByFolderId(folderId = folderId)
+                folderNotesHandler.deleteNotesByFolderId(folderId)
             },
             onFailure = { throwable ->
                 Result.failure(ResultError.DeleteFolderFail(throwable))

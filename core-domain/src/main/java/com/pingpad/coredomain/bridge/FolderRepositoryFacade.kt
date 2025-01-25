@@ -11,5 +11,5 @@ interface FolderRepositoryFacade {
         folderId: Long,
         lastNote: String,
         lastNoteDate: Long
-    )
+    ): Result<Unit>
 }

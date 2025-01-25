@@ -6,7 +6,7 @@ import com.pingpad.coredomain.models.FolderBaseInfo
 import com.sendme.data.db.FolderDao
 import com.sendme.data.models.FolderEntity
 import com.sendme.data.repository.FolderRepositoryImpl
-import com.sendme.data.repository.bridge.FolderRepositoryFacadeImpl
+import com.sendme.data.repository.facade.FolderRepositoryFacadeImpl
 import com.sendme.domain.model.Folder
 import com.sendme.domain.repository.FolderRepository
 import dagger.Module
@@ -24,22 +24,18 @@ object RepositoryModule {
     fun provideFolderRepository(
         folderDao: FolderDao,
         mapperFolderEntityToFolder: Mapper<FolderEntity, Folder>
-    ): FolderRepository {
-        return FolderRepositoryImpl(
-            folderDao = folderDao,
-            mapperFolderEntityToFolder = mapperFolderEntityToFolder
-        )
-    }
+    ): FolderRepository = FolderRepositoryImpl(
+        folderDao = folderDao,
+        mapperFolderEntityToFolder = mapperFolderEntityToFolder
+    )
 
     @Provides
     @Singleton
     fun provideFolderUpdateHandler(
         folderDao: FolderDao,
         mapperFolderEntityToFolderBaseInfo: Mapper<FolderEntity, FolderBaseInfo>
-    ): FolderRepositoryFacade {
-        return FolderRepositoryFacadeImpl(
-            folderDao = folderDao,
-            mapperFolderEntityToFolderBaseInfo = mapperFolderEntityToFolderBaseInfo
-        )
-    }
+    ): FolderRepositoryFacade = FolderRepositoryFacadeImpl(
+        folderDao = folderDao,
+        mapperFolderEntityToFolderBaseInfo = mapperFolderEntityToFolderBaseInfo
+    )
 }

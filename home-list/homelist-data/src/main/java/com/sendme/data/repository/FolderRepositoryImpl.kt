@@ -1,8 +1,8 @@
 package com.sendme.data.repository
 
-
 import com.pingpad.coredomain.utils.ResultError
 import com.pingpad.coredomain.utils.failure
+import com.pingpad.coredomain.utils.throwAsAppException
 import com.pingpad.coredomain.mapper.Mapper
 import com.sendme.data.db.FolderDao
 import com.sendme.data.models.FolderEntity
@@ -21,9 +21,8 @@ class FolderRepositoryImpl @Inject constructor(
         name: String,
         iconUri: String
     ): Result<Long> {
-        return try {
+        return runCatching {
             val folderIdResult = if (folderId == null) {
-                // Insert new folder
                 folderDao.insertOrReplaceFolder(
                     FolderEntity(
                         name = name,
@@ -34,70 +33,59 @@ class FolderRepositoryImpl @Inject constructor(
                 )
             } else {
                 val existingFolder = folderDao.getFolderById(folderId)
-                if (existingFolder != null) {
-                    folderDao.insertOrReplaceFolder(
-                        existingFolder.copy(name = name, iconUri = iconUri)
-                    )
-                } else {
-                    return Result.failure(ResultError.FolderNotFound)
-                }
+                    ?: ResultError.FolderNotFound.throwAsAppException()
+                folderDao.insertOrReplaceFolder(existingFolder.copy(name = name, iconUri = iconUri))
             }
-            Result.success(folderIdResult)
-        } catch (e: Exception) {
-            Result.failure(ResultError.DatabaseError(throwable = e))
+            folderIdResult
+        }.onSuccess {
+            return Result.success(it)
+        }.onFailure {
+            return Result.failure(ResultError.DatabaseError(it))
         }
     }
 
     override suspend fun pinFolder(folderId: Long): Result<Unit> {
-        return try {
+        return runCatching {
             val rowsUpdated = folderDao.pinFolder(folderId)
-            if (rowsUpdated > 0) {
-                Result.success(Unit)
-            } else {
-                Result.failure(ResultError.FolderNotFound)
-            }
-        } catch (e: Exception) {
-            Result.failure(ResultError.DatabaseError(throwable = e))
+            if (rowsUpdated <= 0) ResultError.FolderNotFound.throwAsAppException()
+        }.onSuccess {
+            return Result.success(Unit)
+        }.onFailure {
+            return Result.failure(ResultError.DatabaseError(it))
         }
     }
 
     override suspend fun deleteFolder(folderId: Long): Result<Unit> {
-        return try {
-            val rowsUpdated = folderDao.deleteFolder(folderId)
-            if (rowsUpdated > 0) {
-                Result.success(Unit)
-            } else {
-                Result.failure(ResultError.FolderNotFound)
-            }
-        } catch (e: Exception) {
-            Result.failure(ResultError.DatabaseError(throwable = e))
+        return runCatching {
+            val rowsDeleted = folderDao.deleteFolder(folderId)
+            if (rowsDeleted <= 0) ResultError.FolderNotFound.throwAsAppException()
+        }.onSuccess {
+            return Result.success(Unit)
+        }.onFailure {
+            return Result.failure(ResultError.DatabaseError(it))
         }
     }
 
     override suspend fun unpinFolder(folderId: Long): Result<Unit> {
-        return try {
+        return runCatching {
             val rowsUpdated = folderDao.unpinFolder(folderId)
-            if (rowsUpdated > 0) {
-                Result.success(Unit)
-            } else {
-                Result.failure(ResultError.FolderNotFound)
-            }
-        } catch (e: Exception) {
-            Result.failure(ResultError.DatabaseError(throwable = e))
+            if (rowsUpdated <= 0) ResultError.FolderNotFound.throwAsAppException()
+        }.onSuccess {
+            return Result.success(Unit)
+        }.onFailure {
+            return Result.failure(ResultError.DatabaseError(it))
         }
     }
 
     override suspend fun getFolderById(folderId: Long): Result<Folder> {
-        return try {
+        return runCatching {
             val folderEntity = folderDao.getFolderById(folderId)
-            if (folderEntity != null) {
-                val folder = mapperFolderEntityToFolder.map(folderEntity)
-                Result.success(folder)
-            } else {
-                Result.failure(ResultError.FolderNotFound)
-            }
-        } catch (e: Exception) {
-            Result.failure(ResultError.DatabaseError(throwable = e))
+                ?: ResultError.FolderNotFound.throwAsAppException()
+            mapperFolderEntityToFolder.map(folderEntity)
+        }.onSuccess {
+            return Result.success(it)
+        }.onFailure {
+            return Result.failure(ResultError.DatabaseError(it))
         }
     }
 

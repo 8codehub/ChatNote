@@ -1,4 +1,4 @@
-package com.sendme.ui
+package com.sendme.ui.folderlist.components
 
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.ExperimentalAnimationApi

@@ -1,4 +1,4 @@
-package com.sendme.ui.editor.viewmodel
+package com.sendme.ui.editor
 
 import androidx.lifecycle.SavedStateHandle
 import androidx.navigation.toRoute

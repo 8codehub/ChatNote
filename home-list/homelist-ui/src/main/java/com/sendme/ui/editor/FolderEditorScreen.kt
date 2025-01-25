@@ -22,6 +22,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
@@ -33,9 +34,10 @@ import com.pingpad.coreui.component.ui.appbar.ContentDrivenTopBar
 import com.pingpad.coreui.component.ui.component.LabeledInputText
 import com.pingpad.coreui.component.ui.component.CircularImage
 import com.pingpad.coreui.component.ui.component.StyledText
+import com.pingpad.coreui.component.ui.decorations.showToast
 import com.sendme.homelistui.R
 import com.sendme.navigation.NavigationRoute
-import com.sendme.ui.editor.viewmodel.FolderEditorViewModel
+import com.sendme.ui.editor.component.IconItem
 
 @Composable
 fun FolderEditorScreen(
@@ -45,6 +47,7 @@ fun FolderEditorScreen(
 ) {
     val state by viewModel.state.collectAsStateWithLifecycle()
     val oneTimeEvent by viewModel.oneTimeEvent.collectAsStateWithLifecycle(null)
+    val context = LocalContext.current
     var localFolderName by remember(state.folderName) { mutableStateOf(state.folderName ?: "") }
     var selectedIconUri by remember(key1 = state.folderIconUri, key2 = state.icons) {
         mutableStateOf(
@@ -59,6 +62,10 @@ fun FolderEditorScreen(
                 is FolderEditorContract.FolderEditorOneTimeEvent.NavigateBack -> onCancel()
                 is FolderEditorContract.FolderEditorOneTimeEvent.NavigateTo -> navigateTo(it.route)
                 is FolderEditorContract.FolderEditorOneTimeEvent.ShowToast -> {}
+                is FolderEditorContract.FolderEditorOneTimeEvent.FailedOperation -> showToast(
+                    context = context,
+                    context.getString(it.error)
+                )
             }
         }
     }
@@ -174,28 +181,5 @@ fun FolderEditorScreen(
         }
     }
 
-
 }
 
-@Composable
-fun IconItem(
-    iconUri: String,
-    isSelected: Boolean,
-    modifier: Modifier,
-    onClick: () -> Unit
-) {
-    Box(modifier = modifier) {
-        CircularImage(
-            modifier = Modifier,
-            iconSize = 64.dp,
-            imageUri = iconUri,
-            borderColor = if (isSelected) {
-                MaterialTheme.colorScheme.primary
-            } else {
-                Color.Transparent
-            },
-            borderWidth = 2.dp,
-            onClick = onClick
-        )
-    }
-}

@@ -16,24 +16,19 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 object HomeListMapperModule {
-    // Provides the mapper to convert FolderEntity to Folder
-    @Provides
-    @Singleton
-    fun provideFolderEntityToFolderMapper(): Mapper<FolderEntity, Folder> {
-        return FolderEntityToFolderMapper()
-    }
 
-    // Provides the mapper to convert Folder to FolderEntity
     @Provides
     @Singleton
-    fun provideFolderToFolderEntityMapper(): Mapper<Folder, FolderEntity> {
-        return FolderToFolderEntityMapper()
-    }
+    fun provideFolderEntityToFolderMapper(): Mapper<FolderEntity, Folder> =
+        FolderEntityToFolderMapper()
 
-    // Provides the mapper to convert Folder to FolderBaseInfo
     @Provides
     @Singleton
-    fun provideFolderToFolderBaseInfoMapper(): Mapper<FolderEntity, FolderBaseInfo> {
-        return FolderEntityToFolderBaseInfoMapper()
-    }
+    fun provideFolderToFolderEntityMapper(): Mapper<Folder, FolderEntity> =
+        FolderToFolderEntityMapper()
+
+    @Provides
+    @Singleton
+    fun provideFolderToFolderBaseInfoMapper(): Mapper<FolderEntity, FolderBaseInfo> =
+        FolderEntityToFolderBaseInfoMapper()
 }

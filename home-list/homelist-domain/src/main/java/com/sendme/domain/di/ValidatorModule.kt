@@ -15,5 +15,4 @@ internal abstract class ValidatorModule {
     abstract fun bindNewFolderNameValidator(
         implementation: NewFolderNameValidatorImpl
     ): NewFolderNameValidator
-
 }

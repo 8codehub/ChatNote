@@ -1,8 +1,10 @@
-package com.sendme.data.repository.bridge
+package com.sendme.data.repository.facade
 
 import com.pingpad.coredomain.bridge.FolderRepositoryFacade
 import com.pingpad.coredomain.mapper.Mapper
 import com.pingpad.coredomain.models.FolderBaseInfo
+import com.pingpad.coredomain.utils.ResultError
+import com.pingpad.coredomain.utils.failure
 import com.sendme.data.db.FolderDao
 import com.sendme.data.models.FolderEntity
 import kotlinx.coroutines.flow.Flow
@@ -16,11 +18,16 @@ class FolderRepositoryFacadeImpl @Inject constructor(
         folderId: Long,
         lastNote: String,
         lastNoteDate: Long
-    ) {
-        folderDao.updateFolderLastNote(
-            folderId = folderId,
-            lastNote = lastNote,
-            lastNoteDate = lastNoteDate
+    ): Result<Unit> {
+        return runCatching {
+            folderDao.updateFolderLastNote(
+                folderId = folderId,
+                lastNote = lastNote,
+                lastNoteDate = lastNoteDate
+            )
+        }.fold(
+            onSuccess = { Result.success(Unit) },
+            onFailure = { Result.failure(ResultError.DatabaseError(it)) }
         )
     }
 

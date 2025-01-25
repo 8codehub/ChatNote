@@ -77,6 +77,7 @@ object FolderEditorContract {
     sealed class FolderEditorOneTimeEvent : UiOneTimeEvent {
         data class ShowToast(val message: String) : FolderEditorOneTimeEvent()
         data object NavigateBack : FolderEditorOneTimeEvent()
+        data class FailedOperation(@StringRes val error: Int) : FolderEditorOneTimeEvent()
         data class NavigateTo(val route: NavigationRoute) : FolderEditorOneTimeEvent()
     }
 }

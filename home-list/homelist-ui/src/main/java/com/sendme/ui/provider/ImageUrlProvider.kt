@@ -12,7 +12,7 @@ class ImageUrlProvider @Inject constructor(
         return try {
             context.assets.list("icons")?.toList() ?: emptyList()
         } catch (e: Exception) {
-            emptyList() // Handle errors gracefully
+            emptyList()
         }
     }
 }

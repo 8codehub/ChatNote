@@ -60,6 +60,7 @@ object FolderListContract {
 
     // One-Time Events
     sealed class FolderListOneTimeEvent : UiOneTimeEvent {
+
         data class FolderDeleted(val messagesCount: Int) :
             FolderListOneTimeEvent()
 

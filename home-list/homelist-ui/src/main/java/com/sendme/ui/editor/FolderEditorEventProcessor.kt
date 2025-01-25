@@ -17,12 +17,17 @@ import javax.inject.Inject
 
 
 class FolderEditorStatefulEventHandler @Inject constructor(
-    private val addOrUpdateFolder: AddOrUpdateFolderUseCase,
-    private val getFolderById: GetFolderByIdUseCase,
     private val imageUrlProvider: ImageUrlProvider,
+    private val getFolderById: GetFolderByIdUseCase,
+    private val addOrUpdateFolder: AddOrUpdateFolderUseCase,
     private val newFolderNameValidator: NewFolderNameValidator,
     private val mapperResultErrorToErrorId: Mapper<Throwable?, Int>
-) : StatefulEventHandler<FolderEditorEvent, FolderEditorOneTimeEvent, FolderEditorState, MutableFolderEditorState>(
+) : StatefulEventHandler<
+        FolderEditorEvent,
+        FolderEditorOneTimeEvent,
+        FolderEditorState,
+        MutableFolderEditorState
+        >(
     FolderEditorState()
 ) {
 
@@ -111,7 +116,7 @@ class FolderEditorStatefulEventHandler @Inject constructor(
             .onSuccess {
                 onAddOrUpdateFolderResultSuccess(id = it)
             }.onFailure {
-                onAddOrUpdateFolderResultFailure(resultError = it.cause)
+                onAddOrUpdateFolderResultFailure(error = mapperResultErrorToErrorId.map(it))
             }
 
         updateUiState {
@@ -120,9 +125,9 @@ class FolderEditorStatefulEventHandler @Inject constructor(
 
     }
 
-    private fun onAddOrUpdateFolderResultFailure(resultError: Throwable?) {
+    private suspend fun onAddOrUpdateFolderResultFailure(error: Int) {
 
-
+        FolderEditorOneTimeEvent.FailedOperation(error = error).processOneTimeEvent()
     }
 
     private suspend fun onAddOrUpdateFolderResultSuccess(id: Long) {

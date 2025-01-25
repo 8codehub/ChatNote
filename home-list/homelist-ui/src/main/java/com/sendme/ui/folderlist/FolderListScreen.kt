@@ -36,7 +36,9 @@ import com.pingpad.coreui.component.ui.decorations.showToast
 import com.sendme.domain.model.Folder
 import com.sendme.homelistui.R
 import com.sendme.navigation.NavigationRoute
-import com.sendme.ui.AddNewFolderButton
+import com.sendme.ui.folderlist.components.AddNewFolderButton
+import com.sendme.ui.folderlist.components.FolderActionItems
+import com.sendme.ui.folderlist.components.FolderCard
 
 
 @OptIn(ExperimentalMaterial3Api::class)

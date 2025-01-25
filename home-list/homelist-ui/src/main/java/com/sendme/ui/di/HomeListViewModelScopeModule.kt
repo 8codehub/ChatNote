@@ -25,11 +25,20 @@ internal abstract class HomeListViewModelScopeModule {
     @Binds
     abstract fun bindFolderListStatefulEventHandler(
         implementation: FolderListStatefulEventHandler
-    ): StatefulEventHandler<FolderListEvent, FolderListOneTimeEvent, FolderListState, MutableFolderListState>
+    ): StatefulEventHandler<
+            FolderListEvent,
+            FolderListOneTimeEvent,
+            FolderListState,
+            MutableFolderListState
+            >
 
     @Binds
     abstract fun bindFolderEditorStatefulEventHandler(
         implementation: FolderEditorStatefulEventHandler
-    ): StatefulEventHandler<FolderEditorEvent, FolderEditorOneTimeEvent, FolderEditorState, MutableFolderEditorState>
-
+    ): StatefulEventHandler<
+            FolderEditorEvent,
+            FolderEditorOneTimeEvent,
+            FolderEditorState,
+            MutableFolderEditorState
+            >
 }

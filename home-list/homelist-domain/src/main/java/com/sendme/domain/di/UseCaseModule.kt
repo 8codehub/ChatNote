@@ -10,8 +10,8 @@ import com.sendme.domain.usecase.GetFoldersUseCase
 import com.sendme.domain.usecase.GetFoldersUseCaseImpl
 import com.sendme.domain.usecase.GetFolderIconsUseCase
 import com.sendme.domain.usecase.GetFolderIconsUseCaseImpl
-import com.sendme.domain.usecase.PinFolderUseCaseImpl
 import com.sendme.domain.usecase.PinFolderUseCase
+import com.sendme.domain.usecase.PinFolderUseCaseImpl
 import com.sendme.domain.usecase.UnpinFolderUseCase
 import com.sendme.domain.usecase.UnpinFolderUseCaseImpl
 import dagger.Binds
@@ -34,12 +34,12 @@ internal abstract class UseCaseModule {
     ): GetFolderByIdUseCase
 
     @Binds
-    abstract fun bindUnpinFolderUseCase(
+    abstract fun bindPinFolderUseCase(
         implementation: PinFolderUseCaseImpl
     ): PinFolderUseCase
 
     @Binds
-    abstract fun bindPinFolderUseCase(
+    abstract fun bindUnpinFolderUseCase(
         implementation: UnpinFolderUseCaseImpl
     ): UnpinFolderUseCase
 
@@ -49,12 +49,12 @@ internal abstract class UseCaseModule {
     ): DeleteFolderUseCase
 
     @Binds
-    abstract fun bindCreateFolderUseCase(
+    abstract fun bindAddOrUpdateFolderUseCase(
         implementation: AddOrUpdateFolderUseCaseImpl
     ): AddOrUpdateFolderUseCase
 
     @Binds
-    abstract fun bindGetIconUrisUseCase(
+    abstract fun bindGetFolderIconsUseCase(
         implementation: GetFolderIconsUseCaseImpl
     ): GetFolderIconsUseCase
 }

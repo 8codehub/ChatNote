@@ -1,4 +1,4 @@
-package com.sendme.ui.folderlist
+package com.sendme.ui.folderlist.components
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row

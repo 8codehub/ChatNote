@@ -6,8 +6,5 @@ import kotlinx.coroutines.flow.Flow
 interface NotesRepository {
 
     fun getNotes(folderId: Long): Flow<List<SendMeNote>>
-    suspend fun addNote(
-        folderId: Long,
-        note: SendMeNote
-    ): Result<Unit>
+    suspend fun addNote(folderId: Long, note: SendMeNote): Result<Unit>
 }
