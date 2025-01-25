@@ -13,7 +13,7 @@ interface NoteDao {
     suspend fun deleteNotesByFolderId(folderId: Long): Int
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertNote(noteEntity: NoteEntity)
+    suspend fun insertNote(noteEntity: NoteEntity): Long
 
     @Delete
     suspend fun deleteNote(noteEntity: NoteEntity)

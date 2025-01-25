@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="validation_error_empty_text">Empty Text</string>
-    <string name="validation_error">Error</string>
+    <string name="general_error">Something went wrong</string>
+    <string name="error_folder_not_found">Folder not found.</string>
+    <string name="error_database">A database error occurred.</string>
+    <string name="folder_not_deleted">The folder could not be deleted.</string>
+    <string name="validation_error_empty_folder_name">Folder name cannot be empty</string>
 </resources>

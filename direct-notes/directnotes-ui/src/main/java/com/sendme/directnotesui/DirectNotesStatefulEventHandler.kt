@@ -1,6 +1,8 @@
 package com.sendme.directnotesui
 
-import com.pingpad.coredomain.navigation.models.FolderBaseInfo
+import com.pingpad.coredomain.mapper.Mapper
+import com.pingpad.coredomain.models.FolderBaseInfo
+import com.pingpad.coredomain.utils.ResultError
 import com.pingpad.coreui.arch.StatefulEventHandler
 import com.sendme.directnotesui.DirectNotesContract.DirectNotesEvent
 import com.sendme.directnotesui.DirectNotesContract.DirectNotesOneTimeEvent
@@ -18,7 +20,8 @@ import javax.inject.Inject
 class DirectNotesStatefulEventHandler @Inject constructor(
     private val observeNotes: GetNotesUseCase,
     private val addNoteUseCase: AddNoteUseCase,
-    private val observeFolderUseCase: ObserveFolderUseCase
+    private val observeFolderUseCase: ObserveFolderUseCase,
+    private val errorResultMapper: Mapper<Throwable, Int>
 ) : StatefulEventHandler<DirectNotesEvent, DirectNotesOneTimeEvent, DirectNotesState, MutableDirectNotesState>(
     DirectNotesState()
 ) {
@@ -46,9 +49,8 @@ class DirectNotesStatefulEventHandler @Inject constructor(
                 emptyNotes = it.isEmpty()
             }
         }.catch {
-            updateUiState {
-                error
-            }
+            DirectNotesOneTimeEvent.FailedOperation(error = R.string.error_failed_to_load_notes)
+                .processOneTimeEvent()
         }.collect()
     }
 
@@ -60,13 +62,14 @@ class DirectNotesStatefulEventHandler @Inject constructor(
                 handleBasicInfoNotFound()
             }
         }.catch {
-
+            handleBasicInfoNotFound()
         }.collect()
     }
 
 
-    private fun handleBasicInfoNotFound() {
-
+    private suspend fun handleBasicInfoNotFound() {
+        DirectNotesOneTimeEvent.FailedOperation(error = R.string.error_failed_to_load_note)
+            .processOneTimeEvent()
     }
 
     private fun handleBasicInfoResult(basicInfo: FolderBaseInfo) {
@@ -82,7 +85,11 @@ class DirectNotesStatefulEventHandler @Inject constructor(
             val newNote = SendMeNote(
                 id = System.currentTimeMillis(), content = content
             )
-            addNoteUseCase(it, newNote)
+            addNoteUseCase(it, newNote).onFailure {
+                updateUiState {
+                    generalError = errorResultMapper.map(from = it)
+                }
+            }
         }
 
     }

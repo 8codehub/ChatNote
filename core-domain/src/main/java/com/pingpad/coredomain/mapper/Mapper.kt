@@ -1,4 +1,4 @@
-package com.pingpad.coredomain.navigation.mapper
+package com.pingpad.coredomain.mapper
 
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map

@@ -1,8 +1,8 @@
 package com.sendme.data.di
 
-import com.pingpad.coredomain.navigation.bridge.FolderRepositoryFacade
-import com.pingpad.coredomain.navigation.mapper.Mapper
-import com.pingpad.coredomain.navigation.models.FolderBaseInfo
+import com.pingpad.coredomain.bridge.FolderRepositoryFacade
+import com.pingpad.coredomain.mapper.Mapper
+import com.pingpad.coredomain.models.FolderBaseInfo
 import com.sendme.data.db.FolderDao
 import com.sendme.data.models.FolderEntity
 import com.sendme.data.repository.FolderRepositoryImpl
@@ -22,13 +22,11 @@ object RepositoryModule {
     @Provides
     @Singleton
     fun provideFolderRepository(
-        folderDao: FolderDao, // Inject FolderDao provided from DatabaseModule
-        mapperFolderToFolderEntity: Mapper<Folder, FolderEntity>, // Inject mapper
-        mapperFolderEntityToFolder: Mapper<FolderEntity, Folder> // Inject mapper
+        folderDao: FolderDao,
+        mapperFolderEntityToFolder: Mapper<FolderEntity, Folder>
     ): FolderRepository {
         return FolderRepositoryImpl(
             folderDao = folderDao,
-            mapperFolderToFolderEntity = mapperFolderToFolderEntity,
             mapperFolderEntityToFolder = mapperFolderEntityToFolder
         )
     }

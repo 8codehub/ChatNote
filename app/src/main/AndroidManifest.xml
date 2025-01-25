@@ -11,7 +11,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.SendMe"
-        android:name="com.sendme.sendme.app.SendMeApp"
+        android:name="com.pingpad.sendme.app.SendMeApp"
         tools:targetApi="31">
         <activity
             android:name="com.pingpad.sendme.MainActivity"

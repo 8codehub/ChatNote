@@ -1,7 +1,7 @@
 package com.sendme.directnotsdomain.usecase
 
-import com.pingpad.coredomain.navigation.bridge.FolderRepositoryFacade
-import com.pingpad.coredomain.navigation.models.FolderBaseInfo
+import com.pingpad.coredomain.bridge.FolderRepositoryFacade
+import com.pingpad.coredomain.models.FolderBaseInfo
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 

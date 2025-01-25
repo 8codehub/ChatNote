@@ -8,7 +8,6 @@ import javax.inject.Inject
 internal class GetFoldersUseCaseImpl @Inject constructor(
     private val repository: FolderRepository
 ) : GetFoldersUseCase {
-    override operator fun invoke(): Flow<List<Folder>> {
-        return repository.getFolders()
-    }
+
+    override operator fun invoke() = repository.getFolders()
 }

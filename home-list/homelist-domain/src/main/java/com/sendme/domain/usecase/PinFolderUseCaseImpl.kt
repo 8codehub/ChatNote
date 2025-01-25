@@ -7,7 +7,5 @@ internal class PinFolderUseCaseImpl @Inject constructor(
     private val repository: FolderRepository
 ) : PinFolderUseCase {
 
-    override suspend fun invoke(folderId: Long): Result<Unit> {
-        return repository.pinFolder(folderId = folderId)
-    }
+    override suspend fun invoke(folderId: Long) = repository.pinFolder(folderId = folderId)
 }

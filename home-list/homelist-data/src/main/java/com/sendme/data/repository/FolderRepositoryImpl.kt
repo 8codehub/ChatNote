@@ -1,7 +1,9 @@
 package com.sendme.data.repository
 
 
-import com.pingpad.coredomain.navigation.mapper.Mapper
+import com.pingpad.coredomain.utils.ResultError
+import com.pingpad.coredomain.utils.failure
+import com.pingpad.coredomain.mapper.Mapper
 import com.sendme.data.db.FolderDao
 import com.sendme.data.models.FolderEntity
 import com.sendme.domain.model.Folder
@@ -11,7 +13,6 @@ import javax.inject.Inject
 
 class FolderRepositoryImpl @Inject constructor(
     private val folderDao: FolderDao,
-    private val mapperFolderToFolderEntity: Mapper<Folder, FolderEntity>,
     private val mapperFolderEntityToFolder: Mapper<FolderEntity, Folder>,
 ) : FolderRepository {
 
@@ -19,24 +20,31 @@ class FolderRepositoryImpl @Inject constructor(
         folderId: Long?,
         name: String,
         iconUri: String
-    ): Long {
-        return if (folderId == null) {
-            folderDao.insertOrReplaceFolder(
-                FolderEntity(
-                    name = name,
-                    iconUri = iconUri,
-                    lastNoteContent = null,
-                    lastNoteCreatedAt = null
-                )
-            )
-        } else {
-            val updatedNote =
-                folderDao.getFolderById(folderId)?.copy(name = name, iconUri = iconUri)
-            updatedNote?.let {
+    ): Result<Long> {
+        return try {
+            val folderIdResult = if (folderId == null) {
+                // Insert new folder
                 folderDao.insertOrReplaceFolder(
-                    it
+                    FolderEntity(
+                        name = name,
+                        iconUri = iconUri,
+                        lastNoteContent = null,
+                        lastNoteCreatedAt = null
+                    )
                 )
-            } ?: 0
+            } else {
+                val existingFolder = folderDao.getFolderById(folderId)
+                if (existingFolder != null) {
+                    folderDao.insertOrReplaceFolder(
+                        existingFolder.copy(name = name, iconUri = iconUri)
+                    )
+                } else {
+                    return Result.failure(ResultError.FolderNotFound)
+                }
+            }
+            Result.success(folderIdResult)
+        } catch (e: Exception) {
+            Result.failure(ResultError.DatabaseError(th = e))
         }
     }
 
@@ -46,10 +54,10 @@ class FolderRepositoryImpl @Inject constructor(
             if (rowsUpdated > 0) {
                 Result.success(Unit)
             } else {
-                Result.failure(Exception("Folder not found or already pinned")) // Failure
+                Result.failure(ResultError.FolderNotFound)
             }
         } catch (e: Exception) {
-            Result.failure(e)
+            Result.failure(ResultError.DatabaseError(th = e))
         }
     }
 
@@ -59,10 +67,10 @@ class FolderRepositoryImpl @Inject constructor(
             if (rowsUpdated > 0) {
                 Result.success(Unit)
             } else {
-                Result.failure(Exception("Folder not found or already pinned"))
+                Result.failure(ResultError.FolderNotFound)
             }
         } catch (e: Exception) {
-            Result.failure(e)
+            Result.failure(ResultError.DatabaseError(th = e))
         }
     }
 
@@ -72,10 +80,10 @@ class FolderRepositoryImpl @Inject constructor(
             if (rowsUpdated > 0) {
                 Result.success(Unit)
             } else {
-                Result.failure(Exception("Folder not found or already pinned"))
+                Result.failure(ResultError.FolderNotFound)
             }
         } catch (e: Exception) {
-            Result.failure(e)
+            Result.failure(ResultError.DatabaseError(th = e))
         }
     }
 
@@ -86,10 +94,10 @@ class FolderRepositoryImpl @Inject constructor(
                 val folder = mapperFolderEntityToFolder.map(folderEntity)
                 Result.success(folder)
             } else {
-                Result.failure(Exception("Folder not found"))
+                Result.failure(ResultError.FolderNotFound)
             }
         } catch (e: Exception) {
-            Result.failure(e)
+            Result.failure(ResultError.DatabaseError(th = e))
         }
     }
 

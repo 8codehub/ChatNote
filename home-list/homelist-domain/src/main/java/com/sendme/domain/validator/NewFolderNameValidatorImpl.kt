@@ -1,17 +1,18 @@
 package com.sendme.domain.validator
 
-import com.sendme.coredomain.navigation.validator.ErrorKey
-import com.sendme.coredomain.navigation.validator.ValidationResult
+
+import com.pingpad.coredomain.utils.ResultError
+import com.pingpad.coredomain.utils.failure
 import javax.inject.Inject
 
 class NewFolderNameValidatorImpl @Inject constructor() : NewFolderNameValidator {
-    override fun invoke(folderName: String?): ValidationResult {
+    override fun invoke(folderName: String?): Result<Unit> {
         return when {
             folderName.isNullOrBlank() -> {
-                ValidationResult.Error(errorKey = ErrorKey.EMPTY_FOLDER_NAME)
+                Result.failure(ResultError.EmptyFolderName)
             }
 
-            else -> ValidationResult.Success
+            else -> Result.success(Unit)
         }
     }
 }

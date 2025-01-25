@@ -25,7 +25,7 @@ interface UnpinFolderUseCase {
 }
 
 interface AddOrUpdateFolderUseCase {
-    suspend operator fun invoke(folderId: Long?, name: String, iconUri: String): Long
+    suspend operator fun invoke(folderId: Long?, name: String, iconUri: String): Result<Long>
 }
 
 interface GetFolderIconsUseCase {

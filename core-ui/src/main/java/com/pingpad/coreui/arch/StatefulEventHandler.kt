@@ -15,7 +15,7 @@ abstract class StatefulEventHandler<E, O, S, M>(
     val state: StateFlow<S> = _state.asStateFlow()
     val stateValue get() = _state.value
 
-    protected val _uiEvent = Channel<O>(Channel.BUFFERED)
+    private val _uiEvent = Channel<O>(Channel.BUFFERED)
     val uiEvent = _uiEvent.receiveAsFlow()
 
     abstract suspend fun process(event: E, args: Any? = null)
@@ -25,5 +25,9 @@ abstract class StatefulEventHandler<E, O, S, M>(
         _state.update { currentState ->
             currentState.toMutable().apply(update).toImmutable()
         }
+    }
+
+    protected suspend fun O.processOneTimeEvent() {
+        _uiEvent.send(this)
     }
 }

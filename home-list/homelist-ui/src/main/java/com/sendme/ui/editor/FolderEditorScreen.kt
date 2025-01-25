@@ -63,6 +63,10 @@ fun FolderEditorScreen(
         }
     }
 
+    LaunchedEffect(localFolderName) {
+        viewModel.onTextChanged()
+    }
+
     Scaffold(
         modifier = Modifier,
         topBar = {

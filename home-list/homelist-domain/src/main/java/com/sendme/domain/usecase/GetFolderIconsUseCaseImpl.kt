@@ -6,19 +6,18 @@ import javax.inject.Inject
 class GetFolderIconsUseCaseImpl @Inject constructor() : GetFolderIconsUseCase {
 
     override operator fun invoke(): List<FolderIcon> {
-        return listOf(
-            FolderIcon("account_balance"),
-            FolderIcon("badge"),
-            FolderIcon("checklist"),
-            FolderIcon("family_home"),
-            FolderIcon("folder"),
-            FolderIcon("group"),
-            FolderIcon("groups"),
-            FolderIcon("home"),
-            FolderIcon("new_folder"),
-            FolderIcon("payments"),
-            FolderIcon("person"),
-            FolderIcon("fitness")
-        )
+        return buildList {
+            add(FolderIcon("account_balance"))
+            add(FolderIcon("badge"))
+            add(FolderIcon("checklist"))
+            add(FolderIcon("family_home"))
+            add(FolderIcon("folder"))
+            add(FolderIcon("group"))
+            add(FolderIcon("groups"))
+            add(FolderIcon("new_folder"))
+            add(FolderIcon("payments"))
+            add(FolderIcon("person"))
+            add(FolderIcon("fitness"))
+        }
     }
 }

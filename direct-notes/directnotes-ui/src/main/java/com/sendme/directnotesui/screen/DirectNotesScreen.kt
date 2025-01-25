@@ -85,7 +85,7 @@ fun DirectNotesScreen(
                         top = paddingValues.calculateTopPadding() // Use only the top padding
                     )
                     .fillMaxSize()
-                    .imePadding() // This must come last to adjust for the keyboard dynamically
+                    .imePadding()
             ) {
                 if (stateValue.emptyNotes == true) {
                     DirectNotesEmptyState(

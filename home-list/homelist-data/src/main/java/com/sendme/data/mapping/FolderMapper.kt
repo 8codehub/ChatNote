@@ -1,8 +1,8 @@
 package com.sendme.data.mapping
 
 
-import com.pingpad.coredomain.navigation.mapper.Mapper
-import com.pingpad.coredomain.navigation.models.FolderBaseInfo
+import com.pingpad.coredomain.mapper.Mapper
+import com.pingpad.coredomain.models.FolderBaseInfo
 import com.sendme.data.models.FolderEntity
 import com.sendme.domain.model.Folder
 import javax.inject.Inject

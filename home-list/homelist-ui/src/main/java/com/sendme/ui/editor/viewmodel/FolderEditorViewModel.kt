@@ -51,4 +51,8 @@ class FolderEditorViewModel @Inject constructor(
 
     }
 
+    suspend fun onTextChanged() {
+        FolderEditorEvent.InputTextChanged.process()
+    }
+
 }

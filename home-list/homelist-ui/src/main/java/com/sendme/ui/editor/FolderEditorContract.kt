@@ -5,6 +5,7 @@ import com.pingpad.coreui.arch.ConvertibleState
 import com.pingpad.coreui.arch.MutableConvertibleState
 import com.pingpad.coreui.arch.UiEvent
 import com.pingpad.coreui.arch.UiOneTimeEvent
+import com.sendme.homelistui.R
 import com.sendme.navigation.NavigationRoute
 
 object FolderEditorContract {
@@ -15,9 +16,10 @@ object FolderEditorContract {
         val folderName: String? = null,
         val folderIconUri: String? = null,
         val icons: List<String> = emptyList(),
-        val isLoading: Boolean = false,
+        override val isLoading: Boolean = false,
         @StringRes val inputError: Int? = null,
-        @StringRes val title: Int? = null
+        @StringRes val title: Int? = null,
+        @StringRes override val generalError: Int = R.string.general_error
     ) : ConvertibleState<FolderEditorState, MutableFolderEditorState> {
 
         override fun toMutable(): MutableFolderEditorState {
@@ -28,7 +30,8 @@ object FolderEditorContract {
                 icons = icons,
                 isLoading = isLoading,
                 inputError = inputError,
-                title = title
+                title = title,
+                generalError = generalError
             )
         }
     }
@@ -39,9 +42,10 @@ object FolderEditorContract {
         var folderName: String? = null,
         var folderIconUri: String? = null,
         var icons: List<String> = emptyList(),
-        var isLoading: Boolean = false,
+        override var isLoading: Boolean = false,
         @StringRes var inputError: Int? = null,
-        @StringRes var title: Int? = null
+        @StringRes var title: Int? = null,
+        @StringRes override var generalError: Int = R.string.general_error
     ) : MutableConvertibleState<FolderEditorState> {
 
         override fun toImmutable(): FolderEditorState {
@@ -52,7 +56,8 @@ object FolderEditorContract {
                 icons = icons,
                 isLoading = isLoading,
                 inputError = inputError,
-                title = title
+                title = title,
+                generalError = generalError
             )
         }
     }
@@ -63,6 +68,9 @@ object FolderEditorContract {
         data class LoadFolderInitialState(val isEditMode: Boolean) : FolderEditorEvent()
         data class EditOrAddFolder(val name: String, val iconUri: String) :
             FolderEditorEvent()
+
+        data object InputTextChanged : FolderEditorEvent()
+
     }
 
     // One-Time Events

@@ -1,4 +1,4 @@
-package com.sendme.sendme.app
+package com.pingpad.sendme.app
 
 import android.app.Application
 import dagger.hilt.android.HiltAndroidApp

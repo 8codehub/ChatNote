@@ -17,8 +17,8 @@ object DirectNotesContract {
         val folderIconUri: String? = null,
         val notes: List<SendMeNote> = emptyList(),
         val emptyNotes: Boolean? = null,
-        val isLoading: Boolean = false,
-        @StringRes val error: Int? = null
+        override val isLoading: Boolean = false,
+        @StringRes override val generalError: Int = com.sendme.coreui.R.string.general_error
     ) : ConvertibleState<DirectNotesState, MutableDirectNotesState> {
 
         override fun toMutable(): MutableDirectNotesState {
@@ -28,7 +28,7 @@ object DirectNotesContract {
                 folderIconUri = folderIconUri,
                 notes = notes,
                 isLoading = isLoading,
-                error = error,
+                generalError = generalError,
                 emptyNotes = emptyNotes
             )
         }
@@ -40,9 +40,9 @@ object DirectNotesContract {
         var folderName: String = "",
         var folderIconUri: String? = null,
         var notes: List<SendMeNote> = emptyList(),
-        var isLoading: Boolean = false,
+        override var isLoading: Boolean = false,
         var emptyNotes: Boolean? = null,
-        @StringRes var error: Int? = null,
+        @StringRes override var generalError: Int = com.sendme.coreui.R.string.general_error,
     ) : MutableConvertibleState<DirectNotesState> {
 
         override fun toImmutable(): DirectNotesState {
@@ -52,7 +52,7 @@ object DirectNotesContract {
                 folderIconUri = folderIconUri,
                 notes = notes,
                 isLoading = isLoading,
-                error = error,
+                generalError = generalError,
                 emptyNotes = emptyNotes
             )
         }
@@ -75,7 +75,7 @@ object DirectNotesContract {
 
     // One-Time Events
     sealed class DirectNotesOneTimeEvent : UiOneTimeEvent {
-        data class ShowToast(val message: String) : DirectNotesOneTimeEvent()
+        data class FailedOperation(@StringRes val error: Int) : DirectNotesOneTimeEvent()
         data object NavigateBack : DirectNotesOneTimeEvent()
         data class NavigateTo(val route: NavigationRoute) : DirectNotesOneTimeEvent()
     }

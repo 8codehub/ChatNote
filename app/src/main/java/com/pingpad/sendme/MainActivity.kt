@@ -18,7 +18,6 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -44,6 +43,7 @@ fun SendMeApp(navController: NavHostController) {
                 }
             )
         }
+
         composable<NavigationRoute.DirectNotes> {
             DirectNotesScreen(
                 onBackClick = { navController.popBackStack() },
@@ -63,7 +63,8 @@ fun SendMeApp(navController: NavHostController) {
                 },
                 onCancel = {
                     navController.popBackStack()
-                })
+                }
+            )
         }
     }
 }
@@ -73,7 +74,7 @@ fun navigateWithClearBackStack(
     targetRoute: NavigationRoute
 ) {
     navController.navigate(targetRoute) {
-        popUpTo(NavigationRoute.HomeList) { inclusive = false } // Retain HomeList in the back stack
-        launchSingleTop = true // Avoid multiple instances of the target route
+        popUpTo(NavigationRoute.HomeList) { inclusive = false }
+        launchSingleTop = true
     }
 }

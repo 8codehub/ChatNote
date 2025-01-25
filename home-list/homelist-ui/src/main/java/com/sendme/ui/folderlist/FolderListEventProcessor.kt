@@ -5,6 +5,7 @@ import com.sendme.domain.usecase.DeleteFolderUseCase
 import com.sendme.domain.usecase.GetFoldersUseCase
 import com.sendme.domain.usecase.PinFolderUseCase
 import com.sendme.domain.usecase.UnpinFolderUseCase
+import com.sendme.homelistui.R
 import com.sendme.ui.folderlist.FolderListContract.FolderListEvent
 import com.sendme.ui.folderlist.FolderListContract.FolderListOneTimeEvent
 import com.sendme.ui.folderlist.FolderListContract.FolderListState
@@ -46,41 +47,42 @@ class FolderListStatefulEventHandler @Inject constructor(
     }
 
     private suspend fun onDeleteFolderEvent(folderId: Long) {
-        val result = deleteFolder(folderId = folderId)
-        if (result.isSuccess) {
-            _uiEvent.send(FolderListOneTimeEvent.ShowToast("Deleted " + result.getOrNull()))
+        deleteFolder(folderId = folderId).onSuccess { messagesCount ->
+            FolderListOneTimeEvent.FolderDeleted(messagesCount = messagesCount)
+                .processOneTimeEvent()
         }
     }
 
     private suspend fun onPinFolderEvent(folderId: Long) {
-        pinFolder(folderId = folderId)
+        pinFolder(folderId = folderId).onFailure {
+            FolderListOneTimeEvent.FailedOperation(error = R.string.error_folder_pin)
+        }
     }
 
     private suspend fun onUnpinFolderEvent(folderId: Long) {
-        unpinFolder(folderId = folderId)
+        unpinFolder(folderId = folderId).onFailure {
+            FolderListOneTimeEvent.FailedOperation(error = R.string.error_folder_unpin)
+        }
     }
 
     private suspend fun onLoadFoldersEvent() {
-        getFolders()
-            .onEach { folders ->
-                updateUiState {
-                    isLoading = false
-                    this.folders = folders
-                    foldersCount = folders.size
-                }
+        getFolders().onStart {
+            updateUiState {
+                isLoading = true
             }
-            .catch { e ->
-                updateUiState {
-                    isLoading = false
-                    errorMessage = e.message
-                    foldersCount = null
-                }
+        }.onEach { folders ->
+            updateUiState {
+                isLoading = false
+                this.folders = folders
+                foldersCount = folders.size
             }
-            .onStart {
-                updateUiState {
-                    isLoading = true
-                }
-            }.collect()
+        }.catch { _ ->
+            FolderListOneTimeEvent.FailedOperation(error = R.string.error_failed_to_load_folders)
+            updateUiState {
+                isLoading = false
+                foldersCount = null
+            }
+        }.collect()
     }
 
 }

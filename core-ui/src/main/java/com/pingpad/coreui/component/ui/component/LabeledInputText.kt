@@ -88,7 +88,8 @@ fun LabeledInputText(
                         capitalization = KeyboardCapitalization.Sentences
                     ),
                     textStyle = MaterialTheme.typography.bodyLarge.copy(
-                        fontSize = 16.sp
+                        fontSize = 16.sp,
+                        color = MaterialTheme.colorScheme.onSurface
                     ),
                     decorationBox = { innerTextField ->
                         Box(

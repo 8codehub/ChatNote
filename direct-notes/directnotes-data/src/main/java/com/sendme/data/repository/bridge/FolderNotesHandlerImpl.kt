@@ -1,18 +1,20 @@
 package com.sendme.data.repository.bridge
 
-import com.pingpad.coredomain.navigation.bridge.NotesRepositoryFacade
+import com.pingpad.coredomain.bridge.NotesRepositoryFacade
+import com.pingpad.coredomain.utils.ResultError
+import com.pingpad.coredomain.utils.failure
 import com.sendme.data.db.NoteDao
 import javax.inject.Inject
 
-class FolderNotesHandlerImpl @Inject constructor(private val noteDao: NoteDao) :
-    NotesRepositoryFacade {
+class FolderNotesHandlerImpl @Inject constructor(
+    private val noteDao: NoteDao
+) : NotesRepositoryFacade {
+
     override suspend fun deleteNotesByFolderId(folderId: Long): Result<Int> {
-        val deletedNotesCount = noteDao.deleteNotesByFolderId(folderId = folderId)
-        return if (deletedNotesCount > 0) {
-            Result.success(deletedNotesCount)
-        } else {
-            Result.failure(Throwable("No notes found to delete for folder ID: $folderId"))
+        return try {
+            Result.success(noteDao.deleteNotesByFolderId(folderId = folderId))
+        } catch (e: Exception) {
+            Result.failure(ResultError.DatabaseError(e))
         }
     }
-
 }

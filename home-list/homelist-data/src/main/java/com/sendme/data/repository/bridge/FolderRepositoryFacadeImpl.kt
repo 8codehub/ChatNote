@@ -1,8 +1,8 @@
 package com.sendme.data.repository.bridge
 
-import com.pingpad.coredomain.navigation.bridge.FolderRepositoryFacade
-import com.pingpad.coredomain.navigation.mapper.Mapper
-import com.pingpad.coredomain.navigation.models.FolderBaseInfo
+import com.pingpad.coredomain.bridge.FolderRepositoryFacade
+import com.pingpad.coredomain.mapper.Mapper
+import com.pingpad.coredomain.models.FolderBaseInfo
 import com.sendme.data.db.FolderDao
 import com.sendme.data.models.FolderEntity
 import kotlinx.coroutines.flow.Flow

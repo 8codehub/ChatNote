@@ -3,5 +3,7 @@
     <string name="one_note">One note</string>
     <string name="no_notes">No notes</string>
     <string name="empty_notes_message">No notes yet. Start adding your thoughts and organize them in this folder!</string>
+    <string name="error_failed_to_load_notes">Failed to load notes</string>
+    <string name="error_failed_to_load_note">Failed to load note</string>
 
 </resources>

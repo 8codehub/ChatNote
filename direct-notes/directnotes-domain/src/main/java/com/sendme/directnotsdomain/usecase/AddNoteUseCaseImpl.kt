@@ -7,7 +7,6 @@ import javax.inject.Inject
 class AddNoteUseCaseImpl @Inject constructor(
     private val repository: NotesRepository
 ) : AddNoteUseCase {
-    override suspend fun invoke(folderId: Long, note: SendMeNote) {
+    override suspend fun invoke(folderId: Long, note: SendMeNote) =
         repository.addNote(folderId, note)
-    }
 }

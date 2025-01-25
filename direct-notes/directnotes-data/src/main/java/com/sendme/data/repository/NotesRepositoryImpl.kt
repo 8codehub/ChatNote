@@ -1,7 +1,9 @@
 package com.sendme.data.repository
 
-import com.pingpad.coredomain.navigation.bridge.FolderRepositoryFacade
-import com.pingpad.coredomain.navigation.mapper.Mapper
+import com.pingpad.coredomain.bridge.FolderRepositoryFacade
+import com.pingpad.coredomain.mapper.Mapper
+import com.pingpad.coredomain.utils.ResultError
+import com.pingpad.coredomain.utils.failure
 import com.sendme.data.db.NoteDao
 import com.sendme.data.model.NoteEntity
 import com.sendme.directnotsdomain.SendMeNote
@@ -20,16 +22,26 @@ class NotesRepositoryImpl @Inject constructor(
         return entityToDomainMapper.mapFlow(noteDao.getNotesForFolder(folderId))
     }
 
-    override suspend fun addNote(folderId: Long, note: SendMeNote) {
-        val createdDate = System.currentTimeMillis()
-        val noteEntity =
-            domainToEntityMapper.map(note).copy(folderId = folderId, createdAt = createdDate)
-        noteDao.insertNote(noteEntity)
-        // After inserting the note, update the folder
-        folderUpdateHandler.updateFolderWithLastNote(
-            folderId = folderId,
-            lastNote = note.content,
-            lastNoteDate = createdDate
-        )
+    override suspend fun addNote(folderId: Long, note: SendMeNote): Result<Unit> {
+        return try {
+            val createdDate = System.currentTimeMillis()
+            val noteEntity = domainToEntityMapper.map(note)
+                .copy(folderId = folderId, createdAt = createdDate)
+
+            val insertedNoteId = noteDao.insertNote(noteEntity)
+            if (insertedNoteId > 0) {
+                // After inserting the note, update the folder
+                folderUpdateHandler.updateFolderWithLastNote(
+                    folderId = folderId,
+                    lastNote = note.content,
+                    lastNoteDate = createdDate
+                )
+                Result.success(Unit)
+            } else {
+                Result.failure(ResultError.DatabaseError())
+            }
+        } catch (e: Exception) {
+            Result.failure(ResultError.DatabaseError(th = e))
+        }
     }
 }

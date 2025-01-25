@@ -1,4 +1,4 @@
-package com.pingpad.coredomain.navigation.models
+package com.pingpad.coredomain.models
 
 data class FolderBaseInfo(
     val id: Long,

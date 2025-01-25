@@ -1,19 +1,22 @@
 package com.sendme.ui.folderlist
 
+import androidx.annotation.StringRes
 import com.pingpad.coreui.arch.ConvertibleState
 import com.pingpad.coreui.arch.MutableConvertibleState
 import com.pingpad.coreui.arch.UiEvent
 import com.pingpad.coreui.arch.UiOneTimeEvent
 import com.sendme.domain.model.Folder
+import com.sendme.homelistui.R
 
 object FolderListContract {
 
     // Immutable state
     data class FolderListState(
-        val isLoading: Boolean = false,
+        override val isLoading: Boolean = false,
         val folders: List<Folder> = emptyList(),
         val foldersCount: Int? = null,
-        val errorMessage: String? = null
+        val errorMessage: String? = null,
+        @StringRes override val generalError: Int = R.string.general_error,
     ) : ConvertibleState<FolderListState, MutableFolderListState> {
 
         override fun toMutable(): MutableFolderListState {
@@ -22,16 +25,18 @@ object FolderListContract {
                 folders = folders,
                 errorMessage = errorMessage,
                 foldersCount = foldersCount,
+                generalError = generalError
             )
         }
     }
 
     // Mutable state
     class MutableFolderListState(
-        var isLoading: Boolean = false,
+        override var isLoading: Boolean = false,
         var folders: List<Folder> = emptyList(),
         var errorMessage: String? = null,
-        var foldersCount: Int? = null
+        var foldersCount: Int? = null,
+        @StringRes override var generalError: Int = R.string.general_error,
     ) : MutableConvertibleState<FolderListState> {
 
         override fun toImmutable(): FolderListState {
@@ -39,7 +44,8 @@ object FolderListContract {
                 isLoading = isLoading,
                 folders = folders,
                 errorMessage = errorMessage,
-                foldersCount = foldersCount
+                foldersCount = foldersCount,
+                generalError = generalError
             )
         }
     }
@@ -54,6 +60,10 @@ object FolderListContract {
 
     // One-Time Events
     sealed class FolderListOneTimeEvent : UiOneTimeEvent {
-        data class ShowToast(val message: String) : FolderListOneTimeEvent()
+        data class FolderDeleted(val messagesCount: Int) :
+            FolderListOneTimeEvent()
+
+        data class FailedOperation(@StringRes val error: Int) : FolderListOneTimeEvent()
+
     }
 }

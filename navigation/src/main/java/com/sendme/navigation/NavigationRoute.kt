@@ -14,8 +14,6 @@ sealed class NavigationRoute {
 
     @Serializable
     data class DirectNotes(
-        val folderId: Long,
-        val folderName: String,
-        val folderIconUri: String
+        val folderId: Long
     ) : NavigationRoute()
 }

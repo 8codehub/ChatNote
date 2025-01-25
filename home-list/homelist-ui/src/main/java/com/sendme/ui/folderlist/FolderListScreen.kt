@@ -1,5 +1,6 @@
 package com.sendme.ui.folderlist
 
+import android.content.Context
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
@@ -41,6 +42,7 @@ import com.sendme.homelistui.R
 import com.sendme.navigation.NavigationRoute
 import com.sendme.ui.AddNewFolderButton
 
+
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun FolderListScreen(
@@ -63,8 +65,14 @@ fun FolderListScreen(
     LaunchedEffect(oneTimeEvent) {
         oneTimeEvent?.let {
             when (it) {
-                is FolderListContract.FolderListOneTimeEvent.ShowToast -> onShowToastOneTimeEvent(
-                    context = context, message = it.message
+                is FolderListContract.FolderListOneTimeEvent.FolderDeleted -> onFolderDeletedOneTimeEvent(
+                    context = context,
+                    messagesCount = it.messagesCount
+                )
+
+                is FolderListContract.FolderListOneTimeEvent.FailedOperation -> onShowToastOneTimeEvent(
+                    context = context,
+                    message = context.getString(it.error)
                 )
             }
         }
@@ -127,14 +135,12 @@ fun FolderListScreen(
                                 modifier = Modifier.background(color = MaterialTheme.colorScheme.background),
                                 folder = item,
                                 onClick = {
-                                navigateTo(
-                                    NavigationRoute.DirectNotes(
-                                        folderName = item.name,
-                                        folderId = item.id ?: 0,
-                                        folderIconUri = item.iconUri.orEmpty()
+                                    navigateTo(
+                                        NavigationRoute.DirectNotes(
+                                            folderId = item.id ?: 0,
+                                        )
                                     )
-                                )
-                            })
+                                })
                         }, onStateChange = { newState ->
                             swipeState = newState
                         },
@@ -166,4 +172,21 @@ fun FolderListScreen(
             }
         }
     }
+}
+
+fun onFolderDeletedOneTimeEvent(context: Context, messagesCount: Int) {
+    when (messagesCount) {
+        0 -> onShowToastOneTimeEvent(
+            context = context, message = context.getString(R.string.deleted_folder_with_no_message)
+        )
+
+        1 -> onShowToastOneTimeEvent(
+            context = context, message = context.getString(R.string.deleted_folder_message_singular)
+        )
+
+        else -> onShowToastOneTimeEvent(
+            context = context, message = context.getString(R.string.deleted_folder_message_plural)
+        )
+    }
+
 }

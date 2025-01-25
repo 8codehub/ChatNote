@@ -1,6 +1,6 @@
 package com.sendme.directnotsdomain.usecase
 
-import com.pingpad.coredomain.navigation.models.FolderBaseInfo
+import com.pingpad.coredomain.models.FolderBaseInfo
 import kotlinx.coroutines.flow.Flow
 import com.sendme.directnotsdomain.SendMeNote
 
@@ -9,7 +9,7 @@ interface GetNotesUseCase {
 }
 
 interface AddNoteUseCase {
-    suspend operator fun invoke(folderId: Long, note: SendMeNote)
+    suspend operator fun invoke(folderId: Long, note: SendMeNote):Result<Unit>
 }
 
 interface ObserveFolderUseCase {

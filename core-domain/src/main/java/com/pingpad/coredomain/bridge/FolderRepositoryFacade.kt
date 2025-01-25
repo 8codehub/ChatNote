@@ -1,6 +1,6 @@
-package com.pingpad.coredomain.navigation.bridge
+package com.pingpad.coredomain.bridge
 
-import com.pingpad.coredomain.navigation.models.FolderBaseInfo
+import com.pingpad.coredomain.models.FolderBaseInfo
 import kotlinx.coroutines.flow.Flow
 
 interface FolderRepositoryFacade {

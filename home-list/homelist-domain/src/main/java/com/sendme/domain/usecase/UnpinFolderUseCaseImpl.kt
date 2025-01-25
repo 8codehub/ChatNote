@@ -7,7 +7,5 @@ internal class UnpinFolderUseCaseImpl @Inject constructor(
     private val repository: FolderRepository
 ) : UnpinFolderUseCase {
 
-    override suspend fun invoke(folderId: Long): Result<Unit> {
-        return repository.unpinFolder(folderId = folderId)
-    }
+    override suspend fun invoke(folderId: Long) = repository.unpinFolder(folderId = folderId)
 }

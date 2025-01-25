@@ -1,4 +1,4 @@
-package com.sendme.sendme.di
+package com.pingpad.sendme.di
 
 import android.content.Context
 import dagger.Module
@@ -11,7 +11,5 @@ import dagger.hilt.components.SingletonComponent
 @InstallIn(SingletonComponent::class)
 class ApplicationModule {
     @Provides
-    fun provideApplicationContext(@ApplicationContext context: Context): Context {
-        return context
-    }
+    fun provideApplicationContext(@ApplicationContext context: Context) = context
 }

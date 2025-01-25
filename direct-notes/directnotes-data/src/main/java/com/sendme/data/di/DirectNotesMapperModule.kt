@@ -1,6 +1,6 @@
 package com.sendme.data.di
 
-import com.pingpad.coredomain.navigation.mapper.Mapper
+import com.pingpad.coredomain.mapper.Mapper
 import com.sendme.data.mapper.NoteEntityToSendMeNoteMapper
 import com.sendme.data.mapper.SendMeNoteToNoteEntityMapper
 import com.sendme.data.model.NoteEntity

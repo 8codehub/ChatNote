@@ -1,11 +1,10 @@
 package com.sendme.ui.editor
 
+import androidx.annotation.StringRes
+import com.pingpad.coredomain.mapper.Mapper
 import com.pingpad.coreui.arch.StatefulEventHandler
-import com.sendme.coredomain.navigation.validator.ErrorKey
-import com.sendme.coredomain.navigation.validator.ValidationResult
 import com.sendme.domain.usecase.AddOrUpdateFolderUseCase
 import com.sendme.domain.usecase.GetFolderByIdUseCase
-import com.sendme.domain.usecase.GetFolderIconsUseCase
 import com.sendme.domain.validator.NewFolderNameValidator
 import com.sendme.homelistui.R
 import com.sendme.navigation.NavigationRoute
@@ -14,16 +13,15 @@ import com.sendme.ui.editor.FolderEditorContract.FolderEditorOneTimeEvent
 import com.sendme.ui.editor.FolderEditorContract.FolderEditorState
 import com.sendme.ui.editor.FolderEditorContract.MutableFolderEditorState
 import com.sendme.ui.provider.ImageUrlProvider
-import com.sendme.ui.validation.toErrorStringId
 import javax.inject.Inject
 
 
 class FolderEditorStatefulEventHandler @Inject constructor(
-    private val getFolderIconsUseCase: GetFolderIconsUseCase,
     private val addOrUpdateFolder: AddOrUpdateFolderUseCase,
     private val getFolderById: GetFolderByIdUseCase,
     private val imageUrlProvider: ImageUrlProvider,
-    private val newFolderNameValidator: NewFolderNameValidator
+    private val newFolderNameValidator: NewFolderNameValidator,
+    private val mapperResultErrorToErrorId: Mapper<Throwable?, Int>
 ) : StatefulEventHandler<FolderEditorEvent, FolderEditorOneTimeEvent, FolderEditorState, MutableFolderEditorState>(
     FolderEditorState()
 ) {
@@ -37,27 +35,32 @@ class FolderEditorStatefulEventHandler @Inject constructor(
 
             is FolderEditorEvent.LoadFolderInitialState -> onLoadFolderInitialStateEvent(isEditMode = event.isEditMode)
             is FolderEditorEvent.LoadFolder -> onLoadFolderEvent(folderId = event.folderId)
+            FolderEditorEvent.InputTextChanged -> onInputTextChangedEvent()
         }
 
     }
 
+    private fun onInputTextChangedEvent() {
+        updateUiState { inputError = null }
+    }
+
     private suspend fun onLoadFolderEvent(folderId: Long) {
         updateUiState { isLoading = true }
-        val result = getFolderById(folderId = folderId)
-        val folder = result.getOrNull()
-        if (result.isSuccess && folder != null) {
-            updateUiState {
-                isLoading = false
-                this.folderId = folder.id
-                folderName = folder.name
-                folderIconUri = folder.iconUri
+        getFolderById(folderId = folderId)
+            .onSuccess { folder ->
+                updateUiState {
+                    isLoading = false
+                    this.folderId = folder.id
+                    folderName = folder.name
+                    folderIconUri = folder.iconUri
+                }
             }
-        } else {
-            updateUiState {
-                isLoading = false
-                inputError = R.string.general_error
+            .onFailure {
+                updateUiState {
+                    isLoading = false
+                    inputError = mapperResultErrorToErrorId.map(from = it)
+                }
             }
-        }
     }
 
     private suspend fun onEditOrAddFolderEvent(
@@ -68,16 +71,14 @@ class FolderEditorStatefulEventHandler @Inject constructor(
         updateUiState {
             inputError = null
         }
-
-        when (val result = newFolderNameValidator(folderName = name)) {
-            ValidationResult.Success -> {
+        newFolderNameValidator(folderName = name)
+            .onSuccess {
                 handleValidFolderData(name = name, iconUri = iconUri)
             }
-
-            is ValidationResult.Error -> {
-                handleInvalidResult(errorKey = result.errorKey)
+            .onFailure {
+                handleInvalidResult(errorStringId = mapperResultErrorToErrorId.map(it))
             }
-        }
+
     }
 
     private fun onLoadFolderInitialStateEvent(isEditMode: Boolean) {
@@ -95,34 +96,43 @@ class FolderEditorStatefulEventHandler @Inject constructor(
     }
 
 
-    private fun handleInvalidResult(errorKey: ErrorKey) {
+    private fun handleInvalidResult(@StringRes errorStringId: Int) {
         updateUiState {
-            inputError = errorKey.toErrorStringId()
+            inputError = errorStringId
             isLoading = false
         }
     }
 
     private suspend fun handleValidFolderData(name: String, iconUri: String) {
 
-        val folderId =
+        val addOrUpdateFolderResult =
             addOrUpdateFolder(folderId = stateValue.folderId, name = name, iconUri = iconUri)
+        addOrUpdateFolderResult
+            .onSuccess {
+                onAddOrUpdateFolderResultSuccess(id = it)
+            }.onFailure {
+                onAddOrUpdateFolderResultFailure(resultError = it.cause)
+            }
 
         updateUiState {
             isLoading = false
         }
 
-        stateValue.folderId?.let {
-            _uiEvent.send(FolderEditorOneTimeEvent.NavigateBack)
+    }
 
-        } ?: _uiEvent.send(
-            FolderEditorOneTimeEvent.NavigateTo(
-                NavigationRoute.DirectNotes(
-                    folderId = folderId,
-                    folderName = name,
-                    folderIconUri = iconUri
-                )
+    private fun onAddOrUpdateFolderResultFailure(resultError: Throwable?) {
+
+
+    }
+
+    private suspend fun onAddOrUpdateFolderResultSuccess(id: Long) {
+        stateValue.folderId?.let {
+            FolderEditorOneTimeEvent.NavigateBack.processOneTimeEvent()
+        } ?: FolderEditorOneTimeEvent.NavigateTo(
+            NavigationRoute.DirectNotes(
+                folderId = id
             )
-        )
+        ).processOneTimeEvent()
 
     }
 
