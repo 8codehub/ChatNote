@@ -12,10 +12,10 @@ val LightOnBackground_TextPrimary = Color(0xFF000000)
 val LightError = Color.Red
 
 // Dark Theme Colors
-val DarkPrimary = Color(0xFF19A3FE) // Primary actions in dark mode
-val DarkOnPrimary = Color(0xFFFFFFFF) // High contrast for content on primary
+val DarkPrimary = Color(0xFF19A3FE)
+val DarkOnPrimary = Color(0xFFFFFFFF)
 val DarkSecondary = LightOnSecondary_TextSubbed
 val DarkOnSecondary = LightSecondary_SurfaceSubbed
 val DarkBackground = LightOnBackground_TextPrimary
 val DarkOnBackground = LightBackground_SurfacePrimary
-val DarkError = Color.Red // Error indicators in dark mode
+val DarkError = Color.Red

@@ -46,13 +46,11 @@ fun AddNewFolderButton(
         stringResource(R.string.hint_3)
     )
 
-    // Manage the current hint index
     var currentHintIndex by remember { mutableIntStateOf(0) }
 
-    // Automatically cycle through hints every 3 seconds
     LaunchedEffect(Unit) {
         while (true) {
-            delay(3000L) // Change every 3 seconds
+            delay(3000L)
             currentHintIndex = (currentHintIndex + 1) % hints.size
         }
     }
@@ -79,7 +77,6 @@ fun AddNewFolderButton(
         Spacer(modifier = Modifier.width(12.dp))
 
         Column(modifier = Modifier) {
-            // Title
             StyledText(
                 text = stringResource(R.string.new_folder),
                 fontWeight = FontWeight.Medium,
@@ -100,7 +97,7 @@ fun AddNewFolderButton(
                     text = hints[index],
                     fontWeight = FontWeight.Normal,
                     fontSize = 14.sp,
-                    maxLines = 1, // Ensure single line
+                    maxLines = 1,
                     overflow = TextOverflow.Ellipsis,
                     color = MaterialTheme.colorScheme.secondary
                 )

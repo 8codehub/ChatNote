@@ -39,13 +39,15 @@ fun SwappableItem(
     LaunchedEffect(swappableItemState) {
         when (swappableItemState) {
             SwappableItemState.Open -> {
-                swipeOffset.animateTo(-actionWidth, tween(300)) // Open with animation
-                onStateChange(SwappableItemState.Default) // Reset state to Default
+                swipeOffset.animateTo(-actionWidth, tween(300))
+                onStateChange(SwappableItemState.Default)
             }
+
             SwappableItemState.Close -> {
-                swipeOffset.animateTo(0f, tween(300)) // Close with animation
-                onStateChange(SwappableItemState.Default) // Reset state to Default
+                swipeOffset.animateTo(0f, tween(300))
+                onStateChange(SwappableItemState.Default)
             }
+
             SwappableItemState.Default -> {
                 // Do nothing
             }
@@ -92,12 +94,12 @@ fun SwappableItem(
                     )
                 },
                 measurePolicy = { measurables, constraints ->
-                    // Ensure constraints are valid and have finite dimensions
-                    val limitedConstraints = constraints.copy(maxHeight = constraints.maxHeight.coerceAtMost(5000)) // Limit max height
+                    val limitedConstraints =
+                        constraints.copy(maxHeight = constraints.maxHeight.coerceAtMost(5000))
                     val placeables = measurables.map { it.measure(limitedConstraints) }
                     val width = placeables.sumOf { it.width }
                     val height = placeables.maxOfOrNull { it.height } ?: 0
-                    actionWidth = width.toFloat() // Dynamically set the total action width
+                    actionWidth = width.toFloat()
                     layout(width, height) {
                         var xPosition = 0
                         placeables.forEach { placeable ->
@@ -110,7 +112,7 @@ fun SwappableItem(
         }
         Box(
             modifier = Modifier
-                .offset(x = (swipeOffset.value/2).dp)
+                .offset(x = (swipeOffset.value / 2).dp)
                 .fillMaxWidth()
                 .background(MaterialTheme.colorScheme.surface),
             contentAlignment = Alignment.CenterStart
