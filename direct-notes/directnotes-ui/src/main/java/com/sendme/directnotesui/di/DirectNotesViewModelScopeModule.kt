@@ -1,7 +1,6 @@
 package com.sendme.directnotesui.di
 
 import com.pingpad.coreui.arch.StatefulEventHandler
-import com.sendme.directnotesui.DirectNotesContract
 import com.sendme.directnotesui.DirectNotesContract.DirectNotesEvent
 import com.sendme.directnotesui.DirectNotesContract.DirectNotesOneTimeEvent
 import com.sendme.directnotesui.DirectNotesContract.DirectNotesState
@@ -17,8 +16,12 @@ import dagger.hilt.android.components.ViewModelComponent
 internal abstract class DirectNotesViewModelScopeModule {
 
     @Binds
-    abstract fun bindFolderListStatefulEventHandler(
+    abstract fun bindDirectNotesStatefulEventHandler(
         implementation: DirectNotesStatefulEventHandler
-    ): StatefulEventHandler<DirectNotesEvent, DirectNotesOneTimeEvent, DirectNotesState, MutableDirectNotesState>
-
+    ): StatefulEventHandler<
+            DirectNotesEvent,
+            DirectNotesOneTimeEvent,
+            DirectNotesState,
+            MutableDirectNotesState
+            >
 }

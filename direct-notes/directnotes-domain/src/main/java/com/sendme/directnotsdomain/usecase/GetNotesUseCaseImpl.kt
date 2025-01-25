@@ -8,7 +8,6 @@ import javax.inject.Inject
 class GetNotesUseCaseImpl @Inject constructor(
     private val repository: NotesRepository
 ) : GetNotesUseCase {
-    override fun invoke(folderId: Long): Flow<List<SendMeNote>> {
-        return repository.getNotes(folderId)
-    }
+
+    override fun invoke(folderId: Long) = repository.getNotes(folderId)
 }

@@ -1,10 +1,9 @@
-package com.sendme.directnotesui.viewmodel
+package com.sendme.directnotesui
 
 import androidx.lifecycle.SavedStateHandle
 import androidx.navigation.toRoute
 import com.pingpad.coreui.arch.BaseViewModel
 import com.pingpad.coreui.arch.StatefulEventHandler
-import com.sendme.directnotesui.DirectNotesContract
 import com.sendme.directnotesui.DirectNotesContract.DirectNotesEvent
 import com.sendme.directnotesui.DirectNotesContract.DirectNotesOneTimeEvent
 import com.sendme.directnotesui.DirectNotesContract.MutableDirectNotesState
@@ -15,7 +14,7 @@ import javax.inject.Inject
 @HiltViewModel
 class DirectNotesViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle,
-    folderEditorStatefulEventHandler: StatefulEventHandler<
+    statefulEventHandler: StatefulEventHandler<
             DirectNotesEvent,
             DirectNotesOneTimeEvent,
             DirectNotesContract.DirectNotesState,
@@ -32,21 +31,20 @@ class DirectNotesViewModel @Inject constructor(
                 DirectNotesContract.DirectNotesState,
                 MutableDirectNotesState
                 >
-        >(folderEditorStatefulEventHandler) {
+        >(statefulEventHandler) {
 
-    private var args = savedStateHandle.toRoute<NavigationRoute.DirectNotes>()
+    private val args = savedStateHandle.toRoute<NavigationRoute.DirectNotes>()
 
     init {
-        DirectNotesEvent.LoadFolderBasicInfo(
-            folderId = args.folderId
-        ).processWithLaunch()
-        DirectNotesEvent.LoadAllNotes(
-            folderId = args.folderId
-        ).processWithLaunch()
+        loadFolderData(args.folderId)
+    }
+
+    private fun loadFolderData(folderId: Long) {
+        DirectNotesEvent.LoadFolderBasicInfo(folderId).processWithLaunch()
+        DirectNotesEvent.LoadAllNotes(folderId).processWithLaunch()
     }
 
     fun addNote(note: String) {
-        DirectNotesEvent.AddNote( note = note).processWithLaunch()
+        DirectNotesEvent.AddNote(note).processWithLaunch()
     }
-
 }

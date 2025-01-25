@@ -13,8 +13,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.pingpad.coreui.component.ui.component.CircularImage
 import com.pingpad.coreui.component.ui.component.StyledText
-import com.sendme.coreui.component.ui.component.CircularImage
 import com.sendme.directnotesui.R
 
 @Composable
@@ -23,13 +23,15 @@ fun DirectNotesEmptyState(
     iconUri: String,
     modifier: Modifier = Modifier
 ) {
-
     Column(
         modifier = modifier,
         verticalArrangement = Arrangement.Top,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        CircularImage(imageUri = iconUri, iconSize = 100.dp)
+        CircularImage(
+            imageUri = iconUri,
+            iconSize = 100.dp
+        )
         StyledText(
             modifier = Modifier
                 .wrapContentHeight()

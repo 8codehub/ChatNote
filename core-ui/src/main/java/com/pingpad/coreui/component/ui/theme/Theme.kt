@@ -23,6 +23,7 @@ import com.pingpad.coreui.component.ui.theme.LightOnPrimary
 import com.pingpad.coreui.component.ui.theme.LightOnSecondary
 import com.pingpad.coreui.component.ui.theme.LightPrimary
 import com.pingpad.coreui.component.ui.theme.LightSecondary
+import com.pingpad.coreui.component.ui.theme.Typography
 
 private val DarkColorScheme = darkColorScheme(
     primary = DarkPrimary,

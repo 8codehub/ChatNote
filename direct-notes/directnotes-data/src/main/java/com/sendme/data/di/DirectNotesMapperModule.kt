@@ -14,16 +14,14 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 object DirectNotesMapperModule {
-    @Provides
-    @Singleton
-    fun provideNoteEntityToSendMeNoteMapper(): Mapper<NoteEntity, SendMeNote> {
-        return NoteEntityToSendMeNoteMapper()
-    }
 
-    // Provides the mapper to convert Folder to FolderEntity
     @Provides
     @Singleton
-    fun provideSendMeNoteToNoteEntityMapper(): Mapper<SendMeNote, NoteEntity> {
-        return SendMeNoteToNoteEntityMapper()
-    }
+    fun provideNoteEntityToSendMeNoteMapper(): Mapper<NoteEntity, SendMeNote> =
+        NoteEntityToSendMeNoteMapper()
+
+    @Provides
+    @Singleton
+    fun provideSendMeNoteToNoteEntityMapper(): Mapper<SendMeNote, NoteEntity> =
+        SendMeNoteToNoteEntityMapper()
 }

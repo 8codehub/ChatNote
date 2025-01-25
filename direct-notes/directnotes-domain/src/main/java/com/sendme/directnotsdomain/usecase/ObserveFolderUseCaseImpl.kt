@@ -8,8 +8,8 @@ import javax.inject.Inject
 class ObserveFolderUseCaseImpl @Inject constructor(
     private val folderRepositoryFacade: FolderRepositoryFacade
 ) : ObserveFolderUseCase {
-    override fun invoke(folderId: Long): Flow<FolderBaseInfo?> {
-        return folderRepositoryFacade.observeFolderById(folderId = folderId)
-    }
+
+    override fun invoke(folderId: Long) =
+        folderRepositoryFacade.observeFolderById(folderId = folderId)
 
 }

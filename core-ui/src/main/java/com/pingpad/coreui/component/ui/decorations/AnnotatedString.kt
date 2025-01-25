@@ -13,9 +13,9 @@ import androidx.compose.ui.text.font.FontWeight
 @Composable
 fun getAnnotatedString(
     @StringRes baseStringRes: Int,
-    valueToAnnotate: String?,
     annotatedValueColor: Color,
     annotatedValueFontWeight: FontWeight,
+    valueToAnnotate: String?
 ): AnnotatedString {
     val valueToAnnotateOrEmpty = valueToAnnotate.orEmpty()
     val baseString = stringResource(baseStringRes, valueToAnnotateOrEmpty)
@@ -24,7 +24,7 @@ fun getAnnotatedString(
 
     return buildAnnotatedString {
         append(baseString)
-        if (startIndex in 0..<endIndex) {
+        if (startIndex in 0 until endIndex) {
             addStyle(
                 style = SpanStyle(
                     color = annotatedValueColor,

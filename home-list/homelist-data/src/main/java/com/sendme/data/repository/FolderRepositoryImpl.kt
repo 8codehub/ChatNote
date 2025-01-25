@@ -44,7 +44,7 @@ class FolderRepositoryImpl @Inject constructor(
             }
             Result.success(folderIdResult)
         } catch (e: Exception) {
-            Result.failure(ResultError.DatabaseError(th = e))
+            Result.failure(ResultError.DatabaseError(throwable = e))
         }
     }
 
@@ -57,7 +57,7 @@ class FolderRepositoryImpl @Inject constructor(
                 Result.failure(ResultError.FolderNotFound)
             }
         } catch (e: Exception) {
-            Result.failure(ResultError.DatabaseError(th = e))
+            Result.failure(ResultError.DatabaseError(throwable = e))
         }
     }
 
@@ -70,7 +70,7 @@ class FolderRepositoryImpl @Inject constructor(
                 Result.failure(ResultError.FolderNotFound)
             }
         } catch (e: Exception) {
-            Result.failure(ResultError.DatabaseError(th = e))
+            Result.failure(ResultError.DatabaseError(throwable = e))
         }
     }
 
@@ -83,7 +83,7 @@ class FolderRepositoryImpl @Inject constructor(
                 Result.failure(ResultError.FolderNotFound)
             }
         } catch (e: Exception) {
-            Result.failure(ResultError.DatabaseError(th = e))
+            Result.failure(ResultError.DatabaseError(throwable = e))
         }
     }
 
@@ -97,7 +97,7 @@ class FolderRepositoryImpl @Inject constructor(
                 Result.failure(ResultError.FolderNotFound)
             }
         } catch (e: Exception) {
-            Result.failure(ResultError.DatabaseError(th = e))
+            Result.failure(ResultError.DatabaseError(throwable = e))
         }
     }
 

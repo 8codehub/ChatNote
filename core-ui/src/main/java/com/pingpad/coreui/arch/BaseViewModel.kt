@@ -16,9 +16,7 @@ abstract class BaseViewModel<
     private val statefulEventHandler: H
 ) : ViewModel() {
 
-    // State exposed to subclasses
     val state: StateFlow<S> = statefulEventHandler.state
-
     val oneTimeEvent: Flow<O> = statefulEventHandler.uiEvent
 
     fun E.processWithLaunch() {

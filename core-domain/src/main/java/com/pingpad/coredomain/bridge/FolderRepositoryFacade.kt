@@ -7,6 +7,9 @@ interface FolderRepositoryFacade {
 
     fun observeFolderById(folderId: Long): Flow<FolderBaseInfo>
 
-    suspend fun updateFolderWithLastNote(folderId: Long, lastNote: String, lastNoteDate: Long)
-
+    suspend fun updateFolderWithLastNote(
+        folderId: Long,
+        lastNote: String,
+        lastNoteDate: Long
+    )
 }

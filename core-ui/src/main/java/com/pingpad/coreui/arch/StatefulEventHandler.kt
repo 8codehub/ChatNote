@@ -1,11 +1,7 @@
 package com.pingpad.coreui.arch
 
 import kotlinx.coroutines.channels.Channel
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.receiveAsFlow
-import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.flow.*
 
 abstract class StatefulEventHandler<E, O, S, M>(
     initialState: S
@@ -13,14 +9,13 @@ abstract class StatefulEventHandler<E, O, S, M>(
 
     private val _state = MutableStateFlow(initialState)
     val state: StateFlow<S> = _state.asStateFlow()
-    val stateValue get() = _state.value
+    val stateValue: S get() = _state.value
 
     private val _uiEvent = Channel<O>(Channel.BUFFERED)
-    val uiEvent = _uiEvent.receiveAsFlow()
+    val uiEvent: Flow<O> = _uiEvent.receiveAsFlow()
 
     abstract suspend fun process(event: E, args: Any? = null)
 
-    // Generic state update function
     protected fun updateUiState(update: M.() -> Unit) {
         _state.update { currentState ->
             currentState.toMutable().apply(update).toImmutable()

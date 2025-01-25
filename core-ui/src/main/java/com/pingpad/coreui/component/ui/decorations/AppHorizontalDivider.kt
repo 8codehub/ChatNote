@@ -12,8 +12,8 @@ import androidx.compose.ui.unit.dp
 
 @Composable
 fun AppHorizontalDivider(
-    color: Color = MaterialTheme.colorScheme.secondary,
     thickness: Dp = 1.dp,
+    color: Color = MaterialTheme.colorScheme.secondary,
     modifier: Modifier = Modifier
 ) {
     HorizontalDivider(
@@ -22,6 +22,5 @@ fun AppHorizontalDivider(
         modifier = modifier
             .fillMaxWidth()
             .height(thickness)
-            .then(Modifier.height(thickness))
     )
 }

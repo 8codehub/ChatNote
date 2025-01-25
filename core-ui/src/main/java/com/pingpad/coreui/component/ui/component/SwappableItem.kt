@@ -22,32 +22,31 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.layout.Layout
 import androidx.compose.ui.unit.dp
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 @Composable
-fun SwipeableItem(
+fun SwappableItem(
     modifier: Modifier = Modifier,
     content: @Composable () -> Unit,
-    onStateChange: (SwipeableItemState) -> Unit,
+    onStateChange: (SwappableItemState) -> Unit,
     actionButtonsContent: @Composable RowScope.() -> Unit,
-    swipeableItemState: SwipeableItemState = SwipeableItemState.Default
+    swappableItemState: SwappableItemState = SwappableItemState.Default
 ) {
     var actionWidth by remember { mutableFloatStateOf(0f) }
     val swipeOffset = remember { Animatable(0f) }
     val scope = rememberCoroutineScope()
 
-    LaunchedEffect(swipeableItemState) {
-        when (swipeableItemState) {
-            SwipeableItemState.Open -> {
+    LaunchedEffect(swappableItemState) {
+        when (swappableItemState) {
+            SwappableItemState.Open -> {
                 swipeOffset.animateTo(-actionWidth, tween(300)) // Open with animation
-                onStateChange(SwipeableItemState.Default) // Reset state to Default
+                onStateChange(SwappableItemState.Default) // Reset state to Default
             }
-            SwipeableItemState.Close -> {
+            SwappableItemState.Close -> {
                 swipeOffset.animateTo(0f, tween(300)) // Close with animation
-                onStateChange(SwipeableItemState.Default) // Reset state to Default
+                onStateChange(SwappableItemState.Default) // Reset state to Default
             }
-            SwipeableItemState.Default -> {
+            SwappableItemState.Default -> {
                 // Do nothing
             }
         }
@@ -61,31 +60,26 @@ fun SwipeableItem(
                     onDragEnd = {
                         scope.launch {
                             if (swipeOffset.value < -actionWidth / 2) {
-                                // Snap to fully reveal actions
                                 swipeOffset.animateTo(-actionWidth, tween(300))
                             } else {
-                                // Snap back to idle position
                                 swipeOffset.animateTo(0f, tween(300))
                             }
                         }
                     },
                     onDragCancel = {
                         scope.launch {
-                            // Reset to idle position
                             swipeOffset.animateTo(0f, tween(300))
                         }
                     },
                     onHorizontalDrag = { _, dragAmount ->
                         scope.launch {
                             val target = swipeOffset.value + dragAmount
-                            // Restrict swipe between 0 and -actionWidth
                             swipeOffset.snapTo(target.coerceIn(-actionWidth, 0f))
                         }
                     }
                 )
             }
     ) {
-        // Action buttons container
         Box(
             modifier = Modifier
                 .align(Alignment.CenterEnd)
@@ -114,8 +108,6 @@ fun SwipeableItem(
                 }
             )
         }
-
-        // Foreground content
         Box(
             modifier = Modifier
                 .offset(x = (swipeOffset.value/2).dp)
@@ -128,6 +120,6 @@ fun SwipeableItem(
     }
 }
 
-enum class SwipeableItemState {
+enum class SwappableItemState {
     Open, Close, Default
 }

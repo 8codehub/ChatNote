@@ -1,4 +1,4 @@
-package com.sendme.directnotesui.screen.editor
+package com.sendme.directnotesui.components.editor
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Row
@@ -22,12 +22,12 @@ import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.sendme.coreui.component.PoppinsFontFamily
-import com.sendme.coreui.component.ui.component.CircularImage
+import com.pingpad.coreui.component.ui.theme.PoppinsFontFamily
+import com.pingpad.coreui.component.ui.component.CircularImage
 import com.sendme.directnotesui.R
 
 @Composable
-fun Editor(
+fun NoteEditorInput(
     onNewNoteClick: (String) -> Unit,
     modifier: Modifier = Modifier
 ) {

@@ -14,14 +14,14 @@ import com.pingpad.coreui.component.ui.component.StyledText
 @Composable
 fun AppAlertDialog(
     showDialog: Boolean,
-    title: String? = null,
-    annotatedTitle: AnnotatedString? = null,
     message: String,
     @StringRes confirmButtonText: Int,
     @StringRes dismissButtonText: Int,
     onDismissRequest: () -> Unit,
     onConfirm: () -> Unit,
-    onDismiss: () -> Unit
+    onDismiss: () -> Unit,
+    title: String? = null,
+    annotatedTitle: AnnotatedString? = null
 ) {
     if (showDialog) {
         AlertDialog(

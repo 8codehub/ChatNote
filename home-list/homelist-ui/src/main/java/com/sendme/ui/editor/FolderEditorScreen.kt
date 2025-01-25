@@ -29,9 +29,9 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.pingpad.coreui.component.ui.appbar.CustomTopBar
+import com.pingpad.coreui.component.ui.appbar.ContentDrivenTopBar
 import com.pingpad.coreui.component.ui.component.LabeledInputText
-import com.sendme.coreui.component.ui.component.CircularImage
+import com.pingpad.coreui.component.ui.component.CircularImage
 import com.pingpad.coreui.component.ui.component.StyledText
 import com.sendme.homelistui.R
 import com.sendme.navigation.NavigationRoute
@@ -70,7 +70,7 @@ fun FolderEditorScreen(
     Scaffold(
         modifier = Modifier,
         topBar = {
-            CustomTopBar(
+            ContentDrivenTopBar(
                 modifier = Modifier,
                 startContent = {
                     StyledText(

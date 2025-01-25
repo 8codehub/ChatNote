@@ -10,7 +10,7 @@ import com.sendme.navigation.NavigationRoute
 
 object DirectNotesContract {
 
-    // Immutable state
+    // Immutable State
     data class DirectNotesState(
         val folderId: Long? = null,
         val folderName: String = "",
@@ -20,7 +20,6 @@ object DirectNotesContract {
         override val isLoading: Boolean = false,
         @StringRes override val generalError: Int = com.sendme.coreui.R.string.general_error
     ) : ConvertibleState<DirectNotesState, MutableDirectNotesState> {
-
         override fun toMutable(): MutableDirectNotesState {
             return MutableDirectNotesState(
                 folderId = folderId,
@@ -34,17 +33,16 @@ object DirectNotesContract {
         }
     }
 
-    // Mutable state
+    // Mutable State
     class MutableDirectNotesState(
         var folderId: Long? = null,
         var folderName: String = "",
         var folderIconUri: String? = null,
         var notes: List<SendMeNote> = emptyList(),
-        override var isLoading: Boolean = false,
         var emptyNotes: Boolean? = null,
-        @StringRes override var generalError: Int = com.sendme.coreui.R.string.general_error,
+        override var isLoading: Boolean = false,
+        @StringRes override var generalError: Int = com.sendme.coreui.R.string.general_error
     ) : MutableConvertibleState<DirectNotesState> {
-
         override fun toImmutable(): DirectNotesState {
             return DirectNotesState(
                 folderId = folderId,
@@ -60,17 +58,9 @@ object DirectNotesContract {
 
     // UI Events
     sealed class DirectNotesEvent : UiEvent {
-        data class LoadFolderBasicInfo(
-            val folderId: Long
-        ) : DirectNotesEvent()
-
-        data class LoadAllNotes(
-            val folderId: Long
-        ) : DirectNotesEvent()
-
-        data class AddNote(
-            val note: String
-        ) : DirectNotesEvent()
+        data class LoadFolderBasicInfo(val folderId: Long) : DirectNotesEvent()
+        data class LoadAllNotes(val folderId: Long) : DirectNotesEvent()
+        data class AddNote(val note: String) : DirectNotesEvent()
     }
 
     // One-Time Events

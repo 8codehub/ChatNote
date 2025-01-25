@@ -14,9 +14,12 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 object DirectNotesDatabaseModule {
+
     @Provides
     @Singleton
-    fun provideDirectNotesDatabase(@ApplicationContext context: Context): DirectNotesDatabase {
+    fun provideDirectNotesDatabase(
+        @ApplicationContext context: Context
+    ): DirectNotesDatabase {
         return Room.databaseBuilder(
             context,
             DirectNotesDatabase::class.java,
@@ -25,5 +28,7 @@ object DirectNotesDatabaseModule {
     }
 
     @Provides
-    fun provideNoteDao(database: DirectNotesDatabase): NoteDao = database.noteDao()
+    fun provideNoteDao(
+        database: DirectNotesDatabase
+    ): NoteDao = database.noteDao()
 }

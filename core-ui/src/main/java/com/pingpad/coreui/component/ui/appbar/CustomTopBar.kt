@@ -16,7 +16,7 @@ import androidx.compose.ui.unit.dp
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun CustomTopBar(
+fun ContentDrivenTopBar(
     modifier: Modifier = Modifier,
     startContent: @Composable (() -> Unit)? = null,
     centerContent: @Composable (() -> Unit)? = null,

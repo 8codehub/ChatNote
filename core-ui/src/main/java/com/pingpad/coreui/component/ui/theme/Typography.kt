@@ -1,4 +1,4 @@
-package com.sendme.coreui.component
+package com.pingpad.coreui.component.ui.theme
 
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily

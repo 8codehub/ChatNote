@@ -2,7 +2,6 @@ package com.sendme.ui.folderlist
 
 import android.content.Context
 import androidx.compose.animation.core.tween
-import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -23,20 +22,17 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.AnnotatedString
-import androidx.compose.ui.text.SpanStyle
-import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.pingpad.coreui.component.ui.component.SwipeableItem
-import com.pingpad.coreui.component.ui.component.SwipeableItemState
+import com.pingpad.coreui.component.ui.component.SwappableItem
+import com.pingpad.coreui.component.ui.component.SwappableItemState
 import com.pingpad.coreui.component.ui.dialog.AppAlertDialog
 import com.pingpad.coreui.component.ui.component.StyledText
 import com.pingpad.coreui.component.ui.decorations.getAnnotatedString
-import com.pingpad.coreui.component.ui.decorations.onShowToastOneTimeEvent
+import com.pingpad.coreui.component.ui.decorations.showToast
 import com.sendme.domain.model.Folder
 import com.sendme.homelistui.R
 import com.sendme.navigation.NavigationRoute
@@ -54,7 +50,7 @@ fun FolderListScreen(
     val oneTimeEvent by viewModel.oneTimeEvent.collectAsStateWithLifecycle(null)
     val context = LocalContext.current
 
-    var swipeState by remember { mutableStateOf(SwipeableItemState.Default) }
+    var swipeState by remember { mutableStateOf(SwappableItemState.Default) }
     val deleteFolderTitle = getAnnotatedString(
         baseStringRes = R.string.delete_folder_title,
         valueToAnnotate = selectedFolderForDeletion?.name,
@@ -70,7 +66,7 @@ fun FolderListScreen(
                     messagesCount = it.messagesCount
                 )
 
-                is FolderListContract.FolderListOneTimeEvent.FailedOperation -> onShowToastOneTimeEvent(
+                is FolderListContract.FolderListOneTimeEvent.FailedOperation -> showToast(
                     context = context,
                     message = context.getString(it.error)
                 )
@@ -124,7 +120,7 @@ fun FolderListScreen(
                 }
                 items(state.folders.size, key = { state.folders[it].id ?: 0 }) { index ->
                     val item = state.folders[index]
-                    SwipeableItem(
+                    SwappableItem(
                         modifier = Modifier.animateItem(
                             fadeInSpec = null,
                             fadeOutSpec = null,
@@ -144,25 +140,25 @@ fun FolderListScreen(
                         }, onStateChange = { newState ->
                             swipeState = newState
                         },
-                        swipeableItemState = swipeState,
+                        swappableItemState = swipeState,
                         actionButtonsContent = {
                             FolderActionItems(
                                 modifier = Modifier.padding(horizontal = 12.dp),
                                 isPinned = item.isPinned,
                                 onFolderEdit = {
-                                    swipeState = SwipeableItemState.Close
+                                    swipeState = SwappableItemState.Close
                                     navigateTo(NavigationRoute.FolderEditor(folderId = item.id))
                                 },
                                 onFolderPin = {
-                                    swipeState = SwipeableItemState.Close
+                                    swipeState = SwappableItemState.Close
                                     viewModel.pinFolder(folderId = item.id ?: 0)
                                 },
                                 onFolderUnPin = {
-                                    swipeState = SwipeableItemState.Close
+                                    swipeState = SwappableItemState.Close
                                     viewModel.unPinFolder(folderId = item.id ?: 0)
                                 },
                                 onFolderDelete = {
-                                    swipeState = SwipeableItemState.Close
+                                    swipeState = SwappableItemState.Close
                                     selectedFolderForDeletion = item
                                 }
                             )
@@ -176,15 +172,15 @@ fun FolderListScreen(
 
 fun onFolderDeletedOneTimeEvent(context: Context, messagesCount: Int) {
     when (messagesCount) {
-        0 -> onShowToastOneTimeEvent(
+        0 -> showToast(
             context = context, message = context.getString(R.string.deleted_folder_with_no_message)
         )
 
-        1 -> onShowToastOneTimeEvent(
+        1 -> showToast(
             context = context, message = context.getString(R.string.deleted_folder_message_singular)
         )
 
-        else -> onShowToastOneTimeEvent(
+        else -> showToast(
             context = context, message = context.getString(R.string.deleted_folder_message_plural)
         )
     }

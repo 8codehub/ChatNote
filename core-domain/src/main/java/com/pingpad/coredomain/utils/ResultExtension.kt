@@ -1,6 +1,5 @@
 package com.pingpad.coredomain.utils
 
-
 fun <T> Result.Companion.failure(error: ResultError): Result<T> {
     return failure(AppException(error))
 }
@@ -8,7 +7,7 @@ fun <T> Result.Companion.failure(error: ResultError): Result<T> {
 inline fun <T> Result<T>.onAppException(
     errorHandler: (ResultError) -> Unit
 ): Result<T> {
-    return this.onFailure { throwable ->
+    return onFailure { throwable ->
         if (throwable is AppException) {
             errorHandler(throwable.error)
         }

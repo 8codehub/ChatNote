@@ -18,5 +18,4 @@ object CoreUiMapperModule {
     fun provideResultErrorToErrorMessageIdMapper(): Mapper<Throwable?, Int> {
         return ResultErrorToErrorMessageMapper()
     }
-
 }

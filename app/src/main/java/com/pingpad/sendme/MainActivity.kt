@@ -10,7 +10,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.sendme.coreui.component.ui.theme.SendMeTheme
-import com.sendme.directnotesui.screen.DirectNotesScreen
+import com.sendme.directnotesui.DirectNotesScreen
 import com.sendme.navigation.NavigationRoute
 import com.sendme.ui.folderlist.FolderListScreen
 import com.sendme.ui.editor.FolderEditorScreen
@@ -38,8 +38,8 @@ fun SendMeApp(navController: NavHostController) {
     ) {
         composable<NavigationRoute.HomeList> {
             FolderListScreen(
-                navigateTo = {
-                    navController.navigate(it)
+                navigateTo = { route ->
+                    navController.navigate(route)
                 }
             )
         }
@@ -47,22 +47,20 @@ fun SendMeApp(navController: NavHostController) {
         composable<NavigationRoute.DirectNotes> {
             DirectNotesScreen(
                 onBackClick = { navController.popBackStack() },
-                navigateTo = {
-                    navController.navigate(it)
+                navigateTo = { route ->
+                    navController.navigate(route)
                 }
             )
         }
 
         composable<NavigationRoute.FolderEditor> { _ ->
             FolderEditorScreen(
-                navigateTo = { navRout ->
+                onCancel = { navController.popBackStack() },
+                navigateTo = { route ->
                     navigateWithClearBackStack(
-                        navController = navController,
-                        targetRoute = navRout
+                        targetRoute = route,
+                        navController = navController
                     )
-                },
-                onCancel = {
-                    navController.popBackStack()
                 }
             )
         }
@@ -70,8 +68,8 @@ fun SendMeApp(navController: NavHostController) {
 }
 
 fun navigateWithClearBackStack(
-    navController: NavHostController,
-    targetRoute: NavigationRoute
+    targetRoute: NavigationRoute,
+    navController: NavHostController
 ) {
     navController.navigate(targetRoute) {
         popUpTo(NavigationRoute.HomeList) { inclusive = false }
