@@ -1,4 +1,4 @@
-package com.pingpad.coreui.mapping
+package com.pingpad.coreui.mapper
 
 import com.pingpad.coredomain.mapper.Mapper
 import com.pingpad.coredomain.utils.AppException

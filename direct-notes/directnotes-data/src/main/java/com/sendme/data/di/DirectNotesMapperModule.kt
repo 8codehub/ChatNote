@@ -4,7 +4,7 @@ import com.pingpad.coredomain.mapper.Mapper
 import com.sendme.data.mapper.NoteEntityToSendMeNoteMapper
 import com.sendme.data.mapper.SendMeNoteToNoteEntityMapper
 import com.sendme.data.model.NoteEntity
-import com.sendme.directnotsdomain.SendMeNote
+import com.sendme.directnotsdomain.model.Note
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -17,11 +17,11 @@ object DirectNotesMapperModule {
 
     @Provides
     @Singleton
-    fun provideNoteEntityToSendMeNoteMapper(): Mapper<NoteEntity, SendMeNote> =
+    fun provideNoteEntityToSendMeNoteMapper(): Mapper<NoteEntity, Note> =
         NoteEntityToSendMeNoteMapper()
 
     @Provides
     @Singleton
-    fun provideSendMeNoteToNoteEntityMapper(): Mapper<SendMeNote, NoteEntity> =
+    fun provideSendMeNoteToNoteEntityMapper(): Mapper<Note, NoteEntity> =
         SendMeNoteToNoteEntityMapper()
 }

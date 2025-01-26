@@ -8,7 +8,7 @@ import com.sendme.data.model.NoteEntity
 import com.sendme.data.repository.NotesRepositoryImpl
 import com.sendme.data.repository.NotesStreamRepositoryImpl
 import com.sendme.data.repository.facade.FolderNotesFacadeImpl
-import com.sendme.directnotsdomain.SendMeNote
+import com.sendme.directnotsdomain.model.Note
 import com.sendme.directnotsdomain.repository.NotesRepository
 import com.sendme.directnotsdomain.repository.NotesStreamRepository
 import dagger.Module
@@ -26,8 +26,8 @@ internal object DirectNotesRepositoryModule {
     fun provideNotesRepository(
         noteDao: NoteDao,
         folderUpdateHandler: FolderRepositoryFacade,
-        entityToDomainMapper: Mapper<NoteEntity, SendMeNote>,
-        domainToEntityMapper: Mapper<SendMeNote, NoteEntity>
+        entityToDomainMapper: Mapper<NoteEntity, Note>,
+        domainToEntityMapper: Mapper<Note, NoteEntity>
     ): NotesRepository = NotesRepositoryImpl(
         noteDao = noteDao,
         folderUpdateHandler = folderUpdateHandler,
@@ -38,7 +38,7 @@ internal object DirectNotesRepositoryModule {
     @Singleton
     fun provideNotesStreamRepository(
         noteDao: NoteDao,
-        entityToDomainMapper: Mapper<NoteEntity, SendMeNote>,
+        entityToDomainMapper: Mapper<NoteEntity, Note>,
     ): NotesStreamRepository = NotesStreamRepositoryImpl(
         noteDao = noteDao,
         entityToDomainMapper = entityToDomainMapper,

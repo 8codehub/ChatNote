@@ -40,6 +40,19 @@ class DateFormatter @Inject constructor() {
         }
     }
 
+
+    fun formatLong(millis: Long): String {
+        val currentDate = Calendar.getInstance()
+        val noteDate = Calendar.getInstance()
+        noteDate.timeInMillis = millis
+
+        return when {
+            isToday(currentDate, noteDate) -> timeFormat.format(noteDate.time)
+            isThisYear(currentDate, noteDate) -> "${dateFormat.format(noteDate.time)} ${timeFormat.format(noteDate.time)}"
+            else -> "${fullDateFormat.format(noteDate.time)} ${timeFormat.format(noteDate.time)}"
+        }
+    }
+
     private fun isToday(currentDate: Calendar, noteDate: Calendar): Boolean {
         return currentDate.get(Calendar.YEAR) == noteDate.get(Calendar.YEAR) &&
                 currentDate.get(Calendar.MONTH) == noteDate.get(Calendar.MONTH) &&

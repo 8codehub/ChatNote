@@ -2,20 +2,22 @@ package com.sendme.data.mapper
 
 import com.pingpad.coredomain.mapper.Mapper
 import com.sendme.data.model.NoteEntity
-import com.sendme.directnotsdomain.SendMeNote
+import com.sendme.directnotsdomain.model.Note
 import javax.inject.Inject
 
-internal class NoteEntityToSendMeNoteMapper @Inject constructor() : Mapper<NoteEntity, SendMeNote> {
+internal class NoteEntityToSendMeNoteMapper @Inject constructor() : Mapper<NoteEntity, Note> {
 
-    override fun map(from: NoteEntity): SendMeNote = SendMeNote(
+    override fun map(from: NoteEntity): Note = Note(
         id = from.id,
-        content = from.content
+        folderId = from.folderId,
+        content = from.content,
+        createdAt = from.createdAt
     )
 }
 
-internal class SendMeNoteToNoteEntityMapper @Inject constructor() : Mapper<SendMeNote, NoteEntity> {
+internal class SendMeNoteToNoteEntityMapper @Inject constructor() : Mapper<Note, NoteEntity> {
 
-    override fun map(from: SendMeNote): NoteEntity = NoteEntity(
+    override fun map(from: Note): NoteEntity = NoteEntity(
         id = from.id,
         content = from.content,
         createdAt = System.currentTimeMillis(),

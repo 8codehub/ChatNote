@@ -1,4 +1,4 @@
-package com.sendme.data.mapping
+package com.sendme.data.mapper
 
 import com.pingpad.coredomain.mapper.Mapper
 import com.pingpad.coredomain.models.FolderBaseInfo

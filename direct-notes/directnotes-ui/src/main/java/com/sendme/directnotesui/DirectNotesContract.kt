@@ -5,7 +5,7 @@ import com.pingpad.coreui.arch.ConvertibleState
 import com.pingpad.coreui.arch.MutableConvertibleState
 import com.pingpad.coreui.arch.UiEvent
 import com.pingpad.coreui.arch.UiOneTimeEvent
-import com.sendme.directnotsdomain.SendMeNote
+import com.sendme.directnotesui.model.UiNote
 import com.sendme.navigation.NavigationRoute
 
 object DirectNotesContract {
@@ -15,7 +15,7 @@ object DirectNotesContract {
         val folderId: Long? = null,
         val folderName: String = "",
         val folderIconUri: String? = null,
-        val notes: List<SendMeNote> = emptyList(),
+        val notes: List<UiNote> = emptyList(),
         val emptyNotes: Boolean? = null,
         override val isLoading: Boolean = false,
         @StringRes override val generalError: Int = com.sendme.coreui.R.string.general_error
@@ -38,7 +38,7 @@ object DirectNotesContract {
         var folderId: Long? = null,
         var folderName: String = "",
         var folderIconUri: String? = null,
-        var notes: List<SendMeNote> = emptyList(),
+        var notes: List<UiNote> = emptyList(),
         var emptyNotes: Boolean? = null,
         override var isLoading: Boolean = false,
         @StringRes override var generalError: Int = com.sendme.coreui.R.string.general_error

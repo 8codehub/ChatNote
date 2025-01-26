@@ -1,8 +1,8 @@
 package com.sendme.directnotsdomain.repository
 
-import com.sendme.directnotsdomain.SendMeNote
+import com.sendme.directnotsdomain.model.Note
 
 interface NotesRepository {
 
-    suspend fun addNote(folderId: Long, note: SendMeNote): Result<Unit>
+    suspend fun addNote(folderId: Long, note: Note): Result<Unit>
 }

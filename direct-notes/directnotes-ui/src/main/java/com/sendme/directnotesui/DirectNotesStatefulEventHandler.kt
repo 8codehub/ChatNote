@@ -7,7 +7,8 @@ import com.sendme.directnotesui.DirectNotesContract.DirectNotesEvent
 import com.sendme.directnotesui.DirectNotesContract.DirectNotesOneTimeEvent
 import com.sendme.directnotesui.DirectNotesContract.DirectNotesState
 import com.sendme.directnotesui.DirectNotesContract.MutableDirectNotesState
-import com.sendme.directnotsdomain.SendMeNote
+import com.sendme.directnotesui.model.UiNote
+import com.sendme.directnotsdomain.model.Note
 import com.sendme.directnotsdomain.usecase.AddNoteUseCase
 import com.sendme.directnotsdomain.usecase.GetNotesUseCase
 import com.sendme.directnotsdomain.usecase.ObserveFolderUseCase
@@ -20,7 +21,8 @@ class DirectNotesStatefulEventHandler @Inject constructor(
     private val observeNotes: GetNotesUseCase,
     private val addNoteUseCase: AddNoteUseCase,
     private val observeFolderUseCase: ObserveFolderUseCase,
-    private val errorResultMapper: Mapper<Throwable, Int>
+    private val errorResultMapper: Mapper<Throwable, Int>,
+    private val notesToUiNotes: Mapper<Note, UiNote>
 ) : StatefulEventHandler<
         DirectNotesEvent,
         DirectNotesOneTimeEvent,
@@ -50,7 +52,7 @@ class DirectNotesStatefulEventHandler @Inject constructor(
         observeNotes(folderId)
             .onEach { notes ->
                 updateUiState {
-                    this.notes = notes
+                    this.notes = notesToUiNotes.mapList(from = notes)
                     this.emptyNotes = notes.isEmpty()
                 }
             }
@@ -91,9 +93,11 @@ class DirectNotesStatefulEventHandler @Inject constructor(
 
     private suspend fun onAddNoteEvent(folderId: Long?, content: String) {
         folderId?.let {
-            val newNote = SendMeNote(
+            val newNote = Note(
                 id = System.currentTimeMillis(),
-                content = content
+                content = content,
+                folderId = folderId,
+                createdAt = System.currentTimeMillis()
             )
             addNoteUseCase(it, newNote).onFailure { throwable ->
                 updateUiState {

@@ -6,18 +6,17 @@ import com.pingpad.coredomain.utils.ResultError
 import com.pingpad.coredomain.utils.throwAsAppException
 import com.sendme.data.db.NoteDao
 import com.sendme.data.model.NoteEntity
-import com.sendme.directnotsdomain.SendMeNote
+import com.sendme.directnotsdomain.model.Note
 import com.sendme.directnotsdomain.repository.NotesRepository
-import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 class NotesRepositoryImpl @Inject constructor(
     private val noteDao: NoteDao,
     private val folderUpdateHandler: FolderRepositoryFacade,
-    private val domainToEntityMapper: Mapper<SendMeNote, NoteEntity>
+    private val domainToEntityMapper: Mapper<Note, NoteEntity>
 ) : NotesRepository {
 
-    override suspend fun addNote(folderId: Long, note: SendMeNote): Result<Unit> {
+    override suspend fun addNote(folderId: Long, note: Note): Result<Unit> {
         return runCatching {
             val createdDate = System.currentTimeMillis()
             val noteEntity = domainToEntityMapper.map(note).copy(
