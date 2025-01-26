@@ -4,8 +4,6 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.compose.animation.AnimatedContentTransitionScope
-import androidx.compose.animation.core.tween
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
@@ -38,13 +36,7 @@ fun SendMeApp(navController: NavHostController) {
         navController = navController,
         startDestination = NavigationRoute.HomeList
     ) {
-        composable<NavigationRoute.HomeList>(
-            exitTransition = {
-                return@composable slideOutOfContainer(
-                    AnimatedContentTransitionScope.SlideDirection.Start, tween(300)
-                )
-            }
-        ) {
+        composable<NavigationRoute.HomeList> {
             FolderListScreen(
                 navigateTo = { route ->
                     navController.navigate(route)
@@ -52,11 +44,7 @@ fun SendMeApp(navController: NavHostController) {
             )
         }
 
-        composable<NavigationRoute.DirectNotes>(enterTransition = {
-            return@composable slideIntoContainer(
-                AnimatedContentTransitionScope.SlideDirection.Start, tween(300)
-            )
-        }) {
+        composable<NavigationRoute.DirectNotes> {
             DirectNotesScreen(
                 onBackClick = { navController.popBackStack() },
                 navigateTo = { route ->
@@ -65,11 +53,7 @@ fun SendMeApp(navController: NavHostController) {
             )
         }
 
-        composable<NavigationRoute.FolderEditor>(enterTransition = {
-            return@composable slideIntoContainer(
-                AnimatedContentTransitionScope.SlideDirection.Start, tween(300)
-            )
-        }) { _ ->
+        composable<NavigationRoute.FolderEditor> { _ ->
             FolderEditorScreen(
                 onCancel = { navController.popBackStack() },
                 navigateTo = { route ->
