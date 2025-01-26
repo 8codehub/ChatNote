@@ -1,5 +1,6 @@
 package com.sendme.ui.folderlist
 
+import android.content.Context
 import com.pingpad.coreui.arch.EventDrivenViewModel
 import com.pingpad.coreui.arch.StatefulEventHandler
 import com.sendme.common.di.IoDispatcher
@@ -7,6 +8,7 @@ import com.sendme.ui.folderlist.FolderListContract.FolderListEvent
 import com.sendme.ui.folderlist.FolderListContract.FolderListOneTimeEvent
 import com.sendme.ui.folderlist.FolderListContract.FolderListState
 import com.sendme.ui.folderlist.FolderListContract.MutableFolderListState
+import com.sendme.ui.util.DefaultFoldersProvider
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineDispatcher
 import javax.inject.Inject
@@ -43,6 +45,15 @@ class FolderListViewModel @Inject constructor(
 
     fun unPinFolder(folderId: Long) {
         FolderListEvent.UnpinFolder(folderId = folderId).processWithLaunch()
+    }
+
+    fun onAppFirstOpen(context: Context) {
+        FolderListEvent.AddDefaultFolders(
+            defaultFolders = DefaultFoldersProvider.loadFolders(
+                context = context
+            )
+        ).processWithLaunch()
+
     }
 
     override fun onStateReady() {

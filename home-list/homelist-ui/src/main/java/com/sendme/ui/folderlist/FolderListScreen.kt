@@ -73,6 +73,10 @@ fun FolderListScreen(
                     context = context,
                     message = context.getString(it.error)
                 )
+
+                FolderListContract.FolderListOneTimeEvent.OnAppFirstOpen -> viewModel.onAppFirstOpen(
+                    context = context
+                )
             }
         }
     }

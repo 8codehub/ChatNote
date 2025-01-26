@@ -1,10 +1,13 @@
 package com.sendme.ui.folderlist
 
 import com.pingpad.coredomain.mapper.Mapper
+import com.pingpad.coredomain.utils.AppPreferences
 import com.pingpad.coreui.arch.StatefulEventHandler
+import com.sendme.domain.model.DefaultFolder
 import com.sendme.domain.model.Folder
 import com.sendme.domain.usecase.DeleteFolderUseCase
 import com.sendme.domain.usecase.GetFoldersUseCase
+import com.sendme.domain.usecase.InitializeDefaultFoldersUseCase
 import com.sendme.domain.usecase.PinFolderUseCase
 import com.sendme.domain.usecase.UnpinFolderUseCase
 import com.sendme.homelistui.R
@@ -23,8 +26,10 @@ import javax.inject.Inject
 class FolderListStatefulEventHandler @Inject constructor(
     private val getFolders: GetFoldersUseCase,
     private val pinFolder: PinFolderUseCase,
+    private val appPreferences: AppPreferences,
     private val unpinFolder: UnpinFolderUseCase,
     private val deleteFolder: DeleteFolderUseCase,
+    private val initializeDefaultFolders: InitializeDefaultFoldersUseCase,
     private val folderToUiFolder: Mapper<Folder, UiFolder>,
     private val mapperResultErrorToErrorId: Mapper<Throwable?, Int>
 ) : StatefulEventHandler<FolderListEvent, FolderListOneTimeEvent, FolderListState, MutableFolderListState>(
@@ -50,7 +55,12 @@ class FolderListStatefulEventHandler @Inject constructor(
             }
 
             is FolderListEvent.GeneralError -> onGeneralError(throwable = event.error)
+            is FolderListEvent.AddDefaultFolders -> onAddDefaultFoldersEvent(defaultFolders = event.defaultFolders)
         }
+    }
+
+    private suspend fun onAddDefaultFoldersEvent(defaultFolders: List<DefaultFolder>) {
+        initializeDefaultFolders(defaultFolders = defaultFolders)
     }
 
     private suspend fun onGeneralError(throwable: Throwable) {
@@ -78,6 +88,9 @@ class FolderListStatefulEventHandler @Inject constructor(
     }
 
     private suspend fun onLoadFoldersEvent() {
+        if (appPreferences.isFirstOpen()) {
+            FolderListOneTimeEvent.OnAppFirstOpen.processOneTimeEvent()
+        }
         getFolders().onStart {
             updateUiState {
                 isLoading = true

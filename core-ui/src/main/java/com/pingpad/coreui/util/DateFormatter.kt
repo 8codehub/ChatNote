@@ -48,7 +48,11 @@ class DateFormatter @Inject constructor() {
 
         return when {
             isToday(currentDate, noteDate) -> timeFormat.format(noteDate.time)
-            isThisYear(currentDate, noteDate) -> "${dateFormat.format(noteDate.time)} ${timeFormat.format(noteDate.time)}"
+            isThisYear(
+                currentDate,
+                noteDate
+            ) -> "${dateFormat.format(noteDate.time)} ${timeFormat.format(noteDate.time)}"
+
             else -> "${fullDateFormat.format(noteDate.time)} ${timeFormat.format(noteDate.time)}"
         }
     }

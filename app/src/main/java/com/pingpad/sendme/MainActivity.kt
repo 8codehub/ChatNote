@@ -43,10 +43,6 @@ fun SendMeApp(navController: NavHostController) {
                 return@composable slideOutOfContainer(
                     AnimatedContentTransitionScope.SlideDirection.Start, tween(300)
                 )
-            }, popEnterTransition = {
-                return@composable slideIntoContainer(
-                    AnimatedContentTransitionScope.SlideDirection.End, tween(300)
-                )
             }
         ) {
             FolderListScreen(
@@ -60,12 +56,7 @@ fun SendMeApp(navController: NavHostController) {
             return@composable slideIntoContainer(
                 AnimatedContentTransitionScope.SlideDirection.Start, tween(300)
             )
-        },
-            popExitTransition = {
-                return@composable slideOutOfContainer(
-                    AnimatedContentTransitionScope.SlideDirection.End, tween(300)
-                )
-            }) {
+        }) {
             DirectNotesScreen(
                 onBackClick = { navController.popBackStack() },
                 navigateTo = { route ->
@@ -78,12 +69,7 @@ fun SendMeApp(navController: NavHostController) {
             return@composable slideIntoContainer(
                 AnimatedContentTransitionScope.SlideDirection.Start, tween(300)
             )
-        },
-            popExitTransition = {
-                return@composable slideOutOfContainer(
-                    AnimatedContentTransitionScope.SlideDirection.End, tween(300)
-                )
-            }) { _ ->
+        }) { _ ->
             FolderEditorScreen(
                 onCancel = { navController.popBackStack() },
                 navigateTo = { route ->

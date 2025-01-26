@@ -8,6 +8,8 @@ import com.sendme.domain.usecase.GetFolderByIdUseCase
 import com.sendme.domain.usecase.GetFolderByIdUseCaseImpl
 import com.sendme.domain.usecase.GetFoldersUseCase
 import com.sendme.domain.usecase.GetFoldersUseCaseImpl
+import com.sendme.domain.usecase.InitializeDefaultFoldersUseCase
+import com.sendme.domain.usecase.InitializeDefaultFoldersUseCaseImpl
 import com.sendme.domain.usecase.PinFolderUseCase
 import com.sendme.domain.usecase.PinFolderUseCaseImpl
 import com.sendme.domain.usecase.UnpinFolderUseCase
@@ -50,5 +52,10 @@ internal abstract class UseCaseModule {
     abstract fun bindAddOrUpdateFolderUseCase(
         implementation: AddOrUpdateFolderUseCaseImpl
     ): AddOrUpdateFolderUseCase
+
+    @Binds
+    abstract fun bindInitializeDefaultFoldersUseCase(
+        implementation: InitializeDefaultFoldersUseCaseImpl
+    ): InitializeDefaultFoldersUseCase
 
 }

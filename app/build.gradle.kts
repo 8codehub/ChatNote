@@ -90,5 +90,6 @@ dependencies {
     implementation(project(":direct-notes:directnotes-ui"))
 
     implementation(project(":core-ui"))
+    implementation(project(":core-domain"))
     implementation(project(":navigation"))
 }

@@ -1,6 +1,5 @@
 package com.sendme.directnotsdomain.usecase
 
-import com.sendme.directnotsdomain.repository.NotesRepository
 import com.sendme.directnotsdomain.repository.NotesStreamRepository
 import javax.inject.Inject
 

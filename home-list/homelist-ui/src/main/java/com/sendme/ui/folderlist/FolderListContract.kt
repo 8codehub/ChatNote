@@ -5,6 +5,7 @@ import com.pingpad.coreui.arch.ConvertibleState
 import com.pingpad.coreui.arch.MutableConvertibleState
 import com.pingpad.coreui.arch.UiEvent
 import com.pingpad.coreui.arch.UiOneTimeEvent
+import com.sendme.domain.model.DefaultFolder
 import com.sendme.homelistui.R
 import com.sendme.ui.model.UiFolder
 
@@ -57,6 +58,8 @@ object FolderListContract {
         data class UnpinFolder(val folderId: Long) : FolderListEvent()
         data class DeleteFolder(val folderId: Long) : FolderListEvent()
         data class GeneralError(val error: Throwable) : FolderListEvent()
+        data class AddDefaultFolders(val defaultFolders: List<DefaultFolder>) : FolderListEvent()
+
 
     }
 
@@ -65,6 +68,8 @@ object FolderListContract {
 
         data class FolderDeleted(val messagesCount: Int) :
             FolderListOneTimeEvent()
+
+        data object OnAppFirstOpen : FolderListOneTimeEvent()
 
         data class FailedOperation(@StringRes val error: Int) : FolderListOneTimeEvent()
 
