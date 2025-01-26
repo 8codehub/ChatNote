@@ -8,7 +8,6 @@ import com.sendme.data.db.FolderDao
 import com.sendme.data.models.FolderEntity
 import com.sendme.domain.model.Folder
 import com.sendme.domain.repository.FolderRepository
-import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 class FolderRepositoryImpl @Inject constructor(
@@ -87,9 +86,5 @@ class FolderRepositoryImpl @Inject constructor(
         }.onFailure {
             return Result.failure(ResultError.DatabaseError(it))
         }
-    }
-
-    override fun getFolders(): Flow<List<Folder>> {
-        return mapperFolderEntityToFolder.mapFlow(folderDao.observeAllFolders())
     }
 }

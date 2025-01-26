@@ -14,13 +14,8 @@ import javax.inject.Inject
 class NotesRepositoryImpl @Inject constructor(
     private val noteDao: NoteDao,
     private val folderUpdateHandler: FolderRepositoryFacade,
-    private val entityToDomainMapper: Mapper<NoteEntity, SendMeNote>,
     private val domainToEntityMapper: Mapper<SendMeNote, NoteEntity>
 ) : NotesRepository {
-
-    override fun getNotes(folderId: Long): Flow<List<SendMeNote>> {
-        return entityToDomainMapper.mapFlow(noteDao.getNotesForFolder(folderId))
-    }
 
     override suspend fun addNote(folderId: Long, note: SendMeNote): Result<Unit> {
         return runCatching {

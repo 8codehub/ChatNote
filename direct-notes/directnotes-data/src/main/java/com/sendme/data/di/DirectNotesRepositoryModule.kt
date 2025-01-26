@@ -6,9 +6,11 @@ import com.pingpad.coredomain.mapper.Mapper
 import com.sendme.data.db.NoteDao
 import com.sendme.data.model.NoteEntity
 import com.sendme.data.repository.NotesRepositoryImpl
+import com.sendme.data.repository.NotesStreamRepositoryImpl
 import com.sendme.data.repository.facade.FolderNotesFacadeImpl
 import com.sendme.directnotsdomain.SendMeNote
 import com.sendme.directnotsdomain.repository.NotesRepository
+import com.sendme.directnotsdomain.repository.NotesStreamRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -29,8 +31,17 @@ internal object DirectNotesRepositoryModule {
     ): NotesRepository = NotesRepositoryImpl(
         noteDao = noteDao,
         folderUpdateHandler = folderUpdateHandler,
-        entityToDomainMapper = entityToDomainMapper,
         domainToEntityMapper = domainToEntityMapper
+    )
+
+    @Provides
+    @Singleton
+    fun provideNotesStreamRepository(
+        noteDao: NoteDao,
+        entityToDomainMapper: Mapper<NoteEntity, SendMeNote>,
+    ): NotesStreamRepository = NotesStreamRepositoryImpl(
+        noteDao = noteDao,
+        entityToDomainMapper = entityToDomainMapper,
     )
 
     @Provides
