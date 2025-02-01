@@ -42,6 +42,10 @@
 -keep class com.chatnote.coreui.components.** { *; }
 -keep class com.chatnote.directnotesui.** { *; } # ✅ Adjust based on your UI packages
 
+# Keep Firebase Analytics classes
+-keep class com.google.firebase.analytics.** { *; }
+-keep class com.google.android.gms.measurement.** { *; }
+
 -dontwarn org.bouncycastle.jsse.BCSSLParameters
 -dontwarn org.bouncycastle.jsse.BCSSLSocket
 -dontwarn org.bouncycastle.jsse.provider.BouncyCastleJsseProvider
