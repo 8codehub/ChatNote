@@ -6,7 +6,7 @@ plugins {
 }
 
 android {
-    namespace = "com.sendme.directnotesdomain"
+    namespace = "chatnote.directnotesdomain"
     compileSdk = 34
 
     defaultConfig {

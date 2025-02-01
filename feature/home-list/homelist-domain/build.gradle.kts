@@ -6,7 +6,7 @@ plugins {
 }
 
 android {
-    namespace = "com.sendme.homelistdomain"
+    namespace = "chatnote.homelistdomain"
     compileSdk = 34
 
     defaultConfig {

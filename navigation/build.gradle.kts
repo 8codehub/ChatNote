@@ -5,7 +5,7 @@ plugins {
 }
 
 android {
-    namespace = "com.sendme.navigation"
+    namespace = "chatnote.navigation"
     compileSdk = 34
 
     defaultConfig {

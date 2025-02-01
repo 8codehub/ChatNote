@@ -1,4 +1,4 @@
-package com.sendme.data
+package com.chatnote.data
 
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
@@ -17,6 +17,6 @@ class ExampleInstrumentedTest {
     fun useAppContext() {
         // Context of the app under test.
         val appContext = InstrumentationRegistry.getInstrumentation().targetContext
-        assertEquals("com.sendme.data.test", appContext.packageName)
+        assertEquals("com.chatnote.data.test", appContext.packageName)
     }
 }

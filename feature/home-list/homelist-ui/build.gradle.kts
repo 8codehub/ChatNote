@@ -7,7 +7,7 @@ plugins {
 }
 
 android {
-    namespace = "com.sendme.homelistui"
+    namespace = "chatnote.homelistui"
     compileSdk = 34
 
     defaultConfig {
@@ -60,7 +60,6 @@ dependencies {
 
     implementation(libs.kotlinx.serialization.json)
     implementation(libs.androidx.navigation.runtime.ktx)
-
 
     ksp(libs.hilt.compiler)
     ksp(libs.hilt.android.compiler)

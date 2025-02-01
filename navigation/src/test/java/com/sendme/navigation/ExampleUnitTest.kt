@@ -1,4 +1,4 @@
-package com.sendme.navigation
+package com.chatnote.navigation
 
 import org.junit.Assert.assertEquals
 import org.junit.Test

@@ -1,4 +1,4 @@
-package com.sendme.directnotesui
+package com.chatnote.directnotesui
 
 import org.junit.Assert.*
 import org.junit.Test

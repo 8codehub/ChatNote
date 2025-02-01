@@ -1,4 +1,4 @@
-package com.sendme.common
+package com.chatnote.common
 
 import org.junit.Assert.assertEquals
 import org.junit.Test

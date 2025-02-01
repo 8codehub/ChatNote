@@ -19,7 +19,7 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "SendMe"
+rootProject.name = "ChatNote"
 include(":app")
 include(":feature")
 include(":core-data")

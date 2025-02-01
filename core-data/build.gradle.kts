@@ -6,7 +6,7 @@ plugins {
 }
 
 android {
-    namespace = "com.sendme.coredata"
+    namespace = "chatnote.coredata"
     compileSdk = 34
 
     defaultConfig {

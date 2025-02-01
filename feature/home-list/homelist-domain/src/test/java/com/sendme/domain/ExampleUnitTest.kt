@@ -1,4 +1,4 @@
-package com.sendme.domain
+package com.chatnote.domain
 
 import org.junit.Assert.*
 import org.junit.Test

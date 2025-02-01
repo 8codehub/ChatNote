@@ -6,7 +6,7 @@ plugins {
 }
 
 android {
-    namespace = "com.sendme.coreui"
+    namespace = "chatnote.coreui"
     compileSdk = 34
 
     defaultConfig {

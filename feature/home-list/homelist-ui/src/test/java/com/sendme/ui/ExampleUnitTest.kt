@@ -1,4 +1,4 @@
-package com.sendme.ui
+package com.chatnote.ui
 
 import org.junit.Assert.*
 import org.junit.Test
