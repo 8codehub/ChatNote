@@ -1,0 +1,8 @@
+<resources>
+    <string name="notes_count">%s заметок</string>
+    <string name="one_note">Одна заметка</string>
+    <string name="no_notes">Нет заметок</string>
+    <string name="empty_notes_message">Заметок пока нет. Начните записывать свои мысли и организовывайте их в этой папке!</string>
+    <string name="error_failed_to_load_notes">Не удалось загрузить заметки</string>
+    <string name="error_failed_to_load_note">Не удалось загрузить заметку</string>
+</resources>

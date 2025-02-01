@@ -10,11 +10,11 @@ plugins {
 }
 
 android {
-    namespace = "com.sendme.app"
+    namespace = "com.chatnote"
     compileSdk = 35
 
     defaultConfig {
-        applicationId = "com.sendme.app"
+        applicationId = "com.chatnote"
         minSdk = 24
         targetSdk = 34
         versionCode = 1

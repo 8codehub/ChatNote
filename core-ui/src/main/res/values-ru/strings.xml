@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="general_error">Что-то пошло не так</string>
+    <string name="error_folder_not_found">Папка не найдена.</string>
+    <string name="error_database">Произошла ошибка базы данных.</string>
+    <string name="folder_not_deleted">Не удалось удалить папку.</string>
+    <string name="validation_error_empty_folder_name">Имя папки не может быть пустым</string>
+</resources>
