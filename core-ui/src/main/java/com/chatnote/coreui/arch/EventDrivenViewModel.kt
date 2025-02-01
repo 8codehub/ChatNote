@@ -2,12 +2,12 @@ package com.chatnote.coreui.arch
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.chatnote.common.extention.onFirstSubscription
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 
@@ -22,16 +22,19 @@ abstract class EventDrivenViewModel<
     private val ioDispatcher: CoroutineDispatcher
 ) : ViewModel() {
 
-
     private val exceptionHandler = CoroutineExceptionHandler { _, throwable ->
         onGeneralError(throwable)
     }
 
     val state: StateFlow<S> = statefulEventHandler.state
-        .onStart {
+        .onFirstSubscription {
             onStateReady()
         }
-        .stateIn(viewModelScope, SharingStarted.Lazily, statefulEventHandler.stateValue)
+        .stateIn(
+            viewModelScope,
+            SharingStarted.WhileSubscribed(),
+            statefulEventHandler.stateValue
+        )
 
     val oneTimeEvent: Flow<O> = statefulEventHandler.uiEvent
 

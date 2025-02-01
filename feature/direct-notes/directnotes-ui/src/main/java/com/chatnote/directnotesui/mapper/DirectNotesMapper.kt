@@ -2,8 +2,8 @@ package com.chatnote.directnotesui.mapper
 
 import com.chatnote.coredomain.mapper.Mapper
 import com.chatnote.coreui.util.DateFormatter
-import com.chatnote.directnotesui.model.UiNote
 import com.chatnote.directnotesdomain.model.Note
+import com.chatnote.directnotesui.model.UiNote
 import javax.inject.Inject
 
 class NotesToUiNotesMapper @Inject constructor(private val dateFormatter: DateFormatter) :

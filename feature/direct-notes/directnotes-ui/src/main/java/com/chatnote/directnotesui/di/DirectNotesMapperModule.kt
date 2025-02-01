@@ -2,9 +2,9 @@ package com.chatnote.directnotesui.di
 
 import com.chatnote.coredomain.mapper.Mapper
 import com.chatnote.coreui.util.DateFormatter
+import com.chatnote.directnotesdomain.model.Note
 import com.chatnote.directnotesui.mapper.NotesToUiNotesMapper
 import com.chatnote.directnotesui.model.UiNote
-import com.chatnote.directnotesdomain.model.Note
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

@@ -4,10 +4,10 @@ import com.chatnote.coredomain.mapper.Mapper
 import com.chatnote.coredomain.utils.ResultError
 import com.chatnote.coredomain.utils.failure
 import com.chatnote.coredomain.utils.throwAsAppException
-import com.chatnote.domain.model.Folder
-import com.chatnote.domain.repository.FolderRepository
 import com.chatnote.data.db.FolderDao
 import com.chatnote.data.models.FolderEntity
+import com.chatnote.domain.model.Folder
+import com.chatnote.domain.repository.FolderRepository
 import javax.inject.Inject
 
 class FolderRepositoryImpl @Inject constructor(
