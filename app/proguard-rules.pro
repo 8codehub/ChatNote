@@ -18,6 +18,7 @@
 -keep interface androidx.room.** { *; }
 -keep class com.chatnote.coredata.database.** { *; } # ✅ Adjust based on your database package
 -keep class com.chatnote.coredomain.models.** { *; } # ✅ Keep all data models
+-keep class com.chatnote.common.** { *; } # ✅ Keep all data models
 
 # === Keep all ViewModel & StatefulEventHandler (State Management) ===
 -keep class com.chatnote.coreui.arch.StatefulEventHandler { *; }

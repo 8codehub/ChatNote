@@ -42,6 +42,8 @@ coil-compose = { module = "io.coil-kt:coil-compose", version.ref = "coilCompose"
 coil-svg = { module = "io.coil-kt:coil-svg", version.ref = "coilCompose" }
 firebase-analytics = { module = "com.google.firebase:firebase-analytics" }
 firebase-bom = { module = "com.google.firebase:firebase-bom", version.ref = "firebaseBom" }
+firebase-crashlytics = { module = "com.google.firebase:firebase-crashlytics" }
+google-firebase-analytics = { module = "com.google.firebase:firebase-analytics" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
 androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }

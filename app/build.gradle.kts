@@ -7,7 +7,7 @@ plugins {
     alias(libs.plugins.kotlinSerialization)
     id("androidx.navigation.safeargs")
     id("com.google.gms.google-services")
-
+    id("com.google.firebase.crashlytics")
 }
 
 android {
@@ -18,8 +18,8 @@ android {
         applicationId = "com.chatnote"
         minSdk = 24
         targetSdk = 34
-        versionCode = 6
-        versionName = "1.2.6"
+        versionCode = 8
+        versionName = "1.2.8"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -77,6 +77,8 @@ dependencies {
     implementation(libs.hilt.navigation.compose)
     implementation(libs.kotlinx.serialization.json)
     implementation(libs.androidx.navigation.runtime.ktx)
+    implementation(libs.firebase.crashlytics)
+    implementation(libs.google.firebase.analytics)
 
     ksp(libs.hilt.compiler)
     ksp(libs.hilt.android.compiler)
