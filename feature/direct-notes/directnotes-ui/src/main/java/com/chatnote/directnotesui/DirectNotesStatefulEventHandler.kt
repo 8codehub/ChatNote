@@ -1,6 +1,7 @@
 package com.chatnote.directnotesui
 
 import chatnote.directnotesui.R
+import com.chatnote.common.analytics.AnalyticsTracker
 import com.chatnote.coredomain.mapper.Mapper
 import com.chatnote.coredomain.models.FolderBaseInfo
 import com.chatnote.coreui.arch.StatefulEventHandler
@@ -23,7 +24,8 @@ class DirectNotesStatefulEventHandler @Inject constructor(
     private val addNoteUseCase: AddNoteUseCase,
     private val observeFolderUseCase: ObserveFolderUseCase,
     private val errorResultMapper: Mapper<Throwable, Int>,
-    private val notesToUiNotes: Mapper<Note, UiNote>
+    private val notesToUiNotes: Mapper<Note, UiNote>,
+    private val analyticsTracker: AnalyticsTracker
 ) : StatefulEventHandler<
         DirectNotesEvent,
         DirectNotesOneTimeEvent,
@@ -45,6 +47,10 @@ class DirectNotesStatefulEventHandler @Inject constructor(
     }
 
     private suspend fun onGeneralErrorEvent(throwable: Throwable) {
+        analyticsTracker.trackGeneralError(
+            message = throwable.message.orEmpty(),
+            src = this.javaClass.name
+        )
         DirectNotesOneTimeEvent.FailedOperation(error = errorResultMapper.map(throwable))
             .processOneTimeEvent()
     }
@@ -52,6 +58,7 @@ class DirectNotesStatefulEventHandler @Inject constructor(
     private suspend fun onLoadAllNotesEvent(folderId: Long) {
         observeNotes(folderId)
             .onEach { notes ->
+                analyticsTracker.trackFolderOpen(folderId = folderId, notesCount = notes.size)
                 updateUiState {
                     this.notes = notesToUiNotes.mapList(from = notes)
                     this.emptyNotes = notes.isEmpty()
@@ -100,11 +107,15 @@ class DirectNotesStatefulEventHandler @Inject constructor(
                 folderId = folderId,
                 createdAt = System.currentTimeMillis()
             )
-            addNoteUseCase(it, newNote).onFailure { throwable ->
-                updateUiState {
-                    generalError = errorResultMapper.map(throwable)
+            addNoteUseCase(it, newNote)
+                .onSuccess {
+                    analyticsTracker.trackNewNote(folderId = folderId)
                 }
-            }
+                .onFailure { throwable ->
+                    updateUiState {
+                        generalError = errorResultMapper.map(throwable)
+                    }
+                }
         }
     }
 }

@@ -6,6 +6,7 @@ plugins {
     alias(libs.plugins.hiltAndroid)
     alias(libs.plugins.kotlinSerialization)
     id("androidx.navigation.safeargs")
+    id("com.google.gms.google-services")
 
 }
 
@@ -79,7 +80,6 @@ dependencies {
 
     ksp(libs.hilt.compiler)
     ksp(libs.hilt.android.compiler)
-
 
 
     implementation(project(":feature:home-list:homelist-data"))

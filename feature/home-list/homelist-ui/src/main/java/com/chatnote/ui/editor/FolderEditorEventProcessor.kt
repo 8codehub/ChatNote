@@ -2,6 +2,7 @@ package com.chatnote.ui.editor
 
 import androidx.annotation.StringRes
 import chatnote.homelistui.R
+import com.chatnote.common.analytics.AnalyticsTracker
 import com.chatnote.coredomain.mapper.Mapper
 import com.chatnote.coreui.arch.StatefulEventHandler
 import com.chatnote.domain.usecase.AddOrUpdateFolderUseCase
@@ -21,7 +22,8 @@ class FolderEditorStatefulEventHandler @Inject constructor(
     private val getFolderById: GetFolderByIdUseCase,
     private val addOrUpdateFolder: AddOrUpdateFolderUseCase,
     private val newFolderNameValidator: NewFolderNameValidator,
-    private val mapperResultErrorToErrorId: Mapper<Throwable?, Int>
+    private val mapperResultErrorToErrorId: Mapper<Throwable?, Int>,
+    private val analyticsTracker: AnalyticsTracker
 ) : StatefulEventHandler<
         FolderEditorEvent,
         FolderEditorOneTimeEvent,
@@ -47,6 +49,10 @@ class FolderEditorStatefulEventHandler @Inject constructor(
     }
 
     private suspend fun onGeneralErrorEvent(throwable: Throwable) {
+        analyticsTracker.trackGeneralError(
+            message = throwable.message.orEmpty(),
+            src = this.javaClass.name
+        )
         FolderEditorOneTimeEvent.FailedOperation(mapperResultErrorToErrorId.map(throwable))
             .processOneTimeEvent()
     }
@@ -94,6 +100,8 @@ class FolderEditorStatefulEventHandler @Inject constructor(
     }
 
     private fun onLoadFolderInitialStateEvent(isEditMode: Boolean) {
+
+        analyticsTracker.trackFolderEditOpened(isEditMode = isEditMode)
         updateUiState {
             title = if (isEditMode) (R.string.edit_details) else {
                 R.string.new_folder
@@ -116,10 +124,15 @@ class FolderEditorStatefulEventHandler @Inject constructor(
     }
 
     private suspend fun handleValidFolderData(name: String, iconUri: String) {
+
         val addOrUpdateFolderResult =
             addOrUpdateFolder(folderId = stateValue.folderId, name = name, iconUri = iconUri)
         addOrUpdateFolderResult
             .onSuccess {
+                analyticsTracker.trackFolderEditDone(
+                    iconUri = iconUri,
+                    isEditMode = stateValue.folderId != null
+                )
                 onAddOrUpdateFolderResultSuccess(id = it)
             }.onFailure {
                 onAddOrUpdateFolderResultFailure(error = mapperResultErrorToErrorId.map(it))

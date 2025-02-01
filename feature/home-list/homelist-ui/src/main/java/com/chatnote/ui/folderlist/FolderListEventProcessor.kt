@@ -1,6 +1,7 @@
 package com.chatnote.ui.folderlist
 
 import chatnote.homelistui.R
+import com.chatnote.common.analytics.AnalyticsTracker
 import com.chatnote.coredomain.mapper.Mapper
 import com.chatnote.coredomain.utils.AppPreferences
 import com.chatnote.coreui.arch.StatefulEventHandler
@@ -31,7 +32,8 @@ class FolderListStatefulEventHandler @Inject constructor(
     private val deleteFolder: DeleteFolderUseCase,
     private val initializeDefaultFolders: InitializeDefaultFoldersUseCase,
     private val folderToUiFolder: Mapper<Folder, UiFolder>,
-    private val mapperResultErrorToErrorId: Mapper<Throwable?, Int>
+    private val mapperResultErrorToErrorId: Mapper<Throwable?, Int>,
+    private val analyticsTracker: AnalyticsTracker
 ) : StatefulEventHandler<FolderListEvent, FolderListOneTimeEvent, FolderListState, MutableFolderListState>(
     FolderListState()
 ) {
@@ -64,40 +66,51 @@ class FolderListStatefulEventHandler @Inject constructor(
     }
 
     private suspend fun onGeneralError(throwable: Throwable) {
+        analyticsTracker.trackGeneralError(
+            message = throwable.message.orEmpty(),
+            src = this.javaClass.name
+        )
         FolderListOneTimeEvent.FailedOperation(error = mapperResultErrorToErrorId.map(throwable))
             .processOneTimeEvent()
     }
 
     private suspend fun onDeleteFolderEvent(folderId: Long) {
         deleteFolder(folderId = folderId).onSuccess { messagesCount ->
+            analyticsTracker.trackFolderDeleted(folderId = folderId, messagesCount = messagesCount)
             FolderListOneTimeEvent.FolderDeleted(messagesCount = messagesCount)
                 .processOneTimeEvent()
         }
     }
 
     private suspend fun onPinFolderEvent(folderId: Long) {
-        pinFolder(folderId = folderId).onFailure {
+        pinFolder(folderId = folderId).onSuccess {
+            analyticsTracker.trackFolderPinned(folderId = folderId, isPinned = true)
+        }.onFailure {
             FolderListOneTimeEvent.FailedOperation(error = R.string.error_folder_pin)
         }
     }
 
     private suspend fun onUnpinFolderEvent(folderId: Long) {
-        unpinFolder(folderId = folderId).onFailure {
+        unpinFolder(folderId = folderId).onSuccess {
+            analyticsTracker.trackFolderPinned(folderId = folderId, isPinned = false)
+        }.onFailure {
             FolderListOneTimeEvent.FailedOperation(error = R.string.error_folder_unpin)
         }
     }
 
     private suspend fun onLoadFoldersEvent() {
-        if (appPreferences.isFirstOpen()) {
-            FolderListOneTimeEvent.OnAppFirstOpen.processOneTimeEvent()
+        appPreferences.isFirstOpen().let { firstStart ->
+            analyticsTracker.trackAppStart(firstStart)
+            if (firstStart) {
+                FolderListOneTimeEvent.OnAppFirstOpen.processOneTimeEvent()
+            }
         }
         getFolders().onStart {
             updateUiState {
                 isLoading = true
             }
         }.onEach { folders ->
-            println("Current dispatcher: ${Thread.currentThread().name}")
-
+            analyticsTracker.trackFolderCount(folderCount = folders.size)
             updateUiState {
                 isLoading = false
                 this.folders = folderToUiFolder.mapList(folders)

@@ -39,6 +39,8 @@ dependencies {
     implementation(libs.hilt.android)
     ksp(libs.hilt.compiler)
     ksp(libs.hilt.android.compiler)
+    implementation(platform(libs.firebase.bom))
+    implementation(libs.firebase.analytics)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
