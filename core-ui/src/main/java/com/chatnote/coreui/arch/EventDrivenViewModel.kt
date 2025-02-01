@@ -39,7 +39,7 @@ abstract class EventDrivenViewModel<
     val oneTimeEvent: Flow<O> = statefulEventHandler.uiEvent
 
     fun E.processWithLaunch() {
-        viewModelScope.launch(ioDispatcher) {
+        viewModelScope.launch(ioDispatcher + exceptionHandler) {
             process()
         }
     }
