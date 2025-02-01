@@ -80,14 +80,14 @@ dependencies {
 
 
 
-    implementation(project(":home-list:homelist-data"))
-    implementation(project(":home-list:homelist-domain"))
-    implementation(project(":home-list:homelist-ui"))
+    implementation(project(":feature:home-list:homelist-data"))
+    implementation(project(":feature:home-list:homelist-domain"))
+    implementation(project(":feature:home-list:homelist-ui"))
 
 
-    implementation(project(":direct-notes:directnotes-data"))
-    implementation(project(":direct-notes:directnotes-domain"))
-    implementation(project(":direct-notes:directnotes-ui"))
+    implementation(project(":feature:direct-notes:directnotes-data"))
+    implementation(project(":feature:direct-notes:directnotes-domain"))
+    implementation(project(":feature:direct-notes:directnotes-ui"))
 
     implementation(project(":core-ui"))
     implementation(project(":core-domain"))

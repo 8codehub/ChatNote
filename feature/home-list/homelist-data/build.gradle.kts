@@ -3,11 +3,10 @@ plugins {
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlinAndroidKsp)
     alias(libs.plugins.hiltAndroid)
-
 }
 
 android {
-    namespace = "com.sendme.directnotesdata"
+    namespace = "com.sendme.homelistdata"
     compileSdk = 34
 
     defaultConfig {
@@ -37,23 +36,16 @@ android {
 
 dependencies {
 
-    implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
-    testImplementation(libs.junit)
-    androidTestImplementation(libs.androidx.junit)
-    androidTestImplementation(libs.androidx.espresso.core)
-
-    //room
-    ksp(libs.room.compiler)
+    implementation(libs.androidx.core.ktx)
     implementation(libs.room.runtime)
     implementation(libs.room.ktx)
-
     implementation(libs.hilt.android)
     ksp(libs.hilt.compiler)
     ksp(libs.hilt.android.compiler)
+    ksp(libs.room.compiler)
 
     implementation(project(":core-data"))
     implementation(project(":core-domain"))
-    implementation(project(":direct-notes:directnotes-domain"))
-
+    implementation(project(":feature:home-list:homelist-domain"))
 }

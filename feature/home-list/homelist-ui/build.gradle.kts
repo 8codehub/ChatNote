@@ -65,7 +65,7 @@ dependencies {
     ksp(libs.hilt.compiler)
     ksp(libs.hilt.android.compiler)
 
-    implementation(project(":home-list:homelist-domain"))
+    implementation(project(":feature:home-list:homelist-domain"))
     implementation(project(":core-ui"))
     implementation(project(":core-domain"))
     implementation(project(":navigation"))

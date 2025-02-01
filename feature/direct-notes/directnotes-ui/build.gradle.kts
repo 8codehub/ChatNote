@@ -2,11 +2,12 @@ plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlinAndroidKsp)
-    alias(libs.plugins.hiltAndroid)
+    alias(libs.plugins.kotlin.compose)
+    id("androidx.navigation.safeargs")
 }
 
 android {
-    namespace = "com.sendme.homelistdata"
+    namespace = "com.sendme.directnotesui"
     compileSdk = 34
 
     defaultConfig {
@@ -36,16 +37,25 @@ android {
 
 dependencies {
 
-    implementation(libs.androidx.appcompat)
     implementation(libs.androidx.core.ktx)
-    implementation(libs.room.runtime)
-    implementation(libs.room.ktx)
+    implementation(libs.androidx.appcompat)
+    implementation(libs.androidx.lifecycle.viewmodel.android)
+    implementation(libs.androidx.runtime.android)
+    implementation(libs.androidx.material3.android)
+    implementation(libs.kotlinx.coroutines.core)
+    implementation(libs.kotlinx.coroutines.android)
+    implementation(libs.coil.compose)
+    implementation(libs.hilt.navigation.compose)
     implementation(libs.hilt.android)
     ksp(libs.hilt.compiler)
     ksp(libs.hilt.android.compiler)
-    ksp(libs.room.compiler)
+    implementation(libs.androidx.foundation.layout.android)
+    implementation(libs.androidx.foundation.layout.android)
 
-    implementation(project(":core-data"))
+    implementation(libs.kotlinx.serialization.json)
+    implementation(libs.androidx.navigation.runtime.ktx)
+    implementation(project(":core-ui"))
     implementation(project(":core-domain"))
-    implementation(project(":home-list:homelist-domain"))
+    implementation(project(":feature:direct-notes:directnotes-domain"))
+    implementation(project(":navigation"))
 }

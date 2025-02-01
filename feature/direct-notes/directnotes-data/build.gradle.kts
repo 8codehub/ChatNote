@@ -2,12 +2,12 @@ plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlinAndroidKsp)
-    alias(libs.plugins.kotlin.compose)
-    id("androidx.navigation.safeargs")
+    alias(libs.plugins.hiltAndroid)
+
 }
 
 android {
-    namespace = "com.sendme.directnotesui"
+    namespace = "com.sendme.directnotesdata"
     compileSdk = 34
 
     defaultConfig {
@@ -39,23 +39,21 @@ dependencies {
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
-    implementation(libs.androidx.lifecycle.viewmodel.android)
-    implementation(libs.androidx.runtime.android)
-    implementation(libs.androidx.material3.android)
-    implementation(libs.kotlinx.coroutines.core)
-    implementation(libs.kotlinx.coroutines.android)
-    implementation(libs.coil.compose)
-    implementation(libs.hilt.navigation.compose)
+    testImplementation(libs.junit)
+    androidTestImplementation(libs.androidx.junit)
+    androidTestImplementation(libs.androidx.espresso.core)
+
+    //room
+    ksp(libs.room.compiler)
+    implementation(libs.room.runtime)
+    implementation(libs.room.ktx)
+
     implementation(libs.hilt.android)
     ksp(libs.hilt.compiler)
     ksp(libs.hilt.android.compiler)
-    implementation(libs.androidx.foundation.layout.android)
-    implementation(libs.androidx.foundation.layout.android)
 
-    implementation(libs.kotlinx.serialization.json)
-    implementation(libs.androidx.navigation.runtime.ktx)
-    implementation(project(":core-ui"))
+    implementation(project(":core-data"))
     implementation(project(":core-domain"))
-    implementation(project(":direct-notes:directnotes-domain"))
-    implementation(project(":navigation"))
+    implementation(project(":feature:direct-notes:directnotes-domain"))
+
 }
