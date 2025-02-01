@@ -193,7 +193,8 @@ fun onFolderDeletedOneTimeEvent(context: Context, messagesCount: Int) {
         )
 
         else -> showToast(
-            context = context, message = context.getString(R.string.deleted_folder_message_plural)
+            context = context,
+            message = context.getString(R.string.deleted_folder_message_plural, "$messagesCount")
         )
     }
 
