@@ -10,10 +10,10 @@ object DefaultFoldersProvider {
     fun loadFolders(context: Context): List<DefaultFolder> {
 
         val specificFolders = listOf(
-            FolderAsset("work.png", R.string.default_folder_work),
-            FolderAsset("heart.png", R.string.default_folder_love),
-            FolderAsset("car.png", R.string.default_folder_car),
-            FolderAsset("music.png", R.string.default_folder_music)
+            FolderAsset("work.webp", R.string.default_folder_work),
+            FolderAsset("heart.webp", R.string.default_folder_love),
+            FolderAsset("car.webp", R.string.default_folder_car),
+            FolderAsset("music.webp", R.string.default_folder_music)
         )
 
         val folderList = mutableListOf<DefaultFolder>()
