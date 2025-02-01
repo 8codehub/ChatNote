@@ -1,6 +1,7 @@
 package com.sendme.ui.folderlist
 
 import android.content.Context
+import androidx.lifecycle.viewModelScope
 import com.pingpad.coreui.arch.EventDrivenViewModel
 import com.pingpad.coreui.arch.StatefulEventHandler
 import com.sendme.common.di.IoDispatcher
@@ -11,6 +12,8 @@ import com.sendme.ui.folderlist.FolderListContract.MutableFolderListState
 import com.sendme.ui.util.DefaultFoldersProvider
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 

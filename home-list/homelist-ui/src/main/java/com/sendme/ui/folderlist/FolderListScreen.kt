@@ -52,6 +52,7 @@ fun FolderListScreen(
     var selectedFolderForDeletion by remember { mutableStateOf<UiFolder?>(null) }
     val oneTimeEvent by viewModel.oneTimeEvent.collectAsStateWithLifecycle(null)
     val context = LocalContext.current
+    val lazyListState = rememberLazyListState()
 
     var swipeState by remember { mutableStateOf(SwappableItemState.Default) }
     val deleteFolderTitle = getAnnotatedString(
@@ -121,7 +122,7 @@ fun FolderListScreen(
                     .background(MaterialTheme.colorScheme.background)
             ) {
                 LoadingComponent(state.isLoading) {
-                    LazyColumn(state = rememberLazyListState()) {
+                    LazyColumn(state = lazyListState) {
                         item {
                             AddNewFolderButton(
                                 modifier = Modifier, navigateTo = navigateTo
