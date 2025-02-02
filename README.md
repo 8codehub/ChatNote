@@ -11,17 +11,28 @@ ChatNote is a modular, chat-style note-taking application designed for efficient
 - **Optimized state management**: Uses event-driven architecture for handling UI state and updates.
 - **Versioning support**: Future-proofed with the ability to track note edits and versions.
 
+## Screenshots
+
+### Home List
+![Home List](https://raw.githubusercontent.com/8codehub/ChatNote/refs/heads/main/assets/1.png)
+
+### Direct Notes
+![Direct Notes](https://raw.githubusercontent.com/8codehub/ChatNote/refs/heads/main/assets/2.png)
+
+### Note Editor
+![Note Editor](https://raw.githubusercontent.com/8codehub/ChatNote/refs/heads/main/assets/3.png)
+
 ## Architecture
 
 ChatNote follows Clean Architecture principles with a modular approach:
 
-### Core Module
+### Core Modules
 
 - `core-data`: Contains shared data models, database entities, and Room configurations.
 - `core-domain`: Houses use cases and domain-specific business logic.
 - `core-ui`: Includes shared UI components, themes, and utility classes.
 
-### Common Modules
+### Common Module
 
 - `common`: Contains shared components and utilities used across the app.
 
