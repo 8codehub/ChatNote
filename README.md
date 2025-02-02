@@ -1,6 +1,9 @@
 # ChatNote
 
-ChatNote is a modular, chat-style note-taking application designed for efficient note organization. The app follows best practices in Android development, implementing Clean Architecture, Dependency Injection (DI), event-driven state management, and a well-structured modular approach to ensure scalability and maintainability.
+ChatNote is a modular, chat-style note-taking application designed for efficient note organization.
+The app follows best practices in Android development, implementing Clean Architecture, Dependency
+Injection (DI), event-driven state management, and a well-structured modular approach to ensure
+scalability and maintainability.
 
 ## Features
 
@@ -47,15 +50,19 @@ The `feature` module contains feature-specific submodules, each divided into thr
 
 ## Firebase Configuration
 
-This project does not include the `google-services.json` file required for Firebase integration. If you want to build the app, you need to provide your own `google-services.json` file.
+This project does not include the `google-services.json` file required for Firebase integration. If
+you want to build the app, you need to provide your own `google-services.json` file.
 
 ## Dependency Injection
 
-ChatNote uses **Hilt** for DI to ensure proper separation of concerns and efficient dependency management. ViewModels only inject use cases to keep UI logic clean.
+ChatNote uses **Hilt** for DI to ensure proper separation of concerns and efficient dependency
+management. ViewModels only inject use cases to keep UI logic clean.
 
 ## State Management
 
-The app utilizes **event-driven architecture** with **Flow**, **StateFlow**, and **Channel** for handling state updates and one-time events. This approach avoids unnecessary recompositions and ensures optimal performance.
+The app utilizes **event-driven architecture** with **Flow**, **StateFlow**, and **Channel** for
+handling state updates and one-time events. This approach avoids unnecessary recompositions and
+ensures optimal performance.
 
 ## Best Practices Implemented
 
@@ -67,7 +74,10 @@ The app utilizes **event-driven architecture** with **Flow**, **StateFlow**, and
 
 ## Purpose & Vision
 
-The goal of ChatNote is to provide an intuitive, lightweight note-taking experience inspired by messaging apps. By structuring notes in a familiar chat-like format, users can quickly create, edit, and organize their thoughts. The app is designed to be **fast, modular, and scalable**, allowing future enhancements such as cloud backup and collaboration features.
+The goal of ChatNote is to provide an intuitive, lightweight note-taking experience inspired by
+messaging apps. By structuring notes in a familiar chat-like format, users can quickly create, edit,
+and organize their thoughts. The app is designed to be **fast, modular, and scalable**, allowing
+future enhancements such as cloud backup and collaboration features.
 
 ## Technologies Used
 
@@ -94,7 +104,8 @@ $ ./gradlew assembleDebug
 
 ## Contributing
 
-Contributions are welcome! Feel free to submit issues, feature requests, or pull requests to improve the app.
+Contributions are welcome! Feel free to submit issues, feature requests, or pull requests to improve
+the app.
 
 ## License
 
