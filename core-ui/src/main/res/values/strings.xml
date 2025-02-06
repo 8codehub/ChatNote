@@ -5,4 +5,5 @@
     <string name="error_database">A database error occurred.</string>
     <string name="folder_not_deleted">The folder could not be deleted.</string>
     <string name="validation_error_empty_folder_name">Folder name cannot be empty</string>
+    <string name="action_not_supported">Action not supported</string>
 </resources>

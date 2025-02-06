@@ -36,6 +36,7 @@ import com.chatnote.coreui.ui.component.StyledText
 import com.chatnote.coreui.ui.decorations.showToast
 import com.chatnote.navigation.NavigationRoute
 import com.chatnote.ui.editor.component.IconItem
+import kotlinx.coroutines.flow.collectLatest
 
 @Composable
 fun FolderEditorScreen(
@@ -44,7 +45,6 @@ fun FolderEditorScreen(
     onCancel: () -> Unit
 ) {
     val state by viewModel.state.collectAsStateWithLifecycle()
-    val oneTimeEvent by viewModel.oneTimeEvent.collectAsStateWithLifecycle(null)
     val context = LocalContext.current
     var localFolderName by remember(state.folderName) { mutableStateOf(state.folderName ?: "") }
     var selectedIconUri by remember(key1 = state.folderIconUri, key2 = state.icons) {
@@ -54,15 +54,19 @@ fun FolderEditorScreen(
         )
     }
 
-    LaunchedEffect(oneTimeEvent) {
-        oneTimeEvent?.let {
-            when (it) {
+    LaunchedEffect(Unit) {
+        viewModel.oneTimeEvent.collectLatest { event ->
+            when (event) {
                 is FolderEditorContract.FolderEditorOneTimeEvent.NavigateBack -> onCancel()
-                is FolderEditorContract.FolderEditorOneTimeEvent.NavigateTo -> navigateTo(it.route)
-                is FolderEditorContract.FolderEditorOneTimeEvent.ShowToast -> {}
+                is FolderEditorContract.FolderEditorOneTimeEvent.NavigateTo -> navigateTo(event.route)
+                is FolderEditorContract.FolderEditorOneTimeEvent.ShowToast -> showToast(
+                    context = context,
+                    event.message
+                )
+
                 is FolderEditorContract.FolderEditorOneTimeEvent.FailedOperation -> showToast(
                     context = context,
-                    context.getString(it.error)
+                    context.getString(event.error)
                 )
             }
         }

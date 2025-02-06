@@ -1,6 +1,8 @@
-package com.chatnote.directnotesui.components
+package com.chatnote.directnotesui.directnoteslist.components
 
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
+import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -17,8 +19,12 @@ import androidx.compose.ui.unit.sp
 import com.chatnote.coreui.ui.component.StyledText
 import com.chatnote.directnotesui.model.UiNote
 
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun NoteItem(note: UiNote) {
+fun NoteItem(
+    note: UiNote,
+    onLongClick: ((UiNote) -> Unit) = { }
+) {
     Box(
         modifier = Modifier
             .fillMaxWidth()
@@ -28,6 +34,10 @@ fun NoteItem(note: UiNote) {
         Column(
             modifier = Modifier
                 .padding(horizontal = 4.dp)
+                .combinedClickable(
+                    onClick = { },
+                    onLongClick = { onLongClick(note) }
+                )
                 .background(
                     color = MaterialTheme.colorScheme.primary,
                     shape = MaterialTheme.shapes.large

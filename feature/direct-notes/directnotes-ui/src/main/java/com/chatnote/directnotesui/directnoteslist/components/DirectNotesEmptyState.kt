@@ -1,4 +1,4 @@
-package com.chatnote.directnotesui.components
+package com.chatnote.directnotesui.directnoteslist.components
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column

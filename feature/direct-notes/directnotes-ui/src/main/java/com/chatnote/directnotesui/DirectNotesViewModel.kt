@@ -5,9 +5,12 @@ import androidx.navigation.toRoute
 import com.chatnote.common.di.IoDispatcher
 import com.chatnote.coreui.arch.EventDrivenViewModel
 import com.chatnote.coreui.arch.StatefulEventHandler
-import com.chatnote.directnotesui.DirectNotesContract.DirectNotesEvent
-import com.chatnote.directnotesui.DirectNotesContract.DirectNotesOneTimeEvent
-import com.chatnote.directnotesui.DirectNotesContract.MutableDirectNotesState
+import com.chatnote.directnotesui.actionablesheet.action.UiAction
+import com.chatnote.directnotesui.directnoteslist.DirectNotesContract
+import com.chatnote.directnotesui.directnoteslist.DirectNotesContract.DirectNotesEvent
+import com.chatnote.directnotesui.directnoteslist.DirectNotesContract.DirectNotesOneTimeEvent
+import com.chatnote.directnotesui.directnoteslist.DirectNotesContract.MutableDirectNotesState
+import com.chatnote.directnotesui.model.UiNote
 import com.chatnote.navigation.NavigationRoute
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineDispatcher
@@ -53,5 +56,15 @@ class DirectNotesViewModel @Inject constructor(
 
     override fun onGeneralError(throwable: Throwable) {
         DirectNotesEvent.GeneralError(throwable = throwable).processWithLaunch()
+    }
+
+    fun onNoteLongClick(uiNote: UiNote) {
+        DirectNotesEvent.NoteLongClick(note = uiNote).processWithLaunch()
+    }
+
+    fun handelAction(uiAction: UiAction) {
+        DirectNotesEvent.ActionClick(uiAction = uiAction)
+            .processWithLaunch()
+
     }
 }

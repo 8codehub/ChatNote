@@ -1,4 +1,4 @@
-package com.chatnote.directnotesui.components.editor
+package com.chatnote.directnotesui.directnoteslist.components.editor
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Row

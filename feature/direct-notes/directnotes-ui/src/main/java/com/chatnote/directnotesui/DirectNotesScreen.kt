@@ -19,6 +19,9 @@ import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalContext
@@ -28,11 +31,15 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import chatnote.directnotesui.R
 import com.chatnote.coreui.ui.decorations.showToast
-import com.chatnote.directnotesui.components.DirectNotesEmptyState
-import com.chatnote.directnotesui.components.DirectNotesTitle
-import com.chatnote.directnotesui.components.NoteItem
-import com.chatnote.directnotesui.components.editor.NoteEditorInput
+import com.chatnote.directnotesui.actionablesheet.component.ActionableBottomSheet
+import com.chatnote.directnotesui.directnoteslist.DirectNotesContract
+import com.chatnote.directnotesui.directnoteslist.components.DirectNotesEmptyState
+import com.chatnote.directnotesui.directnoteslist.components.DirectNotesTitle
+import com.chatnote.directnotesui.directnoteslist.components.NoteItem
+import com.chatnote.directnotesui.directnoteslist.components.editor.NoteEditorInput
+import com.chatnote.directnotesui.model.UiActionableContent
 import com.chatnote.navigation.NavigationRoute
+import kotlinx.coroutines.flow.collectLatest
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -42,11 +49,11 @@ fun DirectNotesScreen(
     viewModel: DirectNotesViewModel = hiltViewModel()
 ) {
     val stateValue by viewModel.state.collectAsStateWithLifecycle()
-    val oneTimeEvent by viewModel.oneTimeEvent.collectAsStateWithLifecycle(null)
     val context = LocalContext.current
+    var actionableContent by remember { mutableStateOf<UiActionableContent?>(null) }
 
-    LaunchedEffect(oneTimeEvent) {
-        oneTimeEvent?.let { event ->
+    LaunchedEffect(Unit) {
+        viewModel.oneTimeEvent.collectLatest { event ->
             when (event) {
                 is DirectNotesContract.DirectNotesOneTimeEvent.FailedOperation -> showToast(
                     context = context, context.getString(
@@ -56,6 +63,9 @@ fun DirectNotesScreen(
 
                 DirectNotesContract.DirectNotesOneTimeEvent.NavigateBack -> onBackClick()
                 is DirectNotesContract.DirectNotesOneTimeEvent.NavigateTo -> navigateTo(event.route)
+                is DirectNotesContract.DirectNotesOneTimeEvent.ShowActionableContentSheet -> {
+                    actionableContent = event.uiActionableContent
+                }
             }
         }
     }
@@ -116,7 +126,9 @@ fun DirectNotesScreen(
                         reverseLayout = true
                     ) {
                         items(stateValue.notes.size) { index ->
-                            NoteItem(note = stateValue.notes[index])
+                            NoteItem(
+                                note = stateValue.notes[index],
+                                onLongClick = { viewModel.onNoteLongClick(it) })
                         }
                     }
                 }
@@ -131,4 +143,14 @@ fun DirectNotesScreen(
             }
         }
     )
+    actionableContent?.let {
+        ActionableBottomSheet(
+            actionableContent = it,
+            handleAction = { uiAction ->
+                viewModel.handelAction(uiAction = uiAction)
+            },
+            onDismiss = { actionableContent = null }
+        )
+    }
 }
+

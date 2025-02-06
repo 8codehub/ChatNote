@@ -17,12 +17,15 @@ scalability and maintainability.
 ## Screenshots
 
 ### Home List
+
 ![Home List](https://raw.githubusercontent.com/8codehub/ChatNote/refs/heads/main/assets/1.png)
 
 ### Direct Notes
+
 ![Direct Notes](https://raw.githubusercontent.com/8codehub/ChatNote/refs/heads/main/assets/2.png)
 
 ### Note Editor
+
 ![Note Editor](https://raw.githubusercontent.com/8codehub/ChatNote/refs/heads/main/assets/3.png)
 
 ## Architecture

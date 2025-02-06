@@ -40,6 +40,7 @@ import com.chatnote.ui.folderlist.components.AddNewFolderButton
 import com.chatnote.ui.folderlist.components.FolderActionItems
 import com.chatnote.ui.folderlist.components.FolderCard
 import com.chatnote.ui.model.UiFolder
+import kotlinx.coroutines.flow.collectLatest
 
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -50,7 +51,6 @@ fun FolderListScreen(
 ) {
     val state by viewModel.state.collectAsStateWithLifecycle()
     var selectedFolderForDeletion by remember { mutableStateOf<UiFolder?>(null) }
-    val oneTimeEvent by viewModel.oneTimeEvent.collectAsStateWithLifecycle(null)
     val context = LocalContext.current
     val lazyListState = rememberLazyListState()
 
@@ -62,17 +62,17 @@ fun FolderListScreen(
         annotatedValueFontWeight = FontWeight.Bold
     )
 
-    LaunchedEffect(oneTimeEvent) {
-        oneTimeEvent?.let {
-            when (it) {
+    LaunchedEffect(Unit) {
+        viewModel.oneTimeEvent.collectLatest { oneTimeEvent ->
+            when (oneTimeEvent) {
                 is FolderListContract.FolderListOneTimeEvent.FolderDeleted -> onFolderDeletedOneTimeEvent(
                     context = context,
-                    messagesCount = it.messagesCount
+                    messagesCount = oneTimeEvent.messagesCount
                 )
 
                 is FolderListContract.FolderListOneTimeEvent.FailedOperation -> showToast(
                     context = context,
-                    message = context.getString(it.error)
+                    message = context.getString(oneTimeEvent.error)
                 )
 
                 FolderListContract.FolderListOneTimeEvent.OnAppFirstOpen -> viewModel.onAppFirstOpen(
@@ -80,6 +80,7 @@ fun FolderListScreen(
                 )
             }
         }
+
     }
 
     AppAlertDialog(

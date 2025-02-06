@@ -1,10 +1,12 @@
-package com.chatnote.directnotesui
+package com.chatnote.directnotesui.directnoteslist
 
 import androidx.annotation.StringRes
 import com.chatnote.coreui.arch.ConvertibleState
 import com.chatnote.coreui.arch.MutableConvertibleState
 import com.chatnote.coreui.arch.UiEvent
 import com.chatnote.coreui.arch.UiOneTimeEvent
+import com.chatnote.directnotesui.actionablesheet.action.UiAction
+import com.chatnote.directnotesui.model.UiActionableContent
 import com.chatnote.directnotesui.model.UiNote
 import com.chatnote.navigation.NavigationRoute
 
@@ -61,6 +63,10 @@ object DirectNotesContract {
         data class LoadFolderBasicInfo(val folderId: Long) : DirectNotesEvent()
         data class LoadAllNotes(val folderId: Long) : DirectNotesEvent()
         data class AddNote(val note: String) : DirectNotesEvent()
+        data class NoteLongClick(val note: UiNote) : DirectNotesEvent()
+        data class ActionClick(val uiAction: UiAction) :
+            DirectNotesEvent()
+
         data class GeneralError(val throwable: Throwable) : DirectNotesEvent()
     }
 
@@ -69,5 +75,8 @@ object DirectNotesContract {
         data class FailedOperation(@StringRes val error: Int) : DirectNotesOneTimeEvent()
         data object NavigateBack : DirectNotesOneTimeEvent()
         data class NavigateTo(val route: NavigationRoute) : DirectNotesOneTimeEvent()
+        data class ShowActionableContentSheet(val uiActionableContent: UiActionableContent) :
+            DirectNotesOneTimeEvent()
+
     }
 }

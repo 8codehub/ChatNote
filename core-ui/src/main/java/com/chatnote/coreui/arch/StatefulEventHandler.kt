@@ -16,7 +16,7 @@ abstract class StatefulEventHandler<E, O, S, M>(
     val state: StateFlow<S> = _state.asStateFlow()
     val stateValue: S get() = _state.value
 
-    private val _uiEvent = Channel<O>(Channel.BUFFERED)
+    private val _uiEvent = Channel<O>(Channel.UNLIMITED)
     val uiEvent: Flow<O> = _uiEvent.receiveAsFlow()
 
     abstract suspend fun process(event: E, args: Any? = null)
