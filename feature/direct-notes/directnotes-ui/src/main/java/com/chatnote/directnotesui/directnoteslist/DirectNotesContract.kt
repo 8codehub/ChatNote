@@ -6,7 +6,6 @@ import com.chatnote.coreui.arch.MutableConvertibleState
 import com.chatnote.coreui.arch.UiEvent
 import com.chatnote.coreui.arch.UiOneTimeEvent
 import com.chatnote.directnotesui.model.UiActionableContent
-import com.chatnote.directnotesui.model.UiActionableItem
 import com.chatnote.directnotesui.model.UiNote
 import com.chatnote.directnotesui.model.UiNoteInteraction
 import com.chatnote.navigation.NavigationRoute
@@ -65,7 +64,7 @@ object DirectNotesContract {
         data class LoadAllNotes(val folderId: Long) : DirectNotesEvent()
         data class AddNote(val note: String) : DirectNotesEvent()
         data class NoteLongClick(val note: UiNote) : DirectNotesEvent()
-        data class ActionClick(val uiNoteInteraction: UiNoteInteraction) :
+        data class NoteActionClick(val uiNoteInteraction: UiNoteInteraction) :
             DirectNotesEvent()
 
         data class GeneralError(val throwable: Throwable) : DirectNotesEvent()

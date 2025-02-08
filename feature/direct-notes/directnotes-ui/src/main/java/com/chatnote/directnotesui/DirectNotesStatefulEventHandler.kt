@@ -8,9 +8,9 @@ import com.chatnote.coreui.arch.StatefulEventHandler
 import com.chatnote.coreui.model.SystemActionType
 import com.chatnote.coreui.systemactions.SystemActionTypeHandler
 import com.chatnote.directnotesdomain.model.ActionableContent
-import com.chatnote.directnotesdomain.model.ActionableItem
 import com.chatnote.directnotesdomain.model.Note
 import com.chatnote.directnotesdomain.usecase.AddNoteUseCase
+import com.chatnote.directnotesdomain.usecase.DeleteNoteUseCase
 import com.chatnote.directnotesdomain.usecase.ExtractActionableContentUseCase
 import com.chatnote.directnotesdomain.usecase.GetNotesUseCase
 import com.chatnote.directnotesdomain.usecase.ObserveFolderUseCase
@@ -19,7 +19,6 @@ import com.chatnote.directnotesui.directnoteslist.DirectNotesContract.DirectNote
 import com.chatnote.directnotesui.directnoteslist.DirectNotesContract.DirectNotesState
 import com.chatnote.directnotesui.directnoteslist.DirectNotesContract.MutableDirectNotesState
 import com.chatnote.directnotesui.model.UiActionableContent
-import com.chatnote.directnotesui.model.UiActionableItem
 import com.chatnote.directnotesui.model.UiNote
 import com.chatnote.directnotesui.model.UiNoteInteraction
 import kotlinx.coroutines.Dispatchers
@@ -33,6 +32,7 @@ class DirectNotesStatefulEventHandler @Inject constructor(
     private val observeNotes: GetNotesUseCase,
     private val addNoteUseCase: AddNoteUseCase,
     private val observeFolderUseCase: ObserveFolderUseCase,
+    private val deleteNoteUseCase: DeleteNoteUseCase,
     private val extractActionableContent: ExtractActionableContentUseCase,
     private val errorResultMapper: Mapper<Throwable, Int>,
     private val notesToUiNotes: Mapper<Note, UiNote>,
@@ -54,16 +54,34 @@ class DirectNotesStatefulEventHandler @Inject constructor(
 
             is DirectNotesEvent.GeneralError -> onGeneralErrorEvent(throwable = event.throwable)
             is DirectNotesEvent.NoteLongClick -> onNoteLongClickEvent(uiNote = event.note)
-            is DirectNotesEvent.ActionClick -> onSystemActionClick(
-                systemActionType = actionTypeToSystemActionType.map(from = event.uiNoteInteraction)
+            is DirectNotesEvent.NoteActionClick -> onActionClickEvent(
+                uiNoteInteraction = event.uiNoteInteraction
             )
         }
     }
 
-    private suspend fun onSystemActionClick(systemActionType: SystemActionType) {
+    private suspend fun handleSystemAction(systemActionType: SystemActionType) {
         withContext(Dispatchers.Main) {
             systemActionTypeHandler.handleAction(systemActionType = systemActionType)
         }
+    }
+
+    private suspend fun onActionClickEvent(uiNoteInteraction: UiNoteInteraction) {
+        when (uiNoteInteraction) {
+            is UiNoteInteraction.Call,
+            is UiNoteInteraction.Copy,
+            is UiNoteInteraction.OpenEmail,
+            is UiNoteInteraction.OpenWeb,
+            is UiNoteInteraction.SMS,
+            is UiNoteInteraction.Share -> handleSystemAction(
+                systemActionType = actionTypeToSystemActionType.map(
+                    from = uiNoteInteraction
+                )
+            )
+
+            is UiNoteInteraction.Delete -> deleteNoteUseCase(folderId = stateValue.folderId ?: 0, noteId = uiNoteInteraction.noteId)
+        }
+
     }
 
     private suspend fun onGeneralErrorEvent(throwable: Throwable) {

@@ -12,12 +12,12 @@ sealed class UiNoteInteraction(val order: Int) {
     data class OpenWeb(val url: String) : UiNoteInteraction(4000)
     data class OpenEmail(val email: String) : UiNoteInteraction(5000)
     data class Copy(val content: String) : UiNoteInteraction(6000)
-    data class Delete(val noteId: String) : UiNoteInteraction(7000)
+    data class Delete(val noteId: Long) : UiNoteInteraction(7000)
 }
 
 
 
 data class UiActionableItem(
     val content: String,
-    val actions: List<UiNoteInteraction>
+    val actions: List<UiNoteInteraction> = emptyList()
 )

@@ -51,6 +51,15 @@ interface FolderDao {
         lastNoteDate: Long
     )
 
+    @Query(
+        """
+    UPDATE folders 
+    SET lastNoteContent = '', lastNoteCreatedAt = 0
+    WHERE id = :folderId AND lastNoteId = :noteId
+    """
+    )
+    suspend fun clearFolderLastNoteIfMatch(folderId: Long, noteId: Long): Int
+
     @Query("UPDATE folders SET pinnedDate = :pinnedDate WHERE id = :folderId")
     suspend fun pinFolder(
         folderId: Long,

@@ -27,7 +27,8 @@ class FolderRepositoryImpl @Inject constructor(
                         name = name,
                         iconUri = iconUri,
                         lastNoteContent = null,
-                        lastNoteCreatedAt = null
+                        lastNoteCreatedAt = null,
+                        lastNoteId = 0
                     )
                 )
             } else {

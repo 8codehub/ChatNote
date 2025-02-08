@@ -1,5 +1,4 @@
 <resources>
-    <string name="app_name">ChatNote</string>
     <string name="new_folder">Новая папка</string>
     <string name="hint_1">Организуйте свои заметки в отдельном пространстве</string>
     <string name="hint_2">Группируйте похожие элементы в одном месте</string>

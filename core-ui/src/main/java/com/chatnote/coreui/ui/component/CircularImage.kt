@@ -136,26 +136,26 @@ fun CircularBackgroundIcon(
     iconPadding: Dp = 0.dp,
     iconSize: Dp = 24.dp,
     borderWidth: Dp = 0.dp,
+    imageColorFilter: ColorFilter? = null,
     borderColor: Color = Color.Transparent,
     backgroundColor: Color = Color.Transparent,
-    backgroundSize: Dp = 48.dp,
     onClick: (() -> Unit)? = null
 ) {
     Box(
         modifier = modifier
-            .size(backgroundSize)
-            .aspectRatio(1f)
+            .wrapContentSize(unbounded = true)
             .background(backgroundColor, shape = CircleShape)
             .border(width = borderWidth, color = borderColor, shape = CircleShape)
+            .padding(iconPadding)
             .then(if (onClick != null) Modifier.clickable { onClick() } else Modifier),
         contentAlignment = Alignment.Center
     ) {
         Image(
             painter = painterResource(id = drawableRes),
+            colorFilter = imageColorFilter,
             contentDescription = null,
             modifier = Modifier
                 .size(iconSize)
-                .padding(iconPadding)
         )
     }
 }

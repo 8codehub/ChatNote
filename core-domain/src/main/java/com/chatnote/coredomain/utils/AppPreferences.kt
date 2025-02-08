@@ -2,7 +2,7 @@ package com.chatnote.coredomain.utils
 
 interface AppPreferences {
 
-    suspend fun isFirstOpen(): Boolean
+    suspend fun isFirstSession(): Boolean
 
     suspend fun getAppSessionCount(): Int
 

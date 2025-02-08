@@ -7,4 +7,6 @@ interface FolderRepositoryFacade {
         lastNote: String,
         lastNoteDate: Long
     ): Result<Unit>
+
+    suspend fun deleteFolderLastNoteIfMatch(folderId: Long, noteId: Long): Result<Unit>
 }

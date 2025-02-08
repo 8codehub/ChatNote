@@ -99,30 +99,49 @@ class FolderListStatefulEventHandler @Inject constructor(
     }
 
     private suspend fun onLoadFoldersEvent() {
-        appPreferences.isFirstOpen().let { firstStart ->
+        appPreferences.isFirstSession().let { firstStart ->
             analyticsTracker.trackAppStart(firstStart)
-            if (firstStart) {
-                FolderListOneTimeEvent.OnAppFirstOpen.processOneTimeEvent()
-            }
         }
-        getFolders().onStart {
-            updateUiState {
-                isLoading = true
+
+        getFolders()
+            .onStart {
+                updateUiState { isLoading = true }
             }
-        }.onEach { folders ->
-            analyticsTracker.trackFolderCount(folderCount = folders.size)
-            updateUiState {
-                isLoading = false
-                this.folders = folderToUiFolder.mapList(folders)
-                foldersCount = folders.size
-            }
-        }.catch { _ ->
-            FolderListOneTimeEvent.FailedOperation(error = R.string.error_failed_to_load_folders)
-            updateUiState {
-                isLoading = false
-                foldersCount = null
-            }
-        }.collect()
+            .onEach { folders -> processFolders(folders) }
+            .catch { handleLoadingError() }
+            .collect()
     }
 
+    private suspend fun processFolders(folders: List<Folder>) {
+        trackFolderCount(folders)
+        checkForFirstOpenEvent(folders)
+        updateUiWithFolders(folders)
+    }
+
+    private fun trackFolderCount(folders: List<Folder>) {
+        analyticsTracker.trackFolderCount(folderCount = folders.size)
+    }
+
+    private suspend fun checkForFirstOpenEvent(folders: List<Folder>) {
+        if (folders.isEmpty() && appPreferences.isFirstSession()) {
+            FolderListOneTimeEvent.OnAppFirstOpen.processOneTimeEvent()
+        }
+    }
+
+    private fun updateUiWithFolders(folders: List<Folder>) {
+        updateUiState {
+            isLoading = false
+            this.folders = folderToUiFolder.mapList(folders)
+            foldersCount = folders.size
+        }
+    }
+
+    private fun handleLoadingError() {
+        FolderListOneTimeEvent.FailedOperation(error = R.string.error_failed_to_load_folders)
+        updateUiState {
+            isLoading = false
+
+
+        }
+    }
 }

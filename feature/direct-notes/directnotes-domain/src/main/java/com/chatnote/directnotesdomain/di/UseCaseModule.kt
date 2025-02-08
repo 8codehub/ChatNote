@@ -2,6 +2,8 @@ package com.chatnote.directnotesdomain.di
 
 import com.chatnote.directnotesdomain.usecase.AddNoteUseCase
 import com.chatnote.directnotesdomain.usecase.AddNoteUseCaseImpl
+import com.chatnote.directnotesdomain.usecase.DeleteNoteUseCase
+import com.chatnote.directnotesdomain.usecase.DeleteNoteUseCaseImpl
 import com.chatnote.directnotesdomain.usecase.ExtractActionableContentUseCase
 import com.chatnote.directnotesdomain.usecase.ExtractActionableContentUseCaseImpl
 import com.chatnote.directnotesdomain.usecase.GetNotesUseCase
@@ -26,6 +28,11 @@ internal abstract class UseCaseModule {
     abstract fun bindCreateFolderUseCase(
         implementation: AddNoteUseCaseImpl
     ): AddNoteUseCase
+
+    @Binds
+    abstract fun bindDeleteNoteUseCase(
+        implementation: DeleteNoteUseCaseImpl
+    ): DeleteNoteUseCase
 
     @Binds
     abstract fun bindObserveFolderUseCase(

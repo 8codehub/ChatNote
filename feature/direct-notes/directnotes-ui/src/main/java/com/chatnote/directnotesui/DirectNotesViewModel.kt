@@ -5,7 +5,6 @@ import androidx.navigation.toRoute
 import com.chatnote.common.di.IoDispatcher
 import com.chatnote.coreui.arch.EventDrivenViewModel
 import com.chatnote.coreui.arch.StatefulEventHandler
-import com.chatnote.directnotesui.actionablesheet.action.UiAction
 import com.chatnote.directnotesui.directnoteslist.DirectNotesContract
 import com.chatnote.directnotesui.directnoteslist.DirectNotesContract.DirectNotesEvent
 import com.chatnote.directnotesui.directnoteslist.DirectNotesContract.DirectNotesOneTimeEvent
@@ -64,7 +63,7 @@ class DirectNotesViewModel @Inject constructor(
     }
 
     fun handelAction(uiNoteInteraction: UiNoteInteraction) {
-        DirectNotesEvent.ActionClick(uiNoteInteraction = uiNoteInteraction)
+        DirectNotesEvent.NoteActionClick(uiNoteInteraction = uiNoteInteraction)
             .processWithLaunch()
 
     }

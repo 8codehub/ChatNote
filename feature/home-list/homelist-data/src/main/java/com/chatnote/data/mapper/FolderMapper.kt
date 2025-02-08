@@ -14,6 +14,7 @@ internal class FolderEntityToFolderMapper @Inject constructor() : Mapper<FolderE
         lastNote = from.lastNoteContent.orEmpty(),
         iconUri = from.iconUri,
         lastNoteCreatedDate = from.lastNoteCreatedAt ?: 0,
+        lastNoteId = from.lastNoteId ?: 0,
         isPinned = from.pinnedDate > 0
     )
 }
@@ -35,6 +36,7 @@ internal class FolderToFolderEntityMapper @Inject constructor() : Mapper<Folder,
         iconUri = from.iconUri,
         lastNoteCreatedAt = System.currentTimeMillis(),
         lastNoteContent = from.lastNote,
+        lastNoteId = from.lastNoteId,
         pinnedDate = 0L
     )
 }

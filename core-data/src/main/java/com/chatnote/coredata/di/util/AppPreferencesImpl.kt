@@ -13,7 +13,7 @@ class AppPreferencesImpl @Inject constructor(
         private const val KEY_APP_SESSION_COUNT = "app_session_count"
     }
 
-    override suspend fun isFirstOpen(): Boolean {
+    override suspend fun isFirstSession(): Boolean {
         return getAppSessionCount() <= 1
     }
 

@@ -26,4 +26,13 @@ class FolderRepositoryFacadeImpl @Inject constructor(
             onFailure = { Result.failure(ResultError.DatabaseError(it)) }
         )
     }
+
+    override suspend fun deleteFolderLastNoteIfMatch(folderId: Long, noteId: Long): Result<Unit> {
+        return kotlin.runCatching {
+            folderDao.clearFolderLastNoteIfMatch(folderId = folderId, noteId = noteId)
+        }.fold(
+            onSuccess = { Result.success(Unit) },
+            onFailure = { Result.failure(ResultError.DatabaseError(it)) }
+        )
+    }
 }
