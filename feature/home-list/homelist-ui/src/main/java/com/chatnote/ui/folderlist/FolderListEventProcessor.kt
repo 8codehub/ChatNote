@@ -140,8 +140,6 @@ class FolderListStatefulEventHandler @Inject constructor(
         FolderListOneTimeEvent.FailedOperation(error = R.string.error_failed_to_load_folders)
         updateUiState {
             isLoading = false
-
-
         }
     }
 }

@@ -31,14 +31,15 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import chatnote.directnotesui.R
 import com.chatnote.coreui.ui.decorations.showToast
-import com.chatnote.directnotesui.actionablesheet.component.ActionableBottomSheet
-import com.chatnote.directnotesui.directnoteslist.DirectNotesContract
+import com.chatnote.directnotesui.actionablesheet.component.NoteInteractionBottomSheet
+import com.chatnote.directnotesui.directnoteslist.DirectNotesContract.DirectNotesOneTimeEvent.FailedOperation
+import com.chatnote.directnotesui.directnoteslist.DirectNotesContract.DirectNotesOneTimeEvent.NavigateBack
+import com.chatnote.directnotesui.directnoteslist.DirectNotesContract.DirectNotesOneTimeEvent.NavigateTo
+import com.chatnote.directnotesui.directnoteslist.DirectNotesContract.DirectNotesOneTimeEvent.ShowActionableContentSheet
 import com.chatnote.directnotesui.directnoteslist.components.DirectNotesEmptyState
 import com.chatnote.directnotesui.directnoteslist.components.DirectNotesTitle
 import com.chatnote.directnotesui.directnoteslist.components.NoteItem
 import com.chatnote.directnotesui.directnoteslist.components.editor.NoteEditorInput
-import com.chatnote.directnotesui.model.UiActionableContent
-import com.chatnote.directnotesui.model.UiActionableItem
 import com.chatnote.navigation.NavigationRoute
 import kotlinx.coroutines.flow.collectLatest
 
@@ -51,26 +52,25 @@ fun DirectNotesScreen(
 ) {
     val stateValue by viewModel.state.collectAsStateWithLifecycle()
     val context = LocalContext.current
-    var uiActionableContent by remember { mutableStateOf<UiActionableContent?>(null) }
+    var uiNoteInteractionContent by remember { mutableStateOf<ShowActionableContentSheet?>(null) }
 
     LaunchedEffect(Unit) {
         viewModel.oneTimeEvent.collectLatest { event ->
             when (event) {
-                is DirectNotesContract.DirectNotesOneTimeEvent.FailedOperation -> showToast(
+                is FailedOperation -> showToast(
                     context = context, context.getString(
                         chatnote.coreui.R.string.general_error
                     )
                 )
 
-                DirectNotesContract.DirectNotesOneTimeEvent.NavigateBack -> onBackClick()
-                is DirectNotesContract.DirectNotesOneTimeEvent.NavigateTo -> navigateTo(event.route)
-                is DirectNotesContract.DirectNotesOneTimeEvent.ShowActionableContentSheet -> {
-                    uiActionableContent = event.uiActionableContent
+                NavigateBack -> onBackClick()
+                is NavigateTo -> navigateTo(event.route)
+                is ShowActionableContentSheet -> {
+                    uiNoteInteractionContent = event
                 }
             }
         }
     }
-
 
     Scaffold(
         topBar = {
@@ -144,14 +144,15 @@ fun DirectNotesScreen(
             }
         }
     )
-    uiActionableContent?.let {
-        ActionableBottomSheet(
-            uiActionableContent = it,
+    uiNoteInteractionContent?.let { content ->
+        NoteInteractionBottomSheet(
+            noteId = content.noteId,
+            uiNoteActionableContent = content.uiNoteActionableContent,
             handleAction = { uiNoteInteraction ->
                 viewModel.handelAction(uiNoteInteraction = uiNoteInteraction)
             },
             onDismiss = {
-                uiActionableContent = null
+                uiNoteInteractionContent = null
             }
         )
     }

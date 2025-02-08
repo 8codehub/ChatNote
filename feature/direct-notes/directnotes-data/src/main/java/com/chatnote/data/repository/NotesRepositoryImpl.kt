@@ -12,7 +12,7 @@ import javax.inject.Inject
 
 class NotesRepositoryImpl @Inject constructor(
     private val noteDao: NoteDao,
-    private val folderUpdateHandler: FolderRepositoryFacade,
+    private val folderRepositoryFacade: FolderRepositoryFacade,
     private val domainToEntityMapper: Mapper<Note, NoteEntity>
 ) : NotesRepository {
 
@@ -26,9 +26,10 @@ class NotesRepositoryImpl @Inject constructor(
 
             val insertedNoteId = noteDao.insertNote(noteEntity)
             if (insertedNoteId > 0) {
-                folderUpdateHandler.updateFolderWithLastNote(
+                folderRepositoryFacade.updateFolderWithLastNote(
                     folderId = folderId,
                     lastNote = note.content,
+                    lastNoteId = note.id,
                     lastNoteDate = createdDate
                 )
             } else {

@@ -44,10 +44,19 @@ interface FolderDao {
     @Delete
     suspend fun deleteFolder(folderEntity: FolderEntity)
 
-    @Query("UPDATE folders SET lastNoteContent = :lastNote, lastNoteCreatedAt = :lastNoteDate WHERE id = :folderId")
+    @Query(
+        """
+    UPDATE folders 
+    SET lastNoteContent = :lastNote, 
+        lastNoteCreatedAt = :lastNoteDate, 
+        lastNoteId = :lastNoteId
+    WHERE id = :folderId
+    """
+    )
     suspend fun updateFolderLastNote(
         folderId: Long,
         lastNote: String,
+        lastNoteId: Long,
         lastNoteDate: Long
     )
 

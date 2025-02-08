@@ -13,12 +13,14 @@ class FolderRepositoryFacadeImpl @Inject constructor(
     override suspend fun updateFolderWithLastNote(
         folderId: Long,
         lastNote: String,
+        lastNoteId: Long,
         lastNoteDate: Long
     ): Result<Unit> {
         return runCatching {
             folderDao.updateFolderLastNote(
                 folderId = folderId,
                 lastNote = lastNote,
+                lastNoteId = lastNoteId,
                 lastNoteDate = lastNoteDate
             )
         }.fold(
@@ -31,8 +33,12 @@ class FolderRepositoryFacadeImpl @Inject constructor(
         return kotlin.runCatching {
             folderDao.clearFolderLastNoteIfMatch(folderId = folderId, noteId = noteId)
         }.fold(
-            onSuccess = { Result.success(Unit) },
-            onFailure = { Result.failure(ResultError.DatabaseError(it)) }
+            onSuccess = {
+                Result.success(Unit)
+            },
+            onFailure = {
+                Result.failure(ResultError.DatabaseError(it))
+            }
         )
     }
 }

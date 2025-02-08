@@ -7,8 +7,8 @@ import com.chatnote.coredomain.models.FolderBaseInfo
 import com.chatnote.coreui.arch.StatefulEventHandler
 import com.chatnote.coreui.model.SystemActionType
 import com.chatnote.coreui.systemactions.SystemActionTypeHandler
-import com.chatnote.directnotesdomain.model.ActionableContent
 import com.chatnote.directnotesdomain.model.Note
+import com.chatnote.directnotesdomain.model.NoteActionableContent
 import com.chatnote.directnotesdomain.usecase.AddNoteUseCase
 import com.chatnote.directnotesdomain.usecase.DeleteNoteUseCase
 import com.chatnote.directnotesdomain.usecase.ExtractActionableContentUseCase
@@ -18,8 +18,8 @@ import com.chatnote.directnotesui.directnoteslist.DirectNotesContract.DirectNote
 import com.chatnote.directnotesui.directnoteslist.DirectNotesContract.DirectNotesOneTimeEvent
 import com.chatnote.directnotesui.directnoteslist.DirectNotesContract.DirectNotesState
 import com.chatnote.directnotesui.directnoteslist.DirectNotesContract.MutableDirectNotesState
-import com.chatnote.directnotesui.model.UiActionableContent
 import com.chatnote.directnotesui.model.UiNote
+import com.chatnote.directnotesui.model.UiNoteActionableContent
 import com.chatnote.directnotesui.model.UiNoteInteraction
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.catch
@@ -36,7 +36,7 @@ class DirectNotesStatefulEventHandler @Inject constructor(
     private val extractActionableContent: ExtractActionableContentUseCase,
     private val errorResultMapper: Mapper<Throwable, Int>,
     private val notesToUiNotes: Mapper<Note, UiNote>,
-    private val actionableContentToUiActionableContent: Mapper<ActionableContent, UiActionableContent>,
+    private val actionableContentToUiNoteNoteActionableContent: Mapper<NoteActionableContent, UiNoteActionableContent>,
     private val actionTypeToSystemActionType: Mapper<UiNoteInteraction, SystemActionType>,
     private val analyticsTracker: AnalyticsTracker,
     private val systemActionTypeHandler: SystemActionTypeHandler
@@ -79,7 +79,10 @@ class DirectNotesStatefulEventHandler @Inject constructor(
                 )
             )
 
-            is UiNoteInteraction.Delete -> deleteNoteUseCase(folderId = stateValue.folderId ?: 0, noteId = uiNoteInteraction.noteId)
+            is UiNoteInteraction.Delete -> deleteNoteUseCase(
+                folderId = stateValue.folderId ?: 0,
+                noteId = uiNoteInteraction.noteId
+            )
         }
 
     }
@@ -150,7 +153,8 @@ class DirectNotesStatefulEventHandler @Inject constructor(
 
     private suspend fun onNoteLongClickEvent(uiNote: UiNote) {
         DirectNotesOneTimeEvent.ShowActionableContentSheet(
-            actionableContentToUiActionableContent.map(extractActionableContent(fullMessage = uiNote.content))
+            noteId = uiNote.id,
+            actionableContentToUiNoteNoteActionableContent.map(extractActionableContent(fullMessage = uiNote.content))
         ).processOneTimeEvent()
 
     }

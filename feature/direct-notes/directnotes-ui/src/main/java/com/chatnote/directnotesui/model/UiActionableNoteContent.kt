@@ -1,6 +1,6 @@
 package com.chatnote.directnotesui.model
 
-data class UiActionableContent(
+data class UiNoteActionableContent(
     val fullContent: String,
     val actionableItems: List<UiActionableItem>
 )

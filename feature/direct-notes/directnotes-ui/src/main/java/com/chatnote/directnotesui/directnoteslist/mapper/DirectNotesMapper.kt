@@ -3,10 +3,10 @@ package com.chatnote.directnotesui.directnoteslist.mapper
 import com.chatnote.coredomain.mapper.Mapper
 import com.chatnote.coreui.util.DateFormatter
 import com.chatnote.directnotesdomain.model.ActionType
-import com.chatnote.directnotesdomain.model.ActionableContent
+import com.chatnote.directnotesdomain.model.NoteActionableContent
 import com.chatnote.directnotesdomain.model.ActionableItem
 import com.chatnote.directnotesdomain.model.Note
-import com.chatnote.directnotesui.model.UiActionableContent
+import com.chatnote.directnotesui.model.UiNoteActionableContent
 import com.chatnote.directnotesui.model.UiActionableItem
 import com.chatnote.directnotesui.model.UiNote
 import com.chatnote.directnotesui.model.UiNoteInteraction
@@ -48,8 +48,8 @@ class ActionTypeToUiActionTypeMapper @Inject constructor() : Mapper<ActionType, 
 class ActionableContentToUiActionableContentMapper @Inject constructor(
     private val actionTypeToUiActionTypeMapper: Mapper<ActionableItem, UiActionableItem>
 ) :
-    Mapper<ActionableContent, UiActionableContent> {
-    override fun map(from: ActionableContent) = UiActionableContent(
+    Mapper<NoteActionableContent, UiNoteActionableContent> {
+    override fun map(from: NoteActionableContent) = UiNoteActionableContent(
         fullContent = from.fullContent,
         actionableItems = actionTypeToUiActionTypeMapper.mapList(from.actionableItems)
     )

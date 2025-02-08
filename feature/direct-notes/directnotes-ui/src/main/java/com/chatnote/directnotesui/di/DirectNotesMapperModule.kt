@@ -4,7 +4,7 @@ import com.chatnote.coredomain.mapper.Mapper
 import com.chatnote.coreui.model.SystemActionType
 import com.chatnote.coreui.util.DateFormatter
 import com.chatnote.directnotesdomain.model.ActionType
-import com.chatnote.directnotesdomain.model.ActionableContent
+import com.chatnote.directnotesdomain.model.NoteActionableContent
 import com.chatnote.directnotesdomain.model.ActionableItem
 import com.chatnote.directnotesdomain.model.Note
 import com.chatnote.directnotesui.directnoteslist.mapper.ActionTypeToUiActionTypeMapper
@@ -12,7 +12,7 @@ import com.chatnote.directnotesui.directnoteslist.mapper.ActionableContentToUiAc
 import com.chatnote.directnotesui.directnoteslist.mapper.ActionableItemToUiActionableItemMapper
 import com.chatnote.directnotesui.directnoteslist.mapper.NotesToUiNotesMapper
 import com.chatnote.directnotesui.mapper.UiNoteInteractionToSystemActionTypeMapper
-import com.chatnote.directnotesui.model.UiActionableContent
+import com.chatnote.directnotesui.model.UiNoteActionableContent
 import com.chatnote.directnotesui.model.UiActionableItem
 import com.chatnote.directnotesui.model.UiNote
 import com.chatnote.directnotesui.model.UiNoteInteraction
@@ -48,7 +48,7 @@ object DirectNotesMapperModule {
 
     @Provides
     @Singleton
-    fun provideActionableContentToUiActionableContentMapper(actionTypeToUiActionTypeMapper: Mapper<ActionableItem, UiActionableItem>): Mapper<ActionableContent, UiActionableContent> =
+    fun provideActionableContentToUiActionableContentMapper(actionTypeToUiActionTypeMapper: Mapper<ActionableItem, UiActionableItem>): Mapper<NoteActionableContent, UiNoteActionableContent> =
         ActionableContentToUiActionableContentMapper(actionTypeToUiActionTypeMapper = actionTypeToUiActionTypeMapper)
 
 }

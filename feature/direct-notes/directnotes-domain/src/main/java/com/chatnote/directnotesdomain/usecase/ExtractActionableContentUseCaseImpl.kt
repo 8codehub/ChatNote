@@ -2,12 +2,12 @@ package com.chatnote.directnotesdomain.usecase
 
 
 import com.chatnote.directnotesdomain.model.ActionType
-import com.chatnote.directnotesdomain.model.ActionableContent
+import com.chatnote.directnotesdomain.model.NoteActionableContent
 import com.chatnote.directnotesdomain.model.ActionableItem
 import javax.inject.Inject
 
 class ExtractActionableContentUseCaseImpl @Inject constructor() : ExtractActionableContentUseCase {
-    override fun invoke(fullMessage: String): ActionableContent {
+    override fun invoke(fullMessage: String): NoteActionableContent {
         val actionableItems = mutableListOf<ActionableItem>()
 
         extractPhoneNumbers(fullMessage).forEach { phone ->
@@ -41,7 +41,7 @@ class ExtractActionableContentUseCaseImpl @Inject constructor() : ExtractActiona
             )
         }
 
-        return ActionableContent(
+        return NoteActionableContent(
             fullContent = fullMessage,
             actionableItems = actionableItems
         )

@@ -5,6 +5,7 @@ interface FolderRepositoryFacade {
     suspend fun updateFolderWithLastNote(
         folderId: Long,
         lastNote: String,
+        lastNoteId: Long,
         lastNoteDate: Long
     ): Result<Unit>
 

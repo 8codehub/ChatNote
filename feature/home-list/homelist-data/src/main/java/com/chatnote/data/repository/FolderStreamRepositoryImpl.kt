@@ -1,5 +1,6 @@
 package com.chatnote.data.repository
 
+import com.chatnote.coredomain.facade.NotesRepositoryFacade
 import com.chatnote.coredomain.mapper.Mapper
 import com.chatnote.data.db.FolderDao
 import com.chatnote.data.models.FolderEntity
@@ -10,6 +11,7 @@ import javax.inject.Inject
 
 class FolderStreamRepositoryImpl @Inject constructor(
     private val folderDao: FolderDao,
+    private val notesRepositoryFacade: NotesRepositoryFacade,
     private val mapperFolderEntityToFolder: Mapper<FolderEntity, Folder>,
 ) : FolderStreamRepository {
     override fun getFolders(): Flow<List<Folder>> {

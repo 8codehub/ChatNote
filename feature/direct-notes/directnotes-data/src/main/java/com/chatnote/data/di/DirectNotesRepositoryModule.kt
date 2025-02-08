@@ -30,7 +30,7 @@ internal object DirectNotesRepositoryModule {
         domainToEntityMapper: Mapper<Note, NoteEntity>
     ): NotesRepository = NotesRepositoryImpl(
         noteDao = noteDao,
-        folderUpdateHandler = folderUpdateHandler,
+        folderRepositoryFacade = folderUpdateHandler,
         domainToEntityMapper = domainToEntityMapper
     )
 

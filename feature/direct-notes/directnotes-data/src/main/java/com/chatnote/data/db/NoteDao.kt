@@ -13,6 +13,17 @@ interface NoteDao {
     @Query("SELECT * FROM notes WHERE folderId = :folderId ORDER BY createdAt DESC")
     fun getNotesForFolder(folderId: Long): Flow<List<NoteEntity>>
 
+    @Query(
+        """
+        SELECT * FROM notes 
+        WHERE folderId = :folderId 
+        ORDER BY createdAt DESC 
+        LIMIT 1
+    """
+    )
+    fun getMostRecentNoteForFolder(folderId: Long): Flow<NoteEntity?>
+
+
     @Query("DELETE FROM notes WHERE folderId = :folderId")
     suspend fun deleteNotesByFolderId(folderId: Long): Int
 
