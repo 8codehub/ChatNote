@@ -5,19 +5,19 @@ data class UiActionableContent(
     val actionableItems: List<UiActionableItem>
 )
 
-sealed class UiActionType(val order: Int) {
-    data object Call : UiActionType(1000)
-    data object SMS : UiActionType(2000)
-    data object Share : UiActionType(3000)
-    data object OpenWeb : UiActionType(4000)
-    data object OpenEmail : UiActionType(5000)
-    data object Copy : UiActionType(6000)
-
-
+sealed class UiNoteInteraction(val order: Int) {
+    data class Call(val phoneNumber: String) : UiNoteInteraction(1000)
+    data class SMS(val phoneNumber: String) : UiNoteInteraction(2000)
+    data class Share(val content: String) : UiNoteInteraction(3000)
+    data class OpenWeb(val url: String) : UiNoteInteraction(4000)
+    data class OpenEmail(val email: String) : UiNoteInteraction(5000)
+    data class Copy(val content: String) : UiNoteInteraction(6000)
+    data class Delete(val noteId: String) : UiNoteInteraction(7000)
 }
+
 
 
 data class UiActionableItem(
     val content: String,
-    val actions: List<UiActionType>
+    val actions: List<UiNoteInteraction>
 )

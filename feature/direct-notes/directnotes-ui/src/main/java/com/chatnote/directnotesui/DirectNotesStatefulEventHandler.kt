@@ -5,21 +5,23 @@ import com.chatnote.common.analytics.AnalyticsTracker
 import com.chatnote.coredomain.mapper.Mapper
 import com.chatnote.coredomain.models.FolderBaseInfo
 import com.chatnote.coreui.arch.StatefulEventHandler
-import com.chatnote.coreui.model.SystemActionableItem
-import com.chatnote.coreui.systemactions.SystemActionsHandler
+import com.chatnote.coreui.model.SystemActionType
+import com.chatnote.coreui.systemactions.SystemActionTypeHandler
 import com.chatnote.directnotesdomain.model.ActionableContent
+import com.chatnote.directnotesdomain.model.ActionableItem
 import com.chatnote.directnotesdomain.model.Note
 import com.chatnote.directnotesdomain.usecase.AddNoteUseCase
 import com.chatnote.directnotesdomain.usecase.ExtractActionableContentUseCase
 import com.chatnote.directnotesdomain.usecase.GetNotesUseCase
 import com.chatnote.directnotesdomain.usecase.ObserveFolderUseCase
-import com.chatnote.directnotesui.actionablesheet.action.UiAction
 import com.chatnote.directnotesui.directnoteslist.DirectNotesContract.DirectNotesEvent
 import com.chatnote.directnotesui.directnoteslist.DirectNotesContract.DirectNotesOneTimeEvent
 import com.chatnote.directnotesui.directnoteslist.DirectNotesContract.DirectNotesState
 import com.chatnote.directnotesui.directnoteslist.DirectNotesContract.MutableDirectNotesState
 import com.chatnote.directnotesui.model.UiActionableContent
+import com.chatnote.directnotesui.model.UiActionableItem
 import com.chatnote.directnotesui.model.UiNote
+import com.chatnote.directnotesui.model.UiNoteInteraction
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collect
@@ -34,10 +36,10 @@ class DirectNotesStatefulEventHandler @Inject constructor(
     private val extractActionableContent: ExtractActionableContentUseCase,
     private val errorResultMapper: Mapper<Throwable, Int>,
     private val notesToUiNotes: Mapper<Note, UiNote>,
-    private val actionableContentToUiActionableContentMapper: Mapper<ActionableContent, UiActionableContent>,
-    private val actionTypeToSystemActionType: Mapper<UiAction, SystemActionableItem>,
+    private val actionableContentToUiActionableContent: Mapper<ActionableContent, UiActionableContent>,
+    private val actionTypeToSystemActionType: Mapper<UiNoteInteraction, SystemActionType>,
     private val analyticsTracker: AnalyticsTracker,
-    private val systemActionsHandler: SystemActionsHandler
+    private val systemActionTypeHandler: SystemActionTypeHandler
 ) : StatefulEventHandler<DirectNotesEvent, DirectNotesOneTimeEvent, DirectNotesState, MutableDirectNotesState>(
     DirectNotesState()
 ) {
@@ -53,14 +55,14 @@ class DirectNotesStatefulEventHandler @Inject constructor(
             is DirectNotesEvent.GeneralError -> onGeneralErrorEvent(throwable = event.throwable)
             is DirectNotesEvent.NoteLongClick -> onNoteLongClickEvent(uiNote = event.note)
             is DirectNotesEvent.ActionClick -> onSystemActionClick(
-                systemActionableItem = actionTypeToSystemActionType.map(from = event.uiAction)
+                systemActionType = actionTypeToSystemActionType.map(from = event.uiNoteInteraction)
             )
         }
     }
 
-    private suspend fun onSystemActionClick(systemActionableItem: SystemActionableItem) {
+    private suspend fun onSystemActionClick(systemActionType: SystemActionType) {
         withContext(Dispatchers.Main) {
-            systemActionsHandler.handleAction(systemActionableItem = systemActionableItem)
+            systemActionTypeHandler.handleAction(systemActionType = systemActionType)
         }
     }
 
@@ -130,7 +132,7 @@ class DirectNotesStatefulEventHandler @Inject constructor(
 
     private suspend fun onNoteLongClickEvent(uiNote: UiNote) {
         DirectNotesOneTimeEvent.ShowActionableContentSheet(
-            actionableContentToUiActionableContentMapper.map(extractActionableContent(fullMessage = uiNote.content))
+            actionableContentToUiActionableContent.map(extractActionableContent(fullMessage = uiNote.content))
         ).processOneTimeEvent()
 
     }

@@ -1,10 +1,13 @@
 package com.chatnote.coreui.model
 
 sealed class SystemActionType {
-    data object Call : SystemActionType()
-    data object Copy : SystemActionType()
-    data object SMS : SystemActionType()
-    data object Share : SystemActionType()
-    data object OpenWeb : SystemActionType()
-    data object SendEmail : SystemActionType()
+    data class Call(val phoneNumber: String) : SystemActionType()
+    data class SMS(val phoneNumber: String, val message: String = "") : SystemActionType()
+    data class Share(val content: String) : SystemActionType()
+    data class OpenWeb(val url: String) : SystemActionType()
+    data class SendEmail(val email: String, val subject: String? = null, val body: String? = null) :
+        SystemActionType()
+
+    data class Copy(val content: String) : SystemActionType()
+    data object NotSupported : SystemActionType()
 }

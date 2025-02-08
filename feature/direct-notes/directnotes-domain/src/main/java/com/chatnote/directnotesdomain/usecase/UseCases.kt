@@ -2,6 +2,7 @@ package com.chatnote.directnotesdomain.usecase
 
 import com.chatnote.coredomain.models.FolderBaseInfo
 import com.chatnote.directnotesdomain.model.ActionableContent
+import com.chatnote.directnotesdomain.model.ActionableItem
 import com.chatnote.directnotesdomain.model.Note
 import kotlinx.coroutines.flow.Flow
 

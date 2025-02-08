@@ -38,6 +38,7 @@ import com.chatnote.directnotesui.directnoteslist.components.DirectNotesTitle
 import com.chatnote.directnotesui.directnoteslist.components.NoteItem
 import com.chatnote.directnotesui.directnoteslist.components.editor.NoteEditorInput
 import com.chatnote.directnotesui.model.UiActionableContent
+import com.chatnote.directnotesui.model.UiActionableItem
 import com.chatnote.navigation.NavigationRoute
 import kotlinx.coroutines.flow.collectLatest
 
@@ -50,7 +51,7 @@ fun DirectNotesScreen(
 ) {
     val stateValue by viewModel.state.collectAsStateWithLifecycle()
     val context = LocalContext.current
-    var actionableContent by remember { mutableStateOf<UiActionableContent?>(null) }
+    var uiActionableContent by remember { mutableStateOf<UiActionableContent?>(null) }
 
     LaunchedEffect(Unit) {
         viewModel.oneTimeEvent.collectLatest { event ->
@@ -64,7 +65,7 @@ fun DirectNotesScreen(
                 DirectNotesContract.DirectNotesOneTimeEvent.NavigateBack -> onBackClick()
                 is DirectNotesContract.DirectNotesOneTimeEvent.NavigateTo -> navigateTo(event.route)
                 is DirectNotesContract.DirectNotesOneTimeEvent.ShowActionableContentSheet -> {
-                    actionableContent = event.uiActionableContent
+                    uiActionableContent = event.uiActionableContent
                 }
             }
         }
@@ -143,13 +144,15 @@ fun DirectNotesScreen(
             }
         }
     )
-    actionableContent?.let {
+    uiActionableContent?.let {
         ActionableBottomSheet(
-            actionableContent = it,
-            handleAction = { uiAction ->
-                viewModel.handelAction(uiAction = uiAction)
+            uiActionableContent = it,
+            handleAction = { uiNoteInteraction ->
+                viewModel.handelAction(uiNoteInteraction = uiNoteInteraction)
             },
-            onDismiss = { actionableContent = null }
+            onDismiss = {
+                uiActionableContent = null
+            }
         )
     }
 }

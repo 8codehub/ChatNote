@@ -4,8 +4,8 @@ import com.chatnote.coreui.systemactions.ClipboardActions
 import com.chatnote.coreui.systemactions.ClipboardActionsImpl
 import com.chatnote.coreui.systemactions.IntentActions
 import com.chatnote.coreui.systemactions.IntentActionsImpl
-import com.chatnote.coreui.systemactions.SystemActionsHandler
-import com.chatnote.coreui.systemactions.SystemActionsHandlerImpl
+import com.chatnote.coreui.systemactions.SystemActionTypeHandler
+import com.chatnote.coreui.systemactions.SystemActionHandlerImpl
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -19,8 +19,8 @@ abstract class SystemActionsModule {
     @Binds
     @Singleton
     abstract fun bindSystemActionsHandler(
-        impl: SystemActionsHandlerImpl
-    ): SystemActionsHandler
+        impl: SystemActionHandlerImpl
+    ): SystemActionTypeHandler
 
     @Binds
     @Singleton

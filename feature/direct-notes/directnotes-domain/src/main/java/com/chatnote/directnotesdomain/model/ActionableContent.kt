@@ -6,12 +6,12 @@ data class ActionableContent(
 )
 
 sealed class ActionType {
-    data object Call : ActionType()
-    data object Copy : ActionType()
-    data object SMS : ActionType()
-    data object Share : ActionType()
-    data object OpenWeb : ActionType()
-    data object OpenEmail : ActionType()
+    data class Call(val phoneNumber: String) : ActionType()
+    data class SMS(val phoneNumber: String) : ActionType()
+    data class Share(val content: String) : ActionType()
+    data class OpenWeb(val url: String) : ActionType()
+    data class OpenEmail(val email: String) : ActionType()
+    data class Copy(val content: String) : ActionType()
 }
 
 data class ActionableItem(

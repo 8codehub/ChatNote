@@ -14,7 +14,11 @@ class ExtractActionableContentUseCaseImpl @Inject constructor() : ExtractActiona
             actionableItems.add(
                 ActionableItem(
                     phone,
-                    listOf(ActionType.Copy, ActionType.SMS, ActionType.Call)
+                    listOf(
+                        ActionType.Copy(content = phone),
+                        ActionType.SMS(phoneNumber = phone),
+                        ActionType.Call(phoneNumber = phone)
+                    )
                 )
             )
         }
@@ -23,7 +27,7 @@ class ExtractActionableContentUseCaseImpl @Inject constructor() : ExtractActiona
             actionableItems.add(
                 ActionableItem(
                     email,
-                    listOf(ActionType.Copy, ActionType.OpenEmail)
+                    listOf(ActionType.Copy(content = email), ActionType.OpenEmail(email = email))
                 )
             )
         }
@@ -32,7 +36,7 @@ class ExtractActionableContentUseCaseImpl @Inject constructor() : ExtractActiona
             actionableItems.add(
                 ActionableItem(
                     url,
-                    listOf(ActionType.Copy, ActionType.OpenWeb)
+                    listOf(ActionType.Copy(content = url), ActionType.OpenWeb(url = url))
                 )
             )
         }

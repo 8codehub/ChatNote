@@ -5,4 +5,8 @@
     <string name="empty_notes_message">Заметок пока нет. Начните записывать свои мысли и организовывайте их в этой папке!</string>
     <string name="error_failed_to_load_notes">Не удалось загрузить заметки</string>
     <string name="error_failed_to_load_note">Не удалось загрузить заметку</string>
+    <string name="copy_entire_message">Скопировать всё сообщение</string>
+    <string name="share">Поделиться</string>
+    <string name="cancel">Отмена</string>
+    <string name="delete">Удалить</string>
 </resources>

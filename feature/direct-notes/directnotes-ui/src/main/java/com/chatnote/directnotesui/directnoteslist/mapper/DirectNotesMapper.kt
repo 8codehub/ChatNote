@@ -6,10 +6,10 @@ import com.chatnote.directnotesdomain.model.ActionType
 import com.chatnote.directnotesdomain.model.ActionableContent
 import com.chatnote.directnotesdomain.model.ActionableItem
 import com.chatnote.directnotesdomain.model.Note
-import com.chatnote.directnotesui.model.UiActionType
 import com.chatnote.directnotesui.model.UiActionableContent
 import com.chatnote.directnotesui.model.UiActionableItem
 import com.chatnote.directnotesui.model.UiNote
+import com.chatnote.directnotesui.model.UiNoteInteraction
 import javax.inject.Inject
 
 class NotesToUiNotesMapper @Inject constructor(private val dateFormatter: DateFormatter) :
@@ -23,27 +23,27 @@ class NotesToUiNotesMapper @Inject constructor(private val dateFormatter: DateFo
 
 
 class ActionableItemToUiActionableItemMapper @Inject constructor(
-    private val actionTypeToUiActionTypeMapper: Mapper<ActionType, UiActionType>
+    private val actionTypeToUiNoteInteractionMapper: Mapper<ActionType, UiNoteInteraction>
 ) :
     Mapper<ActionableItem, UiActionableItem> {
     override fun map(from: ActionableItem) = UiActionableItem(
         content = from.content,
-        actions = actionTypeToUiActionTypeMapper.mapList(from = from.actions).sortedBy { it.order }
+        actions = actionTypeToUiNoteInteractionMapper.mapList(from = from.actions)
+            .sortedBy { it.order }
     )
 }
 
 
-class ActionTypeToUiActionTypeMapper @Inject constructor() : Mapper<ActionType, UiActionType> {
-    override fun map(from: ActionType): UiActionType = when (from) {
-        ActionType.Call -> UiActionType.Call
-        ActionType.Copy -> UiActionType.Copy
-        ActionType.SMS -> UiActionType.SMS
-        ActionType.Share -> UiActionType.Share
-        ActionType.OpenWeb -> UiActionType.OpenWeb
-        ActionType.OpenEmail -> UiActionType.OpenEmail
+class ActionTypeToUiActionTypeMapper @Inject constructor() : Mapper<ActionType, UiNoteInteraction> {
+    override fun map(from: ActionType): UiNoteInteraction = when (from) {
+        is ActionType.Call -> UiNoteInteraction.Call(phoneNumber = from.phoneNumber)
+        is ActionType.Copy -> UiNoteInteraction.Copy(content = from.content)
+        is ActionType.SMS -> UiNoteInteraction.SMS(phoneNumber = from.phoneNumber)
+        is ActionType.Share -> UiNoteInteraction.Share(content = from.content)
+        is ActionType.OpenWeb -> UiNoteInteraction.OpenWeb(url = from.url)
+        is ActionType.OpenEmail -> UiNoteInteraction.OpenEmail(email = from.email)
     }
 }
-
 
 class ActionableContentToUiActionableContentMapper @Inject constructor(
     private val actionTypeToUiActionTypeMapper: Mapper<ActionableItem, UiActionableItem>
