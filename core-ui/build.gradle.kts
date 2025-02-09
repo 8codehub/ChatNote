@@ -34,7 +34,8 @@ android {
 }
 
 dependencies {
-
+    ksp(libs.hilt.compiler)
+    ksp(libs.hilt.android.compiler)
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.androidx.lifecycle.viewmodel.android)
@@ -44,14 +45,12 @@ dependencies {
     implementation(libs.androidx.foundation.layout.android)
     implementation(libs.coil.compose)
     implementation(libs.coil.svg)
-    implementation(project(":core-domain"))
-    api(project(":common"))
     implementation(libs.androidx.material3.android)
-
     implementation(libs.hilt.navigation.compose)
     implementation(libs.hilt.android)
-    ksp(libs.hilt.compiler)
-    ksp(libs.hilt.android.compiler)
+
+    implementation(project(":core-domain"))
+    api(project(":common"))
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

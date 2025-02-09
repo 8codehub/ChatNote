@@ -34,16 +34,15 @@ android {
 }
 
 dependencies {
-
-
+    ksp(libs.hilt.compiler)
+    ksp(libs.hilt.android.compiler)
     implementation(libs.androidx.appcompat)
+    implementation(libs.hilt.android)
+
+    implementation(project(":core-domain"))
+
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
-
-    implementation(libs.hilt.android)
-    ksp(libs.hilt.compiler)
-    ksp(libs.hilt.android.compiler)
-    implementation(project(":core-domain"))
 
 }

@@ -34,13 +34,10 @@ android {
 }
 
 dependencies {
-
-
+    ksp(libs.hilt.compiler)
+    ksp(libs.hilt.android.compiler)
     implementation(libs.androidx.core.ktx)
     implementation(libs.kotlinx.coroutines.core)
     implementation(libs.hilt.android)
-    ksp(libs.hilt.compiler)
-    ksp(libs.hilt.android.compiler)
     implementation(project(":core-domain"))
-
 }

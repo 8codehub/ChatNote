@@ -34,18 +34,18 @@ android {
 }
 
 dependencies {
-
-    implementation(libs.androidx.core.ktx)
-    implementation(libs.hilt.android)
     ksp(libs.hilt.compiler)
     ksp(libs.hilt.android.compiler)
-    //room
     ksp(libs.room.compiler)
+    implementation(libs.androidx.core.ktx)
+    implementation(libs.hilt.android)
     implementation(libs.room.runtime)
     implementation(libs.room.ktx)
+
+    implementation(project(":core-domain"))
+    api(project(":common"))
+
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
-    implementation(project(":core-domain"))
-    api(project(":common"))
 }

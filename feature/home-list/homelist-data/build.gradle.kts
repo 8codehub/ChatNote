@@ -34,15 +34,14 @@ android {
 }
 
 dependencies {
-
+    ksp(libs.hilt.compiler)
+    ksp(libs.hilt.android.compiler)
+    ksp(libs.room.compiler)
     implementation(libs.androidx.appcompat)
     implementation(libs.androidx.core.ktx)
     implementation(libs.room.runtime)
     implementation(libs.room.ktx)
     implementation(libs.hilt.android)
-    ksp(libs.hilt.compiler)
-    ksp(libs.hilt.android.compiler)
-    ksp(libs.room.compiler)
 
     implementation(project(":core-data"))
     implementation(project(":core-domain"))
