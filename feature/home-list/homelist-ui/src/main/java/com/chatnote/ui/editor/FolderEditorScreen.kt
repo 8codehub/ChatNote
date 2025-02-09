@@ -35,6 +35,10 @@ import com.chatnote.coreui.ui.component.LabeledInputText
 import com.chatnote.coreui.ui.component.StyledText
 import com.chatnote.coreui.ui.decorations.showToast
 import com.chatnote.navigation.NavigationRoute
+import com.chatnote.ui.editor.FolderEditorContract.FolderEditorOneTimeEvent.FailedOperation
+import com.chatnote.ui.editor.FolderEditorContract.FolderEditorOneTimeEvent.NavigateBack
+import com.chatnote.ui.editor.FolderEditorContract.FolderEditorOneTimeEvent.NavigateTo
+import com.chatnote.ui.editor.FolderEditorContract.FolderEditorOneTimeEvent.ShowToast
 import com.chatnote.ui.editor.component.IconItem
 import kotlinx.coroutines.flow.collectLatest
 
@@ -57,14 +61,14 @@ fun FolderEditorScreen(
     LaunchedEffect(Unit) {
         viewModel.oneTimeEvent.collectLatest { event ->
             when (event) {
-                is FolderEditorContract.FolderEditorOneTimeEvent.NavigateBack -> onCancel()
-                is FolderEditorContract.FolderEditorOneTimeEvent.NavigateTo -> navigateTo(event.route)
-                is FolderEditorContract.FolderEditorOneTimeEvent.ShowToast -> showToast(
+                is NavigateBack -> onCancel()
+                is NavigateTo -> navigateTo(event.route)
+                is ShowToast -> showToast(
                     context = context,
                     event.message
                 )
 
-                is FolderEditorContract.FolderEditorOneTimeEvent.FailedOperation -> showToast(
+                is FailedOperation -> showToast(
                     context = context,
                     context.getString(event.error)
                 )
@@ -166,7 +170,7 @@ fun FolderEditorScreen(
                     columns = GridCells.Fixed(4),
                     contentPadding = PaddingValues(vertical = 12.dp)
                 ) {
-                    items(state.icons.size) { index ->
+                    items(state.icons.size, key = { state.icons[it] }) { index ->
                         val iconUri = state.icons[index]
                         IconItem(
                             modifier = Modifier.padding(bottom = 24.dp),

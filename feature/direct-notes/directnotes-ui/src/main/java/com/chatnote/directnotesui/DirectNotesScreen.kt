@@ -39,6 +39,7 @@ import com.chatnote.directnotesui.directnoteslist.DirectNotesContract.DirectNote
 import com.chatnote.directnotesui.directnoteslist.DirectNotesContract.DirectNotesOneTimeEvent.NavigateBack
 import com.chatnote.directnotesui.directnoteslist.DirectNotesContract.DirectNotesOneTimeEvent.NavigateTo
 import com.chatnote.directnotesui.directnoteslist.DirectNotesContract.DirectNotesOneTimeEvent.ShowActionableContentSheet
+import com.chatnote.directnotesui.directnoteslist.DirectNotesContract.DirectNotesState
 import com.chatnote.directnotesui.directnoteslist.components.DirectNotesEmptyState
 import com.chatnote.directnotesui.directnoteslist.components.DirectNotesTitle
 import com.chatnote.directnotesui.directnoteslist.components.NoteItem
@@ -67,7 +68,6 @@ fun DirectNotesScreen(
                     )
                 )
 
-                NavigateBack -> onBackClick()
                 is NavigateTo -> navigateTo(event.route)
                 is ShowActionableContentSheet -> {
                     uiNoteInteractionContent = event
@@ -76,6 +76,8 @@ fun DirectNotesScreen(
                 is AskForNoteDelete -> {
                     selectedNoteToDelete = event.noteId
                 }
+
+                NavigateBack -> onBackClick()
             }
         }
     }
@@ -96,32 +98,10 @@ fun DirectNotesScreen(
 
     Scaffold(
         topBar = {
-            TopAppBar(
-                title = {
-                    DirectNotesTitle(
-                        modifier = Modifier
-                            .wrapContentSize()
-                            .clickable { navigateTo(NavigationRoute.FolderEditor(stateValue.folderId)) },
-                        imageUri = stateValue.folderIconUri.orEmpty(),
-                        notesCount = stateValue.notes.size,
-                        folderName = stateValue.folderName
-                    )
-                },
-                navigationIcon = {
-                    IconButton(onClick = onBackClick) {
-                        Icon(
-                            imageVector = ImageVector.vectorResource(R.drawable.ic_back),
-                            tint = MaterialTheme.colorScheme.primary,
-                            contentDescription = null
-                        )
-                    }
-                },
-                colors = TopAppBarDefaults.topAppBarColors(
-                    containerColor = MaterialTheme.colorScheme.background,
-                    titleContentColor = MaterialTheme.colorScheme.background,
-                    navigationIconContentColor = MaterialTheme.colorScheme.background,
-                    actionIconContentColor = MaterialTheme.colorScheme.background
-                )
+            DirectNotesTopAppBar(
+                stateValue = stateValue,
+                onBackClick = onBackClick,
+                navigateTo = navigateTo
             )
         },
         content = { paddingValues ->
@@ -166,6 +146,7 @@ fun DirectNotesScreen(
             }
         }
     )
+
     uiNoteInteractionContent?.let { content ->
         NoteInteractionBottomSheet(
             noteId = content.noteId,
@@ -179,4 +160,41 @@ fun DirectNotesScreen(
         )
     }
 }
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun DirectNotesTopAppBar(
+    stateValue: DirectNotesState,
+    onBackClick: () -> Unit,
+    navigateTo: (NavigationRoute) -> Unit
+) {
+    TopAppBar(
+        title = {
+            DirectNotesTitle(
+                modifier = Modifier
+                    .wrapContentSize()
+                    .clickable { navigateTo(NavigationRoute.FolderEditor(stateValue.folderId)) },
+                imageUri = stateValue.folderIconUri.orEmpty(),
+                notesCount = stateValue.notes.size,
+                folderName = stateValue.folderName
+            )
+        },
+        navigationIcon = {
+            IconButton(onClick = onBackClick) {
+                Icon(
+                    imageVector = ImageVector.vectorResource(R.drawable.ic_back),
+                    tint = MaterialTheme.colorScheme.primary,
+                    contentDescription = null
+                )
+            }
+        },
+        colors = TopAppBarDefaults.topAppBarColors(
+            containerColor = MaterialTheme.colorScheme.background,
+            titleContentColor = MaterialTheme.colorScheme.background,
+            navigationIconContentColor = MaterialTheme.colorScheme.background,
+            actionIconContentColor = MaterialTheme.colorScheme.background
+        )
+    )
+}
+
 

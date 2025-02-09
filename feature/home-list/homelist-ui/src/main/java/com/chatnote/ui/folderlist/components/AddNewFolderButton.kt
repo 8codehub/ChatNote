@@ -1,7 +1,6 @@
 package com.chatnote.ui.folderlist.components
 
 import androidx.compose.animation.AnimatedContent
-import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.animation.slideInVertically
@@ -34,7 +33,6 @@ import com.chatnote.coreui.ui.component.StyledText
 import com.chatnote.navigation.NavigationRoute
 import kotlinx.coroutines.delay
 
-@OptIn(ExperimentalAnimationApi::class)
 @Composable
 fun AddNewFolderButton(
     modifier: Modifier = Modifier,

@@ -5,9 +5,9 @@ import androidx.navigation.toRoute
 import com.chatnote.common.di.IoDispatcher
 import com.chatnote.coreui.arch.EventDrivenViewModel
 import com.chatnote.coreui.arch.StatefulEventHandler
-import com.chatnote.directnotesui.directnoteslist.DirectNotesContract
 import com.chatnote.directnotesui.directnoteslist.DirectNotesContract.DirectNotesEvent
 import com.chatnote.directnotesui.directnoteslist.DirectNotesContract.DirectNotesOneTimeEvent
+import com.chatnote.directnotesui.directnoteslist.DirectNotesContract.DirectNotesState
 import com.chatnote.directnotesui.directnoteslist.DirectNotesContract.MutableDirectNotesState
 import com.chatnote.directnotesui.model.UiNote
 import com.chatnote.directnotesui.model.UiNoteInteraction
@@ -23,18 +23,18 @@ class DirectNotesViewModel @Inject constructor(
     statefulEventHandler: StatefulEventHandler<
             DirectNotesEvent,
             DirectNotesOneTimeEvent,
-            DirectNotesContract.DirectNotesState,
+            DirectNotesState,
             MutableDirectNotesState
             >
 ) : EventDrivenViewModel<
-        DirectNotesContract.DirectNotesState,
+        DirectNotesState,
         MutableDirectNotesState,
         DirectNotesEvent,
         DirectNotesOneTimeEvent,
         StatefulEventHandler<
                 DirectNotesEvent,
                 DirectNotesOneTimeEvent,
-                DirectNotesContract.DirectNotesState,
+                DirectNotesState,
                 MutableDirectNotesState
                 >
         >(statefulEventHandler = statefulEventHandler, ioDispatcher = dispatcher) {

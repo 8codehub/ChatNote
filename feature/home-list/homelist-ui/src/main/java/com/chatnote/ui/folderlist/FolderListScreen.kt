@@ -36,6 +36,8 @@ import com.chatnote.coreui.ui.decorations.getAnnotatedString
 import com.chatnote.coreui.ui.decorations.showToast
 import com.chatnote.coreui.ui.dialog.AppAlertDialog
 import com.chatnote.navigation.NavigationRoute
+import com.chatnote.ui.folderlist.FolderListContract.FolderListOneTimeEvent
+import com.chatnote.ui.folderlist.FolderListContract.FolderListOneTimeEvent.FolderDeleted
 import com.chatnote.ui.folderlist.components.AddNewFolderButton
 import com.chatnote.ui.folderlist.components.FolderActionItems
 import com.chatnote.ui.folderlist.components.FolderCard
@@ -65,17 +67,17 @@ fun FolderListScreen(
     LaunchedEffect(Unit) {
         viewModel.oneTimeEvent.collectLatest { oneTimeEvent ->
             when (oneTimeEvent) {
-                is FolderListContract.FolderListOneTimeEvent.FolderDeleted -> onFolderDeletedOneTimeEvent(
+                is FolderDeleted -> onFolderDeletedOneTimeEvent(
                     context = context,
                     messagesCount = oneTimeEvent.messagesCount
                 )
 
-                is FolderListContract.FolderListOneTimeEvent.FailedOperation -> showToast(
+                is FolderListOneTimeEvent.FailedOperation -> showToast(
                     context = context,
                     message = context.getString(oneTimeEvent.error)
                 )
 
-                FolderListContract.FolderListOneTimeEvent.OnAppFirstOpen -> viewModel.onAppFirstOpen(
+                FolderListOneTimeEvent.OnAppFirstOpen -> viewModel.onAppFirstOpen(
                     context = context
                 )
             }
