@@ -2,8 +2,8 @@ package com.chatnote.directnotesdomain.usecase
 
 
 import com.chatnote.directnotesdomain.model.NoteActionType
-import com.chatnote.directnotesdomain.model.NoteActionableItem
 import com.chatnote.directnotesdomain.model.NoteActionableContent
+import com.chatnote.directnotesdomain.model.NoteActionableItem
 import javax.inject.Inject
 
 class ExtractActionableContentUseCaseImpl @Inject constructor() : ExtractActionableContentUseCase {
@@ -27,7 +27,10 @@ class ExtractActionableContentUseCaseImpl @Inject constructor() : ExtractActiona
             noteActionableItems.add(
                 NoteActionableItem(
                     email,
-                    listOf(NoteActionType.Copy(content = email), NoteActionType.OpenEmail(email = email))
+                    listOf(
+                        NoteActionType.Copy(content = email),
+                        NoteActionType.OpenEmail(email = email)
+                    )
                 )
             )
         }

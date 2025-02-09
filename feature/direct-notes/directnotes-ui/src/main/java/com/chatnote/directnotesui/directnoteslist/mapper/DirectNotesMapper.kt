@@ -2,10 +2,10 @@ package com.chatnote.directnotesui.directnoteslist.mapper
 
 import com.chatnote.coredomain.mapper.Mapper
 import com.chatnote.coreui.util.DateFormatter
-import com.chatnote.directnotesdomain.model.NoteActionType
-import com.chatnote.directnotesdomain.model.NoteActionableItem
 import com.chatnote.directnotesdomain.model.Note
+import com.chatnote.directnotesdomain.model.NoteActionType
 import com.chatnote.directnotesdomain.model.NoteActionableContent
+import com.chatnote.directnotesdomain.model.NoteActionableItem
 import com.chatnote.directnotesui.model.UiActionableItem
 import com.chatnote.directnotesui.model.UiNote
 import com.chatnote.directnotesui.model.UiNoteActionableContent
@@ -34,7 +34,8 @@ class ActionableItemToUiActionableItemMapper @Inject constructor(
 }
 
 
-class ActionTypeToUiActionTypeMapper @Inject constructor() : Mapper<NoteActionType, UiNoteInteraction> {
+class ActionTypeToUiActionTypeMapper @Inject constructor() :
+    Mapper<NoteActionType, UiNoteInteraction> {
     override fun map(from: NoteActionType): UiNoteInteraction = when (from) {
         is NoteActionType.Call -> UiNoteInteraction.Call(phoneNumber = from.phoneNumber)
         is NoteActionType.Copy -> UiNoteInteraction.Copy(content = from.content)

@@ -1,10 +1,6 @@
 package com.chatnote.coreui.systemactions
 
-import android.content.Context
-import chatnote.coreui.R
 import com.chatnote.coreui.model.SystemActionType
-import com.chatnote.coreui.ui.decorations.showToast
-import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 
 class SystemActionHandlerImpl @Inject constructor(

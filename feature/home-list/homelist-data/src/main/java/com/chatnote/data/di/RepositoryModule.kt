@@ -4,7 +4,6 @@ import com.chatnote.coredata.di.db.FolderDao
 import com.chatnote.coredata.di.model.FolderEntity
 import com.chatnote.coredata.di.model.FolderWithLastNote
 import com.chatnote.coredomain.facade.FolderStreamRepositoryFacade
-import com.chatnote.coredomain.facade.NotesRepositoryFacade
 import com.chatnote.coredomain.mapper.Mapper
 import com.chatnote.coredomain.models.FolderBaseInfo
 import com.chatnote.data.repository.FolderRepositoryImpl
