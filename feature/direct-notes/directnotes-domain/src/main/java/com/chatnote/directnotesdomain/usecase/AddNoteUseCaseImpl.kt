@@ -5,7 +5,7 @@ import com.chatnote.directnotesdomain.repository.NotesRepository
 
 import javax.inject.Inject
 
-class AddNoteUseCaseImpl @Inject constructor(
+internal class AddNoteUseCaseImpl @Inject constructor(
     private val repository: NotesRepository
 ) : AddNoteUseCase {
 

@@ -6,7 +6,7 @@ import com.chatnote.coredomain.utils.ResultError
 import com.chatnote.coredomain.utils.failure
 import javax.inject.Inject
 
-class FolderNotesFacadeImpl @Inject constructor(
+internal class FolderNotesFacadeImpl @Inject constructor(
     private val noteDao: NoteDao
 ) : NotesRepositoryFacade {
 

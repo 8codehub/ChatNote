@@ -4,7 +4,7 @@ import com.chatnote.domain.model.DefaultFolder
 import com.chatnote.domain.repository.FolderRepository
 import javax.inject.Inject
 
-class InitializeDefaultFoldersUseCaseImpl @Inject constructor(
+internal class InitializeDefaultFoldersUseCaseImpl @Inject constructor(
     private val folderRepository: FolderRepository,
 ) : InitializeDefaultFoldersUseCase {
 

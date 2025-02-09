@@ -7,7 +7,7 @@ import com.chatnote.coredomain.mapper.Mapper
 import com.chatnote.coredomain.models.FolderBaseInfo
 import javax.inject.Inject
 
-class FolderStreamRepositoryFacadeImpl @Inject constructor(
+internal class FolderStreamRepositoryFacadeImpl @Inject constructor(
     private val folderDao: FolderDao,
     private val mapperFolderEntityToFolderBaseInfo: Mapper<FolderEntity, FolderBaseInfo>
 ) : FolderStreamRepositoryFacade {

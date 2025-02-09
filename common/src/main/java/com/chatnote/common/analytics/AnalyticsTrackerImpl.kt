@@ -6,7 +6,7 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class AnalyticsTrackerImpl @Inject constructor(
+internal class AnalyticsTrackerImpl @Inject constructor(
     private val firebaseAnalytics: FirebaseAnalytics
 ) : AnalyticsTracker {
 

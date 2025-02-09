@@ -5,7 +5,7 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class AppPreferencesImpl @Inject constructor(
+internal class AppPreferencesImpl @Inject constructor(
     private val sharedPreferencesHelper: SharedPreferencesHelper
 ) : AppPreferences {
 

@@ -6,8 +6,7 @@ import android.net.Uri
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 
-
-class IntentActionsImpl @Inject constructor(
+internal class IntentActionsImpl @Inject constructor(
     @ApplicationContext private val context: Context
 ) : IntentActions {
 

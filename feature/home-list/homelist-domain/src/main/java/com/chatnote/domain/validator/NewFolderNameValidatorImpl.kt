@@ -4,7 +4,7 @@ import com.chatnote.coredomain.utils.ResultError
 import com.chatnote.coredomain.utils.failure
 import javax.inject.Inject
 
-class NewFolderNameValidatorImpl @Inject constructor() : NewFolderNameValidator {
+internal class NewFolderNameValidatorImpl @Inject constructor() : NewFolderNameValidator {
     override fun invoke(folderName: String?) = if (folderName.isNullOrBlank()) {
         Result.failure(ResultError.EmptyFolderName)
     } else {

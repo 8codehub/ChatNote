@@ -7,7 +7,7 @@ import com.chatnote.directnotesdomain.model.Note
 import com.chatnote.directnotesdomain.repository.NotesStreamRepository
 import javax.inject.Inject
 
-class NotesStreamRepositoryImpl @Inject constructor(
+internal class NotesStreamRepositoryImpl @Inject constructor(
     private val entityToDomainMapper: Mapper<NoteEntity, Note>,
     private val noteDao: NoteDao,
 ) : NotesStreamRepository {

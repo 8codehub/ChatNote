@@ -8,7 +8,7 @@ import com.chatnote.domain.repository.FolderStreamRepository
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
-class FolderStreamRepositoryImpl @Inject constructor(
+internal class FolderStreamRepositoryImpl @Inject constructor(
     private val folderDao: FolderDao,
     private val folderWithLastNoteToFolder: Mapper<FolderWithLastNote, Folder>,
 ) : FolderStreamRepository {

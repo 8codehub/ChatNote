@@ -6,7 +6,7 @@ import com.chatnote.directnotesdomain.model.NoteActionableContent
 import com.chatnote.directnotesdomain.model.NoteActionableItem
 import javax.inject.Inject
 
-class ExtractActionableContentUseCaseImpl @Inject constructor() : ExtractActionableContentUseCase {
+internal class ExtractActionableContentUseCaseImpl @Inject constructor() : ExtractActionableContentUseCase {
 
     override fun invoke(fullMessage: String): NoteActionableContent {
         val noteActionableItems = mutableListOf<NoteActionableItem>()

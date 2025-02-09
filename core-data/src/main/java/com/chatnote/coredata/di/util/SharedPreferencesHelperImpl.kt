@@ -5,7 +5,7 @@ import android.content.SharedPreferences
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 
-class SharedPreferencesHelperImpl @Inject constructor(
+internal class SharedPreferencesHelperImpl @Inject constructor(
     @ApplicationContext context: Context
 ) : SharedPreferencesHelper {
 

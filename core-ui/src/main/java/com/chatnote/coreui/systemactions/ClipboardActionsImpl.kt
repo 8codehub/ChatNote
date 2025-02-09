@@ -8,7 +8,7 @@ import com.chatnote.coreui.ui.decorations.showToast
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 
-class ClipboardActionsImpl @Inject constructor(
+internal class ClipboardActionsImpl @Inject constructor(
     @ApplicationContext private val context: Context
 ) : ClipboardActions {
 

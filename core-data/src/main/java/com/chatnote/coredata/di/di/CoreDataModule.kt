@@ -11,7 +11,7 @@ import dagger.hilt.components.SingletonComponent
 
 @Module
 @InstallIn(SingletonComponent::class)
-abstract class CoreDataModule {
+internal abstract class CoreDataModule {
 
     @Binds
     abstract fun bindSharedPreferencesHelper(

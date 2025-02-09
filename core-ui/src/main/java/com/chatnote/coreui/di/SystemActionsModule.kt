@@ -14,7 +14,7 @@ import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-abstract class SystemActionsModule {
+internal abstract class SystemActionsModule {
 
     @Binds
     @Singleton

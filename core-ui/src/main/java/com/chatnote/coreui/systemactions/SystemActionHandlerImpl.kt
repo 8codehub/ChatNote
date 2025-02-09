@@ -3,7 +3,7 @@ package com.chatnote.coreui.systemactions
 import com.chatnote.coreui.model.SystemActionType
 import javax.inject.Inject
 
-class SystemActionHandlerImpl @Inject constructor(
+internal class SystemActionHandlerImpl @Inject constructor(
     private val clipboardActions: ClipboardActions,
     private val intentActions: IntentActions
 ) : SystemActionTypeHandler {

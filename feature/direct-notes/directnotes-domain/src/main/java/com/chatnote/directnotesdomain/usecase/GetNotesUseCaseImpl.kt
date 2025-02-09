@@ -3,7 +3,7 @@ package com.chatnote.directnotesdomain.usecase
 import com.chatnote.directnotesdomain.repository.NotesStreamRepository
 import javax.inject.Inject
 
-class GetNotesUseCaseImpl @Inject constructor(
+internal class GetNotesUseCaseImpl @Inject constructor(
     private val repository: NotesStreamRepository
 ) : GetNotesUseCase {
 

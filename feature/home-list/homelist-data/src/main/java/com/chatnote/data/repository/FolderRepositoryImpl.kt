@@ -10,7 +10,7 @@ import com.chatnote.domain.model.Folder
 import com.chatnote.domain.repository.FolderRepository
 import javax.inject.Inject
 
-class FolderRepositoryImpl @Inject constructor(
+internal class FolderRepositoryImpl @Inject constructor(
     private val folderDao: FolderDao,
     private val mapperFolderEntityToFolder: Mapper<FolderEntity, Folder>,
 ) : FolderRepository {
