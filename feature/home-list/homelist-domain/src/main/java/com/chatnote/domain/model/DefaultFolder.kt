@@ -1,3 +1,6 @@
 package com.chatnote.domain.model
 
-data class DefaultFolder(val name: String, val iconUri: String)
+data class DefaultFolder(
+    val name: String,
+    val iconUri: String
+)

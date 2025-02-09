@@ -10,6 +10,7 @@ import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface NoteDao {
+
     @Query("SELECT * FROM notes WHERE folderId = :folderId ORDER BY note_last_created_at DESC")
     fun getNotesForFolder(folderId: Long): Flow<List<NoteEntity>>
 
@@ -22,7 +23,6 @@ interface NoteDao {
     """
     )
     fun getMostRecentNoteForFolder(folderId: Long): Flow<NoteEntity?>
-
 
     @Query("DELETE FROM notes WHERE folderId = :folderId")
     suspend fun deleteNotesByFolderId(folderId: Long): Int

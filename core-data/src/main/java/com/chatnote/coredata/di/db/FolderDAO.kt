@@ -12,18 +12,6 @@ import kotlinx.coroutines.flow.Flow
 @Dao
 interface FolderDao {
 
-//    @Query(
-//        """
-//    SELECT * FROM folders
-//    ORDER BY
-//        CASE
-//            WHEN pinnedDate > 0 THEN 0
-//            ELSE 1
-//        END
-//    """
-//    )
-//    fun observeAllFolders(): Flow<List<FolderEntity>>
-
     @Query(
         """
     SELECT f.*, 
@@ -46,7 +34,6 @@ interface FolderDao {
     )
     fun observeFoldersWithLastNote(): Flow<List<FolderWithLastNote>>
 
-
     @Query("SELECT * FROM folders WHERE id = :folderId LIMIT 1")
     fun observeFolderById(folderId: Long): Flow<FolderEntity>
 
@@ -58,7 +45,6 @@ interface FolderDao {
 
     @Delete
     suspend fun deleteFolder(folderEntity: FolderEntity)
-
 
     @Query("UPDATE folders SET pinnedDate = :pinnedDate WHERE id = :folderId")
     suspend fun pinFolder(

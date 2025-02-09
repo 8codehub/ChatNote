@@ -2,11 +2,11 @@ package com.chatnote.domain.model
 
 data class Folder(
     val id: Long? = null,
-    val name: String,
-    val lastNote: String,
     val iconUri: String? = null,
-    val lastNoteCreatedDate: Long,
-    val lastNoteId: Long,
+    val name: String,
     val createdAt: Long,
-    val isPinned: Boolean
+    val lastNoteId: Long,
+    val lastNote: String,
+    val isPinned: Boolean,
+    val lastNoteCreatedDate: Long,
 )

@@ -3,6 +3,7 @@ package com.chatnote.domain.repository
 import com.chatnote.domain.model.Folder
 
 interface FolderRepository {
+
     suspend fun addOrUpdateFolder(
         folderId: Long? = null,
         name: String,

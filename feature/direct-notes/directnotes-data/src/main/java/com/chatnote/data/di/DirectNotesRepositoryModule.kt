@@ -2,7 +2,6 @@ package com.chatnote.data.di
 
 import com.chatnote.coredata.di.db.NoteDao
 import com.chatnote.coredata.di.model.NoteEntity
-import com.chatnote.coredomain.facade.FolderRepositoryFacade
 import com.chatnote.coredomain.facade.NotesRepositoryFacade
 import com.chatnote.coredomain.mapper.Mapper
 import com.chatnote.data.repository.NotesRepositoryImpl
@@ -25,12 +24,9 @@ internal object DirectNotesRepositoryModule {
     @Singleton
     fun provideNotesRepository(
         noteDao: NoteDao,
-        folderUpdateHandler: FolderRepositoryFacade,
-        entityToDomainMapper: Mapper<NoteEntity, Note>,
         domainToEntityMapper: Mapper<Note, NoteEntity>
     ): NotesRepository = NotesRepositoryImpl(
         noteDao = noteDao,
-        folderRepositoryFacade = folderUpdateHandler,
         domainToEntityMapper = domainToEntityMapper
     )
 

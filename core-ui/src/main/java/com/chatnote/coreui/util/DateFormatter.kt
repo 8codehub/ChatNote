@@ -13,17 +13,17 @@ class DateFormatter @Inject constructor() {
     private val fullDateFormat: SimpleDateFormat =
         SimpleDateFormat("yyyy MMM dd", Locale.getDefault())
 
-    fun formatDate(millis: Long): String {
+    private fun formatDate(millis: Long): String {
         val date = Date(millis)
         return dateFormat.format(date)
     }
 
-    fun formatTime(millis: Long): String {
+    private fun formatTime(millis: Long): String {
         val date = Date(millis)
         return timeFormat.format(date)
     }
 
-    fun formatFullDate(millis: Long): String {
+    private fun formatFullDate(millis: Long): String {
         val date = Date(millis)
         return fullDateFormat.format(date)
     }

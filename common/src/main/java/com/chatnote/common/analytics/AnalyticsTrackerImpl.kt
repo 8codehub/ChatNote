@@ -10,21 +10,15 @@ class AnalyticsTrackerImpl @Inject constructor(
     private val firebaseAnalytics: FirebaseAnalytics
 ) : AnalyticsTracker {
 
-    private fun logEvent(eventName: String, params: Bundle) {
-        firebaseAnalytics.logEvent(eventName, params)
-    }
-
-    override fun trackFolderDeleted(folderId: Long, messagesCount: Int) {
-        logEvent("folder_deleted", Bundle().apply {
+    override fun trackNewNote(folderId: Long) {
+        logEvent("new_note_added", Bundle().apply {
             putLong("folder_id", folderId)
-            putInt("messages_count", messagesCount)
         })
     }
 
-    override fun trackFolderPinned(folderId: Long, isPinned: Boolean) {
-        logEvent("folder_pinned", Bundle().apply {
-            putLong("folder_id", folderId)
-            putBoolean("pinned", isPinned)
+    override fun trackAppStart(firstStart: Boolean) {
+        logEvent("app_start", Bundle().apply {
+            putBoolean("first_start", firstStart)
         })
     }
 
@@ -40,25 +34,6 @@ class AnalyticsTrackerImpl @Inject constructor(
         })
     }
 
-    override fun trackFolderEditDone(iconUri: String, isEditMode: Boolean) {
-        logEvent("folder_edit_done", Bundle().apply {
-            putString("icon_uri", iconUri)
-            putBoolean("is_editor_mode", isEditMode)
-        })
-    }
-
-    override fun trackNewNote(folderId: Long) {
-        logEvent("new_note_added", Bundle().apply {
-            putLong("folder_id", folderId)
-        })
-    }
-
-    override fun trackAppStart(firstStart: Boolean) {
-        logEvent("app_start", Bundle().apply {
-            putBoolean("first_start", firstStart)
-        })
-    }
-
     override fun trackGeneralError(message: String, src: String) {
         logEvent("general_error", Bundle().apply {
             putString("message", message)
@@ -71,5 +46,30 @@ class AnalyticsTrackerImpl @Inject constructor(
             putLong("folder_id", folderId)
             putInt("notes_count", notesCount)
         })
+    }
+
+    override fun trackFolderPinned(folderId: Long, isPinned: Boolean) {
+        logEvent("folder_pinned", Bundle().apply {
+            putLong("folder_id", folderId)
+            putBoolean("pinned", isPinned)
+        })
+    }
+
+    override fun trackFolderDeleted(folderId: Long, messagesCount: Int) {
+        logEvent("folder_deleted", Bundle().apply {
+            putLong("folder_id", folderId)
+            putInt("messages_count", messagesCount)
+        })
+    }
+
+    override fun trackFolderEditDone(iconUri: String, isEditMode: Boolean) {
+        logEvent("folder_edit_done", Bundle().apply {
+            putString("icon_uri", iconUri)
+            putBoolean("is_editor_mode", isEditMode)
+        })
+    }
+
+    private fun logEvent(eventName: String, params: Bundle) {
+        firebaseAnalytics.logEvent(eventName, params)
     }
 }

@@ -9,5 +9,4 @@ class ObserveFolderUseCaseImpl @Inject constructor(
 
     override fun invoke(folderId: Long) =
         folderRepositoryFacade.observeFolderById(folderId = folderId)
-
 }

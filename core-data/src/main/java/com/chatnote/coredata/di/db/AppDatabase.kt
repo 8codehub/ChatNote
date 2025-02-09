@@ -7,10 +7,11 @@ import com.chatnote.coredata.di.model.NoteEntity
 
 @Database(
     entities = [FolderEntity::class, NoteEntity::class],
-    version = 1,
+    version = 2,
     exportSchema = false
 )
 abstract class AppDatabase : RoomDatabase() {
+
     abstract fun folderDao(): FolderDao
     abstract fun noteDao(): NoteDao
 }

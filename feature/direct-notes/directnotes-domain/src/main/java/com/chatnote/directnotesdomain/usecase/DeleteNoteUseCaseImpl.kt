@@ -6,8 +6,6 @@ import javax.inject.Inject
 class DeleteNoteUseCaseImpl @Inject constructor(
     private val notesRepository: NotesRepository
 ) : DeleteNoteUseCase {
-    override suspend fun invoke(noteId: Long): Result<Unit> {
 
-        return notesRepository.deleteNote(noteId = noteId)
-    }
+    override suspend fun invoke(noteId: Long) = notesRepository.deleteNote(noteId = noteId)
 }

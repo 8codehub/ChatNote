@@ -11,7 +11,7 @@ class NotesStreamRepositoryImpl @Inject constructor(
     private val entityToDomainMapper: Mapper<NoteEntity, Note>,
     private val noteDao: NoteDao,
 ) : NotesStreamRepository {
+
     override fun observeNotes(folderId: Long) =
         entityToDomainMapper.mapFlow(noteDao.getNotesForFolder(folderId))
-
 }

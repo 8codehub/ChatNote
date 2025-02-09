@@ -3,8 +3,8 @@ package com.chatnote.directnotesui.di
 import com.chatnote.coredomain.mapper.Mapper
 import com.chatnote.coreui.model.SystemActionType
 import com.chatnote.coreui.util.DateFormatter
-import com.chatnote.directnotesdomain.model.ActionType
-import com.chatnote.directnotesdomain.model.ActionableItem
+import com.chatnote.directnotesdomain.model.NoteActionType
+import com.chatnote.directnotesdomain.model.NoteActionableItem
 import com.chatnote.directnotesdomain.model.Note
 import com.chatnote.directnotesdomain.model.NoteActionableContent
 import com.chatnote.directnotesui.directnoteslist.mapper.ActionTypeToUiActionTypeMapper
@@ -38,17 +38,17 @@ object DirectNotesMapperModule {
 
     @Provides
     @Singleton
-    fun provideActionTypeToUiActionTypeMapper(): Mapper<ActionType, UiNoteInteraction> =
+    fun provideActionTypeToUiActionTypeMapper(): Mapper<NoteActionType, UiNoteInteraction> =
         ActionTypeToUiActionTypeMapper()
 
     @Provides
     @Singleton
-    fun provideActionableItemToUiActionableItemMapper(actionTypeToUiNoteInteractionMapper: Mapper<ActionType, UiNoteInteraction>): Mapper<ActionableItem, UiActionableItem> =
-        ActionableItemToUiActionableItemMapper(actionTypeToUiNoteInteractionMapper = actionTypeToUiNoteInteractionMapper)
+    fun provideActionableItemToUiActionableItemMapper(noteActionTypeToUiNoteInteractionMapper: Mapper<NoteActionType, UiNoteInteraction>): Mapper<NoteActionableItem, UiActionableItem> =
+        ActionableItemToUiActionableItemMapper(noteActionTypeToUiNoteInteractionMapper = noteActionTypeToUiNoteInteractionMapper)
 
     @Provides
     @Singleton
-    fun provideActionableContentToUiActionableContentMapper(actionTypeToUiActionTypeMapper: Mapper<ActionableItem, UiActionableItem>): Mapper<NoteActionableContent, UiNoteActionableContent> =
+    fun provideActionableContentToUiActionableContentMapper(actionTypeToUiActionTypeMapper: Mapper<NoteActionableItem, UiActionableItem>): Mapper<NoteActionableContent, UiNoteActionableContent> =
         ActionableContentToUiActionableContentMapper(actionTypeToUiActionTypeMapper = actionTypeToUiActionTypeMapper)
 
 }

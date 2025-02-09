@@ -1,49 +1,49 @@
 package com.chatnote.directnotesdomain.usecase
 
 
-import com.chatnote.directnotesdomain.model.ActionType
-import com.chatnote.directnotesdomain.model.ActionableItem
+import com.chatnote.directnotesdomain.model.NoteActionType
+import com.chatnote.directnotesdomain.model.NoteActionableItem
 import com.chatnote.directnotesdomain.model.NoteActionableContent
 import javax.inject.Inject
 
 class ExtractActionableContentUseCaseImpl @Inject constructor() : ExtractActionableContentUseCase {
-    override fun invoke(fullMessage: String): NoteActionableContent {
-        val actionableItems = mutableListOf<ActionableItem>()
 
+    override fun invoke(fullMessage: String): NoteActionableContent {
+        val noteActionableItems = mutableListOf<NoteActionableItem>()
         extractPhoneNumbers(fullMessage).forEach { phone ->
-            actionableItems.add(
-                ActionableItem(
+            noteActionableItems.add(
+                NoteActionableItem(
                     phone,
                     listOf(
-                        ActionType.Copy(content = phone),
-                        ActionType.SMS(phoneNumber = phone),
-                        ActionType.Call(phoneNumber = phone)
+                        NoteActionType.Copy(content = phone),
+                        NoteActionType.SMS(phoneNumber = phone),
+                        NoteActionType.Call(phoneNumber = phone)
                     )
                 )
             )
         }
 
         extractEmails(fullMessage).forEach { email ->
-            actionableItems.add(
-                ActionableItem(
+            noteActionableItems.add(
+                NoteActionableItem(
                     email,
-                    listOf(ActionType.Copy(content = email), ActionType.OpenEmail(email = email))
+                    listOf(NoteActionType.Copy(content = email), NoteActionType.OpenEmail(email = email))
                 )
             )
         }
 
         extractUrls(fullMessage).forEach { url ->
-            actionableItems.add(
-                ActionableItem(
+            noteActionableItems.add(
+                NoteActionableItem(
                     url,
-                    listOf(ActionType.Copy(content = url), ActionType.OpenWeb(url = url))
+                    listOf(NoteActionType.Copy(content = url), NoteActionType.OpenWeb(url = url))
                 )
             )
         }
 
         return NoteActionableContent(
             fullContent = fullMessage,
-            actionableItems = actionableItems
+            noteActionableItems = noteActionableItems
         )
     }
 

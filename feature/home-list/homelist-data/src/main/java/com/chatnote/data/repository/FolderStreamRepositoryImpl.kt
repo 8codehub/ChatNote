@@ -11,9 +11,9 @@ import javax.inject.Inject
 
 class FolderStreamRepositoryImpl @Inject constructor(
     private val folderDao: FolderDao,
-    private val notesRepositoryFacade: NotesRepositoryFacade,
     private val folderWithLastNoteToFolder: Mapper<FolderWithLastNote, Folder>,
 ) : FolderStreamRepository {
+
     override fun getFolders(): Flow<List<Folder>> {
         return folderWithLastNoteToFolder.mapFlow(folderDao.observeFoldersWithLastNote())
     }

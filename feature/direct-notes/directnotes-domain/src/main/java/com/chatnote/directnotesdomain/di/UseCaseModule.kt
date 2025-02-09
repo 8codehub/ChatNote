@@ -43,4 +43,5 @@ internal abstract class UseCaseModule {
     abstract fun bindExtractActionableContentUseCase(
         implementation: ExtractActionableContentUseCaseImpl
     ): ExtractActionableContentUseCase
+
 }

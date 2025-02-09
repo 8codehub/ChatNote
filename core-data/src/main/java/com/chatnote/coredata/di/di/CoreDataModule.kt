@@ -22,5 +22,4 @@ abstract class CoreDataModule {
     abstract fun bindAppPreferences(
         impl: AppPreferencesImpl
     ): AppPreferences
-
 }

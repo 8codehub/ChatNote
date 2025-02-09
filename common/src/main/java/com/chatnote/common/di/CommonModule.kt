@@ -1,6 +1,5 @@
 package com.chatnote.common.di
 
-import android.annotation.SuppressLint
 import android.content.Context
 import com.chatnote.common.analytics.AnalyticsTracker
 import com.chatnote.common.analytics.AnalyticsTrackerImpl
@@ -16,12 +15,12 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 object CommonModule {
+
     @Provides
     @Singleton
     fun provideAnalyticsTracker(firebaseAnalytics: FirebaseAnalytics): AnalyticsTracker =
         AnalyticsTrackerImpl(firebaseAnalytics = firebaseAnalytics)
 
-    @SuppressLint("MissingPermission")
     @Provides
     @Singleton
     fun provideFirebaseAnalytics(@ApplicationContext context: Context): FirebaseAnalytics {

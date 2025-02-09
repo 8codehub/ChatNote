@@ -5,7 +5,6 @@ import com.chatnote.coredata.di.model.FolderEntity
 import com.chatnote.coredomain.facade.FolderStreamRepositoryFacade
 import com.chatnote.coredomain.mapper.Mapper
 import com.chatnote.coredomain.models.FolderBaseInfo
-import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 class FolderStreamRepositoryFacadeImpl @Inject constructor(
@@ -13,7 +12,6 @@ class FolderStreamRepositoryFacadeImpl @Inject constructor(
     private val mapperFolderEntityToFolderBaseInfo: Mapper<FolderEntity, FolderBaseInfo>
 ) : FolderStreamRepositoryFacade {
 
-    override fun observeFolderById(folderId: Long): Flow<FolderBaseInfo> {
-        return mapperFolderEntityToFolderBaseInfo.mapSingleFlow(folderDao.observeFolderById(folderId = folderId))
-    }
+    override fun observeFolderById(folderId: Long) =
+        mapperFolderEntityToFolderBaseInfo.mapSingleFlow(folderDao.observeFolderById(folderId = folderId))
 }

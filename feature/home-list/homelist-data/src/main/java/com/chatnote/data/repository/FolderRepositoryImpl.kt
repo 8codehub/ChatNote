@@ -23,10 +23,6 @@ class FolderRepositoryImpl @Inject constructor(
         iconUri: String
     ): Result<Long> {
         return runCatching {
-
-            val data = folderDao.observeFoldersWithLastNote().firstOrNull()
-            Log.e("Data_tag", "data" + data)
-
             val folderIdResult = if (folderId == null) {
                 folderDao.insertOrReplaceFolder(
                     FolderEntity(

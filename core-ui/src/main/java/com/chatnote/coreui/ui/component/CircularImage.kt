@@ -100,37 +100,6 @@ fun CircularImage(
 
 @Composable
 fun CircularBackgroundIcon(
-    icon: ImageVector,
-    modifier: Modifier = Modifier,
-    iconPadding: Dp = 0.dp,
-    iconSize: Dp = 24.dp,
-    borderWidth: Dp = 0.dp,
-    borderColor: Color = Color.Transparent,
-    backgroundColor: Color = Color.Transparent,
-    backgroundSize: Dp = 48.dp,
-    onClick: (() -> Unit)? = null
-) {
-    Box(
-        modifier = modifier
-            .size(backgroundSize)
-            .aspectRatio(1f)
-            .background(backgroundColor, shape = CircleShape)
-            .border(width = borderWidth, color = borderColor, shape = CircleShape)
-            .then(if (onClick != null) Modifier.clickable { onClick() } else Modifier),
-        contentAlignment = Alignment.Center
-    ) {
-        Image(
-            imageVector = icon,
-            contentDescription = null,
-            modifier = Modifier
-                .size(iconSize)
-                .padding(iconPadding)
-        )
-    }
-}
-
-@Composable
-fun CircularBackgroundIcon(
     @DrawableRes drawableRes: Int,
     modifier: Modifier = Modifier,
     iconPadding: Dp = 0.dp,
