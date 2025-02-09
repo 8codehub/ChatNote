@@ -1,12 +1,13 @@
 package com.chatnote.data.di
 
+import com.chatnote.coredata.di.db.FolderDao
+import com.chatnote.coredata.di.model.FolderEntity
+import com.chatnote.coredata.di.model.FolderWithLastNote
 import com.chatnote.coredomain.facade.FolderRepositoryFacade
 import com.chatnote.coredomain.facade.FolderStreamRepositoryFacade
 import com.chatnote.coredomain.facade.NotesRepositoryFacade
 import com.chatnote.coredomain.mapper.Mapper
 import com.chatnote.coredomain.models.FolderBaseInfo
-import com.chatnote.data.db.FolderDao
-import com.chatnote.data.models.FolderEntity
 import com.chatnote.data.repository.FolderRepositoryImpl
 import com.chatnote.data.repository.FolderStreamRepositoryImpl
 import com.chatnote.data.repository.facade.FolderRepositoryFacadeImpl
@@ -39,11 +40,11 @@ object RepositoryModule {
     fun provideFolderStreamRepository(
         folderDao: FolderDao,
         notesRepositoryFacade: NotesRepositoryFacade,
-        mapperFolderEntityToFolder: Mapper<FolderEntity, Folder>
+        folderWithLastNoteToFolder: Mapper<FolderWithLastNote, Folder>
     ): FolderStreamRepository = FolderStreamRepositoryImpl(
         folderDao = folderDao,
         notesRepositoryFacade = notesRepositoryFacade,
-        mapperFolderEntityToFolder = mapperFolderEntityToFolder
+        folderWithLastNoteToFolder = folderWithLastNoteToFolder
     )
 
     @Provides

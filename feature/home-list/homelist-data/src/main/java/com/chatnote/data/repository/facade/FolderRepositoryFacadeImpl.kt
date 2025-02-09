@@ -1,9 +1,9 @@
 package com.chatnote.data.repository.facade
 
+import com.chatnote.coredata.di.db.FolderDao
 import com.chatnote.coredomain.facade.FolderRepositoryFacade
 import com.chatnote.coredomain.utils.ResultError
 import com.chatnote.coredomain.utils.failure
-import com.chatnote.data.db.FolderDao
 import javax.inject.Inject
 
 class FolderRepositoryFacadeImpl @Inject constructor(
@@ -17,12 +17,12 @@ class FolderRepositoryFacadeImpl @Inject constructor(
         lastNoteDate: Long
     ): Result<Unit> {
         return runCatching {
-            folderDao.updateFolderLastNote(
-                folderId = folderId,
-                lastNote = lastNote,
-                lastNoteId = lastNoteId,
-                lastNoteDate = lastNoteDate
-            )
+//            folderDao.updateFolderLastNote(
+//                folderId = folderId,
+//                lastNote = lastNote,
+//                lastNoteId = lastNoteId,
+//                lastNoteDate = lastNoteDate
+//            )
         }.fold(
             onSuccess = { Result.success(Unit) },
             onFailure = { Result.failure(ResultError.DatabaseError(it)) }
@@ -31,7 +31,7 @@ class FolderRepositoryFacadeImpl @Inject constructor(
 
     override suspend fun deleteFolderLastNoteIfMatch(folderId: Long, noteId: Long): Result<Unit> {
         return kotlin.runCatching {
-            folderDao.clearFolderLastNoteIfMatch(folderId = folderId, noteId = noteId)
+            //folderDao.clearFolderLastNoteIfMatch(folderId = folderId, noteId = noteId)
         }.fold(
             onSuccess = {
                 Result.success(Unit)

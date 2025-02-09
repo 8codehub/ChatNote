@@ -4,8 +4,8 @@ import com.chatnote.coreui.systemactions.ClipboardActions
 import com.chatnote.coreui.systemactions.ClipboardActionsImpl
 import com.chatnote.coreui.systemactions.IntentActions
 import com.chatnote.coreui.systemactions.IntentActionsImpl
-import com.chatnote.coreui.systemactions.SystemActionTypeHandler
 import com.chatnote.coreui.systemactions.SystemActionHandlerImpl
+import com.chatnote.coreui.systemactions.SystemActionTypeHandler
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn

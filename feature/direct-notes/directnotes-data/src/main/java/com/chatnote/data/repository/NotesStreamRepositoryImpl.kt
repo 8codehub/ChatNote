@@ -1,8 +1,8 @@
 package com.chatnote.data.repository
 
+import com.chatnote.coredata.di.db.NoteDao
+import com.chatnote.coredata.di.model.NoteEntity
 import com.chatnote.coredomain.mapper.Mapper
-import com.chatnote.data.db.NoteDao
-import com.chatnote.data.model.NoteEntity
 import com.chatnote.directnotesdomain.model.Note
 import com.chatnote.directnotesdomain.repository.NotesStreamRepository
 import javax.inject.Inject

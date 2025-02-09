@@ -1,8 +1,8 @@
 package com.chatnote.directnotesdomain.usecase
 
 import com.chatnote.coredomain.models.FolderBaseInfo
-import com.chatnote.directnotesdomain.model.NoteActionableContent
 import com.chatnote.directnotesdomain.model.Note
+import com.chatnote.directnotesdomain.model.NoteActionableContent
 import kotlinx.coroutines.flow.Flow
 
 interface GetNotesUseCase {

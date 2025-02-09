@@ -1,13 +1,15 @@
 package com.chatnote.data.repository
 
+import android.util.Log
+import com.chatnote.coredata.di.db.FolderDao
+import com.chatnote.coredata.di.model.FolderEntity
 import com.chatnote.coredomain.mapper.Mapper
 import com.chatnote.coredomain.utils.ResultError
 import com.chatnote.coredomain.utils.failure
 import com.chatnote.coredomain.utils.throwAsAppException
-import com.chatnote.data.db.FolderDao
-import com.chatnote.data.models.FolderEntity
 import com.chatnote.domain.model.Folder
 import com.chatnote.domain.repository.FolderRepository
+import kotlinx.coroutines.flow.firstOrNull
 import javax.inject.Inject
 
 class FolderRepositoryImpl @Inject constructor(
@@ -21,14 +23,15 @@ class FolderRepositoryImpl @Inject constructor(
         iconUri: String
     ): Result<Long> {
         return runCatching {
+
+            val data = folderDao.observeFoldersWithLastNote().firstOrNull()
+            Log.e("Data_tag", "data" + data)
+
             val folderIdResult = if (folderId == null) {
                 folderDao.insertOrReplaceFolder(
                     FolderEntity(
                         name = name,
-                        iconUri = iconUri,
-                        lastNoteContent = null,
-                        lastNoteCreatedAt = null,
-                        lastNoteId = 0
+                        iconUri = iconUri
                     )
                 )
             } else {

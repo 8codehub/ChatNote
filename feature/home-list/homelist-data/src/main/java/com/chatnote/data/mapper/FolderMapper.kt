@@ -1,20 +1,35 @@
 package com.chatnote.data.mapper
 
+import com.chatnote.coredata.di.model.FolderEntity
+import com.chatnote.coredata.di.model.FolderWithLastNote
 import com.chatnote.coredomain.mapper.Mapper
 import com.chatnote.coredomain.models.FolderBaseInfo
-import com.chatnote.data.models.FolderEntity
 import com.chatnote.domain.model.Folder
 import javax.inject.Inject
+
+internal class FolderWithLastNoteToFolderMapper @Inject constructor() :
+    Mapper<FolderWithLastNote, Folder> {
+    override fun map(from: FolderWithLastNote): Folder = Folder(
+        id = from.folder.id,
+        name = from.folder.name,
+        createdAt = from.folder.createdAt,
+        lastNote = from.lastNoteContent.orEmpty(),
+        iconUri = from.folder.iconUri,
+        lastNoteCreatedDate = 0,
+        lastNoteId = from.lastNoteId ?: 0,
+        isPinned = from.folder.pinnedDate > 0
+    )
+}
 
 internal class FolderEntityToFolderMapper @Inject constructor() : Mapper<FolderEntity, Folder> {
     override fun map(from: FolderEntity): Folder = Folder(
         id = from.id,
         name = from.name,
         createdAt = from.createdAt,
-        lastNote = from.lastNoteContent.orEmpty(),
+        lastNote = "",
         iconUri = from.iconUri,
-        lastNoteCreatedDate = from.lastNoteCreatedAt ?: 0,
-        lastNoteId = from.lastNoteId ?: 0,
+        lastNoteCreatedDate = 0,
+        lastNoteId = 0,
         isPinned = from.pinnedDate > 0
     )
 }
@@ -34,9 +49,6 @@ internal class FolderToFolderEntityMapper @Inject constructor() : Mapper<Folder,
         name = from.name,
         createdAt = from.createdAt,
         iconUri = from.iconUri,
-        lastNoteCreatedAt = System.currentTimeMillis(),
-        lastNoteContent = from.lastNote,
-        lastNoteId = from.lastNoteId,
         pinnedDate = 0L
     )
 }

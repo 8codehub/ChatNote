@@ -1,35 +1,50 @@
-package com.chatnote.data.db
+package com.chatnote.coredata.di.db
 
 import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.chatnote.data.models.FolderEntity
+import com.chatnote.coredata.di.model.FolderEntity
+import com.chatnote.coredata.di.model.FolderWithLastNote
 import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface FolderDao {
 
+//    @Query(
+//        """
+//    SELECT * FROM folders
+//    ORDER BY
+//        CASE
+//            WHEN pinnedDate > 0 THEN 0
+//            ELSE 1
+//        END
+//    """
+//    )
+//    fun observeAllFolders(): Flow<List<FolderEntity>>
+
     @Query(
         """
-    SELECT * FROM folders
+    SELECT f.*, 
+           (SELECT n.note_last_content FROM notes n 
+            WHERE n.folderId = f.id 
+            ORDER BY n.note_last_created_at DESC 
+            LIMIT 1) AS note_last_content,
+           (SELECT n.note_last_created_at FROM notes n 
+            WHERE n.folderId = f.id 
+            ORDER BY n.note_last_created_at DESC 
+            LIMIT 1) AS note_last_created_at
+    FROM folders f
     ORDER BY 
         CASE 
-            WHEN pinnedDate > 0 THEN 0
-            ELSE 1
+            WHEN f.pinnedDate > 0 THEN 0 
+            ELSE 1 
         END, 
-        CASE 
-            WHEN lastNoteCreatedAt != 0 THEN lastNoteCreatedAt
-            ELSE pinnedDate
-        END DESC,
-        CASE 
-            WHEN lastNoteCreatedAt != 0 THEN lastNoteCreatedAt
-            ELSE createdAt
-        END DESC
+        COALESCE((SELECT MAX(n.note_last_created_at) FROM notes n WHERE n.folderId = f.id), f.createdAt) DESC
     """
     )
-    fun observeAllFolders(): Flow<List<FolderEntity>>
+    fun observeFoldersWithLastNote(): Flow<List<FolderWithLastNote>>
 
 
     @Query("SELECT * FROM folders WHERE id = :folderId LIMIT 1")
@@ -44,30 +59,6 @@ interface FolderDao {
     @Delete
     suspend fun deleteFolder(folderEntity: FolderEntity)
 
-    @Query(
-        """
-    UPDATE folders 
-    SET lastNoteContent = :lastNote, 
-        lastNoteCreatedAt = :lastNoteDate, 
-        lastNoteId = :lastNoteId
-    WHERE id = :folderId
-    """
-    )
-    suspend fun updateFolderLastNote(
-        folderId: Long,
-        lastNote: String,
-        lastNoteId: Long,
-        lastNoteDate: Long
-    )
-
-    @Query(
-        """
-    UPDATE folders 
-    SET lastNoteContent = '', lastNoteCreatedAt = 0
-    WHERE id = :folderId AND lastNoteId = :noteId
-    """
-    )
-    suspend fun clearFolderLastNoteIfMatch(folderId: Long, noteId: Long): Int
 
     @Query("UPDATE folders SET pinnedDate = :pinnedDate WHERE id = :folderId")
     suspend fun pinFolder(

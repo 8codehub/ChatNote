@@ -16,7 +16,6 @@ sealed class UiNoteInteraction(val order: Int) {
 }
 
 
-
 data class UiActionableItem(
     val content: String,
     val actions: List<UiNoteInteraction> = emptyList()

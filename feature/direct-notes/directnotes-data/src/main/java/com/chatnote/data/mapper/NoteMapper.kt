@@ -1,7 +1,7 @@
 package com.chatnote.data.mapper
 
+import com.chatnote.coredata.di.model.NoteEntity
 import com.chatnote.coredomain.mapper.Mapper
-import com.chatnote.data.model.NoteEntity
 import com.chatnote.directnotesdomain.model.Note
 import javax.inject.Inject
 

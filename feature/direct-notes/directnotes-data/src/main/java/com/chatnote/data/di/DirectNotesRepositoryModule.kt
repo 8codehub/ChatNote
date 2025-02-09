@@ -1,10 +1,10 @@
 package com.chatnote.data.di
 
+import com.chatnote.coredata.di.db.NoteDao
+import com.chatnote.coredata.di.model.NoteEntity
 import com.chatnote.coredomain.facade.FolderRepositoryFacade
 import com.chatnote.coredomain.facade.NotesRepositoryFacade
 import com.chatnote.coredomain.mapper.Mapper
-import com.chatnote.data.db.NoteDao
-import com.chatnote.data.model.NoteEntity
 import com.chatnote.data.repository.NotesRepositoryImpl
 import com.chatnote.data.repository.NotesStreamRepositoryImpl
 import com.chatnote.data.repository.facade.FolderNotesFacadeImpl

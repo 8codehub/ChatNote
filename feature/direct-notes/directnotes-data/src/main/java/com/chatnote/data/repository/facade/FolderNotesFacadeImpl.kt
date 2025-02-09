@@ -1,9 +1,9 @@
 package com.chatnote.data.repository.facade
 
+import com.chatnote.coredata.di.db.NoteDao
 import com.chatnote.coredomain.facade.NotesRepositoryFacade
 import com.chatnote.coredomain.utils.ResultError
 import com.chatnote.coredomain.utils.failure
-import com.chatnote.data.db.NoteDao
 import javax.inject.Inject
 
 class FolderNotesFacadeImpl @Inject constructor(

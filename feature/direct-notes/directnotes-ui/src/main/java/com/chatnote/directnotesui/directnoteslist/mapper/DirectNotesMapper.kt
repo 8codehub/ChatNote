@@ -3,12 +3,12 @@ package com.chatnote.directnotesui.directnoteslist.mapper
 import com.chatnote.coredomain.mapper.Mapper
 import com.chatnote.coreui.util.DateFormatter
 import com.chatnote.directnotesdomain.model.ActionType
-import com.chatnote.directnotesdomain.model.NoteActionableContent
 import com.chatnote.directnotesdomain.model.ActionableItem
 import com.chatnote.directnotesdomain.model.Note
-import com.chatnote.directnotesui.model.UiNoteActionableContent
+import com.chatnote.directnotesdomain.model.NoteActionableContent
 import com.chatnote.directnotesui.model.UiActionableItem
 import com.chatnote.directnotesui.model.UiNote
+import com.chatnote.directnotesui.model.UiNoteActionableContent
 import com.chatnote.directnotesui.model.UiNoteInteraction
 import javax.inject.Inject
 

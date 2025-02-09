@@ -1,11 +1,11 @@
 package com.chatnote.data.repository
 
+import com.chatnote.coredata.di.db.NoteDao
+import com.chatnote.coredata.di.model.NoteEntity
 import com.chatnote.coredomain.facade.FolderRepositoryFacade
 import com.chatnote.coredomain.mapper.Mapper
 import com.chatnote.coredomain.utils.ResultError
 import com.chatnote.coredomain.utils.throwAsAppException
-import com.chatnote.data.db.NoteDao
-import com.chatnote.data.model.NoteEntity
 import com.chatnote.directnotesdomain.model.Note
 import com.chatnote.directnotesdomain.repository.NotesRepository
 import javax.inject.Inject
@@ -42,6 +42,15 @@ class NotesRepositoryImpl @Inject constructor(
             onFailure = {
                 Result.failure(it)
             }
+        )
+    }
+
+    override suspend fun deleteNote(noteId: Long): Result<Unit> {
+        return runCatching {
+            noteDao.deleteNoteById(noteId = noteId)
+        }.fold(onSuccess = {
+            Result.success(Unit)
+        }, onFailure = { Result.failure(it) }
         )
     }
 }

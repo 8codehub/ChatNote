@@ -2,8 +2,8 @@ package com.chatnote.directnotesdomain.usecase
 
 
 import com.chatnote.directnotesdomain.model.ActionType
-import com.chatnote.directnotesdomain.model.NoteActionableContent
 import com.chatnote.directnotesdomain.model.ActionableItem
+import com.chatnote.directnotesdomain.model.NoteActionableContent
 import javax.inject.Inject
 
 class ExtractActionableContentUseCaseImpl @Inject constructor() : ExtractActionableContentUseCase {
