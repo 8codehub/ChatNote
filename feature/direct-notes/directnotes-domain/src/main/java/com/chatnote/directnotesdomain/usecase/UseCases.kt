@@ -22,5 +22,5 @@ interface ExtractActionableContentUseCase {
 }
 
 interface DeleteNoteUseCase {
-    suspend operator fun invoke(noteId: Long, folderId: Long): Result<Unit>
+    suspend operator fun invoke(noteId: Long): Result<Unit>
 }

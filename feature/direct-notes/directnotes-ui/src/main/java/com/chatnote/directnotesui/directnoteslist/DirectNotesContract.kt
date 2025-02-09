@@ -64,9 +64,8 @@ object DirectNotesContract {
         data class LoadAllNotes(val folderId: Long) : DirectNotesEvent()
         data class AddNote(val note: String) : DirectNotesEvent()
         data class NoteLongClick(val note: UiNote) : DirectNotesEvent()
-        data class NoteActionClick(val uiNoteInteraction: UiNoteInteraction) :
-            DirectNotesEvent()
-
+        data class NoteActionClick(val interaction: UiNoteInteraction) : DirectNotesEvent()
+        data class DeleteSelectedNote(val noteId: Long) : DirectNotesEvent()
         data class GeneralError(val throwable: Throwable) : DirectNotesEvent()
     }
 
@@ -78,8 +77,9 @@ object DirectNotesContract {
         data class ShowActionableContentSheet(
             val noteId: Long,
             val uiNoteActionableContent: UiNoteActionableContent
-        ) :
-            DirectNotesOneTimeEvent()
+        ) : DirectNotesOneTimeEvent()
+
+        data class AskForNoteDelete(val noteId: Long) : DirectNotesOneTimeEvent()
 
     }
 }

@@ -19,9 +19,8 @@ fun AppAlertDialog(
     @StringRes dismissButtonText: Int,
     onDismissRequest: () -> Unit,
     onConfirm: () -> Unit,
-    onDismiss: () -> Unit,
     title: String? = null,
-    annotatedTitle: AnnotatedString? = null
+    annotatedTitle: AnnotatedString? = null,
 ) {
     if (showDialog) {
         AlertDialog(
@@ -57,7 +56,6 @@ fun AppAlertDialog(
             dismissButton = {
                 TextButton(
                     onClick = {
-                        onDismiss()
                         onDismissRequest()
                     }
                 ) {

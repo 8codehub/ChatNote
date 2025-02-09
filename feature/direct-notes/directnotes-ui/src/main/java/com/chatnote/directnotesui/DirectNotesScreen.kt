@@ -25,13 +25,16 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import chatnote.directnotesui.R
 import com.chatnote.coreui.ui.decorations.showToast
+import com.chatnote.coreui.ui.dialog.AppAlertDialog
 import com.chatnote.directnotesui.actionablesheet.component.NoteInteractionBottomSheet
+import com.chatnote.directnotesui.directnoteslist.DirectNotesContract.DirectNotesOneTimeEvent.AskForNoteDelete
 import com.chatnote.directnotesui.directnoteslist.DirectNotesContract.DirectNotesOneTimeEvent.FailedOperation
 import com.chatnote.directnotesui.directnoteslist.DirectNotesContract.DirectNotesOneTimeEvent.NavigateBack
 import com.chatnote.directnotesui.directnoteslist.DirectNotesContract.DirectNotesOneTimeEvent.NavigateTo
@@ -53,6 +56,7 @@ fun DirectNotesScreen(
     val stateValue by viewModel.state.collectAsStateWithLifecycle()
     val context = LocalContext.current
     var uiNoteInteractionContent by remember { mutableStateOf<ShowActionableContentSheet?>(null) }
+    var selectedNoteToDelete by remember { mutableStateOf<Long?>(null) }
 
     LaunchedEffect(Unit) {
         viewModel.oneTimeEvent.collectLatest { event ->
@@ -68,9 +72,27 @@ fun DirectNotesScreen(
                 is ShowActionableContentSheet -> {
                     uiNoteInteractionContent = event
                 }
+
+                is AskForNoteDelete -> {
+                    selectedNoteToDelete = event.noteId
+                }
             }
         }
     }
+
+    AppAlertDialog(
+        showDialog = selectedNoteToDelete != null,
+        onDismissRequest = { selectedNoteToDelete = null },
+        title = stringResource(R.string.delete_note),
+        message = stringResource(R.string.delete_note_message),
+        confirmButtonText = R.string.delete,
+        dismissButtonText = R.string.cancel,
+        onConfirm = {
+            viewModel.deleteSelectedNote(noteId = selectedNoteToDelete ?: 0)
+            selectedNoteToDelete = null
+            uiNoteInteractionContent = null
+        }
+    )
 
     Scaffold(
         topBar = {
@@ -149,7 +171,7 @@ fun DirectNotesScreen(
             noteId = content.noteId,
             uiNoteActionableContent = content.uiNoteActionableContent,
             handleAction = { uiNoteInteraction ->
-                viewModel.handelAction(uiNoteInteraction = uiNoteInteraction)
+                viewModel.handelAction(interaction = uiNoteInteraction)
             },
             onDismiss = {
                 uiNoteInteractionContent = null

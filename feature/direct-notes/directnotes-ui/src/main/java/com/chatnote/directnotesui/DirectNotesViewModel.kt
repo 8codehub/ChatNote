@@ -62,9 +62,13 @@ class DirectNotesViewModel @Inject constructor(
         DirectNotesEvent.NoteLongClick(note = uiNote).processWithLaunch()
     }
 
-    fun handelAction(uiNoteInteraction: UiNoteInteraction) {
-        DirectNotesEvent.NoteActionClick(uiNoteInteraction = uiNoteInteraction)
+    fun handelAction(interaction: UiNoteInteraction) {
+        DirectNotesEvent.NoteActionClick(interaction = interaction)
             .processWithLaunch()
 
+    }
+
+    fun deleteSelectedNote(noteId: Long) {
+        DirectNotesEvent.DeleteSelectedNote(noteId = noteId).processWithLaunch()
     }
 }

@@ -54,9 +54,8 @@ class DirectNotesStatefulEventHandler @Inject constructor(
 
             is DirectNotesEvent.GeneralError -> onGeneralErrorEvent(throwable = event.throwable)
             is DirectNotesEvent.NoteLongClick -> onNoteLongClickEvent(uiNote = event.note)
-            is DirectNotesEvent.NoteActionClick -> onActionClickEvent(
-                uiNoteInteraction = event.uiNoteInteraction
-            )
+            is DirectNotesEvent.NoteActionClick -> onActionClickEvent(interaction = event.interaction)
+            is DirectNotesEvent.DeleteSelectedNote -> deleteNoteUseCase(noteId = event.noteId)
         }
     }
 
@@ -66,8 +65,8 @@ class DirectNotesStatefulEventHandler @Inject constructor(
         }
     }
 
-    private suspend fun onActionClickEvent(uiNoteInteraction: UiNoteInteraction) {
-        when (uiNoteInteraction) {
+    private suspend fun onActionClickEvent(interaction: UiNoteInteraction) {
+        when (interaction) {
             is UiNoteInteraction.Call,
             is UiNoteInteraction.Copy,
             is UiNoteInteraction.OpenEmail,
@@ -75,14 +74,14 @@ class DirectNotesStatefulEventHandler @Inject constructor(
             is UiNoteInteraction.SMS,
             is UiNoteInteraction.Share -> handleSystemAction(
                 systemActionType = actionTypeToSystemActionType.map(
-                    from = uiNoteInteraction
+                    from = interaction
                 )
             )
 
-            is UiNoteInteraction.Delete -> deleteNoteUseCase(
-                folderId = stateValue.folderId ?: 0,
-                noteId = uiNoteInteraction.noteId
-            )
+            is UiNoteInteraction.Delete -> {
+                DirectNotesOneTimeEvent.AskForNoteDelete(noteId = interaction.noteId)
+                    .processOneTimeEvent()
+            }
         }
 
     }

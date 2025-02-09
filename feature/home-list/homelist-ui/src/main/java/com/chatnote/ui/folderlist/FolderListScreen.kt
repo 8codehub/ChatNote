@@ -93,9 +93,6 @@ fun FolderListScreen(
         onConfirm = {
             viewModel.deleteFolder(folderId = selectedFolderForDeletion?.id)
         },
-        onDismiss = {
-            println("Dialog dismissed")
-        }
     )
 
     LoadingComponent(state.isLoading != false) {
