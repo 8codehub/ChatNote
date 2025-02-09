@@ -18,8 +18,8 @@ android {
         applicationId = "com.chatnote"
         minSdk = 24
         targetSdk = 34
-        versionCode = 10
-        versionName = "1.2.10"
+        versionCode = 12
+        versionName = "1.2.12"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -87,11 +87,9 @@ dependencies {
     ksp(libs.hilt.compiler)
     ksp(libs.hilt.android.compiler)
 
-
     implementation(project(":feature:home-list:homelist-data"))
     implementation(project(":feature:home-list:homelist-domain"))
     implementation(project(":feature:home-list:homelist-ui"))
-
 
     implementation(project(":feature:direct-notes:directnotes-data"))
     implementation(project(":feature:direct-notes:directnotes-domain"))

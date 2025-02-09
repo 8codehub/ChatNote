@@ -95,7 +95,7 @@ fun FolderListScreen(
         },
     )
 
-    LoadingComponent(state.isLoading != false) {
+    LoadingComponent(state.isLoading) {
         Scaffold(modifier = Modifier, topBar = {
             TopAppBar(colors = TopAppBarDefaults.topAppBarColors(
                 containerColor = MaterialTheme.colorScheme.background,

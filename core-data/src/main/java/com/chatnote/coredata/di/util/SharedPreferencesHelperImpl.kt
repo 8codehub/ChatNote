@@ -10,7 +10,7 @@ class SharedPreferencesHelperImpl @Inject constructor(
 ) : SharedPreferencesHelper {
 
     private val sharedPreferences: SharedPreferences =
-        context.getSharedPreferences("AppPreferences", Context.MODE_PRIVATE)
+        context.getSharedPreferences("Preferences", Context.MODE_PRIVATE)
 
     override fun saveString(key: String, value: String) {
         sharedPreferences.edit().putString(key, value).apply()
