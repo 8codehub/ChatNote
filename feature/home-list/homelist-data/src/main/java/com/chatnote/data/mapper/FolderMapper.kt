@@ -15,7 +15,7 @@ internal class FolderWithLastNoteToFolderMapper @Inject constructor() :
         createdAt = from.folder.createdAt,
         lastNote = from.lastNoteContent.orEmpty(),
         iconUri = from.folder.iconUri,
-        lastNoteCreatedDate = 0,
+        lastNoteCreatedDate = from.lastNoteCreatedAt ?: 0,
         lastNoteId = from.lastNoteId ?: 0,
         isPinned = from.folder.pinnedDate > 0
     )
