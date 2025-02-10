@@ -18,8 +18,8 @@ android {
         applicationId = "com.chatnote"
         minSdk = 24
         targetSdk = 34
-        versionCode = 12
-        versionName = "1.2.12"
+        versionCode = 13
+        versionName = "1.2.13"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
