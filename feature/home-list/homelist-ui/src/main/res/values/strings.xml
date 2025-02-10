@@ -24,6 +24,7 @@
 
     <string name="default_folder_work">Work</string>
     <string name="default_folder_love">Love</string>
+    <string name="default_folder_travel">Travel</string>
     <string name="default_folder_car">Car</string>
     <string name="default_folder_music">Music</string>
 

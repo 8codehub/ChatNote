@@ -25,5 +25,6 @@
     <string name="default_folder_work">Работа</string>
     <string name="default_folder_love">Любовь</string>
     <string name="default_folder_car">Машина</string>
+    <string name="default_folder_travel">Путешествовать</string>
     <string name="default_folder_music">Музыка</string>
 </resources>

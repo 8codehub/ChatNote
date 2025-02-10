@@ -11,7 +11,7 @@ object DefaultFoldersProvider {
 
         val specificFolders = listOf(
             FolderAsset("work.webp", R.string.default_folder_work),
-            FolderAsset("heart.webp", R.string.default_folder_love),
+            FolderAsset("plane.webp", R.string.default_folder_travel),
             FolderAsset("car.webp", R.string.default_folder_car),
             FolderAsset("music.webp", R.string.default_folder_music)
         )
