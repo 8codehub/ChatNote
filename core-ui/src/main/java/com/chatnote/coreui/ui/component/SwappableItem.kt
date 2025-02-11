@@ -29,12 +29,24 @@ fun SwappableItem(
     modifier: Modifier = Modifier,
     content: @Composable () -> Unit,
     onStateChange: (SwappableItemState) -> Unit,
+    showOnboarding: Boolean = false,
+    onOnboardingFinished: () -> Unit = {},
     actionButtonsContent: @Composable RowScope.() -> Unit,
     swappableItemState: SwappableItemState = SwappableItemState.Default
 ) {
     var actionWidth by remember { mutableFloatStateOf(0f) }
     val swipeOffset = remember { Animatable(0f) }
     val scope = rememberCoroutineScope()
+
+    LaunchedEffect(showOnboarding) {
+        if (showOnboarding) {
+            kotlinx.coroutines.delay(1000L)
+            swipeOffset.animateTo(-actionWidth, tween(300))
+            kotlinx.coroutines.delay(600L)
+            swipeOffset.animateTo(0f, tween(300))
+            onOnboardingFinished()
+        }
+    }
 
     LaunchedEffect(swappableItemState) {
         when (swappableItemState) {

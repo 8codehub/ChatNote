@@ -1,7 +1,7 @@
 package com.chatnote.app.app
 
 import android.app.Application
-import com.chatnote.coredomain.utils.AppPreferences
+import com.chatnote.coredomain.utils.AppPreferencesSync
 import dagger.hilt.android.HiltAndroidApp
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
@@ -11,7 +11,7 @@ import javax.inject.Inject
 class MainApp : Application() {
 
     @Inject
-    lateinit var appPreferences: AppPreferences
+    lateinit var appPreferences: AppPreferencesSync
 
     @Inject
     lateinit var applicationScope: CoroutineScope

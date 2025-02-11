@@ -2,11 +2,22 @@ package com.chatnote.domain.usecase
 
 import com.chatnote.domain.model.DefaultFolder
 import com.chatnote.domain.model.Folder
+import com.chatnote.domain.model.Onboarding
 import kotlinx.coroutines.flow.Flow
 
 interface GetFoldersUseCase {
 
     operator fun invoke(): Flow<List<Folder>>
+}
+
+interface GetOnboardingStatusUseCase {
+
+    suspend operator fun invoke(onboarding: Onboarding): Boolean
+}
+
+interface SetOnboardingStatusUseCase {
+
+    suspend operator fun invoke(onboarding: Onboarding)
 }
 
 interface GetFolderByIdUseCase {

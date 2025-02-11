@@ -12,24 +12,24 @@ internal class SharedPreferencesHelperImpl @Inject constructor(
     private val sharedPreferences: SharedPreferences =
         context.getSharedPreferences("Preferences", Context.MODE_PRIVATE)
 
-    override fun saveString(key: String, value: String) {
-        sharedPreferences.edit().putString(key, value).apply()
+    override fun saveString(key: String, value: String): Boolean {
+        return sharedPreferences.edit().putString(key, value).commit()
     }
 
     override fun getString(key: String, defaultValue: String): String {
         return sharedPreferences.getString(key, defaultValue) ?: defaultValue
     }
 
-    override fun saveInt(key: String, value: Int) {
-        sharedPreferences.edit().putInt(key, value).apply()
+    override fun saveInt(key: String, value: Int): Boolean {
+        return sharedPreferences.edit().putInt(key, value).commit()
     }
 
     override fun getInt(key: String, defaultValue: Int): Int {
         return sharedPreferences.getInt(key, defaultValue)
     }
 
-    override fun saveBoolean(key: String, value: Boolean) {
-        sharedPreferences.edit().putBoolean(key, value).apply()
+    override fun saveBoolean(key: String, value: Boolean): Boolean {
+        return sharedPreferences.edit().putBoolean(key, value).commit()
     }
 
     override fun getBoolean(key: String, defaultValue: Boolean): Boolean {

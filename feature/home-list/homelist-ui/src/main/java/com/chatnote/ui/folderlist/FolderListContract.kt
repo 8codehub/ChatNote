@@ -7,6 +7,7 @@ import com.chatnote.coreui.arch.MutableConvertibleState
 import com.chatnote.coreui.arch.UiEvent
 import com.chatnote.coreui.arch.UiOneTimeEvent
 import com.chatnote.domain.model.DefaultFolder
+import com.chatnote.domain.model.Onboarding
 import com.chatnote.ui.model.UiFolder
 
 object FolderListContract {
@@ -54,13 +55,13 @@ object FolderListContract {
     // UI Events
     sealed class FolderListEvent : UiEvent {
         data object LoadFolders : FolderListEvent()
+        data class AskForOnboarding(val onboarding: Onboarding) : FolderListEvent()
+        data class OnboardingFinished(val onboarding: Onboarding) : FolderListEvent()
         data class PinFolder(val folderId: Long) : FolderListEvent()
         data class UnpinFolder(val folderId: Long) : FolderListEvent()
         data class DeleteFolder(val folderId: Long) : FolderListEvent()
-        data class GeneralError(val error: Throwable) : FolderListEvent()
+        data class GeneralError(val throwable: Throwable) : FolderListEvent()
         data class AddDefaultFolders(val defaultFolders: List<DefaultFolder>) : FolderListEvent()
-
-
     }
 
     // One-Time Events
@@ -72,6 +73,8 @@ object FolderListContract {
         data object OnAppFirstOpen : FolderListOneTimeEvent()
 
         data class FailedOperation(@StringRes val error: Int) : FolderListOneTimeEvent()
+
+        data class ShowOnboarding(val onboarding: Onboarding) : FolderListOneTimeEvent()
 
     }
 }

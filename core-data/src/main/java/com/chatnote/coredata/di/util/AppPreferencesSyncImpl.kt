@@ -1,16 +1,17 @@
 package com.chatnote.coredata.di.util
 
-import com.chatnote.coredomain.utils.AppPreferences
+import com.chatnote.coredomain.utils.AppPreferencesSync
 import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-internal class AppPreferencesImpl @Inject constructor(
+internal class AppPreferencesSyncImpl @Inject constructor(
     private val sharedPreferencesHelper: SharedPreferencesHelper
-) : AppPreferences {
+) : AppPreferencesSync {
 
     companion object {
         private const val KEY_APP_SESSION_COUNT = "app_session_count"
+        private const val FOLDER_ONBOARDING_SHOWN = "folder_onboarding_shown"
     }
 
     override suspend fun isFirstSession(): Boolean {
@@ -25,4 +26,13 @@ internal class AppPreferencesImpl @Inject constructor(
         val currentCount = getAppSessionCount()
         sharedPreferencesHelper.saveInt(KEY_APP_SESSION_COUNT, currentCount.plus(1))
     }
+
+    override suspend fun hasFolderOnboardingBeenShown(): Boolean {
+        return sharedPreferencesHelper.getBoolean(FOLDER_ONBOARDING_SHOWN, false)
+    }
+
+    override suspend fun markFolderOnboardingAsShown() {
+        sharedPreferencesHelper.saveBoolean(FOLDER_ONBOARDING_SHOWN, true)
+    }
+
 }

@@ -35,6 +35,7 @@ import com.chatnote.coreui.ui.component.SwappableItemState
 import com.chatnote.coreui.ui.decorations.getAnnotatedString
 import com.chatnote.coreui.ui.decorations.showToast
 import com.chatnote.coreui.ui.dialog.AppAlertDialog
+import com.chatnote.domain.model.Onboarding
 import com.chatnote.navigation.NavigationRoute
 import com.chatnote.ui.folderlist.FolderListContract.FolderListOneTimeEvent
 import com.chatnote.ui.folderlist.FolderListContract.FolderListOneTimeEvent.FolderDeleted
@@ -53,6 +54,7 @@ fun FolderListScreen(
 ) {
     val state by viewModel.state.collectAsStateWithLifecycle()
     var selectedFolderForDeletion by remember { mutableStateOf<UiFolder?>(null) }
+    var onboardingItem by remember { mutableStateOf<Onboarding?>(null) }
     val context = LocalContext.current
     val lazyListState = rememberLazyListState()
 
@@ -80,6 +82,10 @@ fun FolderListScreen(
                 FolderListOneTimeEvent.OnAppFirstOpen -> viewModel.onAppFirstOpen(
                     context = context
                 )
+
+                is FolderListOneTimeEvent.ShowOnboarding -> {
+                    onboardingItem = oneTimeEvent.onboarding
+                }
             }
         }
 
@@ -121,68 +127,73 @@ fun FolderListScreen(
                     .fillMaxSize()
                     .background(MaterialTheme.colorScheme.background)
             ) {
-                LoadingComponent(state.isLoading) {
-                    LazyColumn(state = lazyListState) {
-                        item {
-                            AddNewFolderButton(
-                                modifier = Modifier, navigateTo = navigateTo
-                            )
-                        }
-                        items(state.folders.size, key = { state.folders[it].id ?: 0 }) { index ->
-                            val item = state.folders[index]
-                            SwappableItem(
-                                modifier = Modifier.animateItem(
-                                    fadeInSpec = null,
-                                    fadeOutSpec = null,
-                                    placementSpec = tween(300)
-                                ),
-                                content = {
-                                    FolderCard(
-                                        modifier = Modifier.background(color = MaterialTheme.colorScheme.background),
-                                        folder = item,
-                                        onClick = {
-                                            navigateTo(
-                                                NavigationRoute.DirectNotes(
-                                                    folderId = item.id ?: 0,
-                                                )
-                                            )
-                                        })
-                                }, onStateChange = { newState ->
-                                    swipeState = newState
-                                },
-                                swappableItemState = swipeState,
-                                actionButtonsContent = {
-                                    FolderActionItems(
-                                        modifier = Modifier.padding(horizontal = 12.dp),
-                                        isPinned = item.isPinned,
-                                        onFolderEdit = {
-                                            swipeState = SwappableItemState.Close
-                                            navigateTo(NavigationRoute.FolderEditor(folderId = item.id))
-                                        },
-                                        onFolderPin = {
-                                            swipeState = SwappableItemState.Close
-                                            viewModel.pinFolder(folderId = item.id ?: 0)
-                                        },
-                                        onFolderUnPin = {
-                                            swipeState = SwappableItemState.Close
-                                            viewModel.unPinFolder(folderId = item.id ?: 0)
-                                        },
-                                        onFolderDelete = {
-                                            swipeState = SwappableItemState.Close
-                                            selectedFolderForDeletion = item
-                                        }
-                                    )
-                                })
+                LazyColumn(state = lazyListState) {
+                    item {
+                        AddNewFolderButton(
+                            modifier = Modifier, navigateTo = navigateTo
+                        )
+                    }
+                    items(state.folders.size, key = { state.folders[it].id ?: 0 }) { index ->
+                        val item = state.folders[index]
 
-                        }
+                        SwappableItem(
+                            modifier = Modifier.animateItem(
+                                fadeInSpec = null,
+                                fadeOutSpec = null,
+                                placementSpec = tween(300)
+                            ),
+                            showOnboarding = index == 0 && onboardingItem == Onboarding.FolderOnboarding,
+                            onOnboardingFinished = {
+                                onboardingItem = null
+                                viewModel.onOnboardingFinished()
+                            },
+                            content = {
+                                FolderCard(
+                                    modifier = Modifier.background(color = MaterialTheme.colorScheme.background),
+                                    folder = item,
+                                    onClick = {
+                                        navigateTo(
+                                            NavigationRoute.DirectNotes(
+                                                folderId = item.id ?: 0,
+                                            )
+                                        )
+                                    })
+                            }, onStateChange = { newState ->
+                                swipeState = newState
+                            },
+                            swappableItemState = swipeState,
+                            actionButtonsContent = {
+                                FolderActionItems(
+                                    modifier = Modifier.padding(horizontal = 12.dp),
+                                    isPinned = item.isPinned,
+                                    onFolderEdit = {
+                                        swipeState = SwappableItemState.Close
+                                        navigateTo(NavigationRoute.FolderEditor(folderId = item.id))
+                                    },
+                                    onFolderPin = {
+                                        swipeState = SwappableItemState.Close
+                                        viewModel.pinFolder(folderId = item.id ?: 0)
+                                    },
+                                    onFolderUnPin = {
+                                        swipeState = SwappableItemState.Close
+                                        viewModel.unPinFolder(folderId = item.id ?: 0)
+                                    },
+                                    onFolderDelete = {
+                                        swipeState = SwappableItemState.Close
+                                        selectedFolderForDeletion = item
+                                    }
+                                )
+                            })
+
                     }
                 }
+
             }
         }
     }
 }
 
-fun onFolderDeletedOneTimeEvent(context: Context, messagesCount: Int) {
+private fun onFolderDeletedOneTimeEvent(context: Context, messagesCount: Int) {
     when (messagesCount) {
         0 -> showToast(
             context = context, message = context.getString(R.string.deleted_folder_with_no_message)

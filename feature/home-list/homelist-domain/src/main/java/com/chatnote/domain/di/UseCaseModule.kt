@@ -8,10 +8,14 @@ import com.chatnote.domain.usecase.GetFolderByIdUseCase
 import com.chatnote.domain.usecase.GetFolderByIdUseCaseImpl
 import com.chatnote.domain.usecase.GetFoldersUseCase
 import com.chatnote.domain.usecase.GetFoldersUseCaseImpl
+import com.chatnote.domain.usecase.GetOnboardingStatusUseCase
+import com.chatnote.domain.usecase.GetOnboardingStatusUseCaseImpl
 import com.chatnote.domain.usecase.InitializeDefaultFoldersUseCase
 import com.chatnote.domain.usecase.InitializeDefaultFoldersUseCaseImpl
 import com.chatnote.domain.usecase.PinFolderUseCase
 import com.chatnote.domain.usecase.PinFolderUseCaseImpl
+import com.chatnote.domain.usecase.SetOnboardingStatusUseCase
+import com.chatnote.domain.usecase.SetOnboardingStatusUseCaseImpl
 import com.chatnote.domain.usecase.UnpinFolderUseCase
 import com.chatnote.domain.usecase.UnpinFolderUseCaseImpl
 import dagger.Binds
@@ -57,5 +61,15 @@ internal abstract class UseCaseModule {
     abstract fun bindInitializeDefaultFoldersUseCase(
         implementation: InitializeDefaultFoldersUseCaseImpl
     ): InitializeDefaultFoldersUseCase
+
+    @Binds
+    abstract fun bindGetOnboardingStatusUseCase(
+        implementation: GetOnboardingStatusUseCaseImpl
+    ): GetOnboardingStatusUseCase
+
+    @Binds
+    abstract fun bindGSetOnboardingStatusUseCase(
+        implementation: SetOnboardingStatusUseCaseImpl
+    ): SetOnboardingStatusUseCase
 
 }

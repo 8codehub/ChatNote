@@ -3,17 +3,21 @@ package com.chatnote.ui.folderlist
 import chatnote.homelistui.R
 import com.chatnote.common.analytics.AnalyticsTracker
 import com.chatnote.coredomain.mapper.Mapper
-import com.chatnote.coredomain.utils.AppPreferences
+import com.chatnote.coredomain.utils.AppPreferencesSync
 import com.chatnote.coreui.arch.StatefulEventHandler
 import com.chatnote.domain.model.DefaultFolder
 import com.chatnote.domain.model.Folder
+import com.chatnote.domain.model.Onboarding
 import com.chatnote.domain.usecase.DeleteFolderUseCase
 import com.chatnote.domain.usecase.GetFoldersUseCase
+import com.chatnote.domain.usecase.GetOnboardingStatusUseCase
 import com.chatnote.domain.usecase.InitializeDefaultFoldersUseCase
 import com.chatnote.domain.usecase.PinFolderUseCase
+import com.chatnote.domain.usecase.SetOnboardingStatusUseCase
 import com.chatnote.domain.usecase.UnpinFolderUseCase
 import com.chatnote.ui.folderlist.FolderListContract.FolderListEvent
 import com.chatnote.ui.folderlist.FolderListContract.FolderListOneTimeEvent
+import com.chatnote.ui.folderlist.FolderListContract.FolderListOneTimeEvent.ShowOnboarding
 import com.chatnote.ui.folderlist.FolderListContract.FolderListState
 import com.chatnote.ui.folderlist.FolderListContract.MutableFolderListState
 import com.chatnote.ui.model.UiFolder
@@ -27,13 +31,15 @@ import javax.inject.Inject
 class FolderListStatefulEventHandler @Inject constructor(
     private val getFolders: GetFoldersUseCase,
     private val pinFolder: PinFolderUseCase,
-    private val appPreferences: AppPreferences,
+    private val appPreferences: AppPreferencesSync,
     private val unpinFolder: UnpinFolderUseCase,
     private val deleteFolder: DeleteFolderUseCase,
+    private val getOnboardingStatus: GetOnboardingStatusUseCase,
+    private val setOnboardingStatus: SetOnboardingStatusUseCase,
     private val initializeDefaultFolders: InitializeDefaultFoldersUseCase,
     private val folderToUiFolder: Mapper<Folder, UiFolder>,
     private val mapperResultErrorToErrorId: Mapper<Throwable?, Int>,
-    private val analyticsTracker: AnalyticsTracker
+    private val analyticsTracker: AnalyticsTracker,
 ) : StatefulEventHandler<FolderListEvent, FolderListOneTimeEvent, FolderListState, MutableFolderListState>(
     FolderListState()
 ) {
@@ -56,8 +62,23 @@ class FolderListStatefulEventHandler @Inject constructor(
                 onDeleteFolderEvent(folderId = event.folderId)
             }
 
-            is FolderListEvent.GeneralError -> onGeneralError(throwable = event.error)
+            is FolderListEvent.AskForOnboarding -> {
+                onAskForOnboardingEvent(onboarding = event.onboarding)
+            }
+
+            is FolderListEvent.OnboardingFinished -> {
+                setOnboardingStatus(onboarding = event.onboarding)
+            }
+
+            is FolderListEvent.GeneralError -> onGeneralError(throwable = event.throwable)
             is FolderListEvent.AddDefaultFolders -> onAddDefaultFoldersEvent(defaultFolders = event.defaultFolders)
+        }
+    }
+
+    private suspend fun onAskForOnboardingEvent(onboarding: Onboarding) {
+        val hasFolderOnboardingBeenShown = getOnboardingStatus(onboarding)
+        if (!hasFolderOnboardingBeenShown) {
+            ShowOnboarding(onboarding = onboarding).processOneTimeEvent()
         }
     }
 

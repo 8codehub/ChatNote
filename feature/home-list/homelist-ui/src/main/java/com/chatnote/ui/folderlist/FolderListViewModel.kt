@@ -4,7 +4,9 @@ import android.content.Context
 import com.chatnote.common.di.IoDispatcher
 import com.chatnote.coreui.arch.EventDrivenViewModel
 import com.chatnote.coreui.arch.StatefulEventHandler
+import com.chatnote.domain.model.Onboarding
 import com.chatnote.ui.folderlist.FolderListContract.FolderListEvent
+import com.chatnote.ui.folderlist.FolderListContract.FolderListEvent.GeneralError
 import com.chatnote.ui.folderlist.FolderListContract.FolderListOneTimeEvent
 import com.chatnote.ui.folderlist.FolderListContract.FolderListState
 import com.chatnote.ui.folderlist.FolderListContract.MutableFolderListState
@@ -58,8 +60,16 @@ class FolderListViewModel @Inject constructor(
 
     override fun onStateReady() {
         FolderListEvent.LoadFolders.processWithLaunch()
+        FolderListEvent.AskForOnboarding(onboarding = Onboarding.FolderOnboarding)
+            .processWithLaunch()
     }
 
     override fun onGeneralError(throwable: Throwable) {
+        GeneralError(throwable = throwable).processWithLaunch()
+    }
+
+    fun onOnboardingFinished() {
+        FolderListEvent.OnboardingFinished(onboarding = Onboarding.FolderOnboarding)
+            .processWithLaunch()
     }
 }
