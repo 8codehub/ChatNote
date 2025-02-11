@@ -47,7 +47,6 @@ import com.chatnote.directnotesui.directnoteslist.components.editor.NoteEditorIn
 import com.chatnote.navigation.NavigationRoute
 import kotlinx.coroutines.flow.collectLatest
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun DirectNotesScreen(
     onBackClick: () -> Unit,
@@ -184,7 +183,7 @@ fun DirectNotesTopAppBar(
                 Icon(
                     imageVector = ImageVector.vectorResource(R.drawable.ic_back),
                     tint = MaterialTheme.colorScheme.primary,
-                    contentDescription = null
+                    contentDescription = stringResource(R.string.action_navigate_to_home_screen)
                 )
             }
         },

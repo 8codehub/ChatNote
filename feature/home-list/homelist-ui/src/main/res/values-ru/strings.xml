@@ -21,10 +21,11 @@
     <string name="deleted_folder_message_plural">Было удалено %s сообщений.</string>
     <string name="error_folder_pin">Не удалось закрепить папку.</string>
     <string name="error_folder_unpin">Не удалось открепить папку.</string>
-
+    <string name="pin_folder">закрепить папку</string>
     <string name="default_folder_work">Работа</string>
     <string name="default_folder_love">Любовь</string>
     <string name="default_folder_car">Машина</string>
     <string name="default_folder_travel">Путешествовать</string>
     <string name="default_folder_music">Музыка</string>
+    <string name="pinned_folder">Закреплённая папка</string>
 </resources>

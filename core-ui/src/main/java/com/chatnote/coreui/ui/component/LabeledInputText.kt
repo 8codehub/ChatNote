@@ -34,6 +34,7 @@ import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import chatnote.coreui.R
 import com.chatnote.coreui.ui.decorations.AppHorizontalDivider
 import kotlinx.coroutines.launch
 
@@ -115,6 +116,7 @@ fun LabeledInputText(
             clearTextIcon?.let {
                 AnimatedVisibility(text.isNotEmpty()) {
                     CircularImage(
+                        contentDescription = stringResource(R.string.action_clear_folder_name),
                         drawableRes = clearTextIcon,
                         iconPadding = 2.dp,
                         onClick = onClearClick

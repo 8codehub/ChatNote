@@ -11,4 +11,13 @@
     <string name="delete">Delete</string>
     <string name="delete_note">Delete Note</string>
     <string name="delete_note_message">Are you sure you want to delete the note?</string>
+    <string name="action_create_note">Create Note</string>
+    <string name="action_navigate_to_home_screen">Navigate to Home Screen</string>
+    <string name="action_call">Call</string>
+    <string name="action_sms">Send SMS</string>
+    <string name="action_share">Share</string>
+    <string name="action_open_web">Open Web Page</string>
+    <string name="action_open_email">Open Email</string>
+    <string name="action_copy">Copy</string>
+    <string name="action_delete">Delete</string>
 </resources>

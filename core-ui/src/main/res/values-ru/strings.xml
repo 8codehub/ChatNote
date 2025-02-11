@@ -6,4 +6,5 @@
     <string name="folder_not_deleted">Не удалось удалить папку.</string>
     <string name="validation_error_empty_folder_name">Имя папки не может быть пустым</string>
     <string name="action_not_supported">Действие не поддерживается</string>
+    <string name="action_clear_folder_name">Очистить поле ввода названия папки</string>
 </resources>

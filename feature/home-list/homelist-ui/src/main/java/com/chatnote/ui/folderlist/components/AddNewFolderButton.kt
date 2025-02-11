@@ -64,6 +64,7 @@ fun AddNewFolderButton(
     ) {
 
         CircularImage(
+            contentDescription = stringResource(R.string.new_folder),
             modifier = Modifier.padding(vertical = 4.dp),
             drawableRes = R.drawable.ic_plus,
             backgroundColor = MaterialTheme.colorScheme.surface,

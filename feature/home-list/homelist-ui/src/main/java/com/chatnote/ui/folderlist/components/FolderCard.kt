@@ -96,6 +96,7 @@ fun FolderCard(
 
         if (folder.isPinned) {
             CircularImage(
+                contentDescription = stringResource(R.string.pinned_folder),
                 modifier = Modifier.rotate(45f),
                 iconSize = 18.dp,
                 drawableRes = R.drawable.ic_pin,

@@ -29,6 +29,7 @@ import com.chatnote.coreui.ui.component.StyledText
 import com.chatnote.coreui.ui.decorations.AppHorizontalDivider
 import com.chatnote.directnotesui.model.UiNoteActionableContent
 import com.chatnote.directnotesui.model.UiNoteInteraction
+import com.chatnote.directnotesui.model.getActionStringResId
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -148,6 +149,9 @@ fun ActionIconsRow(
     ) {
         actions.forEach { action ->
             CircularBackgroundIcon(
+                contentDescription = stringResource(
+                    id = action.getActionStringResId()
+                ),
                 iconSize = 18.dp,
                 iconPadding = 2.dp,
                 imageColorFilter = ColorFilter.tint(MaterialTheme.colorScheme.secondary),

@@ -25,6 +25,7 @@ import coil.compose.AsyncImage
 @Composable
 fun CircularImage(
     @DrawableRes drawableRes: Int,
+    contentDescription: String,
     modifier: Modifier = Modifier,
     iconPadding: Dp = 0.dp,
     iconSize: Dp? = null,
@@ -50,7 +51,7 @@ fun CircularImage(
         ) {
             Image(
                 painter = painterResource(id = drawableRes),
-                contentDescription = null,
+                contentDescription = contentDescription,
                 colorFilter = imageColorFilter,
                 contentScale = contentScale,
                 modifier = if (iconSize != null) Modifier.size(iconSize) else Modifier.wrapContentSize()
@@ -98,6 +99,7 @@ fun CircularImage(
 
 @Composable
 fun CircularBackgroundIcon(
+    contentDescription: String,
     @DrawableRes drawableRes: Int,
     modifier: Modifier = Modifier,
     iconPadding: Dp = 0.dp,
@@ -120,7 +122,7 @@ fun CircularBackgroundIcon(
         Image(
             painter = painterResource(id = drawableRes),
             colorFilter = imageColorFilter,
-            contentDescription = null,
+            contentDescription = contentDescription,
             modifier = Modifier
                 .size(iconSize)
         )

@@ -21,12 +21,11 @@
     <string name="deleted_folder_message_plural">There were %s deleted messages.</string>
     <string name="error_folder_pin">Failed to pin the folder.</string>
     <string name="error_folder_unpin">Failed to unpin the folder.</string>
-
+    <string name="pin_folder">pin folder</string>
     <string name="default_folder_work">Work</string>
     <string name="default_folder_love">Love</string>
     <string name="default_folder_travel">Travel</string>
     <string name="default_folder_car">Car</string>
     <string name="default_folder_music">Music</string>
-
-
+    <string name="pinned_folder">Pinned Folder</string>
 </resources>
