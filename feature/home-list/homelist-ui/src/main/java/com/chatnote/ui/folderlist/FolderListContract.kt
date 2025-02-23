@@ -9,6 +9,7 @@ import com.chatnote.coreui.arch.UiOneTimeEvent
 import com.chatnote.domain.model.DefaultFolder
 import com.chatnote.domain.model.Onboarding
 import com.chatnote.ui.model.UiFolder
+import chatnote.coreui.R as CR
 
 object FolderListContract {
 
@@ -18,7 +19,7 @@ object FolderListContract {
         val folders: List<UiFolder> = emptyList(),
         val foldersCount: Int? = null,
         val errorMessage: String? = null,
-        @StringRes override val generalError: Int = R.string.general_error,
+        @StringRes override val generalError: Int = CR.string.general_error,
     ) : ConvertibleState<FolderListState, MutableFolderListState> {
 
         override fun toMutable(): MutableFolderListState {
@@ -38,7 +39,7 @@ object FolderListContract {
         var folders: List<UiFolder> = emptyList(),
         var errorMessage: String? = null,
         var foldersCount: Int? = null,
-        @StringRes override var generalError: Int = R.string.general_error,
+        @StringRes override var generalError: Int = CR.string.general_error,
     ) : MutableConvertibleState<FolderListState> {
 
         override fun toImmutable(): FolderListState {

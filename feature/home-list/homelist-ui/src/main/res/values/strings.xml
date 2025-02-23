@@ -15,7 +15,6 @@
     <string name="cancel">Cancel</string>
     <string name="delete_folder_msg">Are you sure you want to delete this folder? This action cannot be undone.</string>
     <string name="random">Aa</string>
-    <string name="general_error">Something went wrong</string>
     <string name="deleted_folder_with_no_message">Folder is deleted</string>
     <string name="deleted_folder_message_singular">There was 1 deleted message.</string>
     <string name="deleted_folder_message_plural">There were %s deleted messages.</string>

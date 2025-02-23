@@ -9,6 +9,7 @@ import com.chatnote.directnotesui.model.UiNote
 import com.chatnote.directnotesui.model.UiNoteActionableContent
 import com.chatnote.directnotesui.model.UiNoteInteraction
 import com.chatnote.navigation.NavigationRoute
+import chatnote.coreui.R as CR
 
 object DirectNotesContract {
 
@@ -20,7 +21,7 @@ object DirectNotesContract {
         val notes: List<UiNote> = emptyList(),
         val emptyNotes: Boolean? = null,
         override val isLoading: Boolean = false,
-        @StringRes override val generalError: Int = chatnote.coreui.R.string.general_error
+        @StringRes override val generalError: Int = CR.string.general_error
     ) : ConvertibleState<DirectNotesState, MutableDirectNotesState> {
         override fun toMutable(): MutableDirectNotesState {
             return MutableDirectNotesState(

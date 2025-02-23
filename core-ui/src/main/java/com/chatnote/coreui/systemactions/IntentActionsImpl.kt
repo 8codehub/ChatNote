@@ -3,6 +3,7 @@ package com.chatnote.coreui.systemactions
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
+import android.webkit.URLUtil
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 
@@ -11,9 +12,16 @@ internal class IntentActionsImpl @Inject constructor(
 ) : IntentActions {
 
     override fun openInBrowser(url: String) {
-        val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url)).apply {
+        val formattedUrl = if (!url.startsWith("http://") && !url.startsWith("https://")) {
+            "https://$url"
+        } else {
+            url
+        }
+
+        val intent = Intent(Intent.ACTION_VIEW, Uri.parse(formattedUrl)).apply {
             flags = Intent.FLAG_ACTIVITY_NEW_TASK
         }
+
         context.startActivity(intent)
     }
 

@@ -15,7 +15,6 @@
     <string name="cancel">Отмена</string>
     <string name="delete_folder_msg">Вы уверены, что хотите удалить эту папку? Это действие нельзя отменить.</string>
     <string name="random">Aa</string>
-    <string name="general_error">Что-то пошло не так</string>
     <string name="deleted_folder_with_no_message">Папка удалена</string>
     <string name="deleted_folder_message_singular">Было удалено 1 сообщение.</string>
     <string name="deleted_folder_message_plural">Было удалено %s сообщений.</string>

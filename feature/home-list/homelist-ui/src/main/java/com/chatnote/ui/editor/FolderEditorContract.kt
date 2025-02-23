@@ -7,6 +7,7 @@ import com.chatnote.coreui.arch.MutableConvertibleState
 import com.chatnote.coreui.arch.UiEvent
 import com.chatnote.coreui.arch.UiOneTimeEvent
 import com.chatnote.navigation.NavigationRoute
+import chatnote.coreui.R as CR
 
 object FolderEditorContract {
 
@@ -19,7 +20,7 @@ object FolderEditorContract {
         override val isLoading: Boolean = false,
         @StringRes val inputError: Int? = null,
         @StringRes val title: Int? = null,
-        @StringRes override val generalError: Int = R.string.general_error
+        @StringRes override val generalError: Int = CR.string.general_error
     ) : ConvertibleState<FolderEditorState, MutableFolderEditorState> {
 
         override fun toMutable(): MutableFolderEditorState {
@@ -45,7 +46,7 @@ object FolderEditorContract {
         override var isLoading: Boolean = false,
         @StringRes var inputError: Int? = null,
         @StringRes var title: Int? = null,
-        @StringRes override var generalError: Int = R.string.general_error
+        @StringRes override var generalError: Int = CR.string.general_error
     ) : MutableConvertibleState<FolderEditorState> {
 
         override fun toImmutable(): FolderEditorState {
