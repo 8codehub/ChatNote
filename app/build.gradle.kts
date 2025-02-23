@@ -18,9 +18,9 @@ android {
         applicationId = "com.chatnote"
         minSdk = 24
         targetSdk = 34
-        versionCode = 14
-        versionName = "1.2.14"
-
+        versionCode = 15
+        versionName = libs.versions.versionName.get()
+        versionNameSuffix = "-release-${libs.versions.versionName.get()}"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -32,11 +32,10 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
-            signingConfig = signingConfigs.getByName("debug")
         }
         debug {
             applicationIdSuffix = ".debug"
-            versionNameSuffix = "-debug"
+            versionNameSuffix = ".debug-${libs.versions.versionName.get()}"
         }
     }
     compileOptions {
