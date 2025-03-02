@@ -3,7 +3,7 @@ package com.chatnote.ui.folderlist
 import android.content.Context
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
@@ -121,7 +121,7 @@ fun FolderListScreen(
                 }
             )
         }) { innerPadding ->
-            Column(
+            Box(
                 modifier = Modifier
                     .padding(innerPadding)
                     .fillMaxSize()

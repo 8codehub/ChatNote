@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="general_error">Algo salió mal</string>
+    <string name="error_folder_not_found">Carpeta no encontrada.</string>
+    <string name="error_database">Ocurrió un error en la base de datos.</string>
+    <string name="folder_not_deleted">No se pudo eliminar la carpeta.</string>
+    <string name="validation_error_empty_folder_name">El nombre de la carpeta no puede estar vacío</string>
+    <string name="action_not_supported">Acción no soportada</string>
+    <string name="action_clear_folder_name">Restablecer el campo del nombre de la carpeta</string>
+</resources>

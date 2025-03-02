@@ -1,0 +1,30 @@
+<resources>
+    <string name="new_folder">Nowy folder</string>
+    <string name="hint_1">Organizuj swoje notatki w dedykowanej przestrzeni</string>
+    <string name="hint_2">Grupuj podobne elementy w jednym miejscu</string>
+    <string name="hint_3">Trzymaj swoje pliki schludnie posegregowane</string>
+    <string name="folders">Foldery</string>
+    <string name="error_failed_to_load_folders">Nie udało się załadować folderów.</string>
+    <string name="folders_count">Foldery (%s)</string>
+    <string name="empty_folder_hint">Nic tu jeszcze nie ma</string>
+    <string name="name">Nazwa</string>
+    <string name="edit_details">Edytuj szczegóły</string>
+    <string name="done">Gotowe</string>
+    <string name="delete_folder_title">Usuń folder %s</string>
+    <string name="delete">Usuń</string>
+    <string name="cancel">Anuluj</string>
+    <string name="delete_folder_msg">Czy na pewno chcesz usunąć ten folder? Tej operacji nie można cofnąć.</string>
+    <string name="random">Aa</string>
+    <string name="deleted_folder_with_no_message">Folder został usunięty</string>
+    <string name="deleted_folder_message_singular">Usunięto 1 wiadomość.</string>
+    <string name="deleted_folder_message_plural">Usunięto %s wiadomości.</string>
+    <string name="error_folder_pin">Nie udało się przypiąć folderu.</string>
+    <string name="error_folder_unpin">Nie udało się odpiąć folderu.</string>
+    <string name="pin_folder">Przypnij folder</string>
+    <string name="default_folder_work">Praca</string>
+    <string name="default_folder_love">Miłość</string>
+    <string name="default_folder_travel">Podróże</string>
+    <string name="default_folder_car">Samochód</string>
+    <string name="default_folder_music">Muzyka</string>
+    <string name="pinned_folder">Przypięty folder</string>
+</resources>

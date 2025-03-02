@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="general_error">Nešto je pošlo po zlu</string>
+    <string name="error_folder_not_found">Mapa nije pronađena.</string>
+    <string name="error_database">Došlo je do pogreške u bazi podataka.</string>
+    <string name="folder_not_deleted">Mapu nije moguće izbrisati.</string>
+    <string name="validation_error_empty_folder_name">Naziv mape ne može biti prazan</string>
+    <string name="action_not_supported">Radnja nije podržana</string>
+    <string name="action_clear_folder_name">Resetiraj polje naziva mape</string>
+</resources>

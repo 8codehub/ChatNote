@@ -1,0 +1,23 @@
+<resources>
+    <string name="notes_count">%s notatek</string>
+    <string name="one_note">Jedna notatka</string>
+    <string name="no_notes">Brak notatek</string>
+    <string name="empty_notes_message">Brak notatek. Zacznij dodawać swoje myśli i organizować je w tym folderze!</string>
+    <string name="error_failed_to_load_notes">Nie udało się załadować notatek</string>
+    <string name="error_failed_to_load_note">Nie udało się załadować notatki</string>
+    <string name="copy_entire_message">Skopiuj całą wiadomość</string>
+    <string name="share">Udostępnij</string>
+    <string name="cancel">Anuluj</string>
+    <string name="delete">Usuń</string>
+    <string name="delete_note">Usuń notatkę</string>
+    <string name="delete_note_message">Czy na pewno chcesz usunąć tę notatkę?</string>
+    <string name="action_create_note">Utwórz notatkę</string>
+    <string name="action_navigate_to_home_screen">Przejdź do ekranu głównego</string>
+    <string name="action_call">Zadzwoń</string>
+    <string name="action_sms">Wyślij SMS</string>
+    <string name="action_share">Udostępnij</string>
+    <string name="action_open_web">Otwórz stronę internetową</string>
+    <string name="action_open_email">Otwórz e-mail</string>
+    <string name="action_copy">Skopiuj</string>
+    <string name="action_delete">Usuń</string>
+</resources>

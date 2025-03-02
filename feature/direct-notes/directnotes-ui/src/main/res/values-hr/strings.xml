@@ -1,0 +1,23 @@
+<resources>
+    <string name="notes_count">%s bilješki</string>
+    <string name="one_note">Jedna bilješka</string>
+    <string name="no_notes">Nema bilješki</string>
+    <string name="empty_notes_message">Još nema bilješki. Počnite dodavati svoje misli i organizirati ih u ovu mapu!</string>
+    <string name="error_failed_to_load_notes">Nije moguće učitati bilješke</string>
+    <string name="error_failed_to_load_note">Nije moguće učitati bilješku</string>
+    <string name="copy_entire_message">Kopiraj cijelu poruku</string>
+    <string name="share">Podijeli</string>
+    <string name="cancel">Odustani</string>
+    <string name="delete">Izbriši</string>
+    <string name="delete_note">Izbriši bilješku</string>
+    <string name="delete_note_message">Jeste li sigurni da želite izbrisati ovu bilješku?</string>
+    <string name="action_create_note">Stvori bilješku</string>
+    <string name="action_navigate_to_home_screen">Idi na početni zaslon</string>
+    <string name="action_call">Nazovi</string>
+    <string name="action_sms">Pošalji SMS</string>
+    <string name="action_share">Podijeli</string>
+    <string name="action_open_web">Otvori web stranicu</string>
+    <string name="action_open_email">Otvori e-poštu</string>
+    <string name="action_copy">Kopiraj</string>
+    <string name="action_delete">Izbriši</string>
+</resources>

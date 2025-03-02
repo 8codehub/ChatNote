@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="general_error">Es ist ein Fehler aufgetreten</string>
+    <string name="error_folder_not_found">Ordner nicht gefunden.</string>
+    <string name="error_database">Ein Fehler in der Datenbank ist aufgetreten.</string>
+    <string name="folder_not_deleted">Der Ordner konnte nicht gelöscht werden.</string>
+    <string name="validation_error_empty_folder_name">Der Ordnername darf nicht leer sein.</string>
+    <string name="action_not_supported">Aktion wird nicht unterstützt.</string>
+    <string name="action_clear_folder_name">Feld für Ordnernamen zurücksetzen.</string>
+</resources>
