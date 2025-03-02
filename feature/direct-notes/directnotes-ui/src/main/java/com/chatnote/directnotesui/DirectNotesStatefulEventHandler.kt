@@ -66,6 +66,7 @@ class DirectNotesStatefulEventHandler @Inject constructor(
     }
 
     private suspend fun onActionClickEvent(interaction: UiNoteInteraction) {
+        analyticsTracker.trackNoteDetailActionDone(interaction = interaction.name)
         when (interaction) {
             is UiNoteInteraction.Call,
             is UiNoteInteraction.Copy,
@@ -151,6 +152,7 @@ class DirectNotesStatefulEventHandler @Inject constructor(
     }
 
     private suspend fun onNoteLongClickEvent(uiNote: UiNote) {
+        analyticsTracker.trackNoteLongClick()
         DirectNotesOneTimeEvent.ShowActionableContentSheet(
             noteId = uiNote.id,
             actionableContentToUiNoteNoteActionableContent.map(extractActionableContent(fullMessage = uiNote.content))

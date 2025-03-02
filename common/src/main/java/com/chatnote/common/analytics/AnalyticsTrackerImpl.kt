@@ -69,7 +69,15 @@ internal class AnalyticsTrackerImpl @Inject constructor(
         })
     }
 
-    private fun logEvent(eventName: String, params: Bundle) {
+    override fun trackNoteDetailActionDone(interaction: String) {
+        logEvent(interaction)
+    }
+
+    override fun trackNoteLongClick() {
+        logEvent("note_long_click")
+    }
+
+    private fun logEvent(eventName: String, params: Bundle? = null) {
         firebaseAnalytics.logEvent(eventName, params)
     }
 }

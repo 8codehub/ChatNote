@@ -8,14 +8,14 @@ data class UiNoteActionableContent(
     val actionableItems: List<UiActionableItem>
 )
 
-sealed class UiNoteInteraction(val order: Int) {
-    data class Call(val phoneNumber: String) : UiNoteInteraction(1000)
-    data class SMS(val phoneNumber: String) : UiNoteInteraction(2000)
-    data class Share(val content: String) : UiNoteInteraction(3000)
-    data class OpenWeb(val url: String) : UiNoteInteraction(4000)
-    data class OpenEmail(val email: String) : UiNoteInteraction(5000)
-    data class Copy(val content: String) : UiNoteInteraction(6000)
-    data class Delete(val noteId: Long) : UiNoteInteraction(7000)
+sealed class UiNoteInteraction(val order: Int, val name: String) {
+    data class Call(val phoneNumber: String) : UiNoteInteraction(order = 1000, name = "call")
+    data class SMS(val phoneNumber: String) : UiNoteInteraction(order = 2000, name = "sms")
+    data class Share(val content: String) : UiNoteInteraction(order = 3000, name = "share")
+    data class OpenWeb(val url: String) : UiNoteInteraction(order = 4000, name = "open_web")
+    data class OpenEmail(val email: String) : UiNoteInteraction(order = 5000, name = "open_email")
+    data class Copy(val content: String) : UiNoteInteraction(order = 6000, name = "copy")
+    data class Delete(val noteId: Long) : UiNoteInteraction(order = 7000, name = "delete")
 }
 
 @StringRes
