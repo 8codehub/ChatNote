@@ -77,6 +77,18 @@ internal class AnalyticsTrackerImpl @Inject constructor(
         logEvent("note_long_click")
     }
 
+    override fun trackOnReviewRequestFail(message: String?) {
+        logEvent("review_request_fail_".plus(message?.take(15)))
+    }
+
+    override fun trackOnReviewRequestSuccess() {
+        logEvent("review_request_success")
+    }
+
+    override fun trackReviewRequest() {
+        logEvent("review_request")
+    }
+
     private fun logEvent(eventName: String, params: Bundle? = null) {
         firebaseAnalytics.logEvent(eventName, params)
     }

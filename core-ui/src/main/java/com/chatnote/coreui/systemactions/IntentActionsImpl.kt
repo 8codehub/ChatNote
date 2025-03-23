@@ -3,7 +3,6 @@ package com.chatnote.coreui.systemactions
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
-import android.webkit.URLUtil
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 

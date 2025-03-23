@@ -1,7 +1,6 @@
 package com.chatnote.ui.folderlist
 
 import androidx.annotation.StringRes
-import chatnote.homelistui.R
 import com.chatnote.coreui.arch.ConvertibleState
 import com.chatnote.coreui.arch.MutableConvertibleState
 import com.chatnote.coreui.arch.UiEvent

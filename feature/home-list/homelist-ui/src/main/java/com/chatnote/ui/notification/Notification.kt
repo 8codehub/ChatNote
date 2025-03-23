@@ -25,7 +25,11 @@ import androidx.core.app.NotificationManagerCompat
 @Composable
 fun RequestNotificationPermission() {
     val context = LocalContext.current
-    var permissionGranted by remember { mutableStateOf(NotificationManagerCompat.from(context).areNotificationsEnabled()) }
+    var permissionGranted by remember {
+        mutableStateOf(
+            NotificationManagerCompat.from(context).areNotificationsEnabled()
+        )
+    }
 
     val permissionLauncher = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.RequestPermission(),
