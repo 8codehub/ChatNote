@@ -1,6 +1,7 @@
 package com.chatnote.ui.folderlist
 
 import android.content.Context
+import androidx.activity.compose.LocalActivity
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -28,6 +29,7 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import chatnote.homelistui.R
+import com.chatnote.coreui.extention.launchInAppReview
 import com.chatnote.coreui.ui.component.LoadingComponent
 import com.chatnote.coreui.ui.component.StyledText
 import com.chatnote.coreui.ui.component.SwappableItem
@@ -56,6 +58,7 @@ fun FolderListScreen(
     var selectedFolderForDeletion by remember { mutableStateOf<UiFolder?>(null) }
     var onboardingItem by remember { mutableStateOf<Onboarding?>(null) }
     val context = LocalContext.current
+    val activity = LocalActivity.current
     val lazyListState = rememberLazyListState()
 
     var swipeState by remember { mutableStateOf(SwappableItemState.Default) }
@@ -79,12 +82,19 @@ fun FolderListScreen(
                     message = context.getString(oneTimeEvent.error)
                 )
 
+                is FolderListOneTimeEvent.ShowOnboarding -> {
+                    onboardingItem = oneTimeEvent.onboarding
+                }
+
                 FolderListOneTimeEvent.OnAppFirstOpen -> viewModel.onAppFirstOpen(
                     context = context
                 )
 
-                is FolderListOneTimeEvent.ShowOnboarding -> {
-                    onboardingItem = oneTimeEvent.onboarding
+                is FolderListOneTimeEvent.AskForUserReview -> {
+                    activity?.launchInAppReview(
+                        reviewManagerProvider = { oneTimeEvent.reviewManager },
+                        analyticsTrackerProvider = { oneTimeEvent.analyticsTracker }
+                    )
                 }
             }
         }

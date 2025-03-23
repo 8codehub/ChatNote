@@ -3,7 +3,6 @@ package com.chatnote.ui.folderlist
 import chatnote.homelistui.R
 import com.chatnote.common.analytics.AnalyticsTracker
 import com.chatnote.coredomain.mapper.Mapper
-import com.chatnote.coredomain.usecase.ReviewUseCase
 import com.chatnote.coredomain.utils.AppPreferencesSync
 import com.chatnote.coreui.arch.StatefulEventHandler
 import com.chatnote.domain.model.DefaultFolder
@@ -22,6 +21,7 @@ import com.chatnote.ui.folderlist.FolderListContract.FolderListOneTimeEvent.Show
 import com.chatnote.ui.folderlist.FolderListContract.FolderListState
 import com.chatnote.ui.folderlist.FolderListContract.MutableFolderListState
 import com.chatnote.ui.model.UiFolder
+import com.google.android.play.core.review.ReviewManager
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.onEach
@@ -34,7 +34,7 @@ class FolderListStatefulEventHandler @Inject constructor(
     private val pinFolder: PinFolderUseCase,
     private val appPreferences: AppPreferencesSync,
     private val unpinFolder: UnpinFolderUseCase,
-    private val review: ReviewUseCase,
+    private val reviewManager: ReviewManager,
     private val deleteFolder: DeleteFolderUseCase,
     private val getOnboardingStatus: GetOnboardingStatusUseCase,
     private val setOnboardingStatus: SetOnboardingStatusUseCase,
@@ -143,14 +143,11 @@ class FolderListStatefulEventHandler @Inject constructor(
     }
 
     private suspend fun checkIfUserIsReadyForReview(folders: List<Folder>) {
-
         folders.find { it.lastNote.isNotEmpty() }?.let {
-            analyticsTracker.trackReviewRequest()
-            review().onSuccess {
-                analyticsTracker.trackOnReviewRequestSuccess()
-            }.onFailure {
-                analyticsTracker.trackOnReviewRequestFail(message = it.message)
-            }
+            FolderListOneTimeEvent.AskForUserReview(
+                reviewManager = reviewManager,
+                analyticsTracker = analyticsTracker
+            ).processOneTimeEvent()
         }
     }
 

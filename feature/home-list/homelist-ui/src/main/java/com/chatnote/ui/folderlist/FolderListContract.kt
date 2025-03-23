@@ -1,6 +1,7 @@
 package com.chatnote.ui.folderlist
 
 import androidx.annotation.StringRes
+import com.chatnote.common.analytics.AnalyticsTracker
 import com.chatnote.coreui.arch.ConvertibleState
 import com.chatnote.coreui.arch.MutableConvertibleState
 import com.chatnote.coreui.arch.UiEvent
@@ -8,6 +9,7 @@ import com.chatnote.coreui.arch.UiOneTimeEvent
 import com.chatnote.domain.model.DefaultFolder
 import com.chatnote.domain.model.Onboarding
 import com.chatnote.ui.model.UiFolder
+import com.google.android.play.core.review.ReviewManager
 import chatnote.coreui.R as CR
 
 object FolderListContract {
@@ -71,6 +73,11 @@ object FolderListContract {
             FolderListOneTimeEvent()
 
         data object OnAppFirstOpen : FolderListOneTimeEvent()
+
+        data class AskForUserReview(
+            val analyticsTracker: AnalyticsTracker,
+            val reviewManager: ReviewManager
+        ) : FolderListOneTimeEvent()
 
         data class FailedOperation(@StringRes val error: Int) : FolderListOneTimeEvent()
 

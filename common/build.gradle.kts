@@ -40,6 +40,8 @@ dependencies {
     implementation(libs.hilt.android)
     implementation(platform(libs.firebase.bom))
     implementation(libs.firebase.analytics)
+    api(libs.review)
+    api(libs.review.ktx)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

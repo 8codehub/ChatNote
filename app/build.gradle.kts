@@ -18,7 +18,7 @@ android {
         applicationId = "com.chatnote"
         minSdk = 24
         targetSdk = 34
-        versionCode = 18
+        versionCode = 20
         versionName = libs.versions.versionName.get()
         versionNameSuffix = "-release-${libs.versions.versionName.get()}"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"

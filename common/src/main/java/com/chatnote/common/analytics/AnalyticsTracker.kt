@@ -4,10 +4,12 @@ interface AnalyticsTracker {
 
     fun trackNoteLongClick()
     fun trackReviewRequest()
-    fun trackOnReviewRequestSuccess()
     fun trackNewNote(folderId: Long)
+    fun trackOnReviewLaunchSuccess()
+    fun trackOnReviewRequestSuccess()
     fun trackAppStart(firstStart: Boolean)
     fun trackFolderCount(folderCount: Int)
+    fun trackOnReviewLaunchFail(message: String?)
     fun trackFolderEditOpened(isEditMode: Boolean)
     fun trackOnReviewRequestFail(message: String?)
     fun trackNoteDetailActionDone(interaction: String)
