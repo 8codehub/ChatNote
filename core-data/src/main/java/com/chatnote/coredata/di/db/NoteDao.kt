@@ -24,6 +24,12 @@ interface NoteDao {
     )
     fun getMostRecentNoteForFolder(folderId: Long): Flow<NoteEntity?>
 
+    @Query("SELECT * FROM notes WHERE id = :noteId")
+    suspend fun getNoteById(noteId: Long): NoteEntity?
+
+    @Query("UPDATE notes SET note_last_content = :content WHERE id = :noteId")
+    suspend fun updateNoteContentById(noteId: Long, content: String)
+
     @Query("DELETE FROM notes WHERE folderId = :folderId")
     suspend fun deleteNotesByFolderId(folderId: Long): Int
 

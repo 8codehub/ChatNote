@@ -11,14 +11,13 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.chatnote.coreui.ui.theme.AppTheme
 import com.chatnote.directnotesui.DirectNotesScreen
+import com.chatnote.directnotesui.editnote.EditNoteScreen
 import com.chatnote.navigation.NavigationRoute
 import com.chatnote.ui.editor.FolderEditorScreen
 import com.chatnote.ui.folderlist.FolderListScreen
 import com.google.android.play.core.review.ReviewException
-import com.google.android.play.core.review.ReviewManager
 import com.google.android.play.core.review.ReviewManagerFactory
 import dagger.hilt.android.AndroidEntryPoint
-import javax.inject.Inject
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
@@ -68,6 +67,18 @@ fun MainApp(
                 onBackClick = { navController.popBackStack() },
                 navigateTo = { route ->
                     navController.navigate(route)
+                }
+            )
+        }
+
+        composable<NavigationRoute.EditNote> {
+            EditNoteScreen(
+                onCancel = { navController.popBackStack() },
+                navigateTo = { route ->
+                    navigateWithClearBackStack(
+                        targetRoute = route,
+                        navController = navController
+                    )
                 }
             )
         }

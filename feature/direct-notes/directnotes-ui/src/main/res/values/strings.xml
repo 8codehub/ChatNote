@@ -14,6 +14,7 @@
     <string name="action_create_note">Create Note</string>
     <string name="action_navigate_to_home_screen">Navigate to Home Screen</string>
     <string name="action_call">Call</string>
+    <string name="action_edit">Edit</string>
     <string name="action_sms">Send SMS</string>
     <string name="action_share">Share</string>
     <string name="action_open_web">Open Web Page</string>

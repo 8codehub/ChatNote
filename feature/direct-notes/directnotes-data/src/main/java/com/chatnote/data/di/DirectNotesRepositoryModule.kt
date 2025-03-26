@@ -24,20 +24,22 @@ internal object DirectNotesRepositoryModule {
     @Singleton
     fun provideNotesRepository(
         noteDao: NoteDao,
-        domainToEntityMapper: Mapper<Note, NoteEntity>
+        domainNoteToNoteEntityMapper: Mapper<Note, NoteEntity>,
+        noteEntityToNoteDomainMapper: Mapper<NoteEntity, Note>
     ): NotesRepository = NotesRepositoryImpl(
         noteDao = noteDao,
-        domainToEntityMapper = domainToEntityMapper
+        domainNoteToNoteEntityMapper = domainNoteToNoteEntityMapper,
+        noteEntityToNoteDomainMapper = noteEntityToNoteDomainMapper
     )
 
     @Provides
     @Singleton
     fun provideNotesStreamRepository(
         noteDao: NoteDao,
-        entityToDomainMapper: Mapper<NoteEntity, Note>,
+        noteEntityToNoteDomainMapper: Mapper<NoteEntity, Note>
     ): NotesStreamRepository = NotesStreamRepositoryImpl(
         noteDao = noteDao,
-        entityToDomainMapper = entityToDomainMapper,
+        noteEntityToNoteDomainMapper = noteEntityToNoteDomainMapper,
     )
 
     @Provides

@@ -9,18 +9,20 @@ data class UiNoteActionableContent(
 )
 
 sealed class UiNoteInteraction(val order: Int, val name: String) {
-    data class Call(val phoneNumber: String) : UiNoteInteraction(order = 1000, name = "call")
-    data class SMS(val phoneNumber: String) : UiNoteInteraction(order = 2000, name = "sms")
-    data class Share(val content: String) : UiNoteInteraction(order = 3000, name = "share")
-    data class OpenWeb(val url: String) : UiNoteInteraction(order = 4000, name = "open_web")
-    data class OpenEmail(val email: String) : UiNoteInteraction(order = 5000, name = "open_email")
-    data class Copy(val content: String) : UiNoteInteraction(order = 6000, name = "copy")
-    data class Delete(val noteId: Long) : UiNoteInteraction(order = 7000, name = "delete")
+    data class Edit(val noteId: Long) : UiNoteInteraction(order = 1000, name = "edit")
+    data class Call(val phoneNumber: String) : UiNoteInteraction(order = 2000, name = "call")
+    data class SMS(val phoneNumber: String) : UiNoteInteraction(order = 3000, name = "sms")
+    data class Share(val content: String) : UiNoteInteraction(order = 4000, name = "share")
+    data class OpenWeb(val url: String) : UiNoteInteraction(order = 5000, name = "open_web")
+    data class OpenEmail(val email: String) : UiNoteInteraction(order = 6000, name = "open_email")
+    data class Copy(val content: String) : UiNoteInteraction(order = 7000, name = "copy")
+    data class Delete(val noteId: Long) : UiNoteInteraction(order = 8000, name = "delete")
 }
 
 @StringRes
 fun UiNoteInteraction.getActionStringResId(): Int {
     return when (this) {
+        is UiNoteInteraction.Edit -> R.string.action_call
         is UiNoteInteraction.Call -> R.string.action_call
         is UiNoteInteraction.SMS -> R.string.action_sms
         is UiNoteInteraction.Share -> R.string.action_share

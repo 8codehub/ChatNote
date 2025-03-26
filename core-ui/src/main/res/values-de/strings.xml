@@ -2,6 +2,10 @@
 <resources>
     <string name="general_error">Es ist ein Fehler aufgetreten</string>
     <string name="error_folder_not_found">Ordner nicht gefunden.</string>
+    <string name="action_save">Speichern</string>
+    <string name="action_aa">Aa</string>
+    <string name="error_empty_note">Leere Notiz kann nicht gespeichert werden.</string>
+    <string name="error_note_not_found">Notiz nicht gefunden.</string>
     <string name="error_database">Ein Fehler in der Datenbank ist aufgetreten.</string>
     <string name="folder_not_deleted">Der Ordner konnte nicht gelöscht werden.</string>
     <string name="validation_error_empty_folder_name">Der Ordnername darf nicht leer sein.</string>

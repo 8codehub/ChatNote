@@ -14,6 +14,7 @@
     <string name="action_create_note">Stvori bilješku</string>
     <string name="action_navigate_to_home_screen">Idi na početni zaslon</string>
     <string name="action_call">Nazovi</string>
+    <string name="action_edit">Uredi</string>
     <string name="action_sms">Pošalji SMS</string>
     <string name="action_share">Podijeli</string>
     <string name="action_open_web">Otvori web stranicu</string>

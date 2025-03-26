@@ -3,6 +3,10 @@
     <string name="general_error">Что-то пошло не так</string>
     <string name="error_folder_not_found">Папка не найдена.</string>
     <string name="error_database">Произошла ошибка базы данных.</string>
+    <string name="action_save">Обновить</string>
+    <string name="action_aa">Аа</string>
+    <string name="error_empty_note">Пустую заметку нельзя сохранить.</string>
+    <string name="error_note_not_found">Заметка не найдена.</string>
     <string name="folder_not_deleted">Не удалось удалить папку.</string>
     <string name="validation_error_empty_folder_name">Имя папки не может быть пустым</string>
     <string name="action_not_supported">Действие не поддерживается</string>

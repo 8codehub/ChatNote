@@ -58,6 +58,19 @@ fun NoteInteractionBottomSheet(
                     )
                 }
             )
+
+            ActionableItemRow(
+                modifier = Modifier
+                    .fillMaxWidth(),
+                text = stringResource(R.string.action_edit),
+                onContentClick = {
+                    onDismiss()
+                    handleAction(
+                        UiNoteInteraction.Edit(noteId = noteId)
+                    )
+                }
+            )
+
             ActionableItemRow(
                 modifier = Modifier
                     .fillMaxWidth(),

@@ -12,6 +12,7 @@
     <string name="delete_note">Удалить заметку</string>
     <string name="delete_note_message">Вы уверены, что хотите удалить заметку?</string>
     <string name="action_create_note">Создать заметку</string>
+    <string name="action_edit">Редактировать</string>
     <string name="action_navigate_to_home_screen">Перейти на главный экран</string>
     <string name="action_call">Позвонить</string>
     <string name="action_sms">Отправить SMS</string>

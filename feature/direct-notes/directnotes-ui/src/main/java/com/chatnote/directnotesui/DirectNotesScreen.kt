@@ -34,7 +34,8 @@ import chatnote.directnotesui.R
 import com.chatnote.coreui.ui.decorations.showToast
 import com.chatnote.coreui.ui.dialog.AppAlertDialog
 import com.chatnote.directnotesui.actionablesheet.component.NoteInteractionBottomSheet
-import com.chatnote.directnotesui.directnoteslist.DirectNotesContract.DirectNotesOneTimeEvent.AskForNoteDelete
+import com.chatnote.directnotesui.directnoteslist.DirectNotesContract
+import com.chatnote.directnotesui.directnoteslist.DirectNotesContract.DirectNotesOneTimeEvent.DeleteNote
 import com.chatnote.directnotesui.directnoteslist.DirectNotesContract.DirectNotesOneTimeEvent.FailedOperation
 import com.chatnote.directnotesui.directnoteslist.DirectNotesContract.DirectNotesOneTimeEvent.NavigateBack
 import com.chatnote.directnotesui.directnoteslist.DirectNotesContract.DirectNotesOneTimeEvent.NavigateTo
@@ -72,8 +73,12 @@ fun DirectNotesScreen(
                     uiNoteInteractionContent = event
                 }
 
-                is AskForNoteDelete -> {
+                is DeleteNote -> {
                     selectedNoteToDelete = event.noteId
+                }
+
+                is DirectNotesContract.DirectNotesOneTimeEvent.EditNote -> {
+                    navigateTo(NavigationRoute.EditNote(event.noteId))
                 }
 
                 NavigateBack -> onBackClick()

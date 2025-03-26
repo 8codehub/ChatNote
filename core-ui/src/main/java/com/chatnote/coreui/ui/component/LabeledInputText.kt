@@ -40,9 +40,10 @@ import kotlinx.coroutines.launch
 
 @Composable
 fun LabeledInputText(
-    label: String,
     text: String,
+    label: String = "",
     hint: String = "",
+    singleLine: Boolean = true,
     modifier: Modifier = Modifier,
     @StringRes inputError: Int? = null,
     @DrawableRes clearTextIcon: Int? = null,
@@ -82,7 +83,12 @@ fun LabeledInputText(
                 BasicTextField(
                     value = text,
                     onValueChange = onTextChange,
-                    singleLine = true,
+                    singleLine = singleLine,
+                    maxLines = if (singleLine) {
+                        1
+                    } else {
+                        7
+                    },
                     keyboardOptions = KeyboardOptions.Default.copy(
                         capitalization = KeyboardCapitalization.Sentences
                     ),

@@ -22,6 +22,8 @@ internal class ResultErrorToErrorMessageMapper @Inject constructor() : Mapper<Th
             is ResultError.DatabaseError -> R.string.error_database
             is ResultError.UnknownError -> R.string.general_error
             is ResultError.DeleteFolderFail -> R.string.folder_not_deleted
+            is ResultError.NoteNotFound -> R.string.error_note_not_found
+            is ResultError.EmptyNoteContent -> R.string.error_empty_note
         }
     }
 }

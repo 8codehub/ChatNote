@@ -16,4 +16,9 @@ sealed class NavigationRoute {
     data class DirectNotes(
         val folderId: Long
     ) : NavigationRoute()
+
+    @Serializable
+    data class EditNote(
+        val noteId: Long
+    ) : NavigationRoute()
 }

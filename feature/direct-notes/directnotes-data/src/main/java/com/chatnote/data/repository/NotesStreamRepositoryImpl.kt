@@ -8,10 +8,10 @@ import com.chatnote.directnotesdomain.repository.NotesStreamRepository
 import javax.inject.Inject
 
 internal class NotesStreamRepositoryImpl @Inject constructor(
-    private val entityToDomainMapper: Mapper<NoteEntity, Note>,
+    private val noteEntityToNoteDomainMapper: Mapper<NoteEntity, Note>,
     private val noteDao: NoteDao,
 ) : NotesStreamRepository {
 
     override fun observeNotes(folderId: Long) =
-        entityToDomainMapper.mapFlow(noteDao.getNotesForFolder(folderId))
+        noteEntityToNoteDomainMapper.mapFlow(noteDao.getNotesForFolder(folderId))
 }

@@ -14,6 +14,7 @@
     <string name="action_create_note">Utwórz notatkę</string>
     <string name="action_navigate_to_home_screen">Przejdź do ekranu głównego</string>
     <string name="action_call">Zadzwoń</string>
+    <string name="action_edit">Edytuj</string>
     <string name="action_sms">Wyślij SMS</string>
     <string name="action_share">Udostępnij</string>
     <string name="action_open_web">Otwórz stronę internetową</string>

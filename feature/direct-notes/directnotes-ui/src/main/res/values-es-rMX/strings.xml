@@ -12,6 +12,7 @@
     <string name="delete_note">Eliminar nota</string>
     <string name="delete_note_message">¿Estás seguro de que deseas eliminar la nota?</string>
     <string name="action_create_note">Crear nota</string>
+    <string name="action_edit">Editar</string>
     <string name="action_navigate_to_home_screen">Ir a la pantalla de inicio</string>
     <string name="action_call">Llamar</string>
     <string name="action_sms">Enviar SMS</string>

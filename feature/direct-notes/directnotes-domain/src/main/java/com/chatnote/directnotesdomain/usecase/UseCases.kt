@@ -29,3 +29,13 @@ interface DeleteNoteUseCase {
 
     suspend operator fun invoke(noteId: Long): Result<Unit>
 }
+
+interface GetNoteByIdUseCase {
+
+    suspend operator fun invoke(noteId: Long): Result<Note>
+}
+
+interface UpdateNoteContentUseCase {
+
+    suspend operator fun invoke(noteId: Long, content: String): Result<Unit>
+}

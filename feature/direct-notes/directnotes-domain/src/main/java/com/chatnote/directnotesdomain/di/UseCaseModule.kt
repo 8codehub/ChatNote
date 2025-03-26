@@ -6,10 +6,14 @@ import com.chatnote.directnotesdomain.usecase.DeleteNoteUseCase
 import com.chatnote.directnotesdomain.usecase.DeleteNoteUseCaseImpl
 import com.chatnote.directnotesdomain.usecase.ExtractActionableContentUseCase
 import com.chatnote.directnotesdomain.usecase.ExtractActionableContentUseCaseImpl
+import com.chatnote.directnotesdomain.usecase.GetNoteByIdUseCase
+import com.chatnote.directnotesdomain.usecase.GetNoteByIdUseCaseImpl
 import com.chatnote.directnotesdomain.usecase.GetNotesUseCase
 import com.chatnote.directnotesdomain.usecase.GetNotesUseCaseImpl
 import com.chatnote.directnotesdomain.usecase.ObserveFolderUseCase
 import com.chatnote.directnotesdomain.usecase.ObserveFolderUseCaseImpl
+import com.chatnote.directnotesdomain.usecase.UpdateNoteContentUseCase
+import com.chatnote.directnotesdomain.usecase.UpdateNoteContentUseCaseImpl
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -43,5 +47,15 @@ internal abstract class UseCaseModule {
     abstract fun bindExtractActionableContentUseCase(
         implementation: ExtractActionableContentUseCaseImpl
     ): ExtractActionableContentUseCase
+
+    @Binds
+    abstract fun bindGetNoteByIdUseCase(
+        implementation: GetNoteByIdUseCaseImpl
+    ): GetNoteByIdUseCase
+
+    @Binds
+    abstract fun bindUpdateNoteContentUseCase(
+        implementation: UpdateNoteContentUseCaseImpl
+    ): UpdateNoteContentUseCase
 
 }

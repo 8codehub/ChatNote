@@ -80,7 +80,9 @@ object DirectNotesContract {
             val uiNoteActionableContent: UiNoteActionableContent
         ) : DirectNotesOneTimeEvent()
 
-        data class AskForNoteDelete(val noteId: Long) : DirectNotesOneTimeEvent()
+        data class DeleteNote(val noteId: Long) : DirectNotesOneTimeEvent()
+
+        data class EditNote(val noteId: Long) : DirectNotesOneTimeEvent()
 
     }
 }

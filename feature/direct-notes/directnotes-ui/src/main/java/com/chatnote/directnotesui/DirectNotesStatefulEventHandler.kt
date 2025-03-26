@@ -80,7 +80,12 @@ class DirectNotesStatefulEventHandler @Inject constructor(
             )
 
             is UiNoteInteraction.Delete -> {
-                DirectNotesOneTimeEvent.AskForNoteDelete(noteId = interaction.noteId)
+                DirectNotesOneTimeEvent.DeleteNote(noteId = interaction.noteId)
+                    .processOneTimeEvent()
+            }
+
+            is UiNoteInteraction.Edit -> {
+                DirectNotesOneTimeEvent.EditNote(noteId = interaction.noteId)
                     .processOneTimeEvent()
             }
         }
