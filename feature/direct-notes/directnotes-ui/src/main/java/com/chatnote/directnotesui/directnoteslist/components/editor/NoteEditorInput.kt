@@ -36,9 +36,6 @@ fun NoteEditorInput(
 
     Row(
         modifier = modifier
-            .background(
-                color = MaterialTheme.colorScheme.primary.copy(alpha = 0.1f),
-            )
             .padding(horizontal = 8.dp, vertical = 8.dp)
             .heightIn(min = 40.dp),
         verticalAlignment = Alignment.CenterVertically

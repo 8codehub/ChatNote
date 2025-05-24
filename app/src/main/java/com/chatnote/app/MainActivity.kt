@@ -15,8 +15,6 @@ import com.chatnote.directnotesui.editnote.EditNoteScreen
 import com.chatnote.navigation.NavigationRoute
 import com.chatnote.ui.editor.FolderEditorScreen
 import com.chatnote.ui.folderlist.FolderListScreen
-import com.google.android.play.core.review.ReviewException
-import com.google.android.play.core.review.ReviewManagerFactory
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -25,16 +23,6 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        val request = ReviewManagerFactory.create(this).requestReviewFlow()
-        request.addOnCompleteListener { task ->
-            if (task.isSuccessful) {
-                ReviewManagerFactory.create(this).launchReviewFlow(this, task.result)
-
-            } else {
-                val exception = task.exception as? ReviewException
-            }
-        }
-
         setContent {
             AppTheme {
                 val navController = rememberNavController()

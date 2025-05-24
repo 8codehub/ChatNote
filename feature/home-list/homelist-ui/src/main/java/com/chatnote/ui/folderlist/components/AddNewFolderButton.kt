@@ -22,6 +22,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
@@ -68,6 +69,7 @@ fun AddNewFolderButton(
             modifier = Modifier.padding(vertical = 4.dp),
             drawableRes = R.drawable.ic_plus,
             backgroundColor = MaterialTheme.colorScheme.surface,
+            imageColorFilter = ColorFilter.tint(MaterialTheme.colorScheme.onBackground),
             iconSize = 20.dp,
             iconPadding = 18.dp,
             borderWidth = 0.dp
