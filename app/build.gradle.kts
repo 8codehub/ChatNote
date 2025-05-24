@@ -18,7 +18,7 @@ android {
         applicationId = "com.chatnote"
         minSdk = 24
         targetSdk = 34
-        versionCode = 21
+        versionCode = libs.versions.versionCode.get().toInt()
         versionName = libs.versions.versionName.get()
         versionNameSuffix = "-release-${libs.versions.versionName.get()}"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
@@ -67,6 +67,7 @@ dependencies {
     implementation(libs.kotlinx.serialization.json)
     implementation(libs.androidx.navigation.runtime.ktx)
     implementation(libs.firebase.crashlytics)
+    implementation(libs.firebase.messaging.ktx)
     implementation(libs.google.firebase.analytics)
 
     implementation(project(":feature:home-list:homelist-data"))
