@@ -1,6 +1,7 @@
 package com.chatnote.directnotesui.directnoteslist.components.editor
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.heightIn
@@ -21,10 +22,12 @@ import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.text.input.TextFieldValue
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import chatnote.directnotesui.R
 import com.chatnote.coreui.ui.component.CircularImage
+import com.chatnote.coreui.ui.component.StyledText
 import com.chatnote.coreui.ui.theme.PoppinsFontFamily
 
 @Composable
@@ -66,7 +69,18 @@ fun NoteEditorInput(
                 modifier = Modifier.heightIn(36.dp),
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                innerTextField()
+                Box {
+                    if (newNote.text.isEmpty()) {
+                        StyledText(
+                            textAlign = TextAlign.Start,
+                            text = stringResource(chatnote.coreui.R.string.action_aa),
+                            color = MaterialTheme.colorScheme.onSurface
+                        )
+                    }
+                    innerTextField()
+                }
+
+
             }
         }
 
