@@ -11,11 +11,20 @@ internal class AppPreferencesSyncImpl @Inject constructor(
 
     companion object {
         private const val KEY_APP_SESSION_COUNT = "app_session_count"
+        private const val KEY_DEFAULT_FOLDERS_INITIALIZED = "is_default_folders_initialized"
         private const val FOLDER_ONBOARDING_SHOWN = "folder_onboarding_shown"
     }
 
     override suspend fun isFirstSession(): Boolean {
-        return getAppSessionCount() <= 1
+        return sharedPreferencesHelper.getBoolean(KEY_DEFAULT_FOLDERS_INITIALIZED, false)
+    }
+
+    override suspend fun isDefaultFoldersInitialized(): Boolean {
+        return  sharedPreferencesHelper.getBoolean(KEY_DEFAULT_FOLDERS_INITIALIZED, false)
+    }
+
+    override suspend fun markDefaultFoldersInitialized() {
+        sharedPreferencesHelper.saveBoolean(KEY_DEFAULT_FOLDERS_INITIALIZED, true)
     }
 
     override suspend fun getAppSessionCount(): Int {

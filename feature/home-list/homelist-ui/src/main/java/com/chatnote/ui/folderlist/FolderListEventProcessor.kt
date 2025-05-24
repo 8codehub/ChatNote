@@ -156,8 +156,9 @@ class FolderListStatefulEventHandler @Inject constructor(
     }
 
     private suspend fun checkForFirstOpenEvent(folders: List<Folder>) {
-        if (folders.isEmpty() && appPreferences.isFirstSession()) {
+        if (folders.isEmpty() && !appPreferences.isDefaultFoldersInitialized()) {
             FolderListOneTimeEvent.OnAppFirstOpen.processOneTimeEvent()
+            appPreferences.markDefaultFoldersInitialized()
         }
     }
 
