@@ -69,6 +69,13 @@ internal class AnalyticsTrackerImpl @Inject constructor(
         })
     }
 
+    override fun onNotificationReceived(title: String, body: String) {
+        logEvent("on_notification_received", Bundle().apply {
+            putString("title", title)
+            putString("body", body)
+        })
+    }
+
     override fun trackNoteDetailActionDone(interaction: String) {
         logEvent(interaction)
     }

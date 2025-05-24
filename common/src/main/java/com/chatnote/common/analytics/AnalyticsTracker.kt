@@ -18,4 +18,5 @@ interface AnalyticsTracker {
     fun trackFolderPinned(folderId: Long, isPinned: Boolean)
     fun trackFolderDeleted(folderId: Long, messagesCount: Int)
     fun trackFolderEditDone(iconUri: String, isEditMode: Boolean)
+    fun onNotificationReceived(title: String, body: String)
 }

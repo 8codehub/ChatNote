@@ -9,7 +9,7 @@ data class UiNoteActionableContent(
 )
 
 sealed class UiNoteInteraction(val order: Int, val name: String) {
-    data class Edit(val noteId: Long) : UiNoteInteraction(order = 1000, name = "edit")
+    data class Edit(val noteId: Long) : UiNoteInteraction(order = 1000, name = "edit_note")
     data class Call(val phoneNumber: String) : UiNoteInteraction(order = 2000, name = "call")
     data class SMS(val phoneNumber: String) : UiNoteInteraction(order = 3000, name = "sms")
     data class Share(val content: String) : UiNoteInteraction(order = 4000, name = "share")
