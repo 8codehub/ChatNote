@@ -1,0 +1,221 @@
+package com.chatnote.imagepicker.ui.screen
+
+import android.net.Uri
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Button
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.ModalBottomSheet
+import androidx.compose.material3.rememberModalBottomSheetState
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.chatnote.coreui.ui.component.StyledText
+import com.chatnote.coreui.util.PermissionType
+import com.chatnote.coreui.util.permissionRequestLauncher
+import com.chatnote.imagepicker.ui.ImagePickerContract
+import com.chatnote.imagepicker.ui.R
+import com.chatnote.imagepicker.ui.components.CameraButton
+import com.chatnote.imagepicker.ui.components.GalleryButton
+import com.chatnote.imagepicker.ui.components.RoundedAsyncImage
+import com.chatnote.imagepicker.ui.model.AttachMode
+import com.chatnote.imagepicker.ui.viewmodel.BaseImagePickerViewModel
+import com.chatnote.imagepicker.ui.viewmodel.MultiAttachImagePickerViewModel
+import com.chatnote.imagepicker.ui.viewmodel.SingleAttachImagePickerViewModel
+import kotlinx.coroutines.flow.collectLatest
+
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun AttachSingleImageBottomSheet(
+    viewModel: SingleAttachImagePickerViewModel = hiltViewModel<SingleAttachImagePickerViewModel>(),
+    onDismiss: () -> Unit,
+    onImagePicked: (Uri?) -> Unit,
+) {
+    AttachImageBottomSheet(
+        attachMode = AttachMode.SingleAttach,
+        viewModel = viewModel,
+        onDismiss = onDismiss,
+        onImagesPicked = {
+            onImagePicked(it.firstOrNull())
+        }
+    )
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun AttachMultiImageBottomSheet(
+    viewModel: MultiAttachImagePickerViewModel = hiltViewModel<MultiAttachImagePickerViewModel>(),
+    onDismiss: () -> Unit,
+    onImagesPicked: (List<Uri>) -> Unit,
+) {
+
+    AttachImageBottomSheet(
+        viewModel = viewModel,
+        onDismiss = onDismiss,
+        onImagesPicked = onImagesPicked,
+        attachMode = AttachMode.MultiAttach
+    )
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+private fun AttachImageBottomSheet(
+    attachMode: AttachMode,
+    viewModel: BaseImagePickerViewModel,
+    onDismiss: () -> Unit,
+    onImagesPicked: (List<Uri>) -> Unit,
+) {
+    val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
+    val uiState by viewModel.state.collectAsStateWithLifecycle()
+    val pendingCameraUri = remember { mutableStateOf<Uri?>(null) }
+
+    val requestCameraPermission = permissionRequestLauncher(
+        type = PermissionType.CAMERA,
+        onGranted = viewModel::openCamera,
+        onDenied = { println("ImagePicker ❌ Camera permission denied") }
+    )
+
+    val requestGalleryPermission = permissionRequestLauncher(
+        type = PermissionType.GALLERY,
+        onGranted = viewModel::loadImages,
+        onDenied = { println("ImagePicker ❌ Gallery permission denied") }
+    )
+
+    val openGalleryWithPermission = permissionRequestLauncher(
+        type = PermissionType.GALLERY,
+        onGranted = {
+            viewModel.loadImages()
+            viewModel.openGallery()
+        },
+        onDenied = { println("ImagePicker ❌ Gallery permission denied") }
+    )
+
+    LaunchedEffect(Unit) {
+        requestGalleryPermission.launch(PermissionType.GALLERY.toSystemPermission())
+    }
+
+    val takePictureLauncher = rememberLauncherForActivityResult(
+        contract = ActivityResultContracts.TakePicture()
+    ) { success ->
+        if (success) {
+            pendingCameraUri.value?.let(viewModel::onCameraImageTaken)
+        }
+    }
+
+    val pickMultipleImagesLauncher = rememberLauncherForActivityResult(
+        contract = ActivityResultContracts.GetMultipleContents()
+    ) { uris ->
+        if (uris.isNotEmpty()) viewModel.addGalleryImages(uris)
+    }
+
+    val pickSingleImageLauncher = rememberLauncherForActivityResult(
+        contract = ActivityResultContracts.GetContent()
+    ) { uri ->
+        uri?.let { viewModel.addGalleryImages(listOf(it)) }
+    }
+
+    LaunchedEffect(Unit) {
+        viewModel.oneTimeEvent.collectLatest { event ->
+            when (event) {
+                is ImagePickerContract.ImagePickerOneTimeEvent.OpenCamera -> {
+                    pendingCameraUri.value = event.uri
+                    takePictureLauncher.launch(event.uri)
+                }
+
+                is ImagePickerContract.ImagePickerOneTimeEvent.ImagesSelected -> {
+                    onImagesPicked(event.uris)
+                    onDismiss()
+                }
+
+                is ImagePickerContract.ImagePickerOneTimeEvent.OpenGallery -> {
+                    when (attachMode) {
+                        AttachMode.SingleAttach -> pickSingleImageLauncher.launch("image/*")
+                        AttachMode.MultiAttach -> pickMultipleImagesLauncher.launch("image/*")
+                    }
+
+                }
+            }
+        }
+    }
+
+    ModalBottomSheet(
+        onDismissRequest = onDismiss,
+        sheetState = sheetState
+    ) {
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(16.dp)
+        ) {
+            LazyRow(
+                contentPadding = PaddingValues(horizontal = 12.dp),
+                horizontalArrangement = Arrangement.spacedBy(8.dp),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                item {
+                    CameraButton(modifier = Modifier.size(80.dp)) {
+                        requestCameraPermission.launch(PermissionType.CAMERA.toSystemPermission())
+                    }
+                }
+
+                items(uiState.allImages, key = { it.uri.toString() }) { imageItem ->
+                    RoundedAsyncImage(
+                        model = imageItem.uri,
+                        contentDescription = null,
+                        selected = imageItem.isSelected,
+                        onClick = { viewModel.toggleImageSelection(imageItem.uri) }
+                    )
+                }
+
+                item {
+                    GalleryButton(modifier = Modifier.size(80.dp)) {
+                        openGalleryWithPermission.launch(PermissionType.GALLERY.toSystemPermission())
+                    }
+                }
+            }
+
+            Spacer(modifier = Modifier.height(16.dp))
+
+            Button(
+                onClick = {
+                    onImagesPicked(uiState.allImages.filter { it.isSelected }.map { it.uri })
+                    onDismiss()
+                },
+                modifier = Modifier.fillMaxWidth(),
+                shape = RoundedCornerShape(8.dp)
+            ) {
+                StyledText(
+                    text = stringResource(R.string.attach),
+                    modifier = Modifier.padding(vertical = 8.dp),
+                    color = MaterialTheme.colorScheme.background,
+                    fontWeight = FontWeight.W500,
+                    fontSize = 14.sp,
+                    lineHeight = 14.sp
+                )
+            }
+        }
+    }
+}

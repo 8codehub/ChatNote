@@ -1,6 +1,6 @@
 package com.chatnote.data.repository
 
-import com.chatnote.coredata.di.db.NoteDao
+import com.chatnote.coredata.di.db.NoteDAO
 import com.chatnote.coredata.di.model.NoteEntity
 import com.chatnote.coredomain.mapper.Mapper
 import com.chatnote.coredomain.utils.ResultError
@@ -10,7 +10,7 @@ import com.chatnote.directnotesdomain.repository.NotesRepository
 import javax.inject.Inject
 
 internal class NotesRepositoryImpl @Inject constructor(
-    private val noteDao: NoteDao,
+    private val noteDao: NoteDAO,
     private val domainNoteToNoteEntityMapper: Mapper<Note, NoteEntity>,
     private val noteEntityToNoteDomainMapper: Mapper<NoteEntity, Note>
 ) : NotesRepository {

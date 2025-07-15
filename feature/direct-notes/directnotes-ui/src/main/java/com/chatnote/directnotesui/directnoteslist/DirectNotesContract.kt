@@ -1,5 +1,6 @@
 package com.chatnote.directnotesui.directnoteslist
 
+import android.net.Uri
 import androidx.annotation.StringRes
 import com.chatnote.coreui.arch.ConvertibleState
 import com.chatnote.coreui.arch.MutableConvertibleState
@@ -19,6 +20,7 @@ object DirectNotesContract {
         val folderName: String = "",
         val folderIconUri: String? = null,
         val notes: List<UiNote> = emptyList(),
+        val noteExtrasState: NoteExtrasState = NoteExtrasState(),
         val emptyNotes: Boolean? = null,
         override val isLoading: Boolean = false,
         @StringRes override val generalError: Int = CR.string.general_error
@@ -29,12 +31,18 @@ object DirectNotesContract {
                 folderName = folderName,
                 folderIconUri = folderIconUri,
                 notes = notes,
+                noteExtrasState = noteExtrasState,
                 isLoading = isLoading,
                 generalError = generalError,
                 emptyNotes = emptyNotes
             )
         }
     }
+
+    data class NoteExtrasState(
+        val imagePaths: List<String>? = null,
+        val alarmTime: Long? = null
+    )
 
     // Mutable State
     class MutableDirectNotesState(
@@ -43,6 +51,7 @@ object DirectNotesContract {
         var folderIconUri: String? = null,
         var notes: List<UiNote> = emptyList(),
         var emptyNotes: Boolean? = null,
+        var noteExtrasState: NoteExtrasState = NoteExtrasState(),
         override var isLoading: Boolean = false,
         @StringRes override var generalError: Int = chatnote.coreui.R.string.general_error
     ) : MutableConvertibleState<DirectNotesState> {
@@ -52,6 +61,7 @@ object DirectNotesContract {
                 folderName = folderName,
                 folderIconUri = folderIconUri,
                 notes = notes,
+                noteExtrasState = noteExtrasState,
                 isLoading = isLoading,
                 generalError = generalError,
                 emptyNotes = emptyNotes
@@ -65,6 +75,7 @@ object DirectNotesContract {
         data class LoadAllNotes(val folderId: Long) : DirectNotesEvent()
         data class AddNote(val note: String) : DirectNotesEvent()
         data class NoteLongClick(val note: UiNote) : DirectNotesEvent()
+        data class ImageSelected(val uris: List<Uri>) : DirectNotesEvent()
         data class NoteActionClick(val interaction: UiNoteInteraction) : DirectNotesEvent()
         data class DeleteSelectedNote(val noteId: Long) : DirectNotesEvent()
         data class GeneralError(val throwable: Throwable) : DirectNotesEvent()
@@ -83,6 +94,6 @@ object DirectNotesContract {
         data class DeleteNote(val noteId: Long) : DirectNotesOneTimeEvent()
 
         data class EditNote(val noteId: Long) : DirectNotesOneTimeEvent()
-
+        data object OpenImageChooser : DirectNotesOneTimeEvent()
     }
 }

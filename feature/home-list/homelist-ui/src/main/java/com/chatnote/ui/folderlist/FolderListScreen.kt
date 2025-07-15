@@ -37,6 +37,8 @@ import com.chatnote.coreui.ui.component.SwappableItemState
 import com.chatnote.coreui.ui.decorations.getAnnotatedString
 import com.chatnote.coreui.ui.decorations.showToast
 import com.chatnote.coreui.ui.dialog.AppAlertDialog
+import com.chatnote.coreui.util.PermissionType
+import com.chatnote.coreui.util.permissionRequestLauncher
 import com.chatnote.domain.model.Onboarding
 import com.chatnote.navigation.NavigationRoute
 import com.chatnote.ui.folderlist.FolderListContract.FolderListOneTimeEvent
@@ -68,6 +70,16 @@ fun FolderListScreen(
         annotatedValueColor = MaterialTheme.colorScheme.primary,
         annotatedValueFontWeight = FontWeight.Bold
     )
+
+    val launcher = permissionRequestLauncher(
+        type = PermissionType.NOTIFICATION,
+        onGranted = { println("✅ Notifications allowed") },
+        onDenied = { println("❌ Notifications denied") }
+    )
+
+    LaunchedEffect(Unit) {
+        launcher.launch(PermissionType.NOTIFICATION.toSystemPermission())
+    }
 
     LaunchedEffect(Unit) {
         viewModel.oneTimeEvent.collectLatest { oneTimeEvent ->

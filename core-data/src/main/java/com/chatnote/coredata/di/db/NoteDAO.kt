@@ -5,11 +5,12 @@ import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import androidx.room.Transaction
 import com.chatnote.coredata.di.model.NoteEntity
 import kotlinx.coroutines.flow.Flow
 
 @Dao
-interface NoteDao {
+interface NoteDAO {
 
     @Query("SELECT * FROM notes WHERE folderId = :folderId ORDER BY note_last_created_at DESC")
     fun getNotesForFolder(folderId: Long): Flow<List<NoteEntity>>
@@ -41,4 +42,5 @@ interface NoteDao {
 
     @Query("DELETE FROM notes WHERE id = :noteId")
     suspend fun deleteNoteById(noteId: Long): Int
+
 }

@@ -4,7 +4,8 @@ import android.content.Context
 import androidx.room.Room
 import com.chatnote.coredata.di.db.AppDatabase
 import com.chatnote.coredata.di.db.FolderDao
-import com.chatnote.coredata.di.db.NoteDao
+import com.chatnote.coredata.di.db.MIGRATION_2_3
+import com.chatnote.coredata.di.db.NoteDAO
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -23,12 +24,13 @@ object DatabaseModule {
             context,
             AppDatabase::class.java,
             "app_db"
-        ).build()
+        ).addMigrations(MIGRATION_2_3).build()
     }
 
     @Provides
     fun provideFolderDao(database: AppDatabase): FolderDao = database.folderDao()
 
     @Provides
-    fun provideNoteDao(database: AppDatabase): NoteDao = database.noteDao()
+    fun provideNoteDao(database: AppDatabase): NoteDAO = database.noteDao()
+
 }

@@ -17,7 +17,8 @@ class NotesToUiNotesMapper @Inject constructor(private val dateFormatter: DateFo
     override fun map(from: Note) = UiNote(
         id = from.id,
         content = from.content,
-        date = dateFormatter.formatLong(millis = from.createdAt)
+        date = dateFormatter.formatLong(millis = from.createdAt),
+        imagePaths = from.imagePaths.orEmpty()
     )
 }
 

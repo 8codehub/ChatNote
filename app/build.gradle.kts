@@ -56,6 +56,8 @@ dependencies {
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)
+    implementation(libs.accompanist.navigation.material)
+
     implementation(platform(libs.androidx.compose.bom))
     implementation(libs.androidx.ui)
     implementation(libs.androidx.ui.graphics)
@@ -77,6 +79,9 @@ dependencies {
     implementation(project(":feature:direct-notes:directnotes-data"))
     implementation(project(":feature:direct-notes:directnotes-domain"))
     implementation(project(":feature:direct-notes:directnotes-ui"))
+
+    implementation(project(":feature:imagepicker:imagepicker-ui"))
+
 
     implementation(project(":core-ui"))
     implementation(project(":core-domain"))

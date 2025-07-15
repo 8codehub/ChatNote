@@ -11,7 +11,8 @@ internal class NoteEntityToNoteMapper @Inject constructor() : Mapper<NoteEntity,
         id = from.id,
         folderId = from.folderId,
         content = from.content,
-        createdAt = from.createdAt
+        createdAt = from.createdAt,
+        imagePaths = from.imagePaths
     )
 }
 
@@ -21,6 +22,7 @@ internal class NoteToNoteEntityMapper @Inject constructor() : Mapper<Note, NoteE
         id = from.id,
         content = from.content,
         createdAt = System.currentTimeMillis(),
-        folderId = 0
+        folderId = 0,
+        imagePaths = from.imagePaths.orEmpty()
     )
 }

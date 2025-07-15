@@ -1,5 +1,6 @@
 package com.chatnote.directnotesui
 
+import android.net.Uri
 import androidx.lifecycle.SavedStateHandle
 import androidx.navigation.toRoute
 import com.chatnote.common.di.IoDispatcher
@@ -60,6 +61,10 @@ class DirectNotesViewModel @Inject constructor(
 
     fun onNoteLongClick(uiNote: UiNote) {
         DirectNotesEvent.NoteLongClick(note = uiNote).processWithLaunch()
+    }
+
+    fun onImageSelected(uris: List<Uri>) {
+        DirectNotesEvent.ImageSelected(uris = uris).processWithLaunch()
     }
 
     fun handelAction(interaction: UiNoteInteraction) {

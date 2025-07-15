@@ -4,5 +4,6 @@ data class Note(
     val id: Long,
     val folderId: Long,
     val content: String,
-    val createdAt: Long
+    val createdAt: Long,
+    val imagePaths: List<String>? = null,
 )

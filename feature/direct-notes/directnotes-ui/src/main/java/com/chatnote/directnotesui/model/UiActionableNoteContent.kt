@@ -17,6 +17,7 @@ sealed class UiNoteInteraction(val order: Int, val name: String) {
     data class OpenEmail(val email: String) : UiNoteInteraction(order = 6000, name = "open_email")
     data class Copy(val content: String) : UiNoteInteraction(order = 7000, name = "copy")
     data class Delete(val noteId: Long) : UiNoteInteraction(order = 8000, name = "delete")
+    data object ChooseImage : UiNoteInteraction(order = 9000, name = "image_chooser")
 }
 
 @StringRes
@@ -30,6 +31,7 @@ fun UiNoteInteraction.getActionStringResId(): Int {
         is UiNoteInteraction.OpenEmail -> R.string.action_open_email
         is UiNoteInteraction.Copy -> R.string.action_copy
         is UiNoteInteraction.Delete -> R.string.action_delete
+        is UiNoteInteraction.ChooseImage -> R.string.action_choose_image
     }
 }
 

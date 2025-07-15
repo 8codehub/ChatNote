@@ -6,5 +6,6 @@ import androidx.compose.runtime.Stable
 data class UiNote(
     val id: Long,
     val content: String,
-    val date: String
+    val date: String,
+    val imagePaths: List<String>
 )

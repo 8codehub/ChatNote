@@ -1,6 +1,9 @@
 [versions]
+accompanistNavigationMaterial = "0.32.0"
 review = "2.0.2"
 reviewKtx = "2.0.2"
+uiTooling = "1.8.3"
+uiToolingPreview = "1.8.3"
 versionCode = "26"
 versionName = "1.0.216"
 agp = "8.7.3"
@@ -39,6 +42,7 @@ firebaseMessagingKtx = "24.1.1" # Use the latest version as needed
 
 
 [libraries]
+accompanist-navigation-material = { module = "com.google.accompanist:accompanist-navigation-material", version.ref = "accompanistNavigationMaterial" }
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
 androidx-material-icons-extended = { module = "androidx.compose.material:material-icons-extended", version.ref = "materialIconsExtended" }
 androidx-navigation-runtime-ktx = { module = "androidx.navigation:navigation-runtime-ktx", version.ref = "navigationRuntimeKtx" }
@@ -86,6 +90,8 @@ room-ktx = { module = "androidx.room:room-ktx", version.ref = "room" }
 room-compiler = { module = "androidx.room:room-compiler", version.ref = "room" }
 material = { group = "com.google.android.material", name = "material", version.ref = "materialVersion" }
 firebase-messaging-ktx = { group = "com.google.firebase", name = "firebase-messaging-ktx", version.ref = "firebaseMessagingKtx" }
+ui-tooling = { module = "androidx.compose.ui:ui-tooling", version.ref = "uiTooling" }
+ui-tooling-preview = { module = "androidx.compose.ui:ui-tooling-preview", version.ref = "uiToolingPreview" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

@@ -1,5 +1,6 @@
 package com.chatnote.directnotesui
 
+import android.net.Uri
 import chatnote.directnotesui.R
 import com.chatnote.common.analytics.AnalyticsTracker
 import com.chatnote.coredomain.mapper.Mapper
@@ -55,7 +56,16 @@ class DirectNotesStatefulEventHandler @Inject constructor(
             is DirectNotesEvent.GeneralError -> onGeneralErrorEvent(throwable = event.throwable)
             is DirectNotesEvent.NoteLongClick -> onNoteLongClickEvent(uiNote = event.note)
             is DirectNotesEvent.NoteActionClick -> onActionClickEvent(interaction = event.interaction)
+            is DirectNotesEvent.ImageSelected -> onImageSelectedEvent(uris = event.uris)
             is DirectNotesEvent.DeleteSelectedNote -> deleteNoteUseCase(noteId = event.noteId)
+        }
+    }
+
+    private fun onImageSelectedEvent(uris: List<Uri>) {
+
+        updateUiState {
+            noteExtrasState =
+                stateValue.noteExtrasState.copy(imagePaths = uris.map { it.toString() })
         }
     }
 
@@ -87,6 +97,10 @@ class DirectNotesStatefulEventHandler @Inject constructor(
             is UiNoteInteraction.Edit -> {
                 DirectNotesOneTimeEvent.EditNote(noteId = interaction.noteId)
                     .processOneTimeEvent()
+            }
+
+            UiNoteInteraction.ChooseImage -> {
+                DirectNotesOneTimeEvent.OpenImageChooser.processOneTimeEvent()
             }
         }
 
@@ -144,7 +158,8 @@ class DirectNotesStatefulEventHandler @Inject constructor(
                 id = System.currentTimeMillis(),
                 content = content,
                 folderId = folderId,
-                createdAt = System.currentTimeMillis()
+                createdAt = System.currentTimeMillis(),
+                imagePaths = stateValue.noteExtrasState.imagePaths
             )
             addNoteUseCase(it, newNote).onSuccess {
                 analyticsTracker.trackNewNote(folderId = folderId)

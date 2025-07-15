@@ -11,4 +11,8 @@
     <string name="validation_error_empty_folder_name">Folder name cannot be empty</string>
     <string name="action_not_supported">Action not supported</string>
     <string name="action_clear_folder_name">Reset folder name field</string>
+    <string name="open_settings">Open Settings</string>
+    <string name="cancel">Cancel</string>
+    <string name="allow">Allow</string>
+    <string name="permission_required_title">%s Permission Required</string>
 </resources>

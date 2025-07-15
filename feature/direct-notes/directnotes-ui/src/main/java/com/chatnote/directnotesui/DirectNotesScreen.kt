@@ -1,5 +1,6 @@
 package com.chatnote.directnotesui
 
+import android.util.Log
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -34,17 +35,19 @@ import chatnote.directnotesui.R
 import com.chatnote.coreui.ui.decorations.showToast
 import com.chatnote.coreui.ui.dialog.AppAlertDialog
 import com.chatnote.directnotesui.actionablesheet.component.NoteInteractionBottomSheet
-import com.chatnote.directnotesui.directnoteslist.DirectNotesContract
 import com.chatnote.directnotesui.directnoteslist.DirectNotesContract.DirectNotesOneTimeEvent.DeleteNote
+import com.chatnote.directnotesui.directnoteslist.DirectNotesContract.DirectNotesOneTimeEvent.EditNote
 import com.chatnote.directnotesui.directnoteslist.DirectNotesContract.DirectNotesOneTimeEvent.FailedOperation
 import com.chatnote.directnotesui.directnoteslist.DirectNotesContract.DirectNotesOneTimeEvent.NavigateBack
 import com.chatnote.directnotesui.directnoteslist.DirectNotesContract.DirectNotesOneTimeEvent.NavigateTo
+import com.chatnote.directnotesui.directnoteslist.DirectNotesContract.DirectNotesOneTimeEvent.OpenImageChooser
 import com.chatnote.directnotesui.directnoteslist.DirectNotesContract.DirectNotesOneTimeEvent.ShowActionableContentSheet
 import com.chatnote.directnotesui.directnoteslist.DirectNotesContract.DirectNotesState
 import com.chatnote.directnotesui.directnoteslist.components.DirectNotesEmptyState
 import com.chatnote.directnotesui.directnoteslist.components.DirectNotesTitle
 import com.chatnote.directnotesui.directnoteslist.components.NoteItem
 import com.chatnote.directnotesui.directnoteslist.components.editor.NoteEditorInput
+import com.chatnote.imagepicker.ui.screen.AttachMultiImageBottomSheet
 import com.chatnote.navigation.NavigationRoute
 import kotlinx.coroutines.flow.collectLatest
 
@@ -58,6 +61,7 @@ fun DirectNotesScreen(
     val context = LocalContext.current
     var uiNoteInteractionContent by remember { mutableStateOf<ShowActionableContentSheet?>(null) }
     var selectedNoteToDelete by remember { mutableStateOf<Long?>(null) }
+    var showImagePickerSheet by remember { mutableStateOf(false) }
 
     LaunchedEffect(Unit) {
         viewModel.oneTimeEvent.collectLatest { event ->
@@ -77,8 +81,12 @@ fun DirectNotesScreen(
                     selectedNoteToDelete = event.noteId
                 }
 
-                is DirectNotesContract.DirectNotesOneTimeEvent.EditNote -> {
+                is EditNote -> {
                     navigateTo(NavigationRoute.EditNote(event.noteId))
+                }
+
+                OpenImageChooser -> {
+                    showImagePickerSheet = true
                 }
 
                 NavigateBack -> onBackClick()
@@ -99,6 +107,16 @@ fun DirectNotesScreen(
             uiNoteInteractionContent = null
         }
     )
+
+    if (showImagePickerSheet) {
+        AttachMultiImageBottomSheet(
+            onDismiss = { showImagePickerSheet = false },
+            onImagesPicked = { uris ->
+                Log.e("selected_images_tag", "uris= " + uris)
+                 viewModel.onImageSelected(uris)
+            }
+        )
+    }
 
     Scaffold(
         topBar = {
@@ -141,10 +159,14 @@ fun DirectNotesScreen(
                 }
 
                 NoteEditorInput(
+                    noteExtrasState = stateValue.noteExtrasState,
                     modifier = Modifier
                         .fillMaxWidth()
                         .navigationBarsPadding()
                         .padding(bottom = 8.dp),
+                    onExtraClick = { uiNoteInteraction ->
+                        viewModel.handelAction(interaction = uiNoteInteraction)
+                    },
                     onNewNoteClick = { viewModel.addNote(it) }
                 )
             }

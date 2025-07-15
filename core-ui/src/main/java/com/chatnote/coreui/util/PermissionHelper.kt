@@ -1,49 +1,123 @@
 package com.chatnote.coreui.util
 
 import android.Manifest
-import android.content.Context
-import android.content.pm.PackageManager
+import android.content.Intent
+import android.net.Uri
 import android.os.Build
+import android.provider.Settings
 import androidx.activity.ComponentActivity
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.text.font.FontWeight
 import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
-import javax.inject.Inject
+import chatnote.coreui.R
+import com.chatnote.coreui.ui.decorations.getAnnotatedString
+import com.chatnote.coreui.ui.dialog.AppAlertDialog
 
-class PermissionHelper @Inject constructor() {
+@Composable
+fun permissionRequestLauncher(
+    type: PermissionType,
+    onGranted: () -> Unit,
+    onDenied: (() -> Unit)? = null,
+    onPermanentlyDenied: (() -> Unit)? = null,
+    autoLaunch: Boolean = false,
+    rationaleTitle: String? = null,
+    rationaleMessage: String? = null
+): ActivityResultLauncher<String> {
+    val context = LocalContext.current
+    val activity = context as? ComponentActivity
 
-    fun isPermissionGranted(context: Context, permission: String): Boolean {
-        return ContextCompat.checkSelfPermission(
-            context,
-            permission
-        ) == PackageManager.PERMISSION_GRANTED
-    }
+    var showPrePermissionDialog by remember { mutableStateOf(autoLaunch && rationaleMessage != null) }
+    var showPermanentlyDeniedDialog by remember { mutableStateOf(false) }
 
-    private fun requestPermission(
-        activity: ComponentActivity,
-        permission: String,
-        requestCode: Int
-    ) {
-        ActivityCompat.requestPermissions(activity, arrayOf(permission), requestCode)
-    }
-
-    fun shouldShowRationale(activity: ComponentActivity, permission: String): Boolean {
-        return ActivityCompat.shouldShowRequestPermissionRationale(activity, permission)
-    }
-
-    fun askForNotificationPermission(
-        activity: ComponentActivity,
-        requestCode: Int
-    ): Boolean {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            val permission = Manifest.permission.POST_NOTIFICATIONS
-            return if (!isPermissionGranted(activity, permission)) {
-                requestPermission(activity, permission, requestCode)
-                false
-            } else {
-                true
+    val launcher = rememberLauncherForActivityResult(
+        contract = ActivityResultContracts.RequestPermission()
+    ) { granted ->
+        when {
+            granted -> onGranted()
+            activity != null &&
+                    !ActivityCompat.shouldShowRequestPermissionRationale(activity, type.toSystemPermission()) -> {
+                showPermanentlyDeniedDialog = true
+                onPermanentlyDenied?.invoke()
             }
+            else -> onDenied?.invoke()
         }
-        return true
     }
 
+    val systemPermission = type.toSystemPermission()
+
+    LaunchedEffect(autoLaunch) {
+        if (autoLaunch && rationaleMessage == null) {
+            launcher.launch(systemPermission)
+        }
+    }
+
+    // Step 1: Show rationale dialog if needed
+    if (showPrePermissionDialog && rationaleMessage != null) {
+        AppAlertDialog(
+            showDialog = true,
+            title = rationaleTitle,
+            message = rationaleMessage,
+            confirmButtonText = R.string.allow,
+            dismissButtonText = R.string.cancel,
+            onDismissRequest = { showPrePermissionDialog = false },
+            onConfirm = {
+                showPrePermissionDialog = false
+                launcher.launch(systemPermission)
+            }
+        )
+    }
+
+    // Step 2: Show permanently denied dialog
+    val permanentlyDeniedPermission = getAnnotatedString(
+        baseStringRes = R.string.permission_required_title,
+        valueToAnnotate = type.name,
+        annotatedValueColor = MaterialTheme.colorScheme.primary,
+        annotatedValueFontWeight = FontWeight.Bold
+    )
+
+    if (showPermanentlyDeniedDialog) {
+        AppAlertDialog(
+            showDialog = true,
+            message = "You’ve permanently denied the ${type.name.lowercase()} permission. Open settings to grant it manually.",
+            confirmButtonText = R.string.open_settings,
+            dismissButtonText = R.string.cancel,
+            onDismissRequest = { showPermanentlyDeniedDialog = false },
+            onConfirm = {
+                showPermanentlyDeniedDialog = false
+                context.startActivity(
+                    Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS).apply {
+                        data = Uri.fromParts("package", context.packageName, null)
+                        addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                    }
+                )
+            },
+            annotatedTitle = permanentlyDeniedPermission
+        )
+    }
+
+    return launcher
+}
+enum class PermissionType {
+    CAMERA,
+    GALLERY,
+    NOTIFICATION;
+
+    fun toSystemPermission(): String = when (this) {
+        CAMERA -> Manifest.permission.CAMERA
+        GALLERY -> if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU)
+            Manifest.permission.READ_MEDIA_IMAGES
+        else
+            Manifest.permission.READ_EXTERNAL_STORAGE
+        NOTIFICATION -> Manifest.permission.POST_NOTIFICATIONS
+    }
 }

@@ -6,17 +6,26 @@ import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.wrapContentHeight
+import androidx.compose.foundation.layout.wrapContentSize
+import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import coil.compose.AsyncImage
 import com.chatnote.coreui.ui.component.StyledText
+import com.chatnote.directnotesui.directnoteslist.NoteImagePager
 import com.chatnote.directnotesui.model.UiNote
 
 @OptIn(ExperimentalFoundationApi::class)
@@ -51,6 +60,10 @@ fun NoteItem(
                 fontSize = 18.sp,
 
                 )
+
+            if (note.imagePaths.isNotEmpty()) {
+                NoteImagePager(imagePaths = note.imagePaths)
+            }
 
             StyledText(
                 text = note.date,
