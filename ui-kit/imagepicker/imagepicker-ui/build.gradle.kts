@@ -56,7 +56,7 @@ dependencies {
 
     ksp(libs.hilt.compiler)
     ksp(libs.hilt.android.compiler)
-    implementation(project(":feature:imagepicker:imagepicker-domain"))
+    implementation(project(":ui-kit:imagepicker:imagepicker-domain"))
 
     implementation(project(":core-ui"))
     implementation(project(":core-domain"))

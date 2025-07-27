@@ -79,10 +79,7 @@ dependencies {
     implementation(project(":feature:direct-notes:directnotes-data"))
     implementation(project(":feature:direct-notes:directnotes-domain"))
     implementation(project(":feature:direct-notes:directnotes-ui"))
-
-    implementation(project(":feature:imagepicker:imagepicker-ui"))
-
-
+    implementation(project(":ui-kit:imagepicker:imagepicker-ui"))
     implementation(project(":core-ui"))
     implementation(project(":core-domain"))
     implementation(project(":navigation"))

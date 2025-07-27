@@ -47,5 +47,5 @@ dependencies {
 
     implementation(project(":core-data"))
     implementation(project(":core-domain"))
-    implementation(project(":feature:imagepicker:imagepicker-domain"))
+    implementation(project(":ui-kit:imagepicker:imagepicker-domain"))
 }
