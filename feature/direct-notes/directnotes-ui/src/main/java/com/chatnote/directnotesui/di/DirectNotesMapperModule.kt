@@ -1,5 +1,6 @@
 package com.chatnote.directnotesui.di
 
+import android.net.Uri
 import com.chatnote.coredomain.mapper.Mapper
 import com.chatnote.coreui.model.SystemActionType
 import com.chatnote.coreui.util.DateFormatter
@@ -7,14 +8,18 @@ import com.chatnote.directnotesdomain.model.Note
 import com.chatnote.directnotesdomain.model.NoteActionType
 import com.chatnote.directnotesdomain.model.NoteActionableContent
 import com.chatnote.directnotesdomain.model.NoteActionableItem
+import com.chatnote.coredomain.models.NoteExtra
 import com.chatnote.directnotesui.directnoteslist.mapper.ActionTypeToUiActionTypeMapper
 import com.chatnote.directnotesui.directnoteslist.mapper.ActionableContentToUiActionableContentMapper
 import com.chatnote.directnotesui.directnoteslist.mapper.ActionableItemToUiActionableItemMapper
 import com.chatnote.directnotesui.directnoteslist.mapper.NotesToUiNotesMapper
+import com.chatnote.directnotesui.mapper.ImageUriToUiNoteExtraMapper
+import com.chatnote.directnotesui.mapper.UiNoteExtraToNoteExtraMapper
 import com.chatnote.directnotesui.mapper.UiNoteInteractionToSystemActionTypeMapper
 import com.chatnote.directnotesui.model.UiActionableItem
 import com.chatnote.directnotesui.model.UiNote
 import com.chatnote.directnotesui.model.UiNoteActionableContent
+import com.chatnote.directnotesui.model.UiNoteExtra
 import com.chatnote.directnotesui.model.UiNoteInteraction
 import dagger.Module
 import dagger.Provides
@@ -50,5 +55,15 @@ object DirectNotesMapperModule {
     @Singleton
     fun provideActionableContentToUiActionableContentMapper(actionTypeToUiActionTypeMapper: Mapper<NoteActionableItem, UiActionableItem>): Mapper<NoteActionableContent, UiNoteActionableContent> =
         ActionableContentToUiActionableContentMapper(actionTypeToUiActionTypeMapper = actionTypeToUiActionTypeMapper)
+
+    @Provides
+    @Singleton
+    fun provideImageUriToUiNoteExtraMapper(): Mapper<Uri, UiNoteExtra> =
+        ImageUriToUiNoteExtraMapper()
+
+    @Provides
+    @Singleton
+    fun provideUiNoteExtraToNoteExtraMapper(): Mapper<UiNoteExtra, NoteExtra> =
+        UiNoteExtraToNoteExtraMapper()
 
 }

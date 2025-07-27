@@ -54,7 +54,11 @@ fun CircularImage(
                 contentDescription = contentDescription,
                 colorFilter = imageColorFilter,
                 contentScale = contentScale,
-                modifier = if (iconSize != null) Modifier.size(iconSize).padding(1.dp) else Modifier.wrapContentSize().padding(1.dp)
+                modifier = if (iconSize != null) Modifier
+                    .size(iconSize)
+                    .padding(1.dp) else Modifier
+                    .wrapContentSize()
+                    .padding(1.dp)
             )
         }
     }

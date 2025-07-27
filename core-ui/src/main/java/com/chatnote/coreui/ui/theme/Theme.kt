@@ -19,9 +19,10 @@ private val DarkColorScheme = darkColorScheme(
     onSurface = DarkOnSurface_TextSubbed,
     background = DarkBackground,
     onBackground = DarkOnBackground,
-    error = DarkError
+    error = DarkError,
 
-)
+
+    )
 
 private val LightColorScheme = lightColorScheme(
     primary = LightPrimary,

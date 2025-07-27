@@ -50,10 +50,6 @@ abstract class BaseImagePickerViewModel(
         ImagePickerContract.ImagePickerEvent.CameraImageTaken(uri).processWithLaunch()
     }
 
-    fun attachSelectedImages() {
-        ImagePickerContract.ImagePickerEvent.AttachSelectedImages.processWithLaunch()
-    }
-
     fun openCamera() {
         ImagePickerContract.ImagePickerEvent.OpenCamera.processWithLaunch()
     }

@@ -20,7 +20,7 @@ internal class AppPreferencesSyncImpl @Inject constructor(
     }
 
     override suspend fun isDefaultFoldersInitialized(): Boolean {
-        return  sharedPreferencesHelper.getBoolean(KEY_DEFAULT_FOLDERS_INITIALIZED, false)
+        return sharedPreferencesHelper.getBoolean(KEY_DEFAULT_FOLDERS_INITIALIZED, false)
     }
 
     override suspend fun markDefaultFoldersInitialized() {

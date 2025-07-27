@@ -6,6 +6,7 @@
     <string name="error_folder_not_found">Folder not found.</string>
     <string name="error_note_not_found">Note not found.</string>
     <string name="error_empty_note">Empty note cannot be saved.</string>
+    <string name="error_file_not_found">File not found.</string>
     <string name="error_database">A database error occurred.</string>
     <string name="folder_not_deleted">The folder could not be deleted.</string>
     <string name="validation_error_empty_folder_name">Folder name cannot be empty</string>

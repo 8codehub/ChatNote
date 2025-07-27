@@ -1,16 +1,14 @@
 package com.chatnote.coredata.di.db.convertor
 
 import androidx.room.TypeConverter
+import com.chatnote.coredata.di.model.NoteEntityExtraType
 
-class Converters {
-
-    @TypeConverter
-    fun fromListToString(list: List<String>): String {
-        return list.joinToString("||")
-    }
+class NoteExtraTypeConverter {
 
     @TypeConverter
-    fun fromStringToList(data: String): List<String> {
-        return if (data.isEmpty()) emptyList() else data.split("||")
-    }
+    fun fromType(type: NoteEntityExtraType): Int = type.id
+
+    @TypeConverter
+    fun toType(id: Int): NoteEntityExtraType =
+        NoteEntityExtraType.fromId(id) ?: NoteEntityExtraType.IMAGE
 }

@@ -21,5 +21,4 @@ internal abstract class ImagePickerViewModelScopeModule {
             ImagePickerContract.ImagePickerState,
             ImagePickerContract.MutableImagePickerState
             >
-
 }

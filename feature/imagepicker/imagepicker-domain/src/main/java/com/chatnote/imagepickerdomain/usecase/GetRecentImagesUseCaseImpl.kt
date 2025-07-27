@@ -1,11 +1,9 @@
 package com.chatnote.imagepickerdomain.usecase
 
 
-import android.content.ContentResolver
 import android.content.Context
 import android.net.Uri
 import android.provider.MediaStore
-import com.chatnote.imagepickerdomain.usecase.GetRecentImagesUseCase
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 

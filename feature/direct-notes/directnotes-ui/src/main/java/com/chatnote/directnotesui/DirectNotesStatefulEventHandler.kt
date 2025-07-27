@@ -10,6 +10,7 @@ import com.chatnote.coreui.model.SystemActionType
 import com.chatnote.coreui.systemactions.SystemActionTypeHandler
 import com.chatnote.directnotesdomain.model.Note
 import com.chatnote.directnotesdomain.model.NoteActionableContent
+import com.chatnote.coredomain.models.NoteExtra
 import com.chatnote.directnotesdomain.usecase.AddNoteUseCase
 import com.chatnote.directnotesdomain.usecase.DeleteNoteUseCase
 import com.chatnote.directnotesdomain.usecase.ExtractActionableContentUseCase
@@ -19,9 +20,12 @@ import com.chatnote.directnotesui.directnoteslist.DirectNotesContract.DirectNote
 import com.chatnote.directnotesui.directnoteslist.DirectNotesContract.DirectNotesOneTimeEvent
 import com.chatnote.directnotesui.directnoteslist.DirectNotesContract.DirectNotesState
 import com.chatnote.directnotesui.directnoteslist.DirectNotesContract.MutableDirectNotesState
+import com.chatnote.directnotesui.model.UiEditorInputAction
 import com.chatnote.directnotesui.model.UiNote
 import com.chatnote.directnotesui.model.UiNoteActionableContent
+import com.chatnote.directnotesui.model.UiNoteExtra
 import com.chatnote.directnotesui.model.UiNoteInteraction
+import com.chatnote.directnotesui.processing.ExtraProcessor
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collect
@@ -34,9 +38,12 @@ class DirectNotesStatefulEventHandler @Inject constructor(
     private val addNoteUseCase: AddNoteUseCase,
     private val observeFolderUseCase: ObserveFolderUseCase,
     private val deleteNoteUseCase: DeleteNoteUseCase,
+    private val extraProcessor: ExtraProcessor,
     private val extractActionableContent: ExtractActionableContentUseCase,
     private val errorResultMapper: Mapper<Throwable, Int>,
     private val notesToUiNotes: Mapper<Note, UiNote>,
+    private val uriToUiNoteExtraMapper: Mapper<Uri, UiNoteExtra>,
+    private val uiNoteExtraToNoteExtra: Mapper<UiNoteExtra, NoteExtra>,
     private val actionableContentToUiNoteNoteActionableContent: Mapper<NoteActionableContent, UiNoteActionableContent>,
     private val actionTypeToSystemActionType: Mapper<UiNoteInteraction, SystemActionType>,
     private val analyticsTracker: AnalyticsTracker,
@@ -49,23 +56,42 @@ class DirectNotesStatefulEventHandler @Inject constructor(
         when (event) {
             is DirectNotesEvent.LoadFolderBasicInfo -> onLoadFolderBasicInfoEvent(event.folderId)
             is DirectNotesEvent.LoadAllNotes -> onLoadAllNotesEvent(event.folderId)
-            is DirectNotesEvent.AddNote -> onAddNoteEvent(
-                folderId = stateValue.folderId, content = event.note
-            )
-
             is DirectNotesEvent.GeneralError -> onGeneralErrorEvent(throwable = event.throwable)
             is DirectNotesEvent.NoteLongClick -> onNoteLongClickEvent(uiNote = event.note)
             is DirectNotesEvent.NoteActionClick -> onActionClickEvent(interaction = event.interaction)
             is DirectNotesEvent.ImageSelected -> onImageSelectedEvent(uris = event.uris)
             is DirectNotesEvent.DeleteSelectedNote -> deleteNoteUseCase(noteId = event.noteId)
+            is DirectNotesEvent.EditorInputActionClick -> onEditorInputActionClickEvent(interaction = event.interaction)
         }
     }
 
-    private fun onImageSelectedEvent(uris: List<Uri>) {
+    private suspend fun onEditorInputActionClickEvent(interaction: UiEditorInputAction) {
 
+        when (interaction) {
+            UiEditorInputAction.ChooseImage -> {
+                DirectNotesOneTimeEvent.OpenImageChooser.processOneTimeEvent()
+            }
+
+            is UiEditorInputAction.SaveNewNote -> onSaveNewNote(
+                folderId = stateValue.folderId, content = interaction.content
+            )
+
+            is UiEditorInputAction.RemoveExtra -> {
+                val updatedExtraList =
+                    stateValue.noteExtrasState.extras.toMutableList()
+                updatedExtraList.remove(element = interaction.uiNoteExtra)
+                updateUiState {
+                    noteExtrasState = stateValue.noteExtrasState.copy(extras = updatedExtraList)
+                }
+            }
+        }
+
+    }
+
+    private fun onImageSelectedEvent(uris: List<Uri>) {
         updateUiState {
             noteExtrasState =
-                stateValue.noteExtrasState.copy(imagePaths = uris.map { it.toString() })
+                stateValue.noteExtrasState.copy(extras = uriToUiNoteExtraMapper.mapList(uris))
         }
     }
 
@@ -99,9 +125,6 @@ class DirectNotesStatefulEventHandler @Inject constructor(
                     .processOneTimeEvent()
             }
 
-            UiNoteInteraction.ChooseImage -> {
-                DirectNotesOneTimeEvent.OpenImageChooser.processOneTimeEvent()
-            }
         }
 
     }
@@ -152,17 +175,20 @@ class DirectNotesStatefulEventHandler @Inject constructor(
         }
     }
 
-    private suspend fun onAddNoteEvent(folderId: Long?, content: String) {
+    private suspend fun onSaveNewNote(folderId: Long?, content: String) {
         folderId?.let {
+            val localImages =
+                extraProcessor.copyToLocalStorage(items = stateValue.noteExtrasState.extras)
             val newNote = Note(
                 id = System.currentTimeMillis(),
                 content = content,
                 folderId = folderId,
                 createdAt = System.currentTimeMillis(),
-                imagePaths = stateValue.noteExtrasState.imagePaths
+                extras = uiNoteExtraToNoteExtra.mapList(from = localImages)
             )
             addNoteUseCase(it, newNote).onSuccess {
                 analyticsTracker.trackNewNote(folderId = folderId)
+                updateUiState { noteExtrasState = noteExtrasState.copy(extras = emptyList()) }
             }.onFailure { throwable ->
                 updateUiState {
                     generalError = errorResultMapper.map(throwable)

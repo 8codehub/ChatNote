@@ -1,6 +1,5 @@
 package com.chatnote.coreui.util
 
-import android.Manifest
 import android.annotation.SuppressLint
 import android.app.NotificationChannel
 import android.app.NotificationManager

@@ -45,10 +45,14 @@ fun permissionRequestLauncher(
         when {
             granted -> onGranted()
             activity != null &&
-                    !ActivityCompat.shouldShowRequestPermissionRationale(activity, type.toSystemPermission()) -> {
+                    !ActivityCompat.shouldShowRequestPermissionRationale(
+                        activity,
+                        type.toSystemPermission()
+                    ) -> {
                 showPermanentlyDeniedDialog = true
                 onPermanentlyDenied?.invoke()
             }
+
             else -> onDenied?.invoke()
         }
     }
@@ -107,6 +111,7 @@ fun permissionRequestLauncher(
 
     return launcher
 }
+
 enum class PermissionType {
     CAMERA,
     GALLERY,
@@ -118,6 +123,7 @@ enum class PermissionType {
             Manifest.permission.READ_MEDIA_IMAGES
         else
             Manifest.permission.READ_EXTERNAL_STORAGE
+
         NOTIFICATION -> Manifest.permission.POST_NOTIFICATIONS
     }
 }

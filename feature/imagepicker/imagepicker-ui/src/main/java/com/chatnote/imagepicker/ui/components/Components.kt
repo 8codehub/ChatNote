@@ -5,9 +5,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -31,8 +29,7 @@ import com.chatnote.coreui.ui.theme.AppTheme
 import com.chatnote.imagepicker.ui.R
 
 @Composable
-fun CameraButton(modifier: Modifier = Modifier, onClick: () -> Unit) {
-
+internal fun CameraButton(modifier: Modifier = Modifier, onClick: () -> Unit) {
     Column(
         modifier = modifier
             .clickable { onClick() },
@@ -59,12 +56,10 @@ fun CameraButton(modifier: Modifier = Modifier, onClick: () -> Unit) {
             fontWeight = FontWeight.Medium
         )
     }
-
 }
 
 @Composable
-fun GalleryButton(modifier: Modifier = Modifier, onClick: () -> Unit) {
-
+internal fun GalleryButton(modifier: Modifier = Modifier, onClick: () -> Unit) {
     Column(
         modifier = modifier
             .clickable { onClick() },
@@ -93,11 +88,10 @@ fun GalleryButton(modifier: Modifier = Modifier, onClick: () -> Unit) {
             fontWeight = FontWeight.Medium
         )
     }
-
 }
 
 @Composable
-fun RoundedAsyncImage(
+internal fun RoundedAsyncImage(
     model: Any,
     contentDescription: String?,
     modifier: Modifier = Modifier,
@@ -106,7 +100,6 @@ fun RoundedAsyncImage(
 
 ) {
     val borderColor = if (selected) MaterialTheme.colorScheme.primary else Color.Transparent
-
     AsyncImage(
         model = model,
         contentDescription = contentDescription,
@@ -121,7 +114,7 @@ fun RoundedAsyncImage(
 
 @Preview(showBackground = true)
 @Composable
-fun CameraButtonPreview() {
+internal fun CameraButtonPreview() {
     AppTheme {
         CameraButton(onClick = {})
     }

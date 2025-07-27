@@ -43,4 +43,17 @@ interface NoteDAO {
     @Query("DELETE FROM notes WHERE id = :noteId")
     suspend fun deleteNoteById(noteId: Long): Int
 
+    @Transaction
+    @Query("SELECT * FROM notes WHERE folderId = :folderId ORDER BY note_last_created_at DESC")
+    fun getNotesWithExtrasForFolder(folderId: Long): Flow<List<NoteWithExtras>>
+
+    @Transaction
+    @Query("SELECT * FROM notes WHERE id = :noteId")
+    suspend fun getNoteWithExtrasById(noteId: Long): NoteWithExtras?
+
+    @Transaction
+    @Query("SELECT * FROM notes WHERE folderId = :folderId")
+    suspend fun getNotesWithExtrasForFolderStatic(folderId: Long): List<NoteWithExtras>
+
+
 }

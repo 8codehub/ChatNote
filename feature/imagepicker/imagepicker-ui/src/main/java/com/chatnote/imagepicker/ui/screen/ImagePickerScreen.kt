@@ -9,10 +9,11 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.lazy.LazyRow
-import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -21,10 +22,10 @@ import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -47,19 +48,18 @@ import com.chatnote.imagepicker.ui.viewmodel.SingleAttachImagePickerViewModel
 import kotlinx.coroutines.flow.collectLatest
 
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AttachSingleImageBottomSheet(
     viewModel: SingleAttachImagePickerViewModel = hiltViewModel<SingleAttachImagePickerViewModel>(),
     onDismiss: () -> Unit,
-    onImagePicked: (Uri?) -> Unit,
+    onImagePicked: (Uri) -> Unit,
 ) {
     AttachImageBottomSheet(
         attachMode = AttachMode.SingleAttach,
         viewModel = viewModel,
         onDismiss = onDismiss,
         onImagesPicked = {
-            onImagePicked(it.firstOrNull())
+            it.firstOrNull()?.let { it1 -> onImagePicked(it1) }
         }
     )
 }
@@ -95,13 +95,13 @@ private fun AttachImageBottomSheet(
     val requestCameraPermission = permissionRequestLauncher(
         type = PermissionType.CAMERA,
         onGranted = viewModel::openCamera,
-        onDenied = { println("ImagePicker ❌ Camera permission denied") }
+        onDenied = { println("Permission_tag ImagePicker ❌ Camera permission denied") }
     )
 
     val requestGalleryPermission = permissionRequestLauncher(
         type = PermissionType.GALLERY,
         onGranted = viewModel::loadImages,
-        onDenied = { println("ImagePicker ❌ Gallery permission denied") }
+        onDenied = { println("Permission_tag ImagePicker ❌ Gallery permission denied") }
     )
 
     val openGalleryWithPermission = permissionRequestLauncher(
@@ -110,8 +110,10 @@ private fun AttachImageBottomSheet(
             viewModel.loadImages()
             viewModel.openGallery()
         },
-        onDenied = { println("ImagePicker ❌ Gallery permission denied") }
+        onDenied = { println("Permission_tag ImagePicker ❌ Gallery permission denied") }
     )
+
+    val enableAttachButton by remember(uiState.allImages) { derivedStateOf { uiState.allImages.any { it.isSelected } } }
 
     LaunchedEffect(Unit) {
         requestGalleryPermission.launch(PermissionType.GALLERY.toSystemPermission())
@@ -170,10 +172,14 @@ private fun AttachImageBottomSheet(
                 .fillMaxWidth()
                 .padding(16.dp)
         ) {
-            LazyRow(
-                contentPadding = PaddingValues(horizontal = 12.dp),
+            LazyVerticalGrid(
+                columns = GridCells.Fixed(3),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .heightIn(max = 300.dp), // adjust height as needed
+                verticalArrangement = Arrangement.spacedBy(8.dp),
                 horizontalArrangement = Arrangement.spacedBy(8.dp),
-                verticalAlignment = Alignment.CenterVertically
+                contentPadding = PaddingValues(8.dp)
             ) {
                 item {
                     CameraButton(modifier = Modifier.size(80.dp)) {
@@ -181,12 +187,15 @@ private fun AttachImageBottomSheet(
                     }
                 }
 
-                items(uiState.allImages, key = { it.uri.toString() }) { imageItem ->
+                items(
+                    uiState.allImages.size,
+                    key = { uiState.allImages[it].uri.toString() }) { index ->
+                    val item = uiState.allImages[index]
                     RoundedAsyncImage(
-                        model = imageItem.uri,
+                        model = item.uri,
                         contentDescription = null,
-                        selected = imageItem.isSelected,
-                        onClick = { viewModel.toggleImageSelection(imageItem.uri) }
+                        selected = item.isSelected,
+                        onClick = { viewModel.toggleImageSelection(item.uri) }
                     )
                 }
 
@@ -200,6 +209,7 @@ private fun AttachImageBottomSheet(
             Spacer(modifier = Modifier.height(16.dp))
 
             Button(
+                enabled = enableAttachButton,
                 onClick = {
                     onImagesPicked(uiState.allImages.filter { it.isSelected }.map { it.uri })
                     onDismiss()
@@ -210,7 +220,7 @@ private fun AttachImageBottomSheet(
                 StyledText(
                     text = stringResource(R.string.attach),
                     modifier = Modifier.padding(vertical = 8.dp),
-                    color = MaterialTheme.colorScheme.background,
+                    color = MaterialTheme.colorScheme.onPrimary,
                     fontWeight = FontWeight.W500,
                     fontSize = 14.sp,
                     lineHeight = 14.sp

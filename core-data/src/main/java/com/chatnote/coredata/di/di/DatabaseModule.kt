@@ -6,6 +6,7 @@ import com.chatnote.coredata.di.db.AppDatabase
 import com.chatnote.coredata.di.db.FolderDao
 import com.chatnote.coredata.di.db.MIGRATION_2_3
 import com.chatnote.coredata.di.db.NoteDAO
+import com.chatnote.coredata.di.db.NoteExtraDao
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -32,5 +33,8 @@ object DatabaseModule {
 
     @Provides
     fun provideNoteDao(database: AppDatabase): NoteDAO = database.noteDao()
+
+    @Provides
+    fun provideNoteExtraDao(database: AppDatabase): NoteExtraDao = database.noteExtraDao()
 
 }

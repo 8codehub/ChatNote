@@ -1,6 +1,5 @@
 package com.chatnote.directnotesui
 
-import android.util.Log
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -112,8 +111,7 @@ fun DirectNotesScreen(
         AttachMultiImageBottomSheet(
             onDismiss = { showImagePickerSheet = false },
             onImagesPicked = { uris ->
-                Log.e("selected_images_tag", "uris= " + uris)
-                 viewModel.onImageSelected(uris)
+                viewModel.onImageSelected(uris)
             }
         )
     }
@@ -164,10 +162,9 @@ fun DirectNotesScreen(
                         .fillMaxWidth()
                         .navigationBarsPadding()
                         .padding(bottom = 8.dp),
-                    onExtraClick = { uiNoteInteraction ->
-                        viewModel.handelAction(interaction = uiNoteInteraction)
-                    },
-                    onNewNoteClick = { viewModel.addNote(it) }
+                    onUiEditorInputAction = { uiNoteInteraction ->
+                        viewModel.handelUiEditorInputAction(interaction = uiNoteInteraction)
+                    }
                 )
             }
         }
@@ -178,7 +175,7 @@ fun DirectNotesScreen(
             noteId = content.noteId,
             uiNoteActionableContent = content.uiNoteActionableContent,
             handleAction = { uiNoteInteraction ->
-                viewModel.handelAction(interaction = uiNoteInteraction)
+                viewModel.handelUiEditorInputAction(interaction = uiNoteInteraction)
             },
             onDismiss = {
                 uiNoteInteractionContent = null

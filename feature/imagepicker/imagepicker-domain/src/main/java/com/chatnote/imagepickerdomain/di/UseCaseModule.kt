@@ -1,7 +1,5 @@
 package com.chatnote.imagepickerdomain.di
 
-import com.chatnote.imagepickerdomain.usecase.CopyImageToAppStorage
-import com.chatnote.imagepickerdomain.usecase.CopyImageToAppStorageImpl
 import com.chatnote.imagepickerdomain.usecase.GenerateCameraUriUseCase
 import com.chatnote.imagepickerdomain.usecase.GenerateCameraUriUseCaseImpl
 import com.chatnote.imagepickerdomain.usecase.GetRecentImagesUseCase
@@ -24,10 +22,4 @@ internal abstract class UseCaseModule {
     abstract fun bindGetRecentImagesUseCase(
         implementation: GetRecentImagesUseCaseImpl
     ): GetRecentImagesUseCase
-
-    @Binds
-    abstract fun bindCopyImageToAppStorage(
-        implementation: CopyImageToAppStorageImpl
-    ): CopyImageToAppStorage
-
 }

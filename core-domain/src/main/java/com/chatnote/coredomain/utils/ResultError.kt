@@ -8,6 +8,7 @@ sealed class ResultError {
     data object EmptyNoteContent : ResultError()
     data class DatabaseError(val throwable: Throwable? = null) : ResultError()
     data class DeleteFolderFail(val throwable: Throwable) : ResultError()
+    data class DeleteFileFail(val throwable: Throwable) : ResultError()
     data class UnknownError(val details: String) : ResultError()
 }
 

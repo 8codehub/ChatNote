@@ -1,7 +1,6 @@
 package com.chatnote.directnotesui.editnote
 
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.focusable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -16,10 +15,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.focus.FocusRequester
-import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
@@ -38,7 +34,6 @@ import com.chatnote.directnotesui.editnote.EditNoteContract.EditNoteOneTimeEvent
 import com.chatnote.directnotesui.editnote.EditNoteContract.EditNoteOneTimeEvent.NavigateTo
 import com.chatnote.directnotesui.editnote.EditNoteContract.EditNoteOneTimeEvent.NoteUpdated
 import com.chatnote.navigation.NavigationRoute
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collectLatest
 
 @Composable

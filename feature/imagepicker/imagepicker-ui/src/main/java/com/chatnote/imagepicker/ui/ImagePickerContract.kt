@@ -54,8 +54,6 @@ object ImagePickerContract {
         data object OpenCamera : ImagePickerEvent()
         data object OpenGallery : ImagePickerEvent()
         data class CameraImageTaken(val uri: Uri) : ImagePickerEvent()
-        data object AttachSelectedImages : ImagePickerEvent()
-
     }
 
     sealed class ImagePickerOneTimeEvent : UiOneTimeEvent {

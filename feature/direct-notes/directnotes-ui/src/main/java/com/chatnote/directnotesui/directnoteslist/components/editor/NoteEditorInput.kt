@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
@@ -15,11 +16,13 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.KeyboardArrowDown
 import androidx.compose.material.icons.filled.KeyboardArrowUp
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.LocalTextStyle
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -38,21 +41,36 @@ import com.chatnote.coreui.ui.component.CircularImage
 import com.chatnote.coreui.ui.component.StyledText
 import com.chatnote.coreui.ui.theme.PoppinsFontFamily
 import com.chatnote.directnotesui.directnoteslist.DirectNotesContract
-import com.chatnote.directnotesui.directnoteslist.components.editor.extra.NoteEditorExtras
-import com.chatnote.directnotesui.model.UiNoteInteraction
+import com.chatnote.directnotesui.directnoteslist.components.editor.extra.NoteExtrasMenuItems
+import com.chatnote.directnotesui.directnoteslist.components.editor.extra.SelectedNoteExtraItems
+import com.chatnote.directnotesui.model.UiEditorInputAction
 
 @Composable
 fun NoteEditorInput(
     noteExtrasState: DirectNotesContract.NoteExtrasState,
     modifier: Modifier = Modifier,
-    onNewNoteClick: (String) -> Unit,
-    onExtraClick: (UiNoteInteraction) -> Unit
+    onUiEditorInputAction: (UiEditorInputAction) -> Unit
 
 ) {
     var newNote by remember { mutableStateOf(TextFieldValue("")) }
-    var showMenu by remember { mutableStateOf(false) }
+    var showExtraMenu by remember { mutableStateOf(false) }
+    val showSelectedExtras by remember(noteExtrasState.extras) {
+        derivedStateOf { noteExtrasState.extras.isNotEmpty() }
+    }
 
     Column(modifier = modifier.padding(8.dp)) {
+        AnimatedVisibility(visible = showSelectedExtras) {
+            HorizontalDivider(modifier = Modifier.fillMaxWidth())
+            Spacer(modifier = Modifier.height(8.dp))
+            SelectedNoteExtraItems(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(100.dp),
+                items = noteExtrasState.extras
+            ) {
+                onUiEditorInputAction(UiEditorInputAction.RemoveExtra(it))
+            }
+        }
         Row(
             verticalAlignment = Alignment.CenterVertically,
             modifier = Modifier
@@ -60,9 +78,9 @@ fun NoteEditorInput(
                 .fillMaxWidth()
         ) {
             // Toggle button (arrow)
-            IconButton(onClick = { showMenu = !showMenu }) {
+            IconButton(onClick = { showExtraMenu = !showExtraMenu }) {
                 Icon(
-                    imageVector = if (showMenu) Icons.Default.KeyboardArrowDown else Icons.Default.KeyboardArrowUp,
+                    imageVector = if (showExtraMenu) Icons.Default.KeyboardArrowDown else Icons.Default.KeyboardArrowUp,
                     contentDescription = "Toggle menu"
                 )
             }
@@ -112,10 +130,8 @@ fun NoteEditorInput(
             CircularImage(
                 contentDescription = stringResource(R.string.action_create_note),
                 onClick = {
-                    if (newNote.text.isNotEmpty()) {
-                        onNewNoteClick(newNote.text)
-                        newNote = TextFieldValue("")
-                    }
+                    onUiEditorInputAction(UiEditorInputAction.SaveNewNote(content = newNote.text))
+                    newNote = TextFieldValue("")
                 },
                 drawableRes = R.drawable.ic_sent,
                 iconSize = 24.dp,
@@ -123,8 +139,8 @@ fun NoteEditorInput(
             )
         }
 
-        AnimatedVisibility(visible = showMenu) {
-            NoteEditorExtras(onExtraClick = onExtraClick, noteExtrasState = noteExtrasState)
+        AnimatedVisibility(visible = showExtraMenu) {
+            NoteExtrasMenuItems(onExtraClick = onUiEditorInputAction)
         }
     }
 }

@@ -1,9 +1,11 @@
 package com.chatnote.directnotesdomain.model
 
+import com.chatnote.coredomain.models.NoteExtra
+
 data class Note(
     val id: Long,
-    val folderId: Long,
     val content: String,
+    val folderId: Long,
     val createdAt: Long,
-    val imagePaths: List<String>? = null,
+    val extras: List<NoteExtra>
 )
