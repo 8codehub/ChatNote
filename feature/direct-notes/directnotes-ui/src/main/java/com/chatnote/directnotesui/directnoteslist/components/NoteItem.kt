@@ -7,17 +7,21 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.widthIn
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.platform.LocalWindowInfo
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.chatnote.coreui.ui.component.StyledText
-import com.chatnote.directnotesui.directnoteslist.NoteImagePager
 import com.chatnote.directnotesui.model.UiNote
 
 @OptIn(ExperimentalFoundationApi::class)
@@ -26,6 +30,8 @@ fun NoteItem(
     note: UiNote,
     onLongClick: ((UiNote) -> Unit) = { }
 ) {
+    val bubbleWidth = getBubbleWidth()
+
     Box(
         modifier = Modifier
             .fillMaxWidth()
@@ -33,7 +39,9 @@ fun NoteItem(
         contentAlignment = Alignment.CenterEnd
     ) {
         Column(
+            horizontalAlignment = Alignment.End,
             modifier = Modifier
+                .widthIn(max = bubbleWidth)
                 .padding(horizontal = 4.dp)
                 .combinedClickable(
                     onClick = { },
@@ -44,7 +52,6 @@ fun NoteItem(
                     shape = MaterialTheme.shapes.large
                 )
                 .padding(vertical = 8.dp, horizontal = 12.dp),
-            horizontalAlignment = Alignment.End
         ) {
             StyledText(
                 text = note.content,
@@ -52,10 +59,6 @@ fun NoteItem(
                 fontSize = 18.sp,
 
                 )
-
-            if (note.imagePaths.isNotEmpty()) {
-                NoteImagePager(imagePaths = note.imagePaths)
-            }
 
             StyledText(
                 text = note.date,
@@ -66,7 +69,26 @@ fun NoteItem(
                 overflow = TextOverflow.Ellipsis,
                 color = MaterialTheme.colorScheme.onSecondary
             )
+
+            if (note.imagePaths.isNotEmpty()) {
+
+                ExtraImagesGrid(
+                    imageUrls = note.imagePaths,
+                    modifier = Modifier.fillMaxWidth(),
+                    onImageClick = { /* ... */ }
+                )
+            }
         }
 
+    }
+}
+
+@Composable
+private fun getBubbleWidth(): Dp {
+    val windowSize = LocalWindowInfo.current.containerSize
+    val density = LocalDensity.current
+
+    return with(density) {
+        (windowSize.width.toDp() * 0.8f)
     }
 }
