@@ -1,7 +1,9 @@
 package com.chatnote.directnotesui.directnoteslist.components.editor
 
 import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -10,6 +12,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.KeyboardOptions
@@ -30,7 +33,9 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.SolidColor
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.style.TextAlign
@@ -81,6 +86,7 @@ fun NoteEditorInput(
             IconButton(onClick = { showExtraMenu = !showExtraMenu }) {
                 Icon(
                     imageVector = if (showExtraMenu) Icons.Default.KeyboardArrowDown else Icons.Default.KeyboardArrowUp,
+                   tint = MaterialTheme.colorScheme.onBackground,
                     contentDescription = "Toggle menu"
                 )
             }
@@ -95,7 +101,7 @@ fun NoteEditorInput(
                 modifier = Modifier
                     .weight(1f)
                     .background(
-                        color = MaterialTheme.colorScheme.surface,
+                        color = MaterialTheme.colorScheme.onSecondary,
                         shape = MaterialTheme.shapes.large
                     )
                     .padding(horizontal = 8.dp, vertical = 2.dp)
@@ -127,15 +133,13 @@ fun NoteEditorInput(
             Spacer(modifier = Modifier.width(16.dp))
 
             // Send button
-            CircularImage(
-                contentDescription = stringResource(R.string.action_create_note),
-                onClick = {
+            Image(
+                imageVector =  ImageVector.vectorResource(R.drawable.ic_send),
+                modifier = Modifier.size(24.dp).padding(end = 4.dp).clickable {
                     onUiEditorInputAction(UiEditorInputAction.SaveNewNote(content = newNote.text))
                     newNote = TextFieldValue("")
                 },
-                drawableRes = R.drawable.ic_sent,
-                iconSize = 24.dp,
-                iconPadding = 6.dp,
+                contentDescription = stringResource(R.string.action_create_note),
             )
         }
 

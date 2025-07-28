@@ -40,7 +40,8 @@ fun NoteInteractionBottomSheet(
     onDismiss: () -> Unit
 ) {
     ModalBottomSheet(
-        onDismissRequest = onDismiss
+        onDismissRequest = onDismiss,
+        containerColor = MaterialTheme.colorScheme.secondaryContainer,
     ) {
         Column(
             modifier = Modifier

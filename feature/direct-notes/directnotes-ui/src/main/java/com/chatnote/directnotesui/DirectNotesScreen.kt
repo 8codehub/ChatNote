@@ -144,12 +144,12 @@ fun DirectNotesScreen(
                     LazyColumn(
                         modifier = Modifier
                             .weight(1f)
-                            .fillMaxWidth()
-                            .padding(horizontal = 8.dp),
+                            .fillMaxWidth(),
                         reverseLayout = true
                     ) {
                         items(stateValue.notes.size) { index ->
                             NoteItem(
+                                isFirstItem = index == 0,
                                 note = stateValue.notes[index],
                                 onLongClick = { viewModel.onNoteLongClick(it) })
                         }
@@ -206,7 +206,7 @@ fun DirectNotesTopAppBar(
             IconButton(onClick = onBackClick) {
                 Icon(
                     imageVector = ImageVector.vectorResource(R.drawable.ic_back),
-                    tint = MaterialTheme.colorScheme.primary,
+                    tint = MaterialTheme.colorScheme.onBackground,
                     contentDescription = stringResource(R.string.action_navigate_to_home_screen)
                 )
             }

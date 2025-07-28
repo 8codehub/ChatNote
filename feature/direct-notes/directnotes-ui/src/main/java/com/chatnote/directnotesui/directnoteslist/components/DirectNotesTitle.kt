@@ -31,6 +31,8 @@ fun DirectNotesTitle(
     ) {
         CircularImage(
             imageUri = imageUri,
+            borderWidth = 1.dp,
+            borderColor = MaterialTheme.colorScheme.onBackground,
             iconSize = 36.dp
         )
         DirectNotesTitleText(
@@ -67,7 +69,7 @@ private fun DirectNotesTitleText(
             fontSize = 12.sp,
             maxLines = 1,
             lineHeight = 12.sp,
-            color = MaterialTheme.colorScheme.secondary,
+            color = MaterialTheme.colorScheme.onSurface,
             fontWeight = FontWeight.W500
         )
     }

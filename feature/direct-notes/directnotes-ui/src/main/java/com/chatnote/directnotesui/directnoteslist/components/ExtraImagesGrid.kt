@@ -22,7 +22,7 @@ fun ExtraImagesGrid(
     modifier: Modifier = Modifier,
     onImageClick: (String) -> Unit
 ) {
-    Box(modifier = modifier.height(200.dp)) {
+    Box(modifier = modifier) {
         when (imageUrls.size) {
             1 -> OneImage(imageUrls[0], onImageClick)
             2 -> TwoImages(imageUrls, onImageClick)
