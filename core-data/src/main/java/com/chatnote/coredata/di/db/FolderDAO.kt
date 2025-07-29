@@ -5,6 +5,7 @@ import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import androidx.room.Transaction
 import com.chatnote.coredata.di.model.FolderEntity
 import com.chatnote.coredata.di.model.FolderWithLastNote
 import kotlinx.coroutines.flow.Flow
@@ -12,6 +13,7 @@ import kotlinx.coroutines.flow.Flow
 @Dao
 interface FolderDao {
 
+    @Transaction
     @Query(
         """
     SELECT f.*, 
@@ -22,7 +24,11 @@ interface FolderDao {
            (SELECT n.note_last_created_at FROM notes n 
             WHERE n.folderId = f.id 
             ORDER BY n.note_last_created_at DESC 
-            LIMIT 1) AS note_last_created_at
+            LIMIT 1) AS note_last_created_at,
+           (SELECT n.id FROM notes n 
+            WHERE n.folderId = f.id 
+            ORDER BY n.note_last_created_at DESC 
+            LIMIT 1) AS note_last_id
     FROM folders f
     ORDER BY 
         CASE 

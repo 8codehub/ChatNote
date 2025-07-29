@@ -97,7 +97,7 @@ fun FolderEditorScreen(
                         maxLines = 1,
                         fontWeight = FontWeight.W400,
                         overflow = TextOverflow.Ellipsis,
-                        color = MaterialTheme.colorScheme.primary
+                        color = MaterialTheme.colorScheme.onBackground
                     )
                 },
                 centerContent = {
@@ -127,7 +127,7 @@ fun FolderEditorScreen(
                         maxLines = 1,
                         fontWeight = FontWeight.W400,
                         overflow = TextOverflow.Ellipsis,
-                        color = MaterialTheme.colorScheme.primary
+                        color = MaterialTheme.colorScheme.onBackground
                     )
                 }
             )
@@ -143,6 +143,8 @@ fun FolderEditorScreen(
                     .padding(top = 32.dp)
                     .align(Alignment.CenterHorizontally),
                 imageUri = selectedIconUri,
+                borderWidth = 1.dp,
+                borderColor = MaterialTheme.colorScheme.onBackground,
                 iconSize = 100.dp,
                 iconPadding = 0.dp,
             )
@@ -167,7 +169,7 @@ fun FolderEditorScreen(
             if (state.icons.isNotEmpty()) {
                 LazyVerticalGrid(
                     modifier = Modifier.padding(horizontal = 36.dp),
-                    columns = GridCells.Fixed(4),
+                    columns = GridCells.Adaptive(minSize = 64.dp),
                     contentPadding = PaddingValues(vertical = 12.dp)
                 ) {
                     items(state.icons.size, key = { state.icons[it] }) { index ->

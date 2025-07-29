@@ -3,6 +3,7 @@ package com.chatnote.coredata.di.model
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.ForeignKey
+import androidx.room.Index
 import androidx.room.PrimaryKey
 import com.chatnote.coredomain.models.NoteExtraType
 
@@ -13,7 +14,8 @@ import com.chatnote.coredomain.models.NoteExtraType
         parentColumns = ["id"],
         childColumns = ["note_id"],
         onDelete = ForeignKey.CASCADE
-    )]
+    )],
+    indices = [Index(value = ["note_id"])] // ✅ Add this line
 )
 data class NoteExtraEntity(
     @PrimaryKey(autoGenerate = true) val id: Long = 0,
