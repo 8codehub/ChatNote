@@ -86,14 +86,13 @@ fun NoteItem(
                 ExtraImagesGrid(
                     imageUrls = note.imagePaths,
                     modifier = Modifier.height(bubbleWidth),
-                    onImageClick = { /* ... */ }
+                    onImageClick = { /* ... */ },
+                    onLongClick = { onLongClick(note) }
                 )
             }
             Spacer(modifier = Modifier.height(8.dp))
             NoteDateTag(timeTag = note.timeTag, date = note.date)
             Spacer(modifier = Modifier.height(8.dp))
-
-
         }
 
     }

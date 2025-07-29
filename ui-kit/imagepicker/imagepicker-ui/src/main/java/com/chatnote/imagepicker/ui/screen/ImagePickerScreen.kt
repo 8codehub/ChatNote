@@ -176,7 +176,7 @@ private fun AttachImageBottomSheet(
                 .padding(16.dp)
         ) {
             LazyVerticalGrid(
-                columns = GridCells.Fixed(3),
+                columns = GridCells.Adaptive(minSize = 80.dp),
                 modifier = Modifier
                     .fillMaxWidth()
                     .heightIn(max = 300.dp), // adjust height as needed

@@ -1,8 +1,14 @@
 package com.chatnote.directnotesui.directnoteslist.components
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.combinedClickable
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -20,21 +26,22 @@ import coil.compose.AsyncImage
 fun ExtraImagesGrid(
     imageUrls: List<String>,
     modifier: Modifier = Modifier,
-    onImageClick: (String) -> Unit
+    onImageClick: (String) -> Unit,
+    onLongClick: () -> Unit
 ) {
     Box(modifier = modifier) {
         when (imageUrls.size) {
-            1 -> OneImage(imageUrls[0], onImageClick)
-            2 -> TwoImages(imageUrls, onImageClick)
-            3 -> ThreeImages(imageUrls, onImageClick)
-            4 -> FourImages(imageUrls, onImageClick)
-            else -> MoreThanFourImages(imageUrls, onImageClick)
+            1 -> OneImage(imageUrls[0], onImageClick, onLongClick)
+            2 -> TwoImages(imageUrls, onImageClick, onLongClick)
+            3 -> ThreeImages(imageUrls, onImageClick, onLongClick)
+            4 -> FourImages(imageUrls, onImageClick, onLongClick)
+            else -> MoreThanFourImages(imageUrls, onImageClick, onLongClick)
         }
     }
 }
 
 @Composable
-private fun OneImage(url: String, onClick: (String) -> Unit) {
+private fun OneImage(url: String, onClick: (String) -> Unit, onLongClick: () -> Unit) {
     AsyncImage(
         model = url,
         contentDescription = null,
@@ -42,12 +49,19 @@ private fun OneImage(url: String, onClick: (String) -> Unit) {
         modifier = Modifier
             .fillMaxSize()
             .clip(RoundedCornerShape(6.dp))
-            .clickable { onClick(url) }
+            .combinedClickable(
+                onClick = { onClick(url) },
+                onLongClick = { onLongClick() }
+            )
     )
 }
 
 @Composable
-private fun TwoImages(urls: List<String>, onClick: (String) -> Unit) {
+private fun TwoImages(
+    urls: List<String>,
+    onClick: (String) -> Unit,
+    onLongClick: () -> Unit
+) {
     Row(
         horizontalArrangement = Arrangement.spacedBy(8.dp),
         modifier = Modifier.fillMaxSize()
@@ -61,14 +75,21 @@ private fun TwoImages(urls: List<String>, onClick: (String) -> Unit) {
                     .weight(1f)
                     .fillMaxHeight()
                     .clip(RoundedCornerShape(6.dp))
-                    .clickable { onClick(url) }
+                    .combinedClickable(
+                        onClick = { onClick(url) },
+                        onLongClick = { onLongClick() }
+                    )
             )
         }
     }
 }
 
 @Composable
-private fun ThreeImages(urls: List<String>, onClick: (String) -> Unit) {
+private fun ThreeImages(
+    urls: List<String>,
+    onClick: (String) -> Unit,
+    onLongClick: () -> Unit
+) {
     Row(
         horizontalArrangement = Arrangement.spacedBy(8.dp),
         modifier = Modifier.fillMaxSize()
@@ -81,7 +102,10 @@ private fun ThreeImages(urls: List<String>, onClick: (String) -> Unit) {
                 .weight(1f)
                 .fillMaxHeight()
                 .clip(RoundedCornerShape(6.dp))
-                .clickable { onClick(urls[0]) }
+                .combinedClickable(
+                    onClick = { onClick(urls[0]) },
+                    onLongClick = { onLongClick() }
+                )
         )
         Column(
             verticalArrangement = Arrangement.spacedBy(8.dp),
@@ -98,7 +122,10 @@ private fun ThreeImages(urls: List<String>, onClick: (String) -> Unit) {
                         .fillMaxSize()
                         .weight(1f)
                         .clip(RoundedCornerShape(6.dp))
-                        .clickable { onClick(url) }
+                        .combinedClickable(
+                            onClick = { onClick(url) },
+                            onLongClick = { onLongClick() }
+                        )
                 )
             }
         }
@@ -106,7 +133,11 @@ private fun ThreeImages(urls: List<String>, onClick: (String) -> Unit) {
 }
 
 @Composable
-private fun FourImages(urls: List<String>, onClick: (String) -> Unit) {
+private fun FourImages(
+    urls: List<String>,
+    onClick: (String) -> Unit,
+    onLongClick: () -> Unit
+) {
     Column(
         verticalArrangement = Arrangement.spacedBy(8.dp),
         modifier = Modifier.fillMaxSize()
@@ -128,7 +159,10 @@ private fun FourImages(urls: List<String>, onClick: (String) -> Unit) {
                             .weight(1f)
                             .fillMaxHeight()
                             .clip(RoundedCornerShape(6.dp))
-                            .clickable { onClick(urls[index]) }
+                            .combinedClickable(
+                                onClick = { onClick(urls[index]) },
+                                onLongClick = { onLongClick() }
+                            )
                     )
                 }
             }
@@ -137,7 +171,11 @@ private fun FourImages(urls: List<String>, onClick: (String) -> Unit) {
 }
 
 @Composable
-private fun MoreThanFourImages(urls: List<String>, onClick: (String) -> Unit) {
+private fun MoreThanFourImages(
+    urls: List<String>,
+    onClick: (String) -> Unit,
+    onLongClick: () -> Unit
+) {
     val firstFour = urls.take(4)
     val remaining = urls.size - 4
 
@@ -158,7 +196,10 @@ private fun MoreThanFourImages(urls: List<String>, onClick: (String) -> Unit) {
                         .weight(1f)
                         .fillMaxHeight()
                         .clip(RoundedCornerShape(6.dp))
-                        .clickable { onClick(urls[index]) }
+                        .combinedClickable(
+                            onClick = { onClick(urls[index]) },
+                            onLongClick = { onLongClick() }
+                        )
 
                     if (index == 3) {
                         Box(modifier = imageModifier) {
