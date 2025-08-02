@@ -10,9 +10,9 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.toRoute
 import com.chatnote.coreui.ui.theme.AppTheme
+import com.chatnote.imagepagerui.navigation.PagerNavigationRoute
 import com.chatnote.imagepagerui.screen.imagelist.ImageListScreen
 import com.chatnote.imagepagerui.screen.imagepreview.ImagePreviewScreen
-import com.chatnote.imagepagerui.navigation.PagerNavigationRoute
 import com.chatnote.imagepagerui.viewmodel.ImagePagerViewModel
 
 
@@ -54,7 +54,8 @@ fun ImagePagerNav(
         }
 
         composable<PagerNavigationRoute.ImagePreview> { navBackStackEntry ->
-            val selectedImage = navBackStackEntry.toRoute<PagerNavigationRoute.ImagePreview>().selectedImage
+            val selectedImage =
+                navBackStackEntry.toRoute<PagerNavigationRoute.ImagePreview>().selectedImage
             ImagePreviewScreen(
                 imageUrl = selectedImage,
                 onBackClick = { navController.popBackStack() }

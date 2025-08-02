@@ -1,6 +1,5 @@
 package com.chatnote.ui.folderlist
 
-import chatnote.homelistui.R
 import com.chatnote.common.analytics.AnalyticsTracker
 import com.chatnote.coredomain.mapper.Mapper
 import com.chatnote.coredomain.utils.AppPreferencesSync
@@ -27,6 +26,7 @@ import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.onStart
 import javax.inject.Inject
+import com.chatnote.content.R as CR
 
 
 class FolderListStatefulEventHandler @Inject constructor(
@@ -109,7 +109,7 @@ class FolderListStatefulEventHandler @Inject constructor(
         pinFolder(folderId = folderId).onSuccess {
             analyticsTracker.trackFolderPinned(folderId = folderId, isPinned = true)
         }.onFailure {
-            FolderListOneTimeEvent.FailedOperation(error = R.string.error_folder_pin)
+            FolderListOneTimeEvent.FailedOperation(error = CR.string.error_folder_pin)
         }
     }
 
@@ -117,7 +117,7 @@ class FolderListStatefulEventHandler @Inject constructor(
         unpinFolder(folderId = folderId).onSuccess {
             analyticsTracker.trackFolderPinned(folderId = folderId, isPinned = false)
         }.onFailure {
-            FolderListOneTimeEvent.FailedOperation(error = R.string.error_folder_unpin)
+            FolderListOneTimeEvent.FailedOperation(error = CR.string.error_folder_unpin)
         }
     }
 
@@ -171,7 +171,7 @@ class FolderListStatefulEventHandler @Inject constructor(
     }
 
     private fun handleLoadingError() {
-        FolderListOneTimeEvent.FailedOperation(error = R.string.error_failed_to_load_folders)
+        FolderListOneTimeEvent.FailedOperation(error = CR.string.error_failed_to_load_folders)
         updateUiState {
             isLoading = false
         }

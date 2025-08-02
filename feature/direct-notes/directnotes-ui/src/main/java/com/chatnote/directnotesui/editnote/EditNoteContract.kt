@@ -7,7 +7,7 @@ import com.chatnote.coreui.arch.UiEvent
 import com.chatnote.coreui.arch.UiOneTimeEvent
 import com.chatnote.directnotesdomain.model.Note
 import com.chatnote.navigation.NavigationRoute
-import chatnote.coreui.R as CR
+import com.chatnote.content.R as CR
 
 object EditNoteContract {
 

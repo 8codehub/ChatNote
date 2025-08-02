@@ -2,13 +2,13 @@ package com.chatnote.directnotesui.di
 
 import android.net.Uri
 import com.chatnote.coredomain.mapper.Mapper
+import com.chatnote.coredomain.models.NoteExtra
 import com.chatnote.coreui.model.SystemActionType
 import com.chatnote.coreui.util.DateFormatter
 import com.chatnote.directnotesdomain.model.Note
 import com.chatnote.directnotesdomain.model.NoteActionType
 import com.chatnote.directnotesdomain.model.NoteActionableContent
 import com.chatnote.directnotesdomain.model.NoteActionableItem
-import com.chatnote.coredomain.models.NoteExtra
 import com.chatnote.directnotesui.directnoteslist.mapper.ActionTypeToUiActionTypeMapper
 import com.chatnote.directnotesui.directnoteslist.mapper.ActionableContentToUiActionableContentMapper
 import com.chatnote.directnotesui.directnoteslist.mapper.ActionableItemToUiActionableItemMapper

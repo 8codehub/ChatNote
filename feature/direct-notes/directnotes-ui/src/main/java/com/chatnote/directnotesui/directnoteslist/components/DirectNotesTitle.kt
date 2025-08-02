@@ -14,9 +14,10 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import chatnote.directnotesui.R
 import com.chatnote.coreui.ui.component.CircularImage
 import com.chatnote.coreui.ui.component.StyledText
+import com.chatnote.content.R as CR
+
 
 @Composable
 fun DirectNotesTitle(
@@ -78,8 +79,8 @@ private fun DirectNotesTitleText(
 @Composable
 private fun getNotesCountText(notesCount: Int): String {
     return when (notesCount) {
-        0 -> stringResource(R.string.no_notes)
-        1 -> stringResource(R.string.one_note)
-        else -> stringResource(R.string.notes_count, notesCount)
+        0 -> stringResource(CR.string.no_notes)
+        1 -> stringResource(CR.string.one_note)
+        else -> stringResource(CR.string.notes_count, notesCount)
     }
 }

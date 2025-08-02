@@ -1,11 +1,11 @@
 package com.chatnote.imagepagerui
 
 import androidx.annotation.StringRes
-import chatnote.coreui.R
 import com.chatnote.coreui.arch.ConvertibleState
 import com.chatnote.coreui.arch.MutableConvertibleState
 import com.chatnote.coreui.arch.UiEvent
 import com.chatnote.coreui.arch.UiOneTimeEvent
+import com.chatnote.content.R as CR
 
 object ImagePagerContract {
 
@@ -13,7 +13,7 @@ object ImagePagerContract {
     data class ImagePagerState(
         val images: List<String> = emptyList(),
         override val isLoading: Boolean = false,
-        @StringRes override val generalError: Int = R.string.general_error
+        @StringRes override val generalError: Int = CR.string.general_error
     ) : ConvertibleState<ImagePagerState, MutableImagePagerState> {
         override fun toMutable(): MutableImagePagerState {
             return MutableImagePagerState(
@@ -29,7 +29,7 @@ object ImagePagerContract {
     class MutableImagePagerState(
         var images: List<String> = emptyList(),
         override var isLoading: Boolean = false,
-        @StringRes override var generalError: Int = chatnote.coreui.R.string.general_error
+        @StringRes override var generalError: Int = CR.string.general_error
     ) : MutableConvertibleState<ImagePagerState> {
         override fun toImmutable(): ImagePagerState {
             return ImagePagerState(

@@ -6,13 +6,13 @@ import com.chatnote.coredata.di.db.NoteWithExtras
 import com.chatnote.coredata.di.model.NoteEntity
 import com.chatnote.coredata.di.model.NoteExtraEntity
 import com.chatnote.coredomain.facade.NotesRepositoryFacade
-import com.chatnote.coredomain.mapper.Mapper
 import com.chatnote.coredomain.manager.FileManager
+import com.chatnote.coredomain.mapper.Mapper
+import com.chatnote.coredomain.models.NoteExtra
 import com.chatnote.data.repository.NotesRepositoryImpl
 import com.chatnote.data.repository.NotesStreamRepositoryImpl
 import com.chatnote.data.repository.facade.FolderNotesFacadeImpl
 import com.chatnote.directnotesdomain.model.Note
-import com.chatnote.coredomain.models.NoteExtra
 import com.chatnote.directnotesdomain.repository.NotesRepository
 import com.chatnote.directnotesdomain.repository.NotesStreamRepository
 import dagger.Module

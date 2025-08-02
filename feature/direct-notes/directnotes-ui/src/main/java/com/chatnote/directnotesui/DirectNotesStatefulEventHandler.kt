@@ -1,7 +1,6 @@
 package com.chatnote.directnotesui
 
 import android.net.Uri
-import chatnote.directnotesui.R
 import com.chatnote.common.analytics.AnalyticsTracker
 import com.chatnote.coredomain.mapper.Mapper
 import com.chatnote.coredomain.models.FolderBaseInfo
@@ -32,6 +31,8 @@ import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
+import com.chatnote.content.R as CR
+
 
 class DirectNotesStatefulEventHandler @Inject constructor(
     private val observeNotes: GetNotesUseCase,
@@ -154,7 +155,7 @@ class DirectNotesStatefulEventHandler @Inject constructor(
                 this.emptyNotes = notes.isEmpty()
             }
         }.catch {
-            DirectNotesOneTimeEvent.FailedOperation(R.string.error_failed_to_load_notes)
+            DirectNotesOneTimeEvent.FailedOperation(CR.string.error_failed_to_load_notes)
                 .processOneTimeEvent()
         }.collect()
     }
@@ -172,7 +173,7 @@ class DirectNotesStatefulEventHandler @Inject constructor(
     }
 
     private suspend fun handleFolderNotFound() {
-        DirectNotesOneTimeEvent.FailedOperation(R.string.error_failed_to_load_note)
+        DirectNotesOneTimeEvent.FailedOperation(CR.string.error_failed_to_load_note)
             .processOneTimeEvent()
     }
 

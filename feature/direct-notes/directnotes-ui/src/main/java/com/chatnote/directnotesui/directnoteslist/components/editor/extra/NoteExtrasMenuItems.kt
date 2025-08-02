@@ -23,6 +23,8 @@ import com.chatnote.coreui.ui.component.CircularImage
 import com.chatnote.coreui.ui.component.StyledText
 import com.chatnote.directnotesui.model.UiEditorInputAction
 import com.chatnote.imagepicker.ui.R
+import com.chatnote.content.R as CR
+
 
 @Composable
 fun NoteExtrasMenuItems(
@@ -54,7 +56,7 @@ internal fun NoteExtraImageButton(modifier: Modifier = Modifier, onClick: () -> 
             borderWidth = 0.dp,
             iconPadding = 8.dp,
             backgroundColor = MaterialTheme.colorScheme.primary,
-            contentDescription = stringResource(R.string.image),
+            contentDescription = stringResource(CR.string.image),
             drawableRes = R.drawable.ic_galery,
             contentScale = ContentScale.Fit,
         )
@@ -63,7 +65,7 @@ internal fun NoteExtraImageButton(modifier: Modifier = Modifier, onClick: () -> 
 
         StyledText(
             modifier = Modifier.wrapContentSize(),
-            text = stringResource(R.string.image),
+            text = stringResource(CR.string.image),
             fontSize = 14.sp,
             lineHeight = 14.sp,
             maxLines = 2,

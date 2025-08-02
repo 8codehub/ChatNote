@@ -54,7 +54,7 @@ fun ZoomableImage(
                             offsetX.snapTo(offsetX.value + pan.x)
                             offsetY.snapTo(offsetY.value + pan.y)
                         }
-                    }else{
+                    } else {
 
                     }
                 }

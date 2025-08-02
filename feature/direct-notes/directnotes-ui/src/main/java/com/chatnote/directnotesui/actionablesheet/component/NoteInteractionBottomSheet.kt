@@ -30,6 +30,8 @@ import com.chatnote.coreui.ui.decorations.AppHorizontalDivider
 import com.chatnote.directnotesui.model.UiNoteActionableContent
 import com.chatnote.directnotesui.model.UiNoteInteraction
 import com.chatnote.directnotesui.model.getActionStringResId
+import com.chatnote.content.R as CR
+
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -52,7 +54,7 @@ fun NoteInteractionBottomSheet(
             ActionableItemRow(
                 modifier = Modifier
                     .fillMaxWidth(),
-                text = stringResource(R.string.copy_entire_message),
+                text = stringResource(CR.string.copy_entire_message),
                 onContentClick = {
                     handleAction(
                         UiNoteInteraction.Copy(content = uiNoteActionableContent.fullContent)
@@ -63,7 +65,7 @@ fun NoteInteractionBottomSheet(
             ActionableItemRow(
                 modifier = Modifier
                     .fillMaxWidth(),
-                text = stringResource(R.string.action_edit),
+                text = stringResource(CR.string.action_edit),
                 onContentClick = {
                     onDismiss()
                     handleAction(
@@ -75,7 +77,7 @@ fun NoteInteractionBottomSheet(
             ActionableItemRow(
                 modifier = Modifier
                     .fillMaxWidth(),
-                text = stringResource(R.string.share),
+                text = stringResource(CR.string.share),
                 onContentClick = {
                     handleAction(
                         UiNoteInteraction.Share(content = uiNoteActionableContent.fullContent),
@@ -86,7 +88,7 @@ fun NoteInteractionBottomSheet(
             ActionableItemRow(
                 modifier = Modifier
                     .fillMaxWidth(),
-                text = stringResource(R.string.delete),
+                text = stringResource(CR.string.delete),
                 color = MaterialTheme.colorScheme.error,
                 onContentClick = {
                     handleAction(

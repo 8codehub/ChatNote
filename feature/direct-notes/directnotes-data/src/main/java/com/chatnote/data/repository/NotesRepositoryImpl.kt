@@ -6,10 +6,10 @@ import com.chatnote.coredata.di.model.NoteEntity
 import com.chatnote.coredata.di.model.NoteExtraEntity
 import com.chatnote.coredomain.manager.FileManager
 import com.chatnote.coredomain.mapper.Mapper
+import com.chatnote.coredomain.models.NoteExtra
 import com.chatnote.coredomain.utils.ResultError
 import com.chatnote.coredomain.utils.throwAsAppException
 import com.chatnote.directnotesdomain.model.Note
-import com.chatnote.coredomain.models.NoteExtra
 import com.chatnote.directnotesdomain.repository.NotesRepository
 import javax.inject.Inject
 

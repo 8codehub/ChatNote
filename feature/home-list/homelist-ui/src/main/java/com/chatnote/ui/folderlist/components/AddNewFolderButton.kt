@@ -33,6 +33,8 @@ import com.chatnote.coreui.ui.component.CircularImage
 import com.chatnote.coreui.ui.component.StyledText
 import com.chatnote.navigation.NavigationRoute
 import kotlinx.coroutines.delay
+import com.chatnote.content.R as CR
+
 
 @Composable
 fun AddNewFolderButton(
@@ -40,9 +42,9 @@ fun AddNewFolderButton(
     navigateTo: (NavigationRoute) -> Unit = {}
 ) {
     val hints = listOf(
-        stringResource(R.string.hint_1),
-        stringResource(R.string.hint_2),
-        stringResource(R.string.hint_3)
+        stringResource(CR.string.hint_1),
+        stringResource(CR.string.hint_2),
+        stringResource(CR.string.hint_3)
     )
 
     var currentHintIndex by remember { mutableIntStateOf(0) }
@@ -65,8 +67,10 @@ fun AddNewFolderButton(
     ) {
 
         CircularImage(
-            contentDescription = stringResource(R.string.new_folder),
-            modifier = Modifier.padding(vertical = 8.dp).padding(start = 4.dp),
+            contentDescription = stringResource(CR.string.new_folder),
+            modifier = Modifier
+                .padding(vertical = 8.dp)
+                .padding(start = 4.dp),
             drawableRes = R.drawable.ic_plus,
             backgroundColor = MaterialTheme.colorScheme.onSecondary,
             imageColorFilter = ColorFilter.tint(MaterialTheme.colorScheme.onBackground),
@@ -79,7 +83,7 @@ fun AddNewFolderButton(
 
         Column(modifier = Modifier) {
             StyledText(
-                text = stringResource(R.string.new_folder),
+                text = stringResource(CR.string.new_folder),
                 fontWeight = FontWeight.Medium,
                 fontSize = 16.sp,
                 maxLines = 1,

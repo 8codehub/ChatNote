@@ -19,9 +19,10 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.core.app.ActivityCompat
-import chatnote.coreui.R
 import com.chatnote.coreui.ui.decorations.getAnnotatedString
 import com.chatnote.coreui.ui.dialog.AppAlertDialog
+import com.chatnote.content.R as CR
+
 
 @Composable
 fun permissionRequestLauncher(
@@ -71,8 +72,8 @@ fun permissionRequestLauncher(
             showDialog = true,
             title = rationaleTitle,
             message = rationaleMessage,
-            confirmButtonText = R.string.allow,
-            dismissButtonText = R.string.cancel,
+            confirmButtonText = CR.string.allow,
+            dismissButtonText = CR.string.cancel,
             onDismissRequest = { showPrePermissionDialog = false },
             onConfirm = {
                 showPrePermissionDialog = false
@@ -83,7 +84,7 @@ fun permissionRequestLauncher(
 
     // Step 2: Show permanently denied dialog
     val permanentlyDeniedPermission = getAnnotatedString(
-        baseStringRes = R.string.permission_required_title,
+        baseStringRes = CR.string.permission_required_title,
         valueToAnnotate = type.name,
         annotatedValueColor = MaterialTheme.colorScheme.primary,
         annotatedValueFontWeight = FontWeight.Bold
@@ -93,8 +94,8 @@ fun permissionRequestLauncher(
         AppAlertDialog(
             showDialog = true,
             message = "You’ve permanently denied the ${type.name.lowercase()} permission. Open settings to grant it manually.",
-            confirmButtonText = R.string.open_settings,
-            dismissButtonText = R.string.cancel,
+            confirmButtonText = CR.string.open_settings,
+            dismissButtonText = CR.string.cancel,
             onDismissRequest = { showPermanentlyDeniedDialog = false },
             onConfirm = {
                 showPermanentlyDeniedDialog = false

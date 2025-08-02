@@ -27,6 +27,8 @@ import com.chatnote.coreui.ui.component.CircularImage
 import com.chatnote.coreui.ui.component.StyledText
 import com.chatnote.coreui.ui.theme.AppTheme
 import com.chatnote.imagepicker.ui.R
+import com.chatnote.content.R as CR
+
 
 @Composable
 internal fun CameraButton(modifier: Modifier = Modifier, onClick: () -> Unit) {
@@ -40,14 +42,14 @@ internal fun CameraButton(modifier: Modifier = Modifier, onClick: () -> Unit) {
             modifier = Modifier.size(24.dp),
             model = R.drawable.ic_camera,
             contentScale = ContentScale.Fit,
-            contentDescription = stringResource(R.string.camera)
+            contentDescription = stringResource(CR.string.camera)
         )
 
         Spacer(modifier = Modifier.height(8.dp))
 
         StyledText(
             modifier = Modifier.wrapContentSize(),
-            text = stringResource(R.string.camera),
+            text = stringResource(CR.string.camera),
             fontSize = 14.sp,
             lineHeight = 14.sp,
             maxLines = 2,
@@ -70,7 +72,7 @@ internal fun GalleryButton(modifier: Modifier = Modifier, onClick: () -> Unit) {
             borderWidth = 0.dp,
             iconPadding = 8.dp,
             backgroundColor = MaterialTheme.colorScheme.primary,
-            contentDescription = stringResource(R.string.image),
+            contentDescription = stringResource(CR.string.image),
             drawableRes = R.drawable.ic_galery,
             contentScale = ContentScale.Fit,
         )
@@ -79,7 +81,7 @@ internal fun GalleryButton(modifier: Modifier = Modifier, onClick: () -> Unit) {
 
         StyledText(
             modifier = Modifier.wrapContentSize(),
-            text = stringResource(R.string.image),
+            text = stringResource(CR.string.image),
             fontSize = 14.sp,
             lineHeight = 14.sp,
             maxLines = 2,

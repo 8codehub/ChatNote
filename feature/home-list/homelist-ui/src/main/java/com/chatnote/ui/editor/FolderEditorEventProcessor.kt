@@ -1,7 +1,6 @@
 package com.chatnote.ui.editor
 
 import androidx.annotation.StringRes
-import chatnote.homelistui.R
 import com.chatnote.common.analytics.AnalyticsTracker
 import com.chatnote.coredomain.mapper.Mapper
 import com.chatnote.coreui.arch.StatefulEventHandler
@@ -15,6 +14,7 @@ import com.chatnote.ui.editor.FolderEditorContract.FolderEditorState
 import com.chatnote.ui.editor.FolderEditorContract.MutableFolderEditorState
 import com.chatnote.ui.provider.ImageUrlProvider
 import javax.inject.Inject
+import com.chatnote.content.R as CR
 
 
 class FolderEditorStatefulEventHandler @Inject constructor(
@@ -103,8 +103,8 @@ class FolderEditorStatefulEventHandler @Inject constructor(
 
         analyticsTracker.trackFolderEditOpened(isEditMode = isEditMode)
         updateUiState {
-            title = if (isEditMode) (R.string.edit_details) else {
-                R.string.new_folder
+            title = if (isEditMode) (CR.string.edit_details) else {
+                CR.string.new_folder
             }
             isLoading = true
         }

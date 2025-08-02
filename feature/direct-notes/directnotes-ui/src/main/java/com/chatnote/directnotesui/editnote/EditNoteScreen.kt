@@ -23,8 +23,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import chatnote.coreui.R.string
-import chatnote.directnotesui.R
 import com.chatnote.coreui.ui.appbar.ContentDrivenTopBar
 import com.chatnote.coreui.ui.component.LabeledInputText
 import com.chatnote.coreui.ui.component.StyledText
@@ -35,6 +33,8 @@ import com.chatnote.directnotesui.editnote.EditNoteContract.EditNoteOneTimeEvent
 import com.chatnote.directnotesui.editnote.EditNoteContract.EditNoteOneTimeEvent.NoteUpdated
 import com.chatnote.navigation.NavigationRoute
 import kotlinx.coroutines.flow.collectLatest
+import com.chatnote.content.R as CR
+
 
 @Composable
 fun EditNoteScreen(
@@ -82,7 +82,7 @@ fun EditNoteScreen(
                             .clickable {
                                 onCancel()
                             },
-                        text = stringResource(R.string.cancel),
+                        text = stringResource(CR.string.cancel),
                         fontSize = 16.sp,
                         maxLines = 1,
                         fontWeight = FontWeight.W400,
@@ -92,7 +92,7 @@ fun EditNoteScreen(
                 },
                 centerContent = {
                     StyledText(
-                        text = stringResource(R.string.action_edit),
+                        text = stringResource(CR.string.action_edit),
                         fontSize = 16.sp,
                         maxLines = 1,
                         fontWeight = FontWeight.W500,
@@ -110,7 +110,7 @@ fun EditNoteScreen(
                                     viewModel.update(note)
                                 }
                             },
-                        text = stringResource(string.action_save),
+                        text = stringResource(CR.string.action_save),
                         fontSize = 16.sp,
                         maxLines = 1,
                         fontWeight = FontWeight.W400,
@@ -132,7 +132,7 @@ fun EditNoteScreen(
             LabeledInputText(
                 modifier = Modifier
                     .padding(horizontal = 12.dp),
-                hint = stringResource(string.action_aa),
+                hint = stringResource(CR.string.action_aa),
                 singleLine = false,
                 text = currentNote?.content.orEmpty(),
                 inputError = state.inputError,

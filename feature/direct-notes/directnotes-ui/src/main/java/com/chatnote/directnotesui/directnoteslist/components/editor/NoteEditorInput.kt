@@ -42,13 +42,13 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import chatnote.directnotesui.R
-import com.chatnote.coreui.ui.component.CircularImage
 import com.chatnote.coreui.ui.component.StyledText
 import com.chatnote.coreui.ui.theme.PoppinsFontFamily
 import com.chatnote.directnotesui.directnoteslist.DirectNotesContract
 import com.chatnote.directnotesui.directnoteslist.components.editor.extra.NoteExtrasMenuItems
 import com.chatnote.directnotesui.directnoteslist.components.editor.extra.SelectedNoteExtraItems
 import com.chatnote.directnotesui.model.UiEditorInputAction
+import com.chatnote.content.R as CR
 
 @Composable
 fun NoteEditorInput(
@@ -86,7 +86,7 @@ fun NoteEditorInput(
             IconButton(onClick = { showExtraMenu = !showExtraMenu }) {
                 Icon(
                     imageVector = if (showExtraMenu) Icons.Default.KeyboardArrowDown else Icons.Default.KeyboardArrowUp,
-                   tint = MaterialTheme.colorScheme.onBackground,
+                    tint = MaterialTheme.colorScheme.onBackground,
                     contentDescription = "Toggle menu"
                 )
             }
@@ -121,7 +121,7 @@ fun NoteEditorInput(
                         if (newNote.text.isEmpty()) {
                             StyledText(
                                 textAlign = TextAlign.Start,
-                                text = stringResource(chatnote.coreui.R.string.action_aa),
+                                text = stringResource(CR.string.action_aa),
                                 color = MaterialTheme.colorScheme.onSurface
                             )
                         }
@@ -134,12 +134,15 @@ fun NoteEditorInput(
 
             // Send button
             Image(
-                imageVector =  ImageVector.vectorResource(R.drawable.ic_send),
-                modifier = Modifier.size(24.dp).padding(end = 4.dp).clickable {
-                    onUiEditorInputAction(UiEditorInputAction.SaveNewNote(content = newNote.text))
-                    newNote = TextFieldValue("")
-                },
-                contentDescription = stringResource(R.string.action_create_note),
+                imageVector = ImageVector.vectorResource(R.drawable.ic_send),
+                modifier = Modifier
+                    .size(24.dp)
+                    .padding(end = 4.dp)
+                    .clickable {
+                        onUiEditorInputAction(UiEditorInputAction.SaveNewNote(content = newNote.text))
+                        newNote = TextFieldValue("")
+                    },
+                contentDescription = stringResource(CR.string.action_create_note),
             )
         }
 

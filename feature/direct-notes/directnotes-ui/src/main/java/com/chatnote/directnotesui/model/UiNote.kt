@@ -2,7 +2,6 @@ package com.chatnote.directnotesui.model
 
 import androidx.compose.runtime.Stable
 import com.chatnote.coreui.model.TimeTag
-import java.util.Calendar
 
 @Stable
 data class UiNote(

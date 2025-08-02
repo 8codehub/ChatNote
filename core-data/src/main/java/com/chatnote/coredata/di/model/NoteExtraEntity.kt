@@ -5,7 +5,6 @@ import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.Index
 import androidx.room.PrimaryKey
-import com.chatnote.coredomain.models.NoteExtraType
 
 @Entity(
     tableName = "note_extras",
@@ -32,6 +31,7 @@ enum class NoteEntityExtraType(val id: Int, val typeName: String) {
     companion object {
         fun fromId(id: Int): NoteEntityExtraType? = entries.find { it.id == id }
 
-        fun fromName(name: String): NoteEntityExtraType? = entries.find { it.name.equals(name, ignoreCase = true) }
+        fun fromName(name: String): NoteEntityExtraType? =
+            entries.find { it.name.equals(name, ignoreCase = true) }
     }
 }

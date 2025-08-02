@@ -30,6 +30,8 @@ import com.chatnote.coreui.ui.component.CircularImage
 import com.chatnote.coreui.ui.component.StyledText
 import com.chatnote.ui.model.UiFolder
 import com.chatnote.ui.model.UiNoteExtra
+import com.chatnote.content.R as CR
+
 
 @Composable
 fun FolderCard(
@@ -78,7 +80,7 @@ fun FolderCard(
                     StyledText(
                         modifier = Modifier.weight(1f, fill = false),
                         text = folder.lastNote.ifEmpty {
-                            stringResource(R.string.empty_folder_hint)
+                            stringResource(CR.string.empty_folder_hint)
                         },
                         fontWeight = FontWeight.Medium,
                         fontSize = 14.sp,
@@ -142,7 +144,7 @@ fun FolderCard(
 
         if (folder.isPinned) {
             CircularImage(
-                contentDescription = stringResource(R.string.pinned_folder),
+                contentDescription = stringResource(CR.string.pinned_folder),
                 modifier = Modifier.rotate(45f),
                 iconSize = 18.dp,
                 drawableRes = R.drawable.ic_pin,

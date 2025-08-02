@@ -6,7 +6,7 @@ import com.chatnote.coreui.arch.MutableConvertibleState
 import com.chatnote.coreui.arch.UiEvent
 import com.chatnote.coreui.arch.UiOneTimeEvent
 import com.chatnote.navigation.NavigationRoute
-import chatnote.coreui.R as CR
+import com.chatnote.content.R as CR
 
 object FolderEditorContract {
 

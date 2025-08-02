@@ -53,6 +53,7 @@ dependencies {
 
     implementation(project(":core-domain"))
     api(project(":common"))
+    api(project(":content"))
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

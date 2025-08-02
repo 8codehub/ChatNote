@@ -28,7 +28,6 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -39,7 +38,6 @@ import com.chatnote.coreui.ui.component.StyledText
 import com.chatnote.coreui.util.PermissionType
 import com.chatnote.coreui.util.permissionRequestLauncher
 import com.chatnote.imagepicker.ui.ImagePickerContract
-import com.chatnote.imagepicker.ui.R
 import com.chatnote.imagepicker.ui.components.CameraButton
 import com.chatnote.imagepicker.ui.components.GalleryButton
 import com.chatnote.imagepicker.ui.components.RoundedAsyncImage
@@ -48,6 +46,7 @@ import com.chatnote.imagepicker.ui.viewmodel.BaseImagePickerViewModel
 import com.chatnote.imagepicker.ui.viewmodel.MultiAttachImagePickerViewModel
 import com.chatnote.imagepicker.ui.viewmodel.SingleAttachImagePickerViewModel
 import kotlinx.coroutines.flow.collectLatest
+import com.chatnote.content.R as CR
 
 
 @Composable
@@ -217,12 +216,16 @@ private fun AttachImageBottomSheet(
                     onImagesPicked(uiState.allImages.filter { it.isSelected }.map { it.uri })
                     onDismiss()
                 },
-                colors = ButtonDefaults.buttonColors(disabledContainerColor = MaterialTheme.colorScheme.primary.copy(alpha = 0.5f),),
+                colors = ButtonDefaults.buttonColors(
+                    disabledContainerColor = MaterialTheme.colorScheme.primary.copy(
+                        alpha = 0.5f
+                    ),
+                ),
                 modifier = Modifier.fillMaxWidth(),
                 shape = RoundedCornerShape(8.dp)
             ) {
                 StyledText(
-                    text = stringResource(R.string.attach),
+                    text = stringResource(CR.string.attach),
                     modifier = Modifier.padding(vertical = 8.dp),
                     color = MaterialTheme.colorScheme.onPrimary,
                     fontWeight = FontWeight.W500,

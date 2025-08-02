@@ -30,7 +30,6 @@ import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import chatnote.directnotesui.R
 import com.chatnote.coreui.ui.decorations.showToast
 import com.chatnote.coreui.ui.dialog.AppAlertDialog
 import com.chatnote.directnotesui.actionablesheet.component.NoteInteractionBottomSheet
@@ -50,6 +49,8 @@ import com.chatnote.directnotesui.directnoteslist.components.editor.NoteEditorIn
 import com.chatnote.imagepicker.ui.screen.AttachMultiImageBottomSheet
 import com.chatnote.navigation.NavigationRoute
 import kotlinx.coroutines.flow.collectLatest
+import com.chatnote.content.R as CR
+
 
 @Composable
 fun DirectNotesScreen(
@@ -68,7 +69,7 @@ fun DirectNotesScreen(
             when (event) {
                 is FailedOperation -> showToast(
                     context = context, context.getString(
-                        chatnote.coreui.R.string.general_error
+                        CR.string.general_error
                     )
                 )
 
@@ -103,10 +104,10 @@ fun DirectNotesScreen(
     AppAlertDialog(
         showDialog = selectedNoteToDelete != null,
         onDismissRequest = { selectedNoteToDelete = null },
-        title = stringResource(R.string.delete_note),
-        message = stringResource(R.string.delete_note_message),
-        confirmButtonText = R.string.delete,
-        dismissButtonText = R.string.cancel,
+        title = stringResource(CR.string.delete_note),
+        message = stringResource(CR.string.delete_note_message),
+        confirmButtonText = CR.string.delete,
+        dismissButtonText = CR.string.cancel,
         onConfirm = {
             viewModel.deleteSelectedNote(noteId = selectedNoteToDelete ?: 0)
             selectedNoteToDelete = null
@@ -220,7 +221,7 @@ fun DirectNotesTopAppBar(
                 Icon(
                     imageVector = ImageVector.vectorResource(chatnote.coreui.R.drawable.ic_back),
                     tint = MaterialTheme.colorScheme.onBackground,
-                    contentDescription = stringResource(R.string.action_navigate_to_home_screen)
+                    contentDescription = stringResource(CR.string.action_navigate_to_home_screen)
                 )
             }
         },

@@ -28,7 +28,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import chatnote.homelistui.R
 import com.chatnote.coreui.extention.launchInAppReview
 import com.chatnote.coreui.ui.component.LoadingComponent
 import com.chatnote.coreui.ui.component.StyledText
@@ -48,6 +47,7 @@ import com.chatnote.ui.folderlist.components.FolderActionItems
 import com.chatnote.ui.folderlist.components.FolderCard
 import com.chatnote.ui.model.UiFolder
 import kotlinx.coroutines.flow.collectLatest
+import com.chatnote.content.R as CR
 
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -65,7 +65,7 @@ fun FolderListScreen(
 
     var swipeState by remember { mutableStateOf(SwappableItemState.Default) }
     val deleteFolderTitle = getAnnotatedString(
-        baseStringRes = R.string.delete_folder_title,
+        baseStringRes = CR.string.delete_folder_title,
         valueToAnnotate = selectedFolderForDeletion?.name,
         annotatedValueColor = MaterialTheme.colorScheme.primary,
         annotatedValueFontWeight = FontWeight.Bold
@@ -117,9 +117,9 @@ fun FolderListScreen(
         showDialog = !selectedFolderForDeletion?.name.isNullOrEmpty(),
         onDismissRequest = { selectedFolderForDeletion = null },
         annotatedTitle = deleteFolderTitle,
-        message = stringResource(R.string.delete_folder_msg),
-        confirmButtonText = R.string.delete,
-        dismissButtonText = R.string.cancel,
+        message = stringResource(CR.string.delete_folder_msg),
+        confirmButtonText = CR.string.delete,
+        dismissButtonText = CR.string.cancel,
         onConfirm = {
             viewModel.deleteFolder(folderId = selectedFolderForDeletion?.id)
         },
@@ -135,7 +135,7 @@ fun FolderListScreen(
                     state.foldersCount?.let {
                         StyledText(
                             color = MaterialTheme.colorScheme.onBackground,
-                            text = stringResource(R.string.folders_count, "$it"),
+                            text = stringResource(CR.string.folders_count, "$it"),
                             fontSize = 26.sp,
                             fontWeight = FontWeight.W700,
                         )
@@ -218,16 +218,17 @@ fun FolderListScreen(
 private fun onFolderDeletedOneTimeEvent(context: Context, messagesCount: Int) {
     when (messagesCount) {
         0 -> showToast(
-            context = context, message = context.getString(R.string.deleted_folder_with_no_message)
+            context = context, message = context.getString(CR.string.deleted_folder_with_no_message)
         )
 
         1 -> showToast(
-            context = context, message = context.getString(R.string.deleted_folder_message_singular)
+            context = context,
+            message = context.getString(CR.string.deleted_folder_message_singular)
         )
 
         else -> showToast(
             context = context,
-            message = context.getString(R.string.deleted_folder_message_plural, "$messagesCount")
+            message = context.getString(CR.string.deleted_folder_message_plural, "$messagesCount")
         )
     }
 

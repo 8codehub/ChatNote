@@ -10,7 +10,7 @@ import com.chatnote.domain.model.DefaultFolder
 import com.chatnote.domain.model.Onboarding
 import com.chatnote.ui.model.UiFolder
 import com.google.android.play.core.review.ReviewManager
-import chatnote.coreui.R as CR
+import com.chatnote.content.R as CR
 
 object FolderListContract {
 

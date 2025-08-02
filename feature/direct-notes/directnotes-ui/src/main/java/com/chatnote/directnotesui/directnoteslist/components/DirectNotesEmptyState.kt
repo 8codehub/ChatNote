@@ -13,9 +13,10 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import chatnote.directnotesui.R
 import com.chatnote.coreui.ui.component.CircularImage
 import com.chatnote.coreui.ui.component.StyledText
+import com.chatnote.content.R as CR
+
 
 @Composable
 fun DirectNotesEmptyState(
@@ -47,7 +48,7 @@ fun DirectNotesEmptyState(
             modifier = Modifier
                 .wrapContentHeight()
                 .padding(top = 2.dp),
-            text = stringResource(R.string.empty_notes_message),
+            text = stringResource(CR.string.empty_notes_message),
             fontSize = 14.sp,
             maxLines = 4,
             textAlign = TextAlign.Center,

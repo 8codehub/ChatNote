@@ -41,6 +41,8 @@ import com.chatnote.ui.editor.FolderEditorContract.FolderEditorOneTimeEvent.Navi
 import com.chatnote.ui.editor.FolderEditorContract.FolderEditorOneTimeEvent.ShowToast
 import com.chatnote.ui.editor.component.IconItem
 import kotlinx.coroutines.flow.collectLatest
+import com.chatnote.content.R as CR
+
 
 @Composable
 fun FolderEditorScreen(
@@ -92,7 +94,7 @@ fun FolderEditorScreen(
                             .clickable {
                                 onCancel()
                             },
-                        text = stringResource(R.string.cancel),
+                        text = stringResource(CR.string.cancel),
                         fontSize = 16.sp,
                         maxLines = 1,
                         fontWeight = FontWeight.W400,
@@ -122,7 +124,7 @@ fun FolderEditorScreen(
                                     selectedIconUri = selectedIconUri
                                 )
                             },
-                        text = stringResource(R.string.done),
+                        text = stringResource(CR.string.done),
                         fontSize = 16.sp,
                         maxLines = 1,
                         fontWeight = FontWeight.W400,
@@ -153,8 +155,8 @@ fun FolderEditorScreen(
 
             LabeledInputText(
                 modifier = Modifier.padding(horizontal = 12.dp),
-                hint = stringResource(R.string.random),
-                label = stringResource(R.string.name),
+                hint = stringResource(CR.string.random),
+                label = stringResource(CR.string.name),
                 clearTextIcon = R.drawable.ic_clear,
                 text = localFolderName,
                 inputError = state.inputError,

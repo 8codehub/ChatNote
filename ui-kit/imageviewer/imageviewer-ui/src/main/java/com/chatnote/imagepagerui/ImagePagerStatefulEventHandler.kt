@@ -12,7 +12,8 @@ import javax.inject.Inject
 
 class ImagePagerStatefulEventHandler @Inject constructor(
     private val analyticsTracker: AnalyticsTracker,
-    private val mapperResultErrorToErrorId: Mapper<Throwable?, Int>) :
+    private val mapperResultErrorToErrorId: Mapper<Throwable?, Int>
+) :
     StatefulEventHandler<ImagePagerEvent, ImagePagerOneTimeEvent, ImagePagerState, MutableImagePagerState>(
         ImagePagerState()
     ) {

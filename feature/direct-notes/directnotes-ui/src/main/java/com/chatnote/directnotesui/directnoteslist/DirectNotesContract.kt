@@ -12,7 +12,7 @@ import com.chatnote.directnotesui.model.UiNoteActionableContent
 import com.chatnote.directnotesui.model.UiNoteExtra
 import com.chatnote.directnotesui.model.UiNoteInteraction
 import com.chatnote.navigation.NavigationRoute
-import chatnote.coreui.R as CR
+import com.chatnote.content.R as CR
 
 object DirectNotesContract {
 
@@ -54,7 +54,7 @@ object DirectNotesContract {
         var emptyNotes: Boolean? = null,
         var noteExtrasState: NoteExtrasState = NoteExtrasState(),
         override var isLoading: Boolean = false,
-        @StringRes override var generalError: Int = chatnote.coreui.R.string.general_error
+        @StringRes override var generalError: Int = CR.string.general_error
     ) : MutableConvertibleState<DirectNotesState> {
         override fun toImmutable(): DirectNotesState {
             return DirectNotesState(
