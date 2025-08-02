@@ -36,7 +36,8 @@ foundationLayoutAndroid = "1.7.6"  # Add the version for hilt-navigation-compose
 navigationCompose = "2.8.5"
 room = "2.6.1"
 materialVersion = "1.12.0"
-firebaseMessagingKtx = "24.1.1" # Use the latest version as needed
+firebaseMessagingKtx = "24.1.1"
+foundationAndroid = "1.7.8" # Use the latest version as needed
 
 
 
@@ -92,6 +93,7 @@ material = { group = "com.google.android.material", name = "material", version.r
 firebase-messaging-ktx = { group = "com.google.firebase", name = "firebase-messaging-ktx", version.ref = "firebaseMessagingKtx" }
 ui-tooling = { module = "androidx.compose.ui:ui-tooling", version.ref = "uiTooling" }
 ui-tooling-preview = { module = "androidx.compose.ui:ui-tooling-preview", version.ref = "uiToolingPreview" }
+androidx-foundation-android = { group = "androidx.compose.foundation", name = "foundation-android", version.ref = "foundationAndroid" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

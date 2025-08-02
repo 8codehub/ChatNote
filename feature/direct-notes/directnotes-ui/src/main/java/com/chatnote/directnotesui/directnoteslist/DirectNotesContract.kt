@@ -76,6 +76,9 @@ object DirectNotesContract {
         data class LoadAllNotes(val folderId: Long) : DirectNotesEvent()
         data class NoteLongClick(val note: UiNote) : DirectNotesEvent()
         data class ImageSelected(val uris: List<Uri>) : DirectNotesEvent()
+        data class OpenImageInPager(val image: String, val images: List<String>) :
+            DirectNotesEvent()
+
         data class NoteActionClick(val interaction: UiNoteInteraction) : DirectNotesEvent()
         data class EditorInputActionClick(val interaction: UiEditorInputAction) : DirectNotesEvent()
         data class DeleteSelectedNote(val noteId: Long) : DirectNotesEvent()
@@ -93,6 +96,8 @@ object DirectNotesContract {
         ) : DirectNotesOneTimeEvent()
 
         data class DeleteNote(val noteId: Long) : DirectNotesOneTimeEvent()
+        data class OpenImagePager(val selectedImage: String?, val images: List<String>) :
+            DirectNotesOneTimeEvent()
 
         data class EditNote(val noteId: Long) : DirectNotesOneTimeEvent()
         data object OpenImageChooser : DirectNotesOneTimeEvent()

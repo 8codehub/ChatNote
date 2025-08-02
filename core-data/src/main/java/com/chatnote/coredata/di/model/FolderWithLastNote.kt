@@ -21,5 +21,5 @@ data class FolderWithLastNote(
         parentColumn = "note_last_id",
         entityColumn = "note_id"
     )
-    val extras: List<NoteExtraEntity> = emptyList()
+    val extras: List<NoteExtraEntity>? = emptyList()
 )

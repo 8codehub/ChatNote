@@ -26,8 +26,9 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.chatnote.coreui.model.TimeTag
 import com.chatnote.coreui.ui.component.StyledText
-import com.chatnote.directnotesui.model.NoteTimeTag
+import com.chatnote.coreui.ui.component.UITimeTag
 import com.chatnote.directnotesui.model.UiNote
 
 @Composable
@@ -35,6 +36,7 @@ fun NoteItem(
     isFirstItem: Boolean,
     note: UiNote,
     onLongClick: (UiNote) -> Unit = { },
+    onImageClick: (String) -> Unit = { },
 ) {
     val bubbleWidth = getBubbleWidth()
 
@@ -86,60 +88,17 @@ fun NoteItem(
                 ExtraImagesGrid(
                     imageUrls = note.imagePaths,
                     modifier = Modifier.height(bubbleWidth),
-                    onImageClick = { /* ... */ },
-                    onLongClick = { onLongClick(note) }
+                    onLongClick = {
+                        onLongClick(note)
+                    },
+                    onImageClick = onImageClick
                 )
             }
             Spacer(modifier = Modifier.height(8.dp))
-            NoteDateTag(timeTag = note.timeTag, date = note.date)
+            UITimeTag(timeTag = note.timeTag, date = note.date)
             Spacer(modifier = Modifier.height(8.dp))
         }
 
-    }
-}
-
-@Composable
-fun NoteDateTag(timeTag: NoteTimeTag, date: String) {
-    val backgroundColor = when (timeTag) {
-        NoteTimeTag.MORNING -> MaterialTheme.colorScheme.surfaceContainerLow
-        NoteTimeTag.AFTERNOON -> MaterialTheme.colorScheme.surfaceContainerHigh
-        NoteTimeTag.NIGHT -> MaterialTheme.colorScheme.surfaceContainerHighest
-        NoteTimeTag.EARTH_DAY -> MaterialTheme.colorScheme.surfaceContainerHigh
-        NoteTimeTag.CHRISTMAS,
-        NoteTimeTag.NEW_YEAR,
-        NoteTimeTag.HALLOWEEN,
-        NoteTimeTag.VALENTINES_DAY -> MaterialTheme.colorScheme.surfaceContainerHigh
-    }
-    val textColor = MaterialTheme.colorScheme.onBackground
-
-    Row(
-        verticalAlignment = Alignment.CenterVertically,
-        modifier = Modifier
-            .clip(RoundedCornerShape(6.dp))
-            .background(backgroundColor)
-            .padding(horizontal = 4.dp, vertical = 2.dp)
-    ) {
-
-        StyledText(
-            text = date,
-            fontWeight = FontWeight.Medium,
-            fontSize = 10.sp,
-            lineHeight = 10.sp,
-            maxLines = 1,
-            fontStyle = FontStyle.Normal,
-            overflow = TextOverflow.Ellipsis,
-            color = textColor
-        )
-        StyledText(
-            text = timeTag.emoji,
-            fontWeight = FontWeight.Medium,
-            fontSize = 10.sp,
-            lineHeight = 10.sp,
-            maxLines = 1,
-            fontStyle = FontStyle.Normal,
-            overflow = TextOverflow.Ellipsis,
-            color = textColor
-        )
     }
 }
 

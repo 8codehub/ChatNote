@@ -40,6 +40,7 @@ import com.chatnote.directnotesui.directnoteslist.DirectNotesContract.DirectNote
 import com.chatnote.directnotesui.directnoteslist.DirectNotesContract.DirectNotesOneTimeEvent.NavigateBack
 import com.chatnote.directnotesui.directnoteslist.DirectNotesContract.DirectNotesOneTimeEvent.NavigateTo
 import com.chatnote.directnotesui.directnoteslist.DirectNotesContract.DirectNotesOneTimeEvent.OpenImageChooser
+import com.chatnote.directnotesui.directnoteslist.DirectNotesContract.DirectNotesOneTimeEvent.OpenImagePager
 import com.chatnote.directnotesui.directnoteslist.DirectNotesContract.DirectNotesOneTimeEvent.ShowActionableContentSheet
 import com.chatnote.directnotesui.directnoteslist.DirectNotesContract.DirectNotesState
 import com.chatnote.directnotesui.directnoteslist.components.DirectNotesEmptyState
@@ -89,6 +90,12 @@ fun DirectNotesScreen(
                 }
 
                 NavigateBack -> onBackClick()
+                is OpenImagePager -> navigateTo(
+                    NavigationRoute.ImagePager(
+                        images = event.images,
+                        selectedImage = event.selectedImage
+                    )
+                )
             }
         }
     }
@@ -151,6 +158,12 @@ fun DirectNotesScreen(
                             NoteItem(
                                 isFirstItem = index == 0,
                                 note = stateValue.notes[index],
+                                onImageClick = {
+                                    viewModel.onNoteImageClicked(
+                                        image = it,
+                                        images = stateValue.notes[index].imagePaths
+                                    )
+                                },
                                 onLongClick = { viewModel.onNoteLongClick(it) })
                         }
                     }
@@ -205,7 +218,7 @@ fun DirectNotesTopAppBar(
         navigationIcon = {
             IconButton(onClick = onBackClick) {
                 Icon(
-                    imageVector = ImageVector.vectorResource(R.drawable.ic_back),
+                    imageVector = ImageVector.vectorResource(chatnote.coreui.R.drawable.ic_back),
                     tint = MaterialTheme.colorScheme.onBackground,
                     contentDescription = stringResource(R.string.action_navigate_to_home_screen)
                 )

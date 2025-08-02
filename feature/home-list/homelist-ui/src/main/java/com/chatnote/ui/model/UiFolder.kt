@@ -1,6 +1,7 @@
 package com.chatnote.ui.model
 
 import androidx.compose.runtime.Stable
+import com.chatnote.coreui.model.TimeTag
 
 @Stable
 data class UiFolder(
@@ -11,6 +12,7 @@ data class UiFolder(
     val lastNoteCreatedDate: String?,
     val createdAt: Long,
     val isPinned: Boolean,
+    val timeTag: TimeTag,
     val lastNoteExtras: List<UiNoteExtra>
 )
 

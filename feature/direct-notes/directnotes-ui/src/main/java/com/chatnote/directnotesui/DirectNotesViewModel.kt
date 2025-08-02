@@ -78,4 +78,8 @@ class DirectNotesViewModel @Inject constructor(
     fun deleteSelectedNote(noteId: Long) {
         DirectNotesEvent.DeleteSelectedNote(noteId = noteId).processWithLaunch()
     }
+
+    fun onNoteImageClicked(image: String, images: List<String>) {
+        DirectNotesEvent.OpenImageInPager(image = image, images = images).processWithLaunch()
+    }
 }

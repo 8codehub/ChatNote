@@ -68,7 +68,11 @@ fun FolderCard(
                 color = MaterialTheme.colorScheme.onBackground
             )
 
-            Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Start) {
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.Start,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
 
                 if (folder.lastNoteExtras.isEmpty()) {
                     StyledText(
@@ -95,7 +99,7 @@ fun FolderCard(
                     ) {
                         folder.lastNoteExtras
                             .filterIsInstance<UiNoteExtra.Image>() // only show previews for images
-                            .take(3) // limit preview count
+                            .take(3)
                             .forEach { imageExtra ->
                                 AsyncImage(
                                     model = imageExtra.value,
@@ -122,15 +126,17 @@ fun FolderCard(
                 }
 
                 Spacer(modifier = Modifier.width(8.dp))
-                StyledText(
-                    text = folder.lastNoteCreatedDate,
-                    fontWeight = FontWeight.Medium,
-                    fontSize = 12.sp,
-                    maxLines = 1,
-                    fontStyle = FontStyle.Italic,
-                    overflow = TextOverflow.Ellipsis,
-                    color = MaterialTheme.colorScheme.onBackground
-                )
+                if (!folder.lastNoteCreatedDate.isNullOrEmpty()) {
+                    StyledText(
+                        text = folder.lastNoteCreatedDate,
+                        fontWeight = FontWeight.Medium,
+                        fontSize = 12.sp,
+                        maxLines = 1,
+                        fontStyle = FontStyle.Italic,
+                        overflow = TextOverflow.Ellipsis,
+                        color = MaterialTheme.colorScheme.onBackground
+                    )
+                }
             }
         }
 

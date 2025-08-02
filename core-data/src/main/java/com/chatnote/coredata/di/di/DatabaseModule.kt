@@ -1,6 +1,7 @@
 package com.chatnote.coredata.di.di
 
 import android.content.Context
+import android.util.Log
 import androidx.room.Room
 import com.chatnote.coredata.di.db.AppDatabase
 import com.chatnote.coredata.di.db.FolderDao
@@ -21,11 +22,17 @@ object DatabaseModule {
     @Provides
     @Singleton
     fun provideDatabase(@ApplicationContext context: Context): AppDatabase {
-        return Room.databaseBuilder(
-            context,
-            AppDatabase::class.java,
-            "app_db"
-        ).addMigrations(MIGRATION_2_3).build()
+
+        return try {
+            Room.databaseBuilder(context, AppDatabase::class.java, "app_db")
+                .addMigrations(MIGRATION_2_3)
+                .build()
+        } catch (e: Throwable) {
+            Log.e("RoomMigration", "Migration failed: ${e.message}", e)
+            e.printStackTrace()
+            throw e // or handle accordingly
+        }
+
     }
 
     @Provides

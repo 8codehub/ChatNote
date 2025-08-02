@@ -3,6 +3,7 @@ package com.chatnote.ui.mapping
 import com.chatnote.coredomain.mapper.Mapper
 import com.chatnote.coredomain.models.NoteExtra
 import com.chatnote.coredomain.models.NoteExtraType
+import com.chatnote.coreui.model.TimeTag
 import com.chatnote.coreui.util.DateFormatter
 import com.chatnote.domain.model.Folder
 import com.chatnote.ui.model.UiFolder
@@ -26,6 +27,7 @@ internal class FolderDomainToUiFolderMapper @Inject constructor(
             lastNoteCreatedDate = from.lastNoteCreatedDate.takeIf { it != 0L }?.let {
                 dateFormatter.formatShort(it)
             },
+            timeTag = TimeTag.fromDate(from.createdAt),
             isPinned = from.isPinned
         )
     }

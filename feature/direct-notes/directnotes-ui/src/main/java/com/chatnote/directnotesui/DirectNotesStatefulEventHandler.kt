@@ -5,12 +5,12 @@ import chatnote.directnotesui.R
 import com.chatnote.common.analytics.AnalyticsTracker
 import com.chatnote.coredomain.mapper.Mapper
 import com.chatnote.coredomain.models.FolderBaseInfo
+import com.chatnote.coredomain.models.NoteExtra
 import com.chatnote.coreui.arch.StatefulEventHandler
 import com.chatnote.coreui.model.SystemActionType
 import com.chatnote.coreui.systemactions.SystemActionTypeHandler
 import com.chatnote.directnotesdomain.model.Note
 import com.chatnote.directnotesdomain.model.NoteActionableContent
-import com.chatnote.coredomain.models.NoteExtra
 import com.chatnote.directnotesdomain.usecase.AddNoteUseCase
 import com.chatnote.directnotesdomain.usecase.DeleteNoteUseCase
 import com.chatnote.directnotesdomain.usecase.ExtractActionableContentUseCase
@@ -62,7 +62,16 @@ class DirectNotesStatefulEventHandler @Inject constructor(
             is DirectNotesEvent.ImageSelected -> onImageSelectedEvent(uris = event.uris)
             is DirectNotesEvent.DeleteSelectedNote -> deleteNoteUseCase(noteId = event.noteId)
             is DirectNotesEvent.EditorInputActionClick -> onEditorInputActionClickEvent(interaction = event.interaction)
+            is DirectNotesEvent.OpenImageInPager -> onOpenImageInPagerEvent(
+                image = event.image,
+                images = event.images
+            )
         }
+    }
+
+    private suspend fun onOpenImageInPagerEvent(image: String, images: List<String>) {
+        DirectNotesOneTimeEvent.OpenImagePager(selectedImage = image, images = images)
+            .processOneTimeEvent()
     }
 
     private suspend fun onEditorInputActionClickEvent(interaction: UiEditorInputAction) {

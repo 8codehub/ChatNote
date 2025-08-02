@@ -36,5 +36,7 @@ val MIGRATION_2_3 = object : Migration(2, 3) {
             )
             """.trimIndent()
         )
+
+        db.execSQL("CREATE INDEX IF NOT EXISTS index_note_extras_note_id ON note_extras(note_id)")
     }
 }

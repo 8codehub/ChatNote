@@ -12,6 +12,7 @@ import androidx.navigation.compose.rememberNavController
 import com.chatnote.coreui.ui.theme.AppTheme
 import com.chatnote.directnotesui.DirectNotesScreen
 import com.chatnote.directnotesui.editnote.EditNoteScreen
+import com.chatnote.imagepagerui.ImagePagerScreen
 import com.chatnote.navigation.NavigationRoute
 import com.chatnote.ui.editor.FolderEditorScreen
 import com.chatnote.ui.folderlist.FolderListScreen
@@ -20,10 +21,6 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
-
-    companion object {
-        private const val NOTIFICATION_PERMISSION_REQUEST = 1001
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -62,6 +59,12 @@ fun MainApp(
                 navigateTo = { route ->
                     navController.navigate(route)
                 }
+            )
+        }
+
+        composable<NavigationRoute.ImagePager> { _ ->
+            ImagePagerScreen(
+                onBackClick = { navController.popBackStack() },
             )
         }
 
