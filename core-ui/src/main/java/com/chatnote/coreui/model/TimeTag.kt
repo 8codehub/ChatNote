@@ -3,7 +3,7 @@ package com.chatnote.coreui.model
 import java.util.Calendar
 
 enum class TimeTag(val label: String, val emoji: String) {
-    MORNING(label = "Morning", emoji = "☀️"),
+    MORNING(label = "Morning", emoji = "☕\uFE0F"),
     AFTERNOON(label = "Afternoon", emoji = "🌤️"),
     NIGHT(label = "Night", emoji = "🌙"),
 

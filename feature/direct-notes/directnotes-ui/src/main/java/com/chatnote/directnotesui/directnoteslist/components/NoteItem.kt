@@ -15,6 +15,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.LocalWindowInfo
 import androidx.compose.ui.text.style.TextAlign
@@ -44,6 +45,16 @@ fun NoteItem(
             horizontalAlignment = Alignment.End,
             modifier = Modifier
                 .widthIn(max = bubbleWidth)
+                .clip(if (isFirstItem) {
+                    RoundedCornerShape(
+                        topStart = 16.dp,
+                        topEnd = 16.dp,
+                        bottomStart = 16.dp,
+                        bottomEnd = 0.dp
+                    )
+                } else {
+                    MaterialTheme.shapes.large
+                })
                 .combinedClickable(
                     onClick = { },
                     onLongClick = { onLongClick(note) }
@@ -63,8 +74,8 @@ fun NoteItem(
                 )
                 .padding(horizontal = 16.dp),
         ) {
+            Spacer(modifier = Modifier.height(8.dp))
             if (note.content.isNotEmpty()) {
-                Spacer(modifier = Modifier.height(8.dp))
                 StyledText(
                     modifier = Modifier
                         .wrapContentWidth()
@@ -72,13 +83,13 @@ fun NoteItem(
                     text = note.content,
                     textAlign = TextAlign.Start,
                     color = MaterialTheme.colorScheme.onBackground,
-                    fontSize = 16.sp,
-                    lineHeight = 16.sp
+                    fontSize = 14.sp,
+                    lineHeight = 14.sp
                 )
             }
 
             if (note.imagePaths.isNotEmpty()) {
-                Spacer(modifier = Modifier.height(16.dp))
+                Spacer(modifier = Modifier.height(8.dp))
                 ExtraImagesGrid(
                     imageUrls = note.imagePaths,
                     modifier = Modifier.height(bubbleWidth),

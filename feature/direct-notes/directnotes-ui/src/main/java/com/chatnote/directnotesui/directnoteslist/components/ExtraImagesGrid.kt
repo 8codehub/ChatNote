@@ -50,7 +50,7 @@ private fun OneImage(url: String, onClick: (String) -> Unit, onLongClick: () -> 
         contentScale = ContentScale.Crop,
         modifier = Modifier
             .fillMaxSize()
-            .clip(RoundedCornerShape(6.dp))
+            .clip(RoundedCornerShape(10.dp))
             .combinedClickable(
                 onClick = { onClick(url) },
                 onLongClick = { onLongClick() }
@@ -76,7 +76,7 @@ private fun TwoImages(
                 modifier = Modifier
                     .weight(1f)
                     .fillMaxHeight()
-                    .clip(RoundedCornerShape(6.dp))
+                    .clip(RoundedCornerShape(10.dp))
                     .combinedClickable(
                         onClick = { onClick(url) },
                         onLongClick = { onLongClick() }
@@ -103,7 +103,7 @@ private fun ThreeImages(
             modifier = Modifier
                 .weight(1f)
                 .fillMaxHeight()
-                .clip(RoundedCornerShape(6.dp))
+                .clip(RoundedCornerShape(10.dp))
                 .combinedClickable(
                     onClick = { onClick(urls[0]) },
                     onLongClick = { onLongClick() }
@@ -123,7 +123,7 @@ private fun ThreeImages(
                     modifier = Modifier
                         .fillMaxSize()
                         .weight(1f)
-                        .clip(RoundedCornerShape(6.dp))
+                        .clip(RoundedCornerShape(10.dp))
                         .combinedClickable(
                             onClick = { onClick(url) },
                             onLongClick = { onLongClick() }
@@ -160,7 +160,7 @@ private fun FourImages(
                         modifier = Modifier
                             .weight(1f)
                             .fillMaxHeight()
-                            .clip(RoundedCornerShape(6.dp))
+                            .clip(RoundedCornerShape(10.dp))
                             .combinedClickable(
                                 onClick = { onClick(urls[index]) },
                                 onLongClick = { onLongClick() }
@@ -197,7 +197,7 @@ private fun MoreThanFourImages(
                     val imageModifier = Modifier
                         .weight(1f)
                         .fillMaxHeight()
-                        .clip(RoundedCornerShape(6.dp))
+                        .clip(RoundedCornerShape(10.dp))
                         .combinedClickable(
                             onClick = { onClick(urls[index]) },
                             onLongClick = { onLongClick() }

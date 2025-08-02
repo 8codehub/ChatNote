@@ -19,7 +19,6 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.KeyboardArrowDown
 import androidx.compose.material.icons.filled.KeyboardArrowUp
-import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.LocalTextStyle
@@ -65,7 +64,6 @@ fun NoteEditorInput(
 
     Column(modifier = modifier.padding(8.dp)) {
         AnimatedVisibility(visible = showSelectedExtras) {
-            HorizontalDivider(modifier = Modifier.fillMaxWidth())
             Spacer(modifier = Modifier.height(8.dp))
             SelectedNoteExtraItems(
                 modifier = Modifier
@@ -82,7 +80,6 @@ fun NoteEditorInput(
                 .heightIn(min = 40.dp)
                 .fillMaxWidth()
         ) {
-            // Toggle button (arrow)
             IconButton(onClick = { showExtraMenu = !showExtraMenu }) {
                 Icon(
                     imageVector = if (showExtraMenu) Icons.Default.KeyboardArrowDown else Icons.Default.KeyboardArrowUp,
@@ -91,7 +88,6 @@ fun NoteEditorInput(
                 )
             }
 
-            // Input
             BasicTextField(
                 value = newNote,
                 onValueChange = { newNote = it },
@@ -132,7 +128,6 @@ fun NoteEditorInput(
 
             Spacer(modifier = Modifier.width(16.dp))
 
-            // Send button
             Image(
                 imageVector = ImageVector.vectorResource(R.drawable.ic_send),
                 modifier = Modifier
@@ -147,7 +142,10 @@ fun NoteEditorInput(
         }
 
         AnimatedVisibility(visible = showExtraMenu) {
-            NoteExtrasMenuItems(onExtraClick = onUiEditorInputAction)
+            NoteExtrasMenuItems(onExtraClick = {
+                onUiEditorInputAction(it)
+                showExtraMenu = false
+            })
         }
     }
 }

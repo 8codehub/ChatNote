@@ -32,6 +32,8 @@ fun DirectNotesEmptyState(
         CircularImage(
             imageUri = iconUri,
             iconSize = 100.dp,
+            borderColor = MaterialTheme.colorScheme.onBackground,
+            borderWidth = 1.dp,
             contentDescription = stringResource(CR.string.folder_image)
         )
         StyledText(

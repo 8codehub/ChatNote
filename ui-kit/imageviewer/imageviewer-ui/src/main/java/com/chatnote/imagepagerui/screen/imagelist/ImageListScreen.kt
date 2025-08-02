@@ -1,9 +1,12 @@
 package com.chatnote.imagepagerui.screen.imagelist
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.gestures.FlingBehavior
 import androidx.compose.foundation.gestures.snapping.rememberSnapFlingBehavior
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -65,22 +68,31 @@ internal fun ImagePager(
         modifier = modifier
     ) {
         items(imageUrls.size, key = { imageUrls[it] }) { index ->
-            AsyncImage(
-                model = imageUrls[index],
-                contentDescription = stringResource(CR.string.image),
-                contentScale = ContentScale.Crop,
+            Spacer(modifier = Modifier.height(16.dp))
+            Box(
                 modifier = Modifier
-                    .padding(12.dp)
-                    .height(460.dp)
-                    .fillMaxWidth()
-                    .clip(RoundedCornerShape(6.dp))
-                    .border(
-                        width = 1.dp,
-                        color = MaterialTheme.colorScheme.onBackground,
-                        shape = RoundedCornerShape(6.dp)
+                    .padding(horizontal = 16.dp)
+                    .clip(
+                        MaterialTheme.shapes.large
                     )
-                    .clickable { navigateTo(PagerNavigationRoute.ImagePreview(imageUrls[index])) }
-            )
+                    .background(
+                        color = MaterialTheme.colorScheme.onSecondary,
+                        shape = MaterialTheme.shapes.large
+                    )
+            ) {
+                AsyncImage(
+                    model = imageUrls[index],
+                    contentDescription = stringResource(CR.string.image),
+                    contentScale = ContentScale.Crop,
+                    modifier = Modifier
+                        .padding(16.dp)
+                        .height(460.dp)
+                        .fillMaxWidth()
+                        .clip(RoundedCornerShape(10.dp))
+                        .clickable { navigateTo(PagerNavigationRoute.ImagePreview(imageUrls[index])) }
+                )
+
+            }
         }
     }
 }

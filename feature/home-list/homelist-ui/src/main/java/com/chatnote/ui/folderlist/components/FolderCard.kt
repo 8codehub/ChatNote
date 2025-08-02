@@ -87,11 +87,7 @@ fun FolderCard(
                         fontSize = 14.sp,
                         maxLines = 1,
                         overflow = TextOverflow.Ellipsis,
-                        fontStyle = if (folder.lastNote.isEmpty()) {
-                            FontStyle.Italic
-                        } else {
-                            FontStyle.Normal
-                        },
+                        fontStyle = FontStyle.Normal,
                         color = MaterialTheme.colorScheme.onSurface
                     )
                 } else {
@@ -119,8 +115,6 @@ fun FolderCard(
                             StyledText(
                                 text = "+${folder.lastNoteExtras.size - 3}",
                                 fontSize = 12.sp,
-                                fontStyle = FontStyle.Italic,
-
                                 fontWeight = FontWeight.Medium,
                                 color = MaterialTheme.colorScheme.secondary
                             )

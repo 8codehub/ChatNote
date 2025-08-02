@@ -1,6 +1,7 @@
 package com.chatnote.directnotesui
 
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -25,6 +26,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.unit.dp
@@ -63,6 +65,7 @@ fun DirectNotesScreen(
     var uiNoteInteractionContent by remember { mutableStateOf<ShowActionableContentSheet?>(null) }
     var selectedNoteToDelete by remember { mutableStateOf<Long?>(null) }
     var showImagePickerSheet by remember { mutableStateOf(false) }
+    val keyboardController = LocalSoftwareKeyboardController.current
 
     LaunchedEffect(Unit) {
         viewModel.oneTimeEvent.collectLatest { event ->
@@ -149,8 +152,15 @@ fun DirectNotesScreen(
                         iconUri = stateValue.folderIconUri.orEmpty()
                     )
                 } else {
+                    val interactionSource = remember { MutableInteractionSource() }
                     LazyColumn(
                         modifier = Modifier
+                            .clickable(
+                                interactionSource = interactionSource,
+                                indication = null
+                            ) {
+                                keyboardController?.hide()
+                            }
                             .weight(1f)
                             .fillMaxWidth(),
                         reverseLayout = true
@@ -160,12 +170,16 @@ fun DirectNotesScreen(
                                 isFirstItem = index == 0,
                                 note = stateValue.notes[index],
                                 onImageClick = {
+                                    keyboardController?.hide()
                                     viewModel.onNoteImageClicked(
                                         image = it,
                                         images = stateValue.notes[index].imagePaths
                                     )
                                 },
-                                onLongClick = { viewModel.onNoteLongClick(it) })
+                                onLongClick = {
+                                    keyboardController?.hide()
+                                    viewModel.onNoteLongClick(it)
+                                })
                         }
                     }
                 }
