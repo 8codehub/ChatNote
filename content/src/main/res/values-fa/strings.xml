@@ -67,4 +67,8 @@
     <string name="camera">دوربین</string>
     <string name="image">تصویر</string>
     <string name="attach">ضمیمه</string>
+
+    <string name="images_with_count">تصاویر %s</string>
+    <string name="folder_image">تصویر پوشه</string>
+
 </resources>

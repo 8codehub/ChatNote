@@ -195,7 +195,7 @@ private fun AttachImageBottomSheet(
                     val item = uiState.allImages[index]
                     RoundedAsyncImage(
                         model = item.uri,
-                        contentDescription = null,
+                        contentDescription = stringResource(CR.string.image),
                         selected = item.isSelected,
                         onClick = { viewModel.toggleImageSelection(item.uri) }
                     )

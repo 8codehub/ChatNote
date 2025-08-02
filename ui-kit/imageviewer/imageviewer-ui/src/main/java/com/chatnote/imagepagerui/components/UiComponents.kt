@@ -13,11 +13,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
 import com.chatnote.coreui.ui.component.StyledText
-import chatnote.coreui.R as CR
+import com.chatnote.content.R as CR
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -34,7 +35,7 @@ fun ImagePagerTopAppBar(
         navigationIcon = {
             IconButton(onClick = onBackClick) {
                 Icon(
-                    imageVector = ImageVector.vectorResource(CR.drawable.ic_back),
+                    imageVector = ImageVector.vectorResource(chatnote.coreui.R.drawable.ic_back),
                     tint = MaterialTheme.colorScheme.onBackground,
                     contentDescription = "back"
                 )
@@ -61,7 +62,7 @@ private fun ImagePagerTitle(
 
         StyledText(
             modifier = Modifier.wrapContentHeight(),
-            text = "8 images",
+            text = stringResource(CR.string.images_with_count, count),
             fontSize = 16.sp,
             maxLines = 1,
             lineHeight = 16.sp,

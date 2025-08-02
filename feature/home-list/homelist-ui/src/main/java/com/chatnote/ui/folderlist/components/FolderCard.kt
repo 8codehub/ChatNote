@@ -53,6 +53,7 @@ fun FolderCard(
             modifier = Modifier.padding(vertical = 4.dp),
             imageUri = folder.iconUri.orEmpty(),
             iconSize = 56.dp,
+            contentDescription = stringResource(CR.string.image),
             iconPadding = 0.dp,
             borderColor = MaterialTheme.colorScheme.onBackground,
             borderWidth = 1.dp
@@ -105,7 +106,7 @@ fun FolderCard(
                             .forEach { imageExtra ->
                                 AsyncImage(
                                     model = imageExtra.value,
-                                    contentDescription = null,
+                                    contentDescription = folder.name,
                                     modifier = Modifier
                                         .padding(end = 4.dp)
                                         .height(16.dp)

@@ -67,4 +67,8 @@
     <string name="camera">الكاميرا</string>
     <string name="image">صورة</string>
     <string name="attach">إرفاق</string>
+
+    <string name="images_with_count">الصور %s</string>
+    <string name="folder_image">صورة المجلد</string>
+
 </resources>

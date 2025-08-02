@@ -17,10 +17,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import chatnote.directnotesui.R
 import coil.compose.AsyncImage
 import com.chatnote.directnotesui.model.UiNoteExtra
+import com.chatnote.content.R as CR
 
 @Composable
 fun SelectedNoteExtraItems(
@@ -85,7 +87,7 @@ fun NoteExtraItem(
 fun NoteImageExtra(extra: UiNoteExtra.UiNoteImageExtra) {
     AsyncImage(
         model = extra.uri,
-        contentDescription = null,
+        contentDescription = stringResource(CR.string.image),
         contentScale = ContentScale.Crop,
         modifier = Modifier.fillMaxSize()
     )

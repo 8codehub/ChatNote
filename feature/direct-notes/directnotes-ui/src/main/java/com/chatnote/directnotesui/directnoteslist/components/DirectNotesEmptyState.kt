@@ -31,7 +31,8 @@ fun DirectNotesEmptyState(
     ) {
         CircularImage(
             imageUri = iconUri,
-            iconSize = 100.dp
+            iconSize = 100.dp,
+            contentDescription = stringResource(CR.string.folder_image)
         )
         StyledText(
             modifier = Modifier

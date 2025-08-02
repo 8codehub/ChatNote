@@ -4,8 +4,10 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.chatnote.coreui.ui.component.CircularImage
+import com.chatnote.content.R as CR
 
 @Composable
 fun IconItem(
@@ -19,6 +21,7 @@ fun IconItem(
             modifier = Modifier,
             iconSize = 64.dp,
             imageUri = iconUri,
+            contentDescription = stringResource(CR.string.image),
             borderColor = if (isSelected) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onBackground,
             borderWidth = if (isSelected) {
                 2.dp

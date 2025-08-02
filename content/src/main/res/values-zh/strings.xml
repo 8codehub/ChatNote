@@ -67,4 +67,8 @@
     <string name="camera">相机</string>
     <string name="image">图片</string>
     <string name="attach">附件</string>
+
+    <string name="images_with_count">图片 %s</string>
+    <string name="folder_image">文件夹的图片</string>
+
 </resources>

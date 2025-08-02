@@ -33,6 +33,7 @@ fun DirectNotesTitle(
         CircularImage(
             imageUri = imageUri,
             borderWidth = 1.dp,
+            contentDescription = stringResource(CR.string.folder_image),
             borderColor = MaterialTheme.colorScheme.onBackground,
             iconSize = 36.dp
         )

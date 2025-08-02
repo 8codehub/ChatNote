@@ -67,4 +67,8 @@
     <string name="camera">Kamera</string>
     <string name="image">Slika</string>
     <string name="attach">Priloži</string>
+
+    <string name="images_with_count">Slike %s</string>
+    <string name="folder_image">Slika mape</string>
+
 </resources>

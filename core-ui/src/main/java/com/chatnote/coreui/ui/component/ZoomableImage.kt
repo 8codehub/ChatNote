@@ -18,8 +18,10 @@ import androidx.compose.ui.input.pointer.changedToUpIgnoreConsumed
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import coil.compose.AsyncImage
 import kotlinx.coroutines.launch
+import com.chatnote.content.R as CR
 
 @Composable
 fun ZoomableImage(
@@ -96,7 +98,7 @@ fun ZoomableImage(
     ) {
         AsyncImage(
             model = imageUrl,
-            contentDescription = null,
+            contentDescription = stringResource(CR.string.image),
             contentScale = ContentScale.Fit,
             modifier = Modifier
                 .fillMaxSize()

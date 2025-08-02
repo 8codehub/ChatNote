@@ -67,4 +67,8 @@
     <string name="camera">Kamera</string>
     <string name="image">Görsel</string>
     <string name="attach">Ekle</string>
+
+    <string name="images_with_count">Görseller %s</string>
+    <string name="folder_image">Klasör Görseli</string>
+
 </resources>

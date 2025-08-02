@@ -67,4 +67,8 @@
     <string name="camera">Câmara</string>
     <string name="image">Imagem</string>
     <string name="attach">Anexar</string>
+
+    <string name="images_with_count">Imagens %s</string>
+    <string name="folder_image">Imagem da Pasta</string>
+
 </resources>

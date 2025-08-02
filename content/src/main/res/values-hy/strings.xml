@@ -67,4 +67,8 @@
     <string name="camera">Տեսախցիկ</string>
     <string name="image">Պատկեր</string>
     <string name="attach">Կցել</string>
+
+    <string name="images_with_count">Նկարներ %s</string>
+    <string name="folder_image">Պանակի նկար</string>
+
 </resources>

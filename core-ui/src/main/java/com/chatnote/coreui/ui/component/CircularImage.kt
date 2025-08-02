@@ -67,6 +67,7 @@ fun CircularImage(
 @Composable
 fun CircularImage(
     imageUri: String,
+    contentDescription: String,
     modifier: Modifier = Modifier,
     iconPadding: Dp = 0.dp,
     iconSize: Dp? = null,
@@ -92,7 +93,7 @@ fun CircularImage(
         ) {
             AsyncImage(
                 model = imageUri,
-                contentDescription = null,
+                contentDescription = contentDescription,
                 colorFilter = imageColorFilter,
                 contentScale = contentScale,
                 modifier = if (iconSize != null) Modifier.size(iconSize) else Modifier.wrapContentSize()

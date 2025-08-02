@@ -67,4 +67,8 @@
     <string name="camera">Камера</string>
     <string name="image">Зображення</string>
     <string name="attach">Прикріпити</string>
+
+    <string name="images_with_count">Зображення %s</string>
+    <string name="folder_image">Зображення папки</string>
+
 </resources>

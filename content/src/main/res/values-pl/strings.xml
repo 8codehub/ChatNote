@@ -67,4 +67,8 @@
     <string name="camera">Aparat</string>
     <string name="image">Obraz</string>
     <string name="attach">Dołącz</string>
+
+    <string name="images_with_count">Obrazy %s</string>
+    <string name="folder_image">Obraz folderu</string>
+
 </resources>

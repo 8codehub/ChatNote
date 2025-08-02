@@ -17,10 +17,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
+import com.chatnote.content.R as CR
 
 @Composable
 fun ExtraImagesGrid(
@@ -44,7 +46,7 @@ fun ExtraImagesGrid(
 private fun OneImage(url: String, onClick: (String) -> Unit, onLongClick: () -> Unit) {
     AsyncImage(
         model = url,
-        contentDescription = null,
+        contentDescription = stringResource(CR.string.image),
         contentScale = ContentScale.Crop,
         modifier = Modifier
             .fillMaxSize()
@@ -69,7 +71,7 @@ private fun TwoImages(
         urls.forEach { url ->
             AsyncImage(
                 model = url,
-                contentDescription = null,
+                contentDescription = stringResource(CR.string.image),
                 contentScale = ContentScale.Crop,
                 modifier = Modifier
                     .weight(1f)
@@ -96,7 +98,7 @@ private fun ThreeImages(
     ) {
         AsyncImage(
             model = urls[0],
-            contentDescription = null,
+            contentDescription = stringResource(CR.string.image),
             contentScale = ContentScale.Crop,
             modifier = Modifier
                 .weight(1f)
@@ -116,7 +118,7 @@ private fun ThreeImages(
             urls.drop(1).forEach { url ->
                 AsyncImage(
                     model = url,
-                    contentDescription = null,
+                    contentDescription = stringResource(CR.string.image),
                     contentScale = ContentScale.Crop,
                     modifier = Modifier
                         .fillMaxSize()
@@ -153,7 +155,7 @@ private fun FourImages(
                     val index = row * 2 + col
                     AsyncImage(
                         model = urls[index],
-                        contentDescription = null,
+                        contentDescription = stringResource(CR.string.image),
                         contentScale = ContentScale.Crop,
                         modifier = Modifier
                             .weight(1f)
@@ -205,7 +207,7 @@ private fun MoreThanFourImages(
                         Box(modifier = imageModifier) {
                             AsyncImage(
                                 model = firstFour[index],
-                                contentDescription = null,
+                                contentDescription = stringResource(CR.string.image),
                                 contentScale = ContentScale.Crop,
                                 modifier = Modifier.fillMaxSize()
                             )
@@ -226,7 +228,7 @@ private fun MoreThanFourImages(
                     } else {
                         AsyncImage(
                             model = firstFour[index],
-                            contentDescription = null,
+                            contentDescription = stringResource(CR.string.image),
                             contentScale = ContentScale.Crop,
                             modifier = imageModifier
                         )

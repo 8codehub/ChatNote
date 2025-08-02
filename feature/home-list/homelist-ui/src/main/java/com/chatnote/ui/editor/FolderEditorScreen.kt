@@ -145,6 +145,7 @@ fun FolderEditorScreen(
                     .padding(top = 32.dp)
                     .align(Alignment.CenterHorizontally),
                 imageUri = selectedIconUri,
+                contentDescription = stringResource(CR.string.folder_image),
                 borderWidth = 1.dp,
                 borderColor = MaterialTheme.colorScheme.onBackground,
                 iconSize = 100.dp,

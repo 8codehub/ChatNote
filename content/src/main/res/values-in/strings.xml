@@ -67,4 +67,8 @@
     <string name="camera">Kamera</string>
     <string name="image">Gambar</string>
     <string name="attach">Lampirkan</string>
+
+    <string name="images_with_count">Gambar %s</string>
+    <string name="folder_image">Gambar Folder</string>
+
 </resources>

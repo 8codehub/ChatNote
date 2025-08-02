@@ -67,4 +67,6 @@
     <string name="camera">Kamera</string>
     <string name="image">Bild</string>
     <string name="attach">Anhängen</string>
+
+    <string name="images_with_count">Bilder %s</string>
 </resources>

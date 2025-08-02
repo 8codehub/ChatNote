@@ -17,10 +17,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.chatnote.imagepagerui.components.ImagePagerTopAppBar
 import com.chatnote.imagepagerui.navigation.PagerNavigationRoute
+import com.chatnote.content.R as CR
 
 @Composable
 internal fun ImageListScreen(
@@ -65,7 +67,7 @@ internal fun ImagePager(
         items(imageUrls.size, key = { imageUrls[it] }) { index ->
             AsyncImage(
                 model = imageUrls[index],
-                contentDescription = null,
+                contentDescription = stringResource(CR.string.image),
                 contentScale = ContentScale.Crop,
                 modifier = Modifier
                     .padding(12.dp)

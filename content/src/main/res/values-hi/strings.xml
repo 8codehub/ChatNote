@@ -67,4 +67,8 @@
     <string name="camera">कैमरा</string>
     <string name="image">छवि</string>
     <string name="attach">संलग्न करें</string>
+
+    <string name="images_with_count">चित्र %s</string>
+    <string name="folder_image">फ़ोल्डर की छवि</string>
+
 </resources>
