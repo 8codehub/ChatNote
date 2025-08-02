@@ -1,8 +1,8 @@
 <resources>
     <string name="new_folder">Нова папка</string>
-    <string name="hint_1">Організуйте свої нотатки в окремому просторі</string>
-    <string name="hint_2">Групуйте схожі елементи в одному місці</string>
-    <string name="hint_3">Зберігайте файли впорядкованими</string>
+    <string name="hint_1">Слава Україні</string>
+    <string name="hint_2">Героям слава</string>
+    <string name="hint_3">🇺🇦🇺🇦🇺🇦🇺🇦</string>
     <string name="folders">Папки</string>
     <string name="error_failed_to_load_folders">Не вдалося завантажити папки.</string>
     <string name="folders_count">Папки (%s)</string>
