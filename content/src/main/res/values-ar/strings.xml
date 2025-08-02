@@ -1,4 +1,5 @@
 <resources>
+    <string name="app_name">ChatNote</string>
     <string name="new_folder">مجلد جديد</string>
     <string name="hint_1">نظّم ملاحظاتك في مساحة مخصصة</string>
     <string name="hint_2">جمّع العناصر المتشابهة في مكان واحد</string>

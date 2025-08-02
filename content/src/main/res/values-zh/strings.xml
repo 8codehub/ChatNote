@@ -1,4 +1,5 @@
 <resources>
+    <string name="app_name">ChatNote</string>
     <string name="new_folder">新建文件夹</string>
     <string name="hint_1">将你的笔记组织在专属空间中</string>
     <string name="hint_2">将相似内容归类到同一个地方</string>

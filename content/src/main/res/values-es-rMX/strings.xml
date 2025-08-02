@@ -1,4 +1,5 @@
 <resources>
+    <string name="app_name">NotaChat</string>
     <string name="new_folder">Nueva carpeta</string>
     <string name="hint_1">Organiza tus notas en un espacio dedicado</string>
     <string name="hint_2">Agrupa elementos similares en un solo lugar</string>

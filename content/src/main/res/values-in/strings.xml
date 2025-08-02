@@ -1,4 +1,5 @@
 <resources>
+    <string name="app_name">ChatNote</string>
     <string name="new_folder">Folder Baru</string>
     <string name="hint_1">Atur catatan Anda di ruang khusus</string>
     <string name="hint_2">Kelompokkan item serupa di satu tempat</string>

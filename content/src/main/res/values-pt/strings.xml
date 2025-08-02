@@ -1,4 +1,5 @@
 <resources>
+    <string name="app_name">ChatNote</string>
     <string name="new_folder">Nova Pasta</string>
     <string name="hint_1">Organize as suas notas num espaço dedicado</string>
     <string name="hint_2">Agrupe itens semelhantes num único lugar</string>

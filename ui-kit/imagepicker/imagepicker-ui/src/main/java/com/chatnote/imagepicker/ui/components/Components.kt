@@ -109,7 +109,7 @@ internal fun RoundedAsyncImage(
         modifier = modifier
             .size(80.dp)
             .clip(RoundedCornerShape(6.dp))
-            .border(width = 4.dp, color = borderColor, shape = RoundedCornerShape(6.dp))
+            .border(width = 2.dp, color = borderColor, shape = RoundedCornerShape(6.dp))
             .clickable { onClick() }
     )
 }

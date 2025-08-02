@@ -1,4 +1,5 @@
 <resources>
+    <string name="app_name">ChatNote</string>
     <string name="new_folder">Yeni Klasör</string>
     <string name="hint_1">Notlarınızı özel bir alanda düzenleyin</string>
     <string name="hint_2">Benzer öğeleri tek bir yerde gruplandırın</string>

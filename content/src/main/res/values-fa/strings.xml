@@ -1,4 +1,5 @@
 <resources>
+    <string name="app_name">ChatNote</string>
     <string name="new_folder">پوشه جدید</string>
     <string name="hint_1">یادداشت‌های خود را در یک فضای اختصاصی سازمان‌دهی کنید</string>
     <string name="hint_2">موارد مشابه را در یک مکان گروه‌بندی کنید</string>

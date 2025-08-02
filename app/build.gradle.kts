@@ -17,7 +17,7 @@ android {
     defaultConfig {
         applicationId = "com.chatnote"
         minSdk = 24
-        targetSdk = 34
+        targetSdk = 35
         versionCode = libs.versions.versionCode.get().toInt()
         versionName = libs.versions.versionName.get()
         versionNameSuffix = "-release-${libs.versions.versionName.get()}"

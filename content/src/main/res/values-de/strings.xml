@@ -1,4 +1,5 @@
 <resources>
+    <string name="app_name">ChatNotiz</string>
     <string name="new_folder">Neuer Ordner</string>
     <string name="hint_1">Organisiere deine Notizen in einem eigenen Bereich</string>
     <string name="hint_2">Ähnliche Elemente an einem Ort gruppieren</string>
