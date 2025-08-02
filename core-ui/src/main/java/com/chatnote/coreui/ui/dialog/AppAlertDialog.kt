@@ -64,7 +64,8 @@ fun AppAlertDialog(
                         color = MaterialTheme.colorScheme.onSurface
                     )
                 }
-            }
+            },
+            containerColor = MaterialTheme.colorScheme.secondaryContainer
         )
     }
 }

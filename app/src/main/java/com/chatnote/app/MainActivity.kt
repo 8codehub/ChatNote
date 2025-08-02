@@ -55,7 +55,7 @@ fun MainApp(
 
         composable<NavigationRoute.DirectNotes> {
             DirectNotesScreen(
-                onBackClick = { navController.popBackStack() },
+                onBackClick = { navController.navigateUp() },
                 navigateTo = { route ->
                     navController.navigate(route)
                 }
@@ -64,13 +64,13 @@ fun MainApp(
 
         composable<NavigationRoute.ImagePager> { _ ->
             ImagePagerScreen(
-                onBackClick = { navController.popBackStack() },
+                onBackClick = { navController.navigateUp() },
             )
         }
 
         composable<NavigationRoute.EditNote> {
             EditNoteScreen(
-                onCancel = { navController.popBackStack() },
+                onCancel = { navController.navigateUp() },
                 navigateTo = { route ->
                     navigateWithClearBackStack(
                         targetRoute = route,
@@ -82,7 +82,7 @@ fun MainApp(
 
         composable<NavigationRoute.FolderEditor> { _ ->
             FolderEditorScreen(
-                onCancel = { navController.popBackStack() },
+                onCancel = { navController.navigateUp() },
                 navigateTo = { route ->
                     navigateWithClearBackStack(
                         targetRoute = route,

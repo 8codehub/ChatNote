@@ -58,7 +58,7 @@ fun ImagePagerNav(
                 navBackStackEntry.toRoute<PagerNavigationRoute.ImagePreview>().selectedImage
             ImagePreviewScreen(
                 imageUrl = selectedImage,
-                onBackClick = { navController.popBackStack() }
+                onBackClick = { navController.navigateUp() }
             )
         }
 
