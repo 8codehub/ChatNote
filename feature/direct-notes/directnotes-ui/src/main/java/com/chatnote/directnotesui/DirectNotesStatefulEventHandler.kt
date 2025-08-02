@@ -15,6 +15,7 @@ import com.chatnote.directnotesdomain.usecase.DeleteNoteUseCase
 import com.chatnote.directnotesdomain.usecase.ExtractActionableContentUseCase
 import com.chatnote.directnotesdomain.usecase.GetNotesUseCase
 import com.chatnote.directnotesdomain.usecase.ObserveFolderUseCase
+import com.chatnote.directnotesdomain.validator.NewNoteValidator
 import com.chatnote.directnotesui.directnoteslist.DirectNotesContract.DirectNotesEvent
 import com.chatnote.directnotesui.directnoteslist.DirectNotesContract.DirectNotesOneTimeEvent
 import com.chatnote.directnotesui.directnoteslist.DirectNotesContract.DirectNotesState
@@ -39,6 +40,7 @@ class DirectNotesStatefulEventHandler @Inject constructor(
     private val addNoteUseCase: AddNoteUseCase,
     private val observeFolderUseCase: ObserveFolderUseCase,
     private val deleteNoteUseCase: DeleteNoteUseCase,
+    private val newNoteValidator: NewNoteValidator,
     private val extraProcessor: ExtraProcessor,
     private val extractActionableContent: ExtractActionableContentUseCase,
     private val errorResultMapper: Mapper<Throwable, Int>,
@@ -196,13 +198,22 @@ class DirectNotesStatefulEventHandler @Inject constructor(
                 createdAt = System.currentTimeMillis(),
                 extras = uiNoteExtraToNoteExtra.mapList(from = localImages)
             )
-            addNoteUseCase(it, newNote).onSuccess {
-                analyticsTracker.trackNewNote(folderId = folderId)
-                updateUiState { noteExtrasState = noteExtrasState.copy(extras = emptyList()) }
-            }.onFailure { throwable ->
-                updateUiState {
-                    generalError = errorResultMapper.map(throwable)
-                }
+            newNoteValidator(note = newNote).onSuccess {
+                saveValidatedNote(folderId, newNote)
+            }
+        }
+    }
+
+    private suspend fun DirectNotesStatefulEventHandler.saveValidatedNote(
+        folderId: Long,
+        newNote: Note
+    ) {
+        addNoteUseCase(folderId = folderId, newNote).onSuccess {
+            analyticsTracker.trackNewNote(folderId = folderId)
+            updateUiState { noteExtrasState = noteExtrasState.copy(extras = emptyList()) }
+        }.onFailure { throwable ->
+            updateUiState {
+                generalError = errorResultMapper.map(throwable)
             }
         }
     }
