@@ -3,7 +3,7 @@
     <string name="new_folder">New Folder</string>
     <string name="hint_1">Organize your notes in a dedicated space</string>
     <string name="hint_2">Group similar items in one place</string>
-    <string name="hint_3">Keep your files neatly categorized</string>
+    <string name="hint_3">Keep your images neatly categorized</string>
     <string name="folders">Folders</string>
     <string name="error_failed_to_load_folders">Failed to load folders.</string>
     <string name="folders_count">Folders (%s)</string>

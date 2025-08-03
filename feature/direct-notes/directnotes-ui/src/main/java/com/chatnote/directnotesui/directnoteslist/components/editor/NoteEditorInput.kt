@@ -14,6 +14,7 @@ import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
@@ -31,6 +32,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
@@ -126,19 +128,26 @@ fun NoteEditorInput(
                 }
             }
 
-            Spacer(modifier = Modifier.width(16.dp))
+            Spacer(modifier = Modifier.width(12.dp))
 
-            Image(
-                imageVector = ImageVector.vectorResource(R.drawable.ic_send),
-                modifier = Modifier
-                    .size(24.dp)
-                    .padding(end = 4.dp)
-                    .clickable {
-                        onUiEditorInputAction(UiEditorInputAction.SaveNewNote(content = newNote.text))
-                        newNote = TextFieldValue("")
-                    },
-                contentDescription = stringResource(CR.string.action_create_note),
-            )
+            Box(modifier = Modifier
+                .size(32.dp)
+                .clip(CircleShape)
+                .clickable {
+                    onUiEditorInputAction(UiEditorInputAction.SaveNewNote(content = newNote.text))
+                    newNote = TextFieldValue("")
+                }) {
+                Image(
+                    imageVector = ImageVector.vectorResource(R.drawable.ic_send),
+                    modifier = Modifier
+                        .align(Alignment.Center)
+                        .size(24.dp),
+                    contentDescription = stringResource(CR.string.action_create_note),
+                )
+            }
+
+            Spacer(modifier = Modifier.width(8.dp))
+
         }
 
         AnimatedVisibility(visible = showExtraMenu) {

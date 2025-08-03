@@ -14,7 +14,7 @@
     <string name="delete_folder_title">Elimina cartella %s</string>
     <string name="delete">Elimina</string>
     <string name="cancel">Annulla</string>
-    <string name="delete_folder_msg">Sei sicuro di voler eliminare questa cartella? L'azione non può essere annullata.</string>
+    <string name="delete_folder_msg">Sei sicuro di voler eliminare questa cartella? L\'azione non può essere annullata.</string>
     <string name="random">Aa</string>
     <string name="deleted_folder_with_no_message">Cartella eliminata</string>
     <string name="deleted_folder_message_singular">È stato eliminato 1 messaggio.</string>

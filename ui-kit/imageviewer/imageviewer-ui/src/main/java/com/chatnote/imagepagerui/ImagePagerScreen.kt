@@ -31,7 +31,7 @@ fun ImagePagerScreen(
 }
 
 @Composable
-fun ImagePagerNav(
+internal fun ImagePagerNav(
     navController: NavHostController,
     onBackClick: () -> Unit,
     viewModel: ImagePagerViewModel = hiltViewModel(),
@@ -49,6 +49,7 @@ fun ImagePagerNav(
                 images = uiState.images,
                 onBackClick = onBackClick
             ) { route ->
+                viewModel.onNavigationEvent(route)
                 navController.navigate(route)
             }
         }

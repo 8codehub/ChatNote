@@ -52,6 +52,7 @@ object ImagePickerContract {
         data class ToggleImageSelection(val uri: Uri) : ImagePickerEvent()
         data class AddGalleryImages(val uris: List<Uri>) : ImagePickerEvent()
         data object OpenCamera : ImagePickerEvent()
+        data object ImagesPicked : ImagePickerEvent()
         data object OpenGallery : ImagePickerEvent()
         data class CameraImageTaken(val uri: Uri) : ImagePickerEvent()
     }

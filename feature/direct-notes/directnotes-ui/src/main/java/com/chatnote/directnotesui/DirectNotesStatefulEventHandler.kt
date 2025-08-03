@@ -89,6 +89,7 @@ class DirectNotesStatefulEventHandler @Inject constructor(
             )
 
             is UiEditorInputAction.RemoveExtra -> {
+                analyticsTracker.trackImageRemove()
                 val updatedExtraList =
                     stateValue.noteExtrasState.extras.toMutableList()
                 updatedExtraList.remove(element = interaction.uiNoteExtra)

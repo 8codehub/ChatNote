@@ -1,9 +1,9 @@
 <resources>
     <string name="app_name">ЧатЗаметка</string>
     <string name="new_folder">Новая папка</string>
-    <string name="hint_1">Организуйте свои заметки в отдельном пространстве</string>
+    <string name="hint_1">Организуйте свои заметки</string>
     <string name="hint_2">Группируйте похожие элементы в одном месте</string>
-    <string name="hint_3">Храните файлы аккуратно отсортированными</string>
+    <string name="hint_3">Храните изображения в аккуратном порядке</string>
     <string name="folders">Папки</string>
     <string name="error_failed_to_load_folders">Не удалось загрузить папки.</string>
     <string name="folders_count">Папки (%s)</string>

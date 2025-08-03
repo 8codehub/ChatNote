@@ -2,6 +2,7 @@ package com.chatnote.imagepicker.ui
 
 import android.content.Context
 import android.net.Uri
+import com.chatnote.common.analytics.AnalyticsTracker
 import com.chatnote.coredomain.extension.getLastId
 import com.chatnote.coreui.arch.StatefulEventHandler
 import com.chatnote.imagepicker.ui.ImagePickerContract.ImagePickerEvent
@@ -19,6 +20,7 @@ class ImagePickerStatefulEventHandler @Inject constructor(
     @ApplicationContext private val context: Context,
     private val getRecentImagesUseCase: GetRecentImagesUseCase,
     private val generateCameraUriUseCase: GenerateCameraUriUseCase,
+    private val analyticsTracker: AnalyticsTracker
 ) : StatefulEventHandler<
         ImagePickerEvent,
         ImagePickerOneTimeEvent,
@@ -35,6 +37,7 @@ class ImagePickerStatefulEventHandler @Inject constructor(
             is ImagePickerEvent.CameraImageTaken -> onCameraImageTaken(event.uri)
             is ImagePickerEvent.OpenCamera -> openCamera()
             is ImagePickerEvent.OpenGallery -> openGallery()
+            ImagePickerEvent.ImagesPicked -> analyticsTracker.trackImagesAttached()
         }
     }
 
@@ -53,7 +56,7 @@ class ImagePickerStatefulEventHandler @Inject constructor(
         }
     }
 
-    private suspend fun toggleSelection(uri: Uri) {
+    private fun toggleSelection(uri: Uri) {
         updateUiState {
             val current = allImages.find { it.uri == uri } ?: return@updateUiState
             val currentMode = attachMode
@@ -69,13 +72,14 @@ class ImagePickerStatefulEventHandler @Inject constructor(
     }
 
     private suspend fun onAddGalleryImages(uris: List<Uri>) {
+        analyticsTracker.trackGalleryImageTaken()
         when (stateValue.attachMode) {
             AttachMode.SingleAttach -> handleSingleAttach(uris.firstOrNull())
             AttachMode.MultiAttach -> handleMultiAttach(uris)
         }
     }
 
-    private suspend fun handleSingleAttach(uri: Uri?) {
+    private fun handleSingleAttach(uri: Uri?) {
         if (uri == null) return
 
         updateUiState {
@@ -89,7 +93,7 @@ class ImagePickerStatefulEventHandler @Inject constructor(
         }
     }
 
-    private suspend fun handleMultiAttach(uris: List<Uri>) {
+    private fun handleMultiAttach(uris: List<Uri>) {
         val addedIds = uris.mapNotNull { it.getLastId() }.toSet()
 
         updateUiState {
@@ -109,6 +113,7 @@ class ImagePickerStatefulEventHandler @Inject constructor(
     }
 
     private fun onCameraImageTaken(uri: Uri) {
+        analyticsTracker.trackCameraImageTaken()
         updateUiState {
             allImages =
                 listOf(UiImageItem(uri, true)) + allImages.filterNot { it.uri == uri }
@@ -116,6 +121,7 @@ class ImagePickerStatefulEventHandler @Inject constructor(
     }
 
     private suspend fun openCamera() {
+        analyticsTracker.trackCameraClick()
         val cameraUri = generateCameraUriUseCase()
         ImagePickerOneTimeEvent.OpenCamera(cameraUri).processOneTimeEvent()
     }

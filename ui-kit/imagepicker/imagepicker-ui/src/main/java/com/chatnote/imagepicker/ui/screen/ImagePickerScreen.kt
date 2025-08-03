@@ -6,12 +6,13 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -27,7 +28,9 @@ import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -99,26 +102,26 @@ private fun AttachImageBottomSheet(
         onDenied = { println("Permission_tag ImagePicker ❌ Camera permission denied") }
     )
 
-    val requestGalleryPermission = permissionRequestLauncher(
-        type = PermissionType.GALLERY,
-        onGranted = viewModel::loadImages,
-        onDenied = { println("Permission_tag ImagePicker ❌ Gallery permission denied") }
-    )
+    /*  val requestGalleryPermission = permissionRequestLauncher(
+          type = PermissionType.GALLERY,
+          onGranted = viewModel::loadImages,
+          onDenied = { println("Permission_tag ImagePicker ❌ Gallery permission denied") }
+      )*/
 
-    val openGalleryWithPermission = permissionRequestLauncher(
-        type = PermissionType.GALLERY,
-        onGranted = {
-            viewModel.loadImages()
-            viewModel.openGallery()
-        },
-        onDenied = { println("Permission_tag ImagePicker ❌ Gallery permission denied") }
-    )
+    /*   val openGalleryWithPermission = permissionRequestLauncher(
+           type = PermissionType.GALLERY,
+           onGranted = {
+               viewModel.loadImages()
+               viewModel.openGallery()
+           },
+           onDenied = { println("Permission_tag ImagePicker ❌ Gallery permission denied") }
+       )*/
 
     val enableAttachButton by remember(uiState.allImages) { derivedStateOf { uiState.allImages.any { it.isSelected } } }
 
-    LaunchedEffect(Unit) {
-        requestGalleryPermission.launch(PermissionType.GALLERY.toSystemPermission())
-    }
+    /*  LaunchedEffect(Unit) {
+          requestGalleryPermission.launch(PermissionType.GALLERY.toSystemPermission())
+      }*/
 
     val takePictureLauncher = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.TakePicture()
@@ -174,6 +177,22 @@ private fun AttachImageBottomSheet(
                 .fillMaxWidth()
                 .padding(16.dp)
         ) {
+
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                CameraButton(modifier = Modifier
+                    .height(80.dp)
+                    .widthIn(min = 80.dp)) {
+                    requestCameraPermission.launch(PermissionType.CAMERA.toSystemPermission())
+                }
+
+                GalleryButton(modifier = Modifier
+                    .height(80.dp)
+                    .widthIn(min = 80.dp)) {
+                    viewModel.openGallery()
+                    //  openGalleryWithPermission.launch(PermissionType.GALLERY.toSystemPermission())
+                }
+
+            }
             LazyVerticalGrid(
                 columns = GridCells.Adaptive(minSize = 80.dp),
                 modifier = Modifier
@@ -183,12 +202,6 @@ private fun AttachImageBottomSheet(
                 horizontalArrangement = Arrangement.spacedBy(8.dp),
                 contentPadding = PaddingValues(8.dp)
             ) {
-                item {
-                    CameraButton(modifier = Modifier.size(80.dp)) {
-                        requestCameraPermission.launch(PermissionType.CAMERA.toSystemPermission())
-                    }
-                }
-
                 items(
                     uiState.allImages.size,
                     key = { uiState.allImages[it].uri.toString() }) { index ->
@@ -200,12 +213,6 @@ private fun AttachImageBottomSheet(
                         onClick = { viewModel.toggleImageSelection(item.uri) }
                     )
                 }
-
-                item {
-                    GalleryButton(modifier = Modifier.size(80.dp)) {
-                        openGalleryWithPermission.launch(PermissionType.GALLERY.toSystemPermission())
-                    }
-                }
             }
 
             Spacer(modifier = Modifier.height(16.dp))
@@ -213,6 +220,7 @@ private fun AttachImageBottomSheet(
             Button(
                 enabled = enableAttachButton,
                 onClick = {
+                    viewModel.onImagesPicked()
                     onImagesPicked(uiState.allImages.filter { it.isSelected }.map { it.uri })
                     onDismiss()
                 },
@@ -227,7 +235,7 @@ private fun AttachImageBottomSheet(
                 StyledText(
                     text = stringResource(CR.string.attach),
                     modifier = Modifier.padding(vertical = 8.dp),
-                    color = MaterialTheme.colorScheme.onPrimary,
+                    color = Color.White,
                     fontWeight = FontWeight.W500,
                     fontSize = 14.sp,
                     lineHeight = 14.sp

@@ -3,6 +3,13 @@ package com.chatnote.common.analytics
 interface AnalyticsTracker {
 
     fun trackNoteLongClick()
+    fun trackCameraClick()
+    fun trackCameraImageTaken()
+    fun trackGalleryImageTaken()
+    fun trackImageRemove()
+    fun trackImagesAttached()
+    fun trackImageViewerOpen()
+    fun trackNavigationRoute(navigationRoute: String)
     fun trackReviewRequest()
     fun trackNewNote(folderId: Long)
     fun trackOnReviewLaunchSuccess()

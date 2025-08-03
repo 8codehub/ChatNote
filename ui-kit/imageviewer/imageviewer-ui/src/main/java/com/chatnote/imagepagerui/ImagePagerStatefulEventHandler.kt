@@ -10,7 +10,7 @@ import com.chatnote.imagepagerui.ImagePagerContract.ImagePagerState
 import com.chatnote.imagepagerui.ImagePagerContract.MutableImagePagerState
 import javax.inject.Inject
 
-class ImagePagerStatefulEventHandler @Inject constructor(
+internal class ImagePagerStatefulEventHandler @Inject constructor(
     private val analyticsTracker: AnalyticsTracker,
     private val mapperResultErrorToErrorId: Mapper<Throwable?, Int>
 ) :
@@ -21,10 +21,12 @@ class ImagePagerStatefulEventHandler @Inject constructor(
         when (event) {
             is ImagePagerEvent.GeneralError -> onGeneralError(event.throwable)
             is ImagePagerEvent.LoadImages -> onLoadImagesEvent(event.images, event.defaultImage)
+            is ImagePagerEvent.NavigationEvent -> analyticsTracker.trackNavigationRoute(navigationRoute = event.navigationRoute.toString().lowercase())
         }
     }
 
     private fun onLoadImagesEvent(imagePaths: List<String>, preSelectedImage: String?) {
+        analyticsTracker.trackImageViewerOpen()
         val sortedImages = imagePaths.sortedBy { image ->
             if (image == preSelectedImage) 0 else 1
         }

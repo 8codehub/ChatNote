@@ -2,7 +2,9 @@ package com.chatnote.coreui.ui.component
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
@@ -48,6 +50,7 @@ fun UITimeTag(timeTag: TimeTag, date: String) {
             overflow = TextOverflow.Ellipsis,
             color = textColor
         )
+        Spacer(modifier = Modifier.width(2.dp))
         StyledText(
             text = timeTag.emoji,
             fontWeight = FontWeight.Medium,

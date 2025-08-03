@@ -46,8 +46,8 @@ fun CircularImage(
     ) {
         Box(
             modifier = Modifier
-                .padding(iconPadding)
                 .clip(CircleShape)
+                .padding(iconPadding)
         ) {
             Image(
                 painter = painterResource(id = drawableRes),

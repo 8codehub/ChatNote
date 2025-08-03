@@ -6,6 +6,7 @@ import com.chatnote.common.di.IoDispatcher
 import com.chatnote.coreui.arch.EventDrivenViewModel
 import com.chatnote.coreui.arch.StatefulEventHandler
 import com.chatnote.imagepagerui.ImagePagerContract
+import com.chatnote.imagepagerui.navigation.PagerNavigationRoute
 import com.chatnote.navigation.NavigationRoute
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineDispatcher
@@ -13,7 +14,7 @@ import javax.inject.Inject
 
 
 @HiltViewModel
-class ImagePagerViewModel @Inject constructor(
+internal class ImagePagerViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle,
     @IoDispatcher ioDispatcher: CoroutineDispatcher,
     statefulEventHandler: StatefulEventHandler<
@@ -46,5 +47,11 @@ class ImagePagerViewModel @Inject constructor(
 
     override fun onGeneralError(throwable: Throwable) {
         ImagePagerContract.ImagePagerEvent.GeneralError(throwable = throwable).processWithLaunch()
+    }
+
+    internal fun onNavigationEvent(route: PagerNavigationRoute) {
+        ImagePagerContract.ImagePagerEvent.NavigationEvent(navigationRoute = route)
+            .processWithLaunch()
+
     }
 }

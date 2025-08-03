@@ -88,7 +88,7 @@ fun FolderCard(
                         maxLines = 1,
                         overflow = TextOverflow.Ellipsis,
                         fontStyle = FontStyle.Normal,
-                        color = MaterialTheme.colorScheme.onSurface
+                        color = MaterialTheme.colorScheme.secondary
                     )
                 } else {
                     Row(

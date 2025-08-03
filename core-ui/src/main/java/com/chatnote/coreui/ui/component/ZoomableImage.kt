@@ -1,6 +1,5 @@
 package com.chatnote.coreui.ui.component
 
-import android.widget.Toast
 import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.gestures.detectTransformGestures
@@ -37,19 +36,12 @@ fun ZoomableImage(
     val coroutineScope = rememberCoroutineScope()
 
     var activePointers by remember { mutableStateOf(0) }
-    var hasShownZoomToast by remember { mutableStateOf(false) }
-    var shouldShowReleaseToast by remember { mutableStateOf(false) }
 
     Box(
         modifier = modifier
             .pointerInput(Unit) {
                 detectTransformGestures(panZoomLock = true) { _, pan, zoom, _ ->
                     if (activePointers >= 2) {
-                        if (!hasShownZoomToast) {
-                            Toast.makeText(context, "Zoom started", Toast.LENGTH_SHORT).show()
-                            hasShownZoomToast = true
-                        }
-                        shouldShowReleaseToast = true
                         coroutineScope.launch {
                             val newScale = (scale.value * zoom).coerceIn(1f, 3f)
                             scale.snapTo(newScale)
@@ -77,17 +69,7 @@ fun ZoomableImage(
                                     offsetX.animateTo(0f, tween(300))
                                     offsetY.animateTo(0f, tween(300))
 
-                                    // ✅ Only show toast once animation is complete
-                                    if (shouldShowReleaseToast) {
-                                        Toast.makeText(context, "Zoom released", Toast.LENGTH_SHORT)
-                                            .show()
-                                        shouldShowReleaseToast = false
-                                        hasShownZoomToast = false
-                                    }
                                 }
-                            } else {
-                                hasShownZoomToast = false
-                                shouldShowReleaseToast = false
                             }
 
                             onZoomingChanged(false)

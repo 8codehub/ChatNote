@@ -54,6 +54,10 @@ abstract class BaseImagePickerViewModel(
         ImagePickerContract.ImagePickerEvent.OpenCamera.processWithLaunch()
     }
 
+    fun onImagesPicked() {
+        ImagePickerContract.ImagePickerEvent.ImagesPicked.processWithLaunch()
+    }
+
     fun openGallery() {
         ImagePickerContract.ImagePickerEvent.OpenGallery.processWithLaunch()
     }

@@ -5,9 +5,10 @@ import com.chatnote.coreui.arch.ConvertibleState
 import com.chatnote.coreui.arch.MutableConvertibleState
 import com.chatnote.coreui.arch.UiEvent
 import com.chatnote.coreui.arch.UiOneTimeEvent
+import com.chatnote.imagepagerui.navigation.PagerNavigationRoute
 import com.chatnote.content.R as CR
 
-object ImagePagerContract {
+internal object ImagePagerContract {
 
     // Immutable State
     data class ImagePagerState(
@@ -43,6 +44,9 @@ object ImagePagerContract {
     // UI Events
     sealed class ImagePagerEvent : UiEvent {
         data class LoadImages(val defaultImage: String?, val images: List<String>) :
+            ImagePagerEvent()
+
+        data class NavigationEvent(val navigationRoute: PagerNavigationRoute) :
             ImagePagerEvent()
 
         data class GeneralError(val throwable: Throwable) : ImagePagerEvent()

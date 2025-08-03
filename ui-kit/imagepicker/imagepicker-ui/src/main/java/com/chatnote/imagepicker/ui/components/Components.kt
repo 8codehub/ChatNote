@@ -38,11 +38,14 @@ internal fun CameraButton(modifier: Modifier = Modifier, onClick: () -> Unit) {
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
-        AsyncImage(
-            modifier = Modifier.size(24.dp),
-            model = R.drawable.ic_camera,
+
+        CircularImage(
+            borderWidth = 0.dp,
+            iconPadding = 8.dp,
+            backgroundColor = MaterialTheme.colorScheme.primary,
+            contentDescription = stringResource(CR.string.image),
+            drawableRes = R.drawable.ic_new_camera,
             contentScale = ContentScale.Fit,
-            contentDescription = stringResource(CR.string.camera)
         )
 
         Spacer(modifier = Modifier.height(8.dp))
@@ -52,7 +55,7 @@ internal fun CameraButton(modifier: Modifier = Modifier, onClick: () -> Unit) {
             text = stringResource(CR.string.camera),
             fontSize = 14.sp,
             lineHeight = 14.sp,
-            maxLines = 2,
+            maxLines = 1,
             textAlign = TextAlign.Center,
             color = MaterialTheme.colorScheme.onBackground,
             fontWeight = FontWeight.Medium
@@ -84,7 +87,7 @@ internal fun GalleryButton(modifier: Modifier = Modifier, onClick: () -> Unit) {
             text = stringResource(CR.string.image),
             fontSize = 14.sp,
             lineHeight = 14.sp,
-            maxLines = 2,
+            maxLines = 1,
             textAlign = TextAlign.Center,
             color = MaterialTheme.colorScheme.onBackground,
             fontWeight = FontWeight.Medium
