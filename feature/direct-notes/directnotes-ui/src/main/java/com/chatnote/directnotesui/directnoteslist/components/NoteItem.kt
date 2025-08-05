@@ -1,5 +1,6 @@
 package com.chatnote.directnotesui.directnoteslist.components
 
+import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.background
 import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.Box
@@ -45,16 +46,18 @@ fun NoteItem(
             horizontalAlignment = Alignment.End,
             modifier = Modifier
                 .widthIn(max = bubbleWidth)
-                .clip(if (isFirstItem) {
-                    RoundedCornerShape(
-                        topStart = 16.dp,
-                        topEnd = 16.dp,
-                        bottomStart = 16.dp,
-                        bottomEnd = 0.dp
-                    )
-                } else {
-                    MaterialTheme.shapes.large
-                })
+                .clip(
+                    if (isFirstItem) {
+                        RoundedCornerShape(
+                            topStart = 16.dp,
+                            topEnd = 16.dp,
+                            bottomStart = 16.dp,
+                            bottomEnd = 0.dp
+                        )
+                    } else {
+                        MaterialTheme.shapes.large
+                    }
+                )
                 .combinedClickable(
                     onClick = { },
                     onLongClick = { onLongClick(note) }

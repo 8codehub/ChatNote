@@ -10,6 +10,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.chatnote.coreui.ui.theme.AppTheme
+import com.chatnote.coreui.ui.theme.DarkModeSetting
 import com.chatnote.directnotesui.DirectNotesScreen
 import com.chatnote.directnotesui.editnote.EditNoteScreen
 import com.chatnote.imagepagerui.ImagePagerScreen
@@ -26,7 +27,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-            AppTheme {
+            AppTheme(darkModeSetting = DarkModeSetting.SYSTEM) {
                 val navController = rememberNavController()
                 MainApp(
                     navController = navController

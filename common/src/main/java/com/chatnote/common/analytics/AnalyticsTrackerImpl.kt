@@ -22,12 +22,6 @@ internal class AnalyticsTrackerImpl @Inject constructor(
         })
     }
 
-    override fun trackFolderCount(folderCount: Int) {
-        logEvent("folder_count_updated", Bundle().apply {
-            putInt("folder_count", folderCount)
-        })
-    }
-
     override fun trackFolderEditOpened(isEditMode: Boolean) {
         logEvent("folder_edit_opened", Bundle().apply {
             putBoolean("is_edit_mode", isEditMode)
@@ -103,25 +97,6 @@ internal class AnalyticsTrackerImpl @Inject constructor(
         logEvent("rout_$navigationRoute")
     }
 
-    override fun trackOnReviewRequestFail(message: String?) {
-        logEvent("review_request_fail_".plus(message?.take(15)))
-    }
-
-    override fun trackOnReviewRequestSuccess() {
-        logEvent("review_request_success")
-    }
-
-    override fun trackReviewRequest() {
-        logEvent("review_request")
-    }
-
-    override fun trackOnReviewLaunchFail(message: String?) {
-        logEvent("on_review_launch_fail_".plus(message?.take(15)))
-    }
-
-    override fun trackOnReviewLaunchSuccess() {
-        logEvent("on_review_launch_success")
-    }
 
     private fun logEvent(eventName: String, params: Bundle? = null) {
         firebaseAnalytics.logEvent(eventName, params)

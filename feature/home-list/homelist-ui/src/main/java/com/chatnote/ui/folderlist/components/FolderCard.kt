@@ -129,7 +129,6 @@ fun FolderCard(
                         fontWeight = FontWeight.Medium,
                         fontSize = 12.sp,
                         maxLines = 1,
-                        fontStyle = FontStyle.Italic,
                         overflow = TextOverflow.Ellipsis,
                         color = MaterialTheme.colorScheme.onBackground
                     )

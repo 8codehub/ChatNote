@@ -136,7 +136,6 @@ class FolderListStatefulEventHandler @Inject constructor(
     }
 
     private suspend fun processFolders(folders: List<Folder>) {
-        trackFolderCount(folders)
         checkForFirstOpenEvent(folders)
         updateUiWithFolders(folders)
         checkIfUserIsReadyForReview(folders = folders)
@@ -149,10 +148,6 @@ class FolderListStatefulEventHandler @Inject constructor(
                 analyticsTracker = analyticsTracker
             ).processOneTimeEvent()
         }
-    }
-
-    private fun trackFolderCount(folders: List<Folder>) {
-        analyticsTracker.trackFolderCount(folderCount = folders.size)
     }
 
     private suspend fun checkForFirstOpenEvent(folders: List<Folder>) {
