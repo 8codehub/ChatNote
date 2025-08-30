@@ -18,15 +18,25 @@ scalability and maintainability.
 
 ### Home List
 
-![Home List](https://raw.githubusercontent.com/8codehub/ChatNote/refs/heads/main/assets/1.png)
+![Home List](https://raw.githubusercontent.com/8codehub/ChatNote/refs/heads/main/assets/home.png)
+![Home List](https://raw.githubusercontent.com/8codehub/ChatNote/refs/heads/main/assets/home_folder_swipe.png)
+![Home List](https://raw.githubusercontent.com/8codehub/ChatNote/refs/heads/main/assets/home_delete_folder.png)
 
 ### Direct Notes
 
-![Direct Notes](https://raw.githubusercontent.com/8codehub/ChatNote/refs/heads/main/assets/2.png)
+![Direct Notes](https://raw.githubusercontent.com/8codehub/ChatNote/refs/heads/main/assets/notes.png)
+![Direct Notes](https://raw.githubusercontent.com/8codehub/ChatNote/refs/heads/main/assets/image_draft.png)
+![Direct Notes](https://raw.githubusercontent.com/8codehub/ChatNote/refs/heads/main/assets/single_note.png)
+![Direct Notes](https://raw.githubusercontent.com/8codehub/ChatNote/refs/heads/main/assets/note_actions.png)
 
-### Note Editor
+### Folder Editor
 
-![Note Editor](https://raw.githubusercontent.com/8codehub/ChatNote/refs/heads/main/assets/3.png)
+![Note Editor](https://raw.githubusercontent.com/8codehub/ChatNote/refs/heads/main/assets/folder_editor.png)
+
+
+### Image picker
+
+![Note Editor](https://raw.githubusercontent.com/8codehub/ChatNote/refs/heads/main/assets/image_picker.png)
 
 ## Architecture
 
