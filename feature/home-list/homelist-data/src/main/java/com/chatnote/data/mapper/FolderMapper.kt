@@ -2,18 +2,23 @@ package com.chatnote.data.mapper
 
 import com.chatnote.coredata.di.model.FolderEntity
 import com.chatnote.coredata.di.model.FolderWithLastNote
+import com.chatnote.coredata.di.model.NoteExtraEntity
 import com.chatnote.coredomain.mapper.Mapper
 import com.chatnote.coredomain.models.FolderBaseInfo
+import com.chatnote.coredomain.models.NoteExtra
 import com.chatnote.domain.model.Folder
 import javax.inject.Inject
 
-internal class FolderWithLastNoteToFolderMapper @Inject constructor() :
+internal class FolderWithLastNoteToFolderMapper @Inject constructor(
+    private val extraMapper: Mapper<NoteExtraEntity, NoteExtra>
+) :
     Mapper<FolderWithLastNote, Folder> {
     override fun map(from: FolderWithLastNote): Folder = Folder(
         id = from.folder.id,
         name = from.folder.name,
         createdAt = from.folder.createdAt,
         lastNote = from.lastNoteContent.orEmpty(),
+        lastNoteExtras = extraMapper.mapList(from.extras.orEmpty()),
         iconUri = from.folder.iconUri,
         lastNoteCreatedDate = from.lastNoteCreatedAt ?: 0,
         lastNoteId = from.lastNoteId ?: 0,
@@ -24,13 +29,14 @@ internal class FolderWithLastNoteToFolderMapper @Inject constructor() :
 internal class FolderEntityToFolderMapper @Inject constructor() : Mapper<FolderEntity, Folder> {
     override fun map(from: FolderEntity): Folder = Folder(
         id = from.id,
+        iconUri = from.iconUri,
         name = from.name,
         createdAt = from.createdAt,
-        lastNote = "",
-        iconUri = from.iconUri,
-        lastNoteCreatedDate = 0,
         lastNoteId = 0,
-        isPinned = from.pinnedDate > 0
+        lastNote = "",
+        isPinned = from.pinnedDate > 0,
+        lastNoteCreatedDate = 0,
+        lastNoteExtras = emptyList()
     )
 }
 

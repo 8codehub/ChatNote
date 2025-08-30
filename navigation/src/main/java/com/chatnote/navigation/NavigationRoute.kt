@@ -21,4 +21,10 @@ sealed class NavigationRoute {
     data class EditNote(
         val noteId: Long
     ) : NavigationRoute()
+
+    @Serializable
+    data class ImagePager(
+        val images: List<String>,
+        val selectedImage: String?
+    ) : NavigationRoute()
 }

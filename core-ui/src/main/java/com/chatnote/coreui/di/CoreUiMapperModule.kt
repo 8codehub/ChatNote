@@ -2,7 +2,7 @@ package com.chatnote.coreui.di
 
 import com.chatnote.coredomain.mapper.Mapper
 import com.chatnote.coreui.mapper.ResultErrorToErrorMessageMapper
-import com.chatnote.coreui.util.PermissionHelper
+
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -18,8 +18,4 @@ object CoreUiMapperModule {
     fun provideResultErrorToErrorMessageIdMapper(): Mapper<Throwable?, Int> {
         return ResultErrorToErrorMessageMapper()
     }
-
-    @Provides
-    @Singleton
-    fun providePermissionHelper(): PermissionHelper = PermissionHelper()
 }

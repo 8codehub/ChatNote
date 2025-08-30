@@ -41,6 +41,8 @@ import com.chatnote.ui.editor.FolderEditorContract.FolderEditorOneTimeEvent.Navi
 import com.chatnote.ui.editor.FolderEditorContract.FolderEditorOneTimeEvent.ShowToast
 import com.chatnote.ui.editor.component.IconItem
 import kotlinx.coroutines.flow.collectLatest
+import com.chatnote.content.R as CR
+
 
 @Composable
 fun FolderEditorScreen(
@@ -92,12 +94,12 @@ fun FolderEditorScreen(
                             .clickable {
                                 onCancel()
                             },
-                        text = stringResource(R.string.cancel),
+                        text = stringResource(CR.string.cancel),
                         fontSize = 16.sp,
                         maxLines = 1,
                         fontWeight = FontWeight.W400,
                         overflow = TextOverflow.Ellipsis,
-                        color = MaterialTheme.colorScheme.primary
+                        color = MaterialTheme.colorScheme.onBackground
                     )
                 },
                 centerContent = {
@@ -122,12 +124,12 @@ fun FolderEditorScreen(
                                     selectedIconUri = selectedIconUri
                                 )
                             },
-                        text = stringResource(R.string.done),
+                        text = stringResource(CR.string.done),
                         fontSize = 16.sp,
                         maxLines = 1,
                         fontWeight = FontWeight.W400,
                         overflow = TextOverflow.Ellipsis,
-                        color = MaterialTheme.colorScheme.primary
+                        color = MaterialTheme.colorScheme.onBackground
                     )
                 }
             )
@@ -143,6 +145,9 @@ fun FolderEditorScreen(
                     .padding(top = 32.dp)
                     .align(Alignment.CenterHorizontally),
                 imageUri = selectedIconUri,
+                contentDescription = stringResource(CR.string.folder_image),
+                borderWidth = 1.dp,
+                borderColor = MaterialTheme.colorScheme.onBackground,
                 iconSize = 100.dp,
                 iconPadding = 0.dp,
             )
@@ -151,8 +156,8 @@ fun FolderEditorScreen(
 
             LabeledInputText(
                 modifier = Modifier.padding(horizontal = 12.dp),
-                hint = stringResource(R.string.random),
-                label = stringResource(R.string.name),
+                hint = stringResource(CR.string.random),
+                label = stringResource(CR.string.name),
                 clearTextIcon = R.drawable.ic_clear,
                 text = localFolderName,
                 inputError = state.inputError,
@@ -167,7 +172,7 @@ fun FolderEditorScreen(
             if (state.icons.isNotEmpty()) {
                 LazyVerticalGrid(
                     modifier = Modifier.padding(horizontal = 36.dp),
-                    columns = GridCells.Fixed(4),
+                    columns = GridCells.Adaptive(minSize = 64.dp),
                     contentPadding = PaddingValues(vertical = 12.dp)
                 ) {
                     items(state.icons.size, key = { state.icons[it] }) { index ->

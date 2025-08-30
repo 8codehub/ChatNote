@@ -16,9 +16,9 @@ import com.chatnote.coreui.ui.theme.PoppinsFontFamily
 
 @Composable
 fun StyledText(
+    modifier: Modifier = Modifier,
     text: String? = null,
     annotatedText: AnnotatedString? = null,
-    modifier: Modifier = Modifier,
     color: Color = MaterialTheme.colorScheme.onBackground,
     fontSize: TextUnit = 16.sp,
     fontWeight: FontWeight = FontWeight.Normal,

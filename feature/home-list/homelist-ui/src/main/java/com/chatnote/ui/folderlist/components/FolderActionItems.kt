@@ -12,6 +12,8 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import chatnote.homelistui.R
 import com.chatnote.coreui.ui.component.CircularImage
+import com.chatnote.content.R as CR
+
 
 @Composable
 fun FolderActionItems(
@@ -28,7 +30,7 @@ fun FolderActionItems(
         verticalAlignment = Alignment.CenterVertically
     ) {
         CircularImage(
-            contentDescription = stringResource(R.string.edit_details),
+            contentDescription = stringResource(CR.string.edit_details),
             onClick = onFolderEdit,
             iconSize = 18.dp,
             drawableRes = R.drawable.ic_edit,
@@ -38,7 +40,7 @@ fun FolderActionItems(
         )
 
         CircularImage(
-            contentDescription = stringResource(R.string.pin_folder),
+            contentDescription = stringResource(CR.string.pin_folder),
             iconSize = 18.dp,
             onClick = if (isPinned) {
                 onFolderUnPin
@@ -61,7 +63,7 @@ fun FolderActionItems(
         )
 
         CircularImage(
-            contentDescription = stringResource(R.string.delete),
+            contentDescription = stringResource(CR.string.delete),
             iconSize = 18.dp,
             contentScale = ContentScale.Fit,
             onClick = onFolderDelete,

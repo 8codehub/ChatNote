@@ -1,0 +1,59 @@
+package com.chatnote.coredata.di.db
+
+import androidx.room.Dao
+import androidx.room.Delete
+import androidx.room.Insert
+import androidx.room.OnConflictStrategy
+import androidx.room.Query
+import androidx.room.Transaction
+import com.chatnote.coredata.di.model.NoteEntity
+import kotlinx.coroutines.flow.Flow
+
+@Dao
+interface NoteDAO {
+
+    @Query("SELECT * FROM notes WHERE folderId = :folderId ORDER BY note_last_created_at DESC")
+    fun getNotesForFolder(folderId: Long): Flow<List<NoteEntity>>
+
+    @Query(
+        """
+        SELECT * FROM notes 
+        WHERE folderId = :folderId 
+        ORDER BY note_last_created_at DESC 
+        LIMIT 1
+    """
+    )
+    fun getMostRecentNoteForFolder(folderId: Long): Flow<NoteEntity?>
+
+    @Query("SELECT * FROM notes WHERE id = :noteId")
+    suspend fun getNoteById(noteId: Long): NoteEntity?
+
+    @Query("UPDATE notes SET note_last_content = :content WHERE id = :noteId")
+    suspend fun updateNoteContentById(noteId: Long, content: String)
+
+    @Query("DELETE FROM notes WHERE folderId = :folderId")
+    suspend fun deleteNotesByFolderId(folderId: Long): Int
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertNote(noteEntity: NoteEntity): Long
+
+    @Delete
+    suspend fun deleteNote(noteEntity: NoteEntity)
+
+    @Query("DELETE FROM notes WHERE id = :noteId")
+    suspend fun deleteNoteById(noteId: Long): Int
+
+    @Transaction
+    @Query("SELECT * FROM notes WHERE folderId = :folderId ORDER BY note_last_created_at DESC")
+    fun getNotesWithExtrasForFolder(folderId: Long): Flow<List<NoteWithExtras>>
+
+    @Transaction
+    @Query("SELECT * FROM notes WHERE id = :noteId")
+    suspend fun getNoteWithExtrasById(noteId: Long): NoteWithExtras?
+
+    @Transaction
+    @Query("SELECT * FROM notes WHERE folderId = :folderId")
+    suspend fun getNotesWithExtrasForFolderStatic(folderId: Long): List<NoteWithExtras>
+
+
+}

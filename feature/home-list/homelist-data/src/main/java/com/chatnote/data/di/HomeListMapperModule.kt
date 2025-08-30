@@ -2,8 +2,10 @@ package com.chatnote.data.di
 
 import com.chatnote.coredata.di.model.FolderEntity
 import com.chatnote.coredata.di.model.FolderWithLastNote
+import com.chatnote.coredata.di.model.NoteExtraEntity
 import com.chatnote.coredomain.mapper.Mapper
 import com.chatnote.coredomain.models.FolderBaseInfo
+import com.chatnote.coredomain.models.NoteExtra
 import com.chatnote.data.mapper.FolderEntityToFolderBaseInfoMapper
 import com.chatnote.data.mapper.FolderEntityToFolderMapper
 import com.chatnote.data.mapper.FolderToFolderEntityMapper
@@ -21,8 +23,8 @@ object HomeListMapperModule {
 
     @Provides
     @Singleton
-    fun provideFolderWithLastNoteToFolderMapper(): Mapper<FolderWithLastNote, Folder> =
-        FolderWithLastNoteToFolderMapper()
+    fun provideFolderWithLastNoteToFolderMapper(extraMapper: Mapper<NoteExtraEntity, NoteExtra>): Mapper<FolderWithLastNote, Folder> =
+        FolderWithLastNoteToFolderMapper(extraMapper = extraMapper)
 
     @Provides
     @Singleton

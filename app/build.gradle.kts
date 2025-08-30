@@ -17,7 +17,7 @@ android {
     defaultConfig {
         applicationId = "com.chatnote"
         minSdk = 24
-        targetSdk = 34
+        targetSdk = 35
         versionCode = libs.versions.versionCode.get().toInt()
         versionName = libs.versions.versionName.get()
         versionNameSuffix = "-release-${libs.versions.versionName.get()}"
@@ -56,6 +56,8 @@ dependencies {
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)
+    implementation(libs.accompanist.navigation.material)
+
     implementation(platform(libs.androidx.compose.bom))
     implementation(libs.androidx.ui)
     implementation(libs.androidx.ui.graphics)
@@ -77,6 +79,8 @@ dependencies {
     implementation(project(":feature:direct-notes:directnotes-data"))
     implementation(project(":feature:direct-notes:directnotes-domain"))
     implementation(project(":feature:direct-notes:directnotes-ui"))
+    implementation(project(":ui-kit:imagepicker:imagepicker-ui"))
+    implementation(project(":ui-kit:imageviewer:imageviewer-ui"))
 
     implementation(project(":core-ui"))
     implementation(project(":core-domain"))
@@ -97,4 +101,5 @@ dependencies {
     debugImplementation(libs.androidx.ui.test.manifest)
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
+
 }

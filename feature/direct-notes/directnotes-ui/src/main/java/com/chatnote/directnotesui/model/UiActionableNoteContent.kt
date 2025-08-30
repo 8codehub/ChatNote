@@ -1,7 +1,7 @@
 package com.chatnote.directnotesui.model
 
 import androidx.annotation.StringRes
-import chatnote.directnotesui.R
+import com.chatnote.content.R as CR
 
 data class UiNoteActionableContent(
     val fullContent: String,
@@ -22,14 +22,14 @@ sealed class UiNoteInteraction(val order: Int, val name: String) {
 @StringRes
 fun UiNoteInteraction.getActionStringResId(): Int {
     return when (this) {
-        is UiNoteInteraction.Edit -> R.string.action_call
-        is UiNoteInteraction.Call -> R.string.action_call
-        is UiNoteInteraction.SMS -> R.string.action_sms
-        is UiNoteInteraction.Share -> R.string.action_share
-        is UiNoteInteraction.OpenWeb -> R.string.action_open_web
-        is UiNoteInteraction.OpenEmail -> R.string.action_open_email
-        is UiNoteInteraction.Copy -> R.string.action_copy
-        is UiNoteInteraction.Delete -> R.string.action_delete
+        is UiNoteInteraction.Edit -> CR.string.action_call
+        is UiNoteInteraction.Call -> CR.string.action_call
+        is UiNoteInteraction.SMS -> CR.string.action_sms
+        is UiNoteInteraction.Share -> CR.string.action_share
+        is UiNoteInteraction.OpenWeb -> CR.string.action_open_web
+        is UiNoteInteraction.OpenEmail -> CR.string.action_open_email
+        is UiNoteInteraction.Copy -> CR.string.action_copy
+        is UiNoteInteraction.Delete -> CR.string.action_delete
     }
 }
 

@@ -10,31 +10,24 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.chatnote.coreui.ui.theme.AppTheme
-import com.chatnote.coreui.util.PermissionHelper
+import com.chatnote.coreui.ui.theme.DarkModeSetting
 import com.chatnote.directnotesui.DirectNotesScreen
 import com.chatnote.directnotesui.editnote.EditNoteScreen
+import com.chatnote.imagepagerui.ImagePagerScreen
 import com.chatnote.navigation.NavigationRoute
 import com.chatnote.ui.editor.FolderEditorScreen
 import com.chatnote.ui.folderlist.FolderListScreen
+import com.google.accompanist.navigation.material.ExperimentalMaterialNavigationApi
 import dagger.hilt.android.AndroidEntryPoint
-import javax.inject.Inject
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
 
-    companion object {
-        private const val NOTIFICATION_PERMISSION_REQUEST = 1001
-    }
-
-    @Inject
-    lateinit var permissionHelper: PermissionHelper
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        permissionHelper.askForNotificationPermission(activity = this, NOTIFICATION_PERMISSION_REQUEST)
         setContent {
-            AppTheme {
+            AppTheme(darkModeSetting = DarkModeSetting.SYSTEM) {
                 val navController = rememberNavController()
                 MainApp(
                     navController = navController
@@ -44,6 +37,7 @@ class MainActivity : ComponentActivity() {
     }
 }
 
+@OptIn(ExperimentalMaterialNavigationApi::class)
 @Composable
 fun MainApp(
     navController: NavHostController
@@ -62,16 +56,22 @@ fun MainApp(
 
         composable<NavigationRoute.DirectNotes> {
             DirectNotesScreen(
-                onBackClick = { navController.popBackStack() },
+                onBackClick = { navController.navigateUp() },
                 navigateTo = { route ->
                     navController.navigate(route)
                 }
             )
         }
 
+        composable<NavigationRoute.ImagePager> { _ ->
+            ImagePagerScreen(
+                onBackClick = { navController.navigateUp() },
+            )
+        }
+
         composable<NavigationRoute.EditNote> {
             EditNoteScreen(
-                onCancel = { navController.popBackStack() },
+                onCancel = { navController.navigateUp() },
                 navigateTo = { route ->
                     navigateWithClearBackStack(
                         targetRoute = route,
@@ -83,7 +83,7 @@ fun MainApp(
 
         composable<NavigationRoute.FolderEditor> { _ ->
             FolderEditorScreen(
-                onCancel = { navController.popBackStack() },
+                onCancel = { navController.navigateUp() },
                 navigateTo = { route ->
                     navigateWithClearBackStack(
                         targetRoute = route,
@@ -104,3 +104,4 @@ fun navigateWithClearBackStack(
         launchSingleTop = true
     }
 }
+

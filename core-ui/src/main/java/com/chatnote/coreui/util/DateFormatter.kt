@@ -6,10 +6,10 @@ import java.util.Date
 import java.util.Locale
 import javax.inject.Inject
 
-class DateFormatter @Inject constructor() {
+class DateFormatter @Inject constructor(locale: Locale) {
 
-    private val dateFormat: SimpleDateFormat = SimpleDateFormat("MMM dd", Locale.getDefault())
-    private val timeFormat: SimpleDateFormat = SimpleDateFormat("HH:mm", Locale.getDefault())
+    private val dateFormat: SimpleDateFormat = SimpleDateFormat("MMM dd", locale)
+    private val timeFormat: SimpleDateFormat = SimpleDateFormat("HH:mm", locale)
     private val fullDateFormat: SimpleDateFormat =
         SimpleDateFormat("yyyy MMM dd", Locale.getDefault())
 

@@ -55,5 +55,6 @@ dependencies {
     implementation(project(":core-ui"))
     implementation(project(":core-domain"))
     implementation(project(":feature:direct-notes:directnotes-domain"))
+    implementation(project(":ui-kit:imagepicker:imagepicker-ui"))
     implementation(project(":navigation"))
 }

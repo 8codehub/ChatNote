@@ -1,6 +1,7 @@
 package com.chatnote.directnotesui.directnoteslist.mapper
 
 import com.chatnote.coredomain.mapper.Mapper
+import com.chatnote.coreui.model.TimeTag
 import com.chatnote.coreui.util.DateFormatter
 import com.chatnote.directnotesdomain.model.Note
 import com.chatnote.directnotesdomain.model.NoteActionType
@@ -17,7 +18,9 @@ class NotesToUiNotesMapper @Inject constructor(private val dateFormatter: DateFo
     override fun map(from: Note) = UiNote(
         id = from.id,
         content = from.content,
-        date = dateFormatter.formatLong(millis = from.createdAt)
+        date = dateFormatter.formatLong(millis = from.createdAt),
+        imagePaths = from.extras.map { it.value },
+        timeTag = TimeTag.fromDate(from.createdAt)
     )
 }
 

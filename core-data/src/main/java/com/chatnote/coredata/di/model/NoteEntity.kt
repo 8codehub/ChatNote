@@ -11,5 +11,5 @@ data class NoteEntity(
     @ColumnInfo(name = "note_last_content")
     val content: String,
     @ColumnInfo(name = "note_last_created_at")
-    val createdAt: Long = System.currentTimeMillis()
+    val createdAt: Long = System.currentTimeMillis(),
 )

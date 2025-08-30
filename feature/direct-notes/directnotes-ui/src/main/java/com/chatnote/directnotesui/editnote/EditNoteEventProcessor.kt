@@ -14,7 +14,6 @@ import com.chatnote.directnotesui.editnote.EditNoteContract.EditNoteState
 import com.chatnote.directnotesui.editnote.EditNoteContract.MutableEditNoteState
 import javax.inject.Inject
 
-
 class EditNoteStatefulEventHandler @Inject constructor(
     private val getNoteById: GetNoteByIdUseCase,
     private val updateNoteContent: UpdateNoteContentUseCase,

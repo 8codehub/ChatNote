@@ -1,5 +1,7 @@
 package com.chatnote.domain.model
 
+import com.chatnote.coredomain.models.NoteExtra
+
 data class Folder(
     val id: Long? = null,
     val iconUri: String? = null,
@@ -9,4 +11,5 @@ data class Folder(
     val lastNote: String,
     val isPinned: Boolean,
     val lastNoteCreatedDate: Long,
+    val lastNoteExtras: List<NoteExtra>,
 )

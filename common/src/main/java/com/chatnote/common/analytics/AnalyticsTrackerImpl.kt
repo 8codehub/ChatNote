@@ -22,12 +22,6 @@ internal class AnalyticsTrackerImpl @Inject constructor(
         })
     }
 
-    override fun trackFolderCount(folderCount: Int) {
-        logEvent("folder_count_updated", Bundle().apply {
-            putInt("folder_count", folderCount)
-        })
-    }
-
     override fun trackFolderEditOpened(isEditMode: Boolean) {
         logEvent("folder_edit_opened", Bundle().apply {
             putBoolean("is_edit_mode", isEditMode)
@@ -42,10 +36,7 @@ internal class AnalyticsTrackerImpl @Inject constructor(
     }
 
     override fun trackFolderOpen(folderId: Long, notesCount: Int) {
-        logEvent("folder_opened", Bundle().apply {
-            putLong("folder_id", folderId)
-            putInt("notes_count", notesCount)
-        })
+        logEvent("folder_opened_notes_count_${notesCount}")
     }
 
     override fun trackFolderPinned(folderId: Long, isPinned: Boolean) {
@@ -56,17 +47,11 @@ internal class AnalyticsTrackerImpl @Inject constructor(
     }
 
     override fun trackFolderDeleted(folderId: Long, messagesCount: Int) {
-        logEvent("folder_deleted", Bundle().apply {
-            putLong("folder_id", folderId)
-            putInt("messages_count", messagesCount)
-        })
+        logEvent("folder_deleted_notes_count_${messagesCount}")
     }
 
     override fun trackFolderEditDone(iconUri: String, isEditMode: Boolean) {
-        logEvent("folder_edit_done", Bundle().apply {
-            putString("icon_uri", iconUri)
-            putBoolean("is_editor_mode", isEditMode)
-        })
+        logEvent("folder_edit_done_icon_${iconUri}_edit_mode_$isEditMode")
     }
 
     override fun onNotificationReceived(title: String, body: String) {
@@ -84,25 +69,34 @@ internal class AnalyticsTrackerImpl @Inject constructor(
         logEvent("note_long_click")
     }
 
-    override fun trackOnReviewRequestFail(message: String?) {
-        logEvent("review_request_fail_".plus(message?.take(15)))
+    override fun trackCameraClick() {
+        logEvent("camera_click")
     }
 
-    override fun trackOnReviewRequestSuccess() {
-        logEvent("review_request_success")
+    override fun trackCameraImageTaken() {
+        logEvent("camera_image_taken")
     }
 
-    override fun trackReviewRequest() {
-        logEvent("review_request")
+    override fun trackGalleryImageTaken() {
+        logEvent("gallery_image_taken")
     }
 
-    override fun trackOnReviewLaunchFail(message: String?) {
-        logEvent("on_review_launch_fail_".plus(message?.take(15)))
+    override fun trackImageRemove() {
+        logEvent("image_remove")
     }
 
-    override fun trackOnReviewLaunchSuccess() {
-        logEvent("on_review_launch_success")
+    override fun trackImagesAttached() {
+        logEvent("images_attached")
     }
+
+    override fun trackImageViewerOpen() {
+        logEvent("image_viewer_open")
+    }
+
+    override fun trackNavigationRoute(navigationRoute: String) {
+        logEvent("rout_$navigationRoute")
+    }
+
 
     private fun logEvent(eventName: String, params: Bundle? = null) {
         firebaseAnalytics.logEvent(eventName, params)

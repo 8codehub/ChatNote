@@ -1,6 +1,5 @@
 package com.chatnote.coreui.util
 
-import android.Manifest
 import android.annotation.SuppressLint
 import android.app.NotificationChannel
 import android.app.NotificationManager
@@ -12,8 +11,7 @@ import chatnote.coreui.R
 import javax.inject.Inject
 
 class NotificationHandler @Inject constructor(
-    private val context: Context,
-    private val permissionHelper: PermissionHelper
+    private val context: Context
 ) {
     @SuppressLint("MissingPermission")
     fun show(title: String, message: String) {
@@ -36,10 +34,7 @@ class NotificationHandler @Inject constructor(
             .setPriority(NotificationCompat.PRIORITY_DEFAULT)
             .build()
 
-        if (permissionHelper.isPermissionGranted(
-                context = context,
-                Manifest.permission.POST_NOTIFICATIONS
-            )
+        if (true
         ) {
             NotificationManagerCompat.from(context).notify(0, notification)
         }

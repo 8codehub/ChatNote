@@ -44,6 +44,8 @@ dependencies {
     implementation(libs.kotlinx.coroutines.android)
     implementation(libs.androidx.foundation.layout.android)
     implementation(libs.coil.compose)
+    debugApi(libs.ui.tooling)
+    api(libs.ui.tooling.preview)
     implementation(libs.coil.svg)
     implementation(libs.androidx.material3.android)
     implementation(libs.hilt.navigation.compose)
@@ -51,6 +53,7 @@ dependencies {
 
     implementation(project(":core-domain"))
     api(project(":common"))
+    api(project(":content"))
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

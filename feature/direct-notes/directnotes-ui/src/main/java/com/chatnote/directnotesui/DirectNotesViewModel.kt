@@ -1,5 +1,6 @@
 package com.chatnote.directnotesui
 
+import android.net.Uri
 import androidx.lifecycle.SavedStateHandle
 import androidx.navigation.toRoute
 import com.chatnote.common.di.IoDispatcher
@@ -9,6 +10,7 @@ import com.chatnote.directnotesui.directnoteslist.DirectNotesContract.DirectNote
 import com.chatnote.directnotesui.directnoteslist.DirectNotesContract.DirectNotesOneTimeEvent
 import com.chatnote.directnotesui.directnoteslist.DirectNotesContract.DirectNotesState
 import com.chatnote.directnotesui.directnoteslist.DirectNotesContract.MutableDirectNotesState
+import com.chatnote.directnotesui.model.UiEditorInputAction
 import com.chatnote.directnotesui.model.UiNote
 import com.chatnote.directnotesui.model.UiNoteInteraction
 import com.chatnote.navigation.NavigationRoute
@@ -46,10 +48,6 @@ class DirectNotesViewModel @Inject constructor(
         DirectNotesEvent.LoadAllNotes(folderId).processWithLaunch()
     }
 
-    fun addNote(note: String) {
-        DirectNotesEvent.AddNote(note).processWithLaunch()
-    }
-
     override fun onStateReady() {
         loadFolderData(args.folderId)
     }
@@ -62,13 +60,26 @@ class DirectNotesViewModel @Inject constructor(
         DirectNotesEvent.NoteLongClick(note = uiNote).processWithLaunch()
     }
 
-    fun handelAction(interaction: UiNoteInteraction) {
+    fun onImageSelected(uris: List<Uri>) {
+        DirectNotesEvent.ImageSelected(uris = uris).processWithLaunch()
+    }
+
+    fun handelUiEditorInputAction(interaction: UiNoteInteraction) {
         DirectNotesEvent.NoteActionClick(interaction = interaction)
             .processWithLaunch()
 
     }
 
+    fun handelUiEditorInputAction(interaction: UiEditorInputAction) {
+        DirectNotesEvent.EditorInputActionClick(interaction = interaction)
+            .processWithLaunch()
+    }
+
     fun deleteSelectedNote(noteId: Long) {
         DirectNotesEvent.DeleteSelectedNote(noteId = noteId).processWithLaunch()
+    }
+
+    fun onNoteImageClicked(image: String, images: List<String>) {
+        DirectNotesEvent.OpenImageInPager(image = image, images = images).processWithLaunch()
     }
 }

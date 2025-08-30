@@ -46,15 +46,19 @@ fun CircularImage(
     ) {
         Box(
             modifier = Modifier
-                .padding(iconPadding)
                 .clip(CircleShape)
+                .padding(iconPadding)
         ) {
             Image(
                 painter = painterResource(id = drawableRes),
                 contentDescription = contentDescription,
                 colorFilter = imageColorFilter,
                 contentScale = contentScale,
-                modifier = if (iconSize != null) Modifier.size(iconSize) else Modifier.wrapContentSize()
+                modifier = if (iconSize != null) Modifier
+                    .size(iconSize)
+                    .padding(1.dp) else Modifier
+                    .wrapContentSize()
+                    .padding(1.dp)
             )
         }
     }
@@ -63,6 +67,7 @@ fun CircularImage(
 @Composable
 fun CircularImage(
     imageUri: String,
+    contentDescription: String,
     modifier: Modifier = Modifier,
     iconPadding: Dp = 0.dp,
     iconSize: Dp? = null,
@@ -88,7 +93,7 @@ fun CircularImage(
         ) {
             AsyncImage(
                 model = imageUri,
-                contentDescription = null,
+                contentDescription = contentDescription,
                 colorFilter = imageColorFilter,
                 contentScale = contentScale,
                 modifier = if (iconSize != null) Modifier.size(iconSize) else Modifier.wrapContentSize()
