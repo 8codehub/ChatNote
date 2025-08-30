@@ -12,7 +12,7 @@ scalability and maintainability.
 - **Folder-based organization**: Notes are grouped into folders similar to chat conversations.
 - **Customizable folder icons**: Default icons assigned with options for user customization.
 - **Optimized state management**: Uses event-driven architecture for handling UI state and updates.
-- 
+
 ## Screenshots
 
 ### Home List
