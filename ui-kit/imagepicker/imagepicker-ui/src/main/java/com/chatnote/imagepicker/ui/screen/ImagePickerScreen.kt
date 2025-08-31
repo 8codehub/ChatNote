@@ -179,17 +179,20 @@ private fun AttachImageBottomSheet(
         ) {
 
             Row(verticalAlignment = Alignment.CenterVertically) {
-                CameraButton(modifier = Modifier
-                    .height(80.dp)
-                    .widthIn(min = 80.dp)) {
+                CameraButton(
+                    modifier = Modifier
+                        .height(80.dp)
+                        .widthIn(min = 80.dp)
+                ) {
                     requestCameraPermission.launch(PermissionType.CAMERA.toSystemPermission())
                 }
 
-                GalleryButton(modifier = Modifier
-                    .height(80.dp)
-                    .widthIn(min = 80.dp)) {
+                GalleryButton(
+                    modifier = Modifier
+                        .height(80.dp)
+                        .widthIn(min = 80.dp)
+                ) {
                     viewModel.openGallery()
-                    //  openGalleryWithPermission.launch(PermissionType.GALLERY.toSystemPermission())
                 }
 
             }

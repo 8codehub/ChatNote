@@ -1,7 +1,6 @@
 package com.chatnote.coreui.extention
 
 import android.app.Activity
-import com.chatnote.common.analytics.AnalyticsTracker
 import com.google.android.play.core.review.ReviewManager
 
 fun Activity.launchInAppReview(

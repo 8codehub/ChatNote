@@ -1,6 +1,5 @@
 package com.chatnote.directnotesui.directnoteslist.components
 
-import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.background
 import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.Box

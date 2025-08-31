@@ -1,6 +1,7 @@
 # ChatNote
 
-ChatNote is a modular, chat-style note-taking application designed for efficient note organization.  
+ChatNote is a modular, chat-style note-taking application designed for efficient note
+organization.  
 The app follows best practices in Android development, implementing Clean Architecture, Dependency  
 Injection (DI), event-driven state management, and a well-structured modular approach to ensure  
 scalability and maintainability.
@@ -16,20 +17,24 @@ scalability and maintainability.
 ## Screenshots
 
 ### Home List
+
 ![Home List](https://raw.githubusercontent.com/8codehub/ChatNote/refs/heads/main/assets/home.png)  
 ![Home List](https://raw.githubusercontent.com/8codehub/ChatNote/refs/heads/main/assets/home_folder_swipe.png)  
 ![Home List](https://raw.githubusercontent.com/8codehub/ChatNote/refs/heads/main/assets/home_delete_folder.png)
 
 ### Direct Notes
+
 ![Direct Notes](https://raw.githubusercontent.com/8codehub/ChatNote/refs/heads/main/assets/notes.png)  
 ![Direct Notes](https://raw.githubusercontent.com/8codehub/ChatNote/refs/heads/main/assets/image_draft.png)  
 ![Direct Notes](https://raw.githubusercontent.com/8codehub/ChatNote/refs/heads/main/assets/single_note.png)  
 ![Direct Notes](https://raw.githubusercontent.com/8codehub/ChatNote/refs/heads/main/assets/note_actions.png)
 
 ### Folder Editor
+
 ![Note Editor](https://raw.githubusercontent.com/8codehub/ChatNote/refs/heads/main/assets/folder_editor.png)
 
 ### Image Picker
+
 ![Image Picker](https://raw.githubusercontent.com/8codehub/ChatNote/refs/heads/main/assets/image_picker.png)
 
 ## Architecture
@@ -37,16 +42,20 @@ scalability and maintainability.
 ChatNote follows Clean Architecture principles with a modular approach:
 
 ### Core Modules
+
 - `core-data`: Contains shared data models, database entities, and Room configurations.
 - `core-domain`: Houses use cases and domain-specific business logic.
 - `core-ui`: Includes shared UI components, themes, and utility classes.
 
 ### Common Modules
+
 - `common`: Contains shared components and utilities used across the app.
 - `content`: Centralized module for storing and managing all application strings.
-- `ui-kit`: Provides shared UI building blocks such as the **image picker** and **image viewer** components.
+- `ui-kit`: Provides shared UI building blocks such as the **image picker** and **image viewer**
+  components.
 
 ### Navigation Module
+
 - `navigation`: Manages type-safe navigation throughout the app.
 
 ### Feature Modules
@@ -54,18 +63,21 @@ ChatNote follows Clean Architecture principles with a modular approach:
 The `feature` module contains feature-specific submodules, each divided into three layers:
 
 #### Direct Notes Module (`direct-notes`)
+
 - `directnotes-data`: Data layer for managing note-specific database operations.
 - `directnotes-domain`: Domain layer for note-related use cases.
 - `directnotes-ui`: UI layer for displaying and interacting with individual notes.
 
 #### Home List Module (`home-list`)
+
 - `homelist-data`: Data layer for managing folder-related database operations.
 - `homelist-domain`: Domain layer for folder-related use cases.
 - `homelist-ui`: UI layer for displaying and interacting with the folder list.
 
 ## Firebase Configuration
 
-This project does not include the `google-services.json` file required for Firebase integration. If  
+This project does not include the `google-services.json` file required for Firebase integration.
+If  
 you want to build the app, you need to provide your own `google-services.json` file.
 
 ## Dependency Injection
@@ -90,7 +102,8 @@ ensures optimal performance.
 ## Purpose & Vision
 
 The goal of ChatNote is to provide an intuitive, lightweight note-taking experience inspired by  
-messaging apps. By structuring notes in a familiar chat-like format, users can quickly create, edit,  
+messaging apps. By structuring notes in a familiar chat-like format, users can quickly create,
+edit,  
 and organize their thoughts. The app is designed to be **fast, modular, and scalable**, allowing  
 future enhancements such as cloud backup and collaboration features.
 

@@ -60,7 +60,11 @@ fun NoteExtraItem(
             modifier = Modifier
                 .size(80.dp)
                 .clip(RoundedCornerShape(6.dp))
-                .border(width = 1.dp, color = MaterialTheme.colorScheme.onBackground, shape = RoundedCornerShape(6.dp))
+                .border(
+                    width = 1.dp,
+                    color = MaterialTheme.colorScheme.onBackground,
+                    shape = RoundedCornerShape(6.dp)
+                )
 
         ) {
             when (extra) {

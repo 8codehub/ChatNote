@@ -21,7 +21,9 @@ internal class ImagePagerStatefulEventHandler @Inject constructor(
         when (event) {
             is ImagePagerEvent.GeneralError -> onGeneralError(event.throwable)
             is ImagePagerEvent.LoadImages -> onLoadImagesEvent(event.images, event.defaultImage)
-            is ImagePagerEvent.NavigationEvent -> analyticsTracker.trackNavigationRoute(navigationRoute = event.navigationRoute.toString().lowercase())
+            is ImagePagerEvent.NavigationEvent -> analyticsTracker.trackNavigationRoute(
+                navigationRoute = event.navigationRoute.toString().lowercase()
+            )
         }
     }
 

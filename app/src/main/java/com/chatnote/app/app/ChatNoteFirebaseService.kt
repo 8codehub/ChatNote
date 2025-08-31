@@ -16,10 +16,6 @@ class ChatNoteFirebaseService @Inject constructor() : FirebaseMessagingService()
     @Inject
     lateinit var analyticsTracker: AnalyticsTracker
 
-    override fun onNewToken(token: String) {
-        super.onNewToken(token)
-    }
-
     override fun onMessageReceived(remoteMessage: RemoteMessage) {
         super.onMessageReceived(remoteMessage)
         val title = remoteMessage.notification?.title ?: "New message"
