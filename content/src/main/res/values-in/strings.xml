@@ -34,7 +34,7 @@
     <string name="empty_notes_message">Belum ada catatan. Mulailah menulis dan atur dalam folder ini!</string>
     <string name="error_failed_to_load_notes">Gagal memuat catatan</string>
     <string name="error_failed_to_load_note">Gagal memuat catatan</string>
-    <string name="copy_entire_message">Salin Seluruh Pesan</string>
+    <string name="copy_entire_message">Salin</string>
     <string name="share">Bagikan</string>
     <string name="delete_note">Hapus Catatan</string>
     <string name="delete_note_message">Apakah Anda yakin ingin menghapus catatan ini?</string>

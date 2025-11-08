@@ -34,7 +34,7 @@
     <string name="empty_notes_message">هنوز یادداشتی ندارید. شروع به نوشتن افکارتان کنید و آن‌ها را در این پوشه سازمان‌دهی نمایید!</string>
     <string name="error_failed_to_load_notes">بارگذاری یادداشت‌ها با خطا مواجه شد</string>
     <string name="error_failed_to_load_note">بارگذاری یادداشت با خطا مواجه شد</string>
-    <string name="copy_entire_message">کپی کل پیام</string>
+    <string name="copy_entire_message">کپی</string>
     <string name="share">اشتراک‌گذاری</string>
     <string name="delete_note">حذف یادداشت</string>
     <string name="delete_note_message">آیا مطمئن هستید که می‌خواهید این یادداشت را حذف کنید؟</string>

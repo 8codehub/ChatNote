@@ -34,7 +34,7 @@
     <string name="empty_notes_message">Нотаток поки немає. Почніть додавати думки та організовуйте їх у цій папці!</string>
     <string name="error_failed_to_load_notes">Не вдалося завантажити нотатки</string>
     <string name="error_failed_to_load_note">Не вдалося завантажити нотатку</string>
-    <string name="copy_entire_message">Скопіювати все повідомлення</string>
+    <string name="copy_entire_message">Копіювати</string>
     <string name="share">Поділитися</string>
     <string name="delete_note">Видалити нотатку</string>
     <string name="delete_note_message">Ви впевнені, що хочете видалити цю нотатку?</string>

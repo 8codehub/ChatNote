@@ -6,6 +6,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.AnnotatedString
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -38,7 +39,7 @@ fun StyledText(
             fontStyle = fontStyle,
             textAlign = textAlign,
             lineHeight = lineHeight,
-            fontFamily = PoppinsFontFamily,
+            fontFamily = FontFamily.Default,
             maxLines = maxLines,
             overflow = overflow
         )
@@ -51,7 +52,7 @@ fun StyledText(
         fontStyle = fontStyle,
         textAlign = textAlign,
         lineHeight = lineHeight,
-        fontFamily = PoppinsFontFamily,
+        fontFamily = FontFamily.Default,
         maxLines = maxLines,
         overflow = overflow
     )

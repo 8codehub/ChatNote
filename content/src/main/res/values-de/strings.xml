@@ -34,7 +34,7 @@
     <string name="empty_notes_message">Noch keine Notizen. Beginne damit, deine Gedanken zu notieren und sie in diesem Ordner zu organisieren!</string>
     <string name="error_failed_to_load_notes">Notizen konnten nicht geladen werden</string>
     <string name="error_failed_to_load_note">Notiz konnte nicht geladen werden</string>
-    <string name="copy_entire_message">Gesamte Nachricht kopieren</string>
+    <string name="copy_entire_message">Kopieren</string>
     <string name="share">Teilen</string>
     <string name="delete_note">Notiz löschen</string>
     <string name="delete_note_message">Möchtest du diese Notiz wirklich löschen?</string>

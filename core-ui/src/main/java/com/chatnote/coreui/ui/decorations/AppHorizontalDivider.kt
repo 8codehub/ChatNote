@@ -12,9 +12,9 @@ import androidx.compose.ui.unit.dp
 
 @Composable
 fun AppHorizontalDivider(
+    modifier: Modifier = Modifier,
     thickness: Dp = 1.dp,
-    color: Color = MaterialTheme.colorScheme.secondary,
-    modifier: Modifier = Modifier
+    color: Color = MaterialTheme.colorScheme.secondary.copy(alpha = 0.2f),
 ) {
     HorizontalDivider(
         color = color,

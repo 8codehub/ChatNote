@@ -150,14 +150,14 @@ fun FolderListScreen(
             ) {
                 item {
                     AddNewFolderButton(
-                        modifier = Modifier, navigateTo = navigateTo
+                        modifier = Modifier.padding(top = 4.dp), navigateTo = navigateTo
                     )
                 }
                 items(state.folders.size, key = { state.folders[it].id ?: 0 }) { index ->
                     val item = state.folders[index]
 
                     SwappableItem(
-                        modifier = Modifier.animateItem(
+                        modifier = Modifier.padding(top = 4.dp).animateItem(
                             fadeInSpec = null,
                             fadeOutSpec = null,
                             placementSpec = tween(300)

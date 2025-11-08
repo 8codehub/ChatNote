@@ -34,7 +34,7 @@
     <string name="empty_notes_message">Još nema bilješki. Počni zapisivati svoje misli i organiziraj ih u ovoj mapi!</string>
     <string name="error_failed_to_load_notes">Neuspjelo učitavanje bilješki</string>
     <string name="error_failed_to_load_note">Neuspjelo učitavanje bilješke</string>
-    <string name="copy_entire_message">Kopiraj cijelu poruku</string>
+    <string name="copy_entire_message">Kopiraj</string>
     <string name="share">Podijeli</string>
     <string name="delete_note">Izbriši bilješku</string>
     <string name="delete_note_message">Jeste li sigurni da želite izbrisati ovu bilješku?</string>

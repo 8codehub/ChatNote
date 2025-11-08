@@ -43,8 +43,8 @@ fun UITimeTag(timeTag: TimeTag, date: String) {
         StyledText(
             text = date,
             fontWeight = FontWeight.Medium,
-            fontSize = 10.sp,
-            lineHeight = 10.sp,
+            fontSize = 12.sp,
+            lineHeight = 12.sp,
             maxLines = 1,
             fontStyle = FontStyle.Normal,
             overflow = TextOverflow.Ellipsis,
@@ -54,8 +54,8 @@ fun UITimeTag(timeTag: TimeTag, date: String) {
         StyledText(
             text = timeTag.emoji,
             fontWeight = FontWeight.Medium,
-            fontSize = 10.sp,
-            lineHeight = 10.sp,
+            fontSize = 12.sp,
+            lineHeight = 12.sp,
             maxLines = 1,
             fontStyle = FontStyle.Normal,
             overflow = TextOverflow.Ellipsis,

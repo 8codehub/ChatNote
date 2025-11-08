@@ -34,7 +34,7 @@
     <string name="empty_notes_message">لا توجد ملاحظات بعد. ابدأ بإضافة أفكارك وتنظيمها في هذا المجلد!</string>
     <string name="error_failed_to_load_notes">فشل في تحميل الملاحظات</string>
     <string name="error_failed_to_load_note">فشل في تحميل الملاحظة</string>
-    <string name="copy_entire_message">نسخ الرسالة بالكامل</string>
+    <string name="copy_entire_message">نسخ</string>
     <string name="share">مشاركة</string>
     <string name="delete_note">حذف الملاحظة</string>
     <string name="delete_note_message">هل أنت متأكد أنك تريد حذف هذه الملاحظة؟</string>

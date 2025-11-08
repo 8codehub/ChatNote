@@ -85,8 +85,8 @@ fun NoteItem(
                     text = note.content,
                     textAlign = TextAlign.Start,
                     color = MaterialTheme.colorScheme.onBackground,
-                    fontSize = 14.sp,
-                    lineHeight = 14.sp
+                    fontSize = 16.sp,
+                    lineHeight = 20.sp
                 )
             }
 

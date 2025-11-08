@@ -34,7 +34,7 @@
     <string name="empty_notes_message">अभी कोई नोट नहीं है। अपनी सोच को जोड़ना शुरू करें और इस फ़ोल्डर में व्यवस्थित करें!</string>
     <string name="error_failed_to_load_notes">नोट्स लोड करने में विफल</string>
     <string name="error_failed_to_load_note">नोट लोड करने में विफल</string>
-    <string name="copy_entire_message">पूरा संदेश कॉपी करें</string>
+    <string name="copy_entire_message">कॉपी करें</string>
     <string name="share">साझा करें</string>
     <string name="delete_note">नोट हटाएं</string>
     <string name="delete_note_message">क्या आप वाकई इस नोट को हटाना चाहते हैं?</string>

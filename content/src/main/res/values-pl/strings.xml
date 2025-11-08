@@ -34,7 +34,7 @@
     <string name="empty_notes_message">Brak notatek. Zacznij dodawać swoje myśli i organizuj je w tym folderze!</string>
     <string name="error_failed_to_load_notes">Nie udało się załadować notatek</string>
     <string name="error_failed_to_load_note">Nie udało się załadować notatki</string>
-    <string name="copy_entire_message">Kopiuj całą wiadomość</string>
+    <string name="copy_entire_message">Kopiuj</string>
     <string name="share">Udostępnij</string>
     <string name="delete_note">Usuń notatkę</string>
     <string name="delete_note_message">Czy na pewno chcesz usunąć tę notatkę?</string>

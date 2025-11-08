@@ -34,7 +34,7 @@
     <string name="empty_notes_message">Nessuna nota. Inizia ad aggiungere i tuoi pensieri e organizzali in questa cartella!</string>
     <string name="error_failed_to_load_notes">Impossibile caricare le note</string>
     <string name="error_failed_to_load_note">Impossibile caricare la nota</string>
-    <string name="copy_entire_message">Copia tutto il messaggio</string>
+    <string name="copy_entire_message">Copia</string>
     <string name="share">Condividi</string>
     <string name="delete_note">Elimina nota</string>
     <string name="delete_note_message">Sei sicuro di voler eliminare questa nota?</string>

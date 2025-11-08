@@ -34,7 +34,7 @@
     <string name="empty_notes_message">Դեռ գրառումներ չկան։ Սկսեք գրառել ձեր մտքերը և կազմակերպել այս պանակում։</string>
     <string name="error_failed_to_load_notes">Չհաջողվեց բեռնել գրառումները</string>
     <string name="error_failed_to_load_note">Չհաջողվեց բեռնել գրառումը</string>
-    <string name="copy_entire_message">Պատճենել ամբողջ հաղորդագրությունը</string>
+    <string name="copy_entire_message">Պատճենել</string>
     <string name="share">Կիսվել</string>
     <string name="delete_note">Ջնջել գրառումը</string>
     <string name="delete_note_message">Վստա՞հ եք, որ ցանկանում եք ջնջել այս գրառումը։</string>

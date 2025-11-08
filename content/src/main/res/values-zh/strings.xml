@@ -34,7 +34,7 @@
     <string name="empty_notes_message">暂无笔记。开始记录你的想法并在此文件夹中整理它们！</string>
     <string name="error_failed_to_load_notes">加载笔记失败</string>
     <string name="error_failed_to_load_note">加载笔记失败</string>
-    <string name="copy_entire_message">复制整条消息</string>
+    <string name="copy_entire_message">复制</string>
     <string name="share">分享</string>
     <string name="delete_note">删除笔记</string>
     <string name="delete_note_message">确定要删除该笔记吗？</string>

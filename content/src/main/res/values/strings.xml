@@ -34,7 +34,7 @@
     <string name="empty_notes_message">No notes yet. Start adding your thoughts and organize them in this folder!</string>
     <string name="error_failed_to_load_notes">Failed to load notes</string>
     <string name="error_failed_to_load_note">Failed to load note</string>
-    <string name="copy_entire_message">Copy Entire Message</string>
+    <string name="copy_entire_message">Copy</string>
     <string name="share">Share</string>
     <string name="delete_note">Delete Note</string>
     <string name="delete_note_message">Are you sure you want to delete the note?</string>

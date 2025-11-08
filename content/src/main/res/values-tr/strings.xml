@@ -34,7 +34,7 @@
     <string name="empty_notes_message">Henüz not yok. Düşüncelerinizi yazmaya başlayın ve bu klasörde düzenleyin!</string>
     <string name="error_failed_to_load_notes">Notlar yüklenemedi</string>
     <string name="error_failed_to_load_note">Not yüklenemedi</string>
-    <string name="copy_entire_message">Tüm Mesajı Kopyala</string>
+    <string name="copy_entire_message">Kopyala</string>
     <string name="share">Paylaş</string>
     <string name="delete_note">Notu Sil</string>
     <string name="delete_note_message">Bu notu silmek istediğinizden emin misiniz?</string>

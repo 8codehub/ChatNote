@@ -136,7 +136,7 @@ fun ActionableItemRow(
                 text = text,
                 color = color,
                 maxLines = 1,
-                fontSize = 16.sp,
+                fontSize = 18.sp,
                 overflow = TextOverflow.Ellipsis,
                 lineHeight = 16.sp
             )
@@ -168,13 +168,13 @@ fun ActionIconsRow(
                 contentDescription = stringResource(
                     id = action.getActionStringResId()
                 ),
-                iconSize = 18.dp,
+                iconSize = 22.dp,
                 iconPadding = 2.dp,
                 imageColorFilter = ColorFilter.tint(MaterialTheme.colorScheme.secondary),
                 onClick = { onAction?.let { it(action) } },
                 drawableRes = getActionIcon(action)
             )
-            Spacer(modifier = Modifier.width(4.dp))
+            Spacer(modifier = Modifier.width(8.dp))
         }
     }
 }
