@@ -1,13 +1,5 @@
 # ChatNote
 
-<table>
-<tr>
-<td align="center" background="https://via.placeholder.com/1x1/E8F0FF?text=" width="100%" style="padding:20px;border-radius:12px;">
-  <h3>Hello ChatNote 👋</h3>
-</td>
-</tr>
-</table>
-
 ChatNote is a modular, chat-style note-taking application designed for efficient note
 organization.  
 The app follows best practices in Android development, implementing Clean Architecture, Dependency  
