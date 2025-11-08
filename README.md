@@ -1,15 +1,12 @@
 # ChatNote
 
-<div align="center" style="
-  background-color:#E8F0FF;
-  padding:20px;
-  border-radius:12px;
-  font-size:20px;
-  font-weight:600;
-  color:#1A237E;
-">
-  Hello ChatNote 👋
-</div>
+<table>
+<tr>
+<td align="center" background="https://via.placeholder.com/1x1/E8F0FF?text=" width="100%" style="padding:20px;border-radius:12px;">
+  <h3>Hello ChatNote 👋</h3>
+</td>
+</tr>
+</table>
 
 ChatNote is a modular, chat-style note-taking application designed for efficient note
 organization.  
