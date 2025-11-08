@@ -16,26 +16,38 @@ scalability and maintainability.
 
 ## Screenshots
 
-### Home List
+### 🏠 Home List
 
-![Home List](https://raw.githubusercontent.com/8codehub/ChatNote/refs/heads/main/assets/home.png)  
-![Home List](https://raw.githubusercontent.com/8codehub/ChatNote/refs/heads/main/assets/home_folder_swipe.png)  
-![Home List](https://raw.githubusercontent.com/8codehub/ChatNote/refs/heads/main/assets/home_delete_folder.png)
+| | | |
+|------|------|------|
+| <div style="background:#f6f8fa;padding:10px;border-radius:10px;"><img src="https://raw.githubusercontent.com/8codehub/ChatNote/refs/heads/main/assets/home.png" width="250"></div> | <div style="background:#f6f8fa;padding:10px;border-radius:10px;"><img src="https://raw.githubusercontent.com/8codehub/ChatNote/refs/heads/main/assets/home_folder_swipe.png" width="250"></div> | <div style="background:#f6f8fa;padding:10px;border-radius:10px;"><img src="https://raw.githubusercontent.com/8codehub/ChatNote/refs/heads/main/assets/home_delete_folder.png" width="250"></div> |
 
-### Direct Notes
+---
 
-![Direct Notes](https://raw.githubusercontent.com/8codehub/ChatNote/refs/heads/main/assets/notes.png)  
-![Direct Notes](https://raw.githubusercontent.com/8codehub/ChatNote/refs/heads/main/assets/image_draft.png)  
-![Direct Notes](https://raw.githubusercontent.com/8codehub/ChatNote/refs/heads/main/assets/single_note.png)  
-![Direct Notes](https://raw.githubusercontent.com/8codehub/ChatNote/refs/heads/main/assets/note_actions.png)
+### 📝 Direct Notes
 
-### Folder Editor
+| | | |
+|------|------|------|
+| <div style="background:#f6f8fa;padding:10px;border-radius:10px;"><img src="https://raw.githubusercontent.com/8codehub/ChatNote/refs/heads/main/assets/notes.png" width="250"></div> | <div style="background:#f6f8fa;padding:10px;border-radius:10px;"><img src="https://raw.githubusercontent.com/8codehub/ChatNote/refs/heads/main/assets/image_draft.png" width="250"></div> | <div style="background:#f6f8fa;padding:10px;border-radius:10px;"><img src="https://raw.githubusercontent.com/8codehub/ChatNote/refs/heads/main/assets/single_note.png" width="250"></div> |
+| <div style="background:#f6f8fa;padding:10px;border-radius:10px;"><img src="https://raw.githubusercontent.com/8codehub/ChatNote/refs/heads/main/assets/note_actions.png" width="250"></div> | | |
 
-![Note Editor](https://raw.githubusercontent.com/8codehub/ChatNote/refs/heads/main/assets/folder_editor.png)
+---
 
-### Image Picker
+### 📂 Folder Editor
 
-![Image Picker](https://raw.githubusercontent.com/8codehub/ChatNote/refs/heads/main/assets/image_picker.png)
+<div style="background:#f6f8fa;padding:10px;border-radius:10px;display:inline-block;">
+  <img src="https://raw.githubusercontent.com/8codehub/ChatNote/refs/heads/main/assets/folder_editor.png" width="300">
+</div>
+
+---
+
+### 🖼️ Image Picker
+
+<div style="background:#f6f8fa;padding:10px;border-radius:10px;display:inline-block;">
+  <img src="https://raw.githubusercontent.com/8codehub/ChatNote/refs/heads/main/assets/image_picker.png" width="300">
+</div>
+
+---
 
 ## Architecture
 
