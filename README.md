@@ -18,33 +18,56 @@ scalability and maintainability.
 
 ### 🏠 Home List
 
-| | | |
-|------|------|------|
-| <div style="background:#f6f8fa;padding:10px;border-radius:10px;"><img src="https://raw.githubusercontent.com/8codehub/ChatNote/refs/heads/main/assets/home.png" width="250"></div> | <div style="background:#f6f8fa;padding:10px;border-radius:10px;"><img src="https://raw.githubusercontent.com/8codehub/ChatNote/refs/heads/main/assets/home_folder_swipe.png" width="250"></div> | <div style="background:#f6f8fa;padding:10px;border-radius:10px;"><img src="https://raw.githubusercontent.com/8codehub/ChatNote/refs/heads/main/assets/home_delete_folder.png" width="250"></div> |
+<div align="center" style="background:#f6f8fa;padding:16px;border-radius:12px;display:inline-block;">
+  <img src="https://raw.githubusercontent.com/8codehub/ChatNote/refs/heads/main/assets/home.png"
+       width="250"
+       style="margin:0 10px 10px 0;" />
+  <img src="https://raw.githubusercontent.com/8codehub/ChatNote/refs/heads/main/assets/home_folder_swipe.png"
+       width="250"
+       style="margin:0 10px 10px 0;" />
+  <img src="https://raw.githubusercontent.com/8codehub/ChatNote/refs/heads/main/assets/home_delete_folder.png"
+       width="250"
+       style="margin:0 0 10px 0;" />
+</div>
 
 ---
 
 ### 📝 Direct Notes
 
-| | | |
-|------|------|------|
-| <div style="background:#f6f8fa;padding:10px;border-radius:10px;"><img src="https://raw.githubusercontent.com/8codehub/ChatNote/refs/heads/main/assets/notes.png" width="250"></div> | <div style="background:#f6f8fa;padding:10px;border-radius:10px;"><img src="https://raw.githubusercontent.com/8codehub/ChatNote/refs/heads/main/assets/image_draft.png" width="250"></div> | <div style="background:#f6f8fa;padding:10px;border-radius:10px;"><img src="https://raw.githubusercontent.com/8codehub/ChatNote/refs/heads/main/assets/single_note.png" width="250"></div> |
-| <div style="background:#f6f8fa;padding:10px;border-radius:10px;"><img src="https://raw.githubusercontent.com/8codehub/ChatNote/refs/heads/main/assets/note_actions.png" width="250"></div> | | |
+<div align="center" style="background:#f6f8fa;padding:16px;border-radius:12px;display:inline-block;">
+  <img src="https://raw.githubusercontent.com/8codehub/ChatNote/refs/heads/main/assets/notes.png"
+       width="250"
+       style="margin:0 10px 10px 0;" />
+  <img src="https://raw.githubusercontent.com/8codehub/ChatNote/refs/heads/main/assets/image_draft.png"
+       width="250"
+       style="margin:0 10px 10px 0;" />
+  <img src="https://raw.githubusercontent.com/8codehub/ChatNote/refs/heads/main/assets/single_note.png"
+       width="250"
+       style="margin:0 0 10px 0;" />
+  <br/>
+  <img src="https://raw.githubusercontent.com/8codehub/ChatNote/refs/heads/main/assets/note_actions.png"
+       width="250"
+       style="margin:0 10px 0 0;" />
+</div>
 
 ---
 
 ### 📂 Folder Editor
 
-<div style="background:#f6f8fa;padding:10px;border-radius:10px;display:inline-block;">
-  <img src="https://raw.githubusercontent.com/8codehub/ChatNote/refs/heads/main/assets/folder_editor.png" width="300">
+<div align="center" style="background:#f6f8fa;padding:16px;border-radius:12px;display:inline-block;">
+  <img src="https://raw.githubusercontent.com/8codehub/ChatNote/refs/heads/main/assets/folder_editor.png"
+       width="300"
+       style="margin:0;" />
 </div>
 
 ---
 
 ### 🖼️ Image Picker
 
-<div style="background:#f6f8fa;padding:10px;border-radius:10px;display:inline-block;">
-  <img src="https://raw.githubusercontent.com/8codehub/ChatNote/refs/heads/main/assets/image_picker.png" width="300">
+<div align="center" style="background:#f6f8fa;padding:16px;border-radius:12px;display:inline-block;">
+  <img src="https://raw.githubusercontent.com/8codehub/ChatNote/refs/heads/main/assets/image_picker.png"
+       width="300"
+       style="margin:0;" />
 </div>
 
 ---
