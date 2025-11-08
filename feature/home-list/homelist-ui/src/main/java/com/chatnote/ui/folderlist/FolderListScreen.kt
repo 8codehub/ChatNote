@@ -157,11 +157,13 @@ fun FolderListScreen(
                     val item = state.folders[index]
 
                     SwappableItem(
-                        modifier = Modifier.padding(top = 4.dp).animateItem(
-                            fadeInSpec = null,
-                            fadeOutSpec = null,
-                            placementSpec = tween(300)
-                        ),
+                        modifier = Modifier
+                            .padding(top = 4.dp)
+                            .animateItem(
+                                fadeInSpec = null,
+                                fadeOutSpec = null,
+                                placementSpec = tween(300)
+                            ),
                         showOnboarding = index == 0 && onboardingItem == Onboarding.FolderOnboarding,
                         onOnboardingFinished = {
                             onboardingItem = null

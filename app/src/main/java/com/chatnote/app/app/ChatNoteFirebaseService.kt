@@ -18,8 +18,8 @@ class ChatNoteFirebaseService @Inject constructor() : FirebaseMessagingService()
 
     override fun onMessageReceived(remoteMessage: RemoteMessage) {
         super.onMessageReceived(remoteMessage)
-        val title = remoteMessage.notification?.title ?: "New message"
-        val body = remoteMessage.notification?.body ?: "You have a new notification"
+        val title = remoteMessage.notification?.title.orEmpty()
+        val body = remoteMessage.notification?.body.orEmpty()
         analyticsTracker.onNotificationReceived(title = title, body = body)
         notificationHandler.show(title, body)
     }

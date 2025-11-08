@@ -68,7 +68,6 @@ fun AttachSingleImageBottomSheet(
     )
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AttachMultiImageBottomSheet(
     viewModel: MultiAttachImagePickerViewModel = hiltViewModel<MultiAttachImagePickerViewModel>(),
@@ -98,30 +97,10 @@ private fun AttachImageBottomSheet(
 
     val requestCameraPermission = permissionRequestLauncher(
         type = PermissionType.CAMERA,
-        onGranted = viewModel::openCamera,
-        onDenied = { println("Permission_tag ImagePicker ❌ Camera permission denied") }
+        onGranted = viewModel::openCamera
     )
 
-    /*  val requestGalleryPermission = permissionRequestLauncher(
-          type = PermissionType.GALLERY,
-          onGranted = viewModel::loadImages,
-          onDenied = { println("Permission_tag ImagePicker ❌ Gallery permission denied") }
-      )*/
-
-    /*   val openGalleryWithPermission = permissionRequestLauncher(
-           type = PermissionType.GALLERY,
-           onGranted = {
-               viewModel.loadImages()
-               viewModel.openGallery()
-           },
-           onDenied = { println("Permission_tag ImagePicker ❌ Gallery permission denied") }
-       )*/
-
     val enableAttachButton by remember(uiState.allImages) { derivedStateOf { uiState.allImages.any { it.isSelected } } }
-
-    /*  LaunchedEffect(Unit) {
-          requestGalleryPermission.launch(PermissionType.GALLERY.toSystemPermission())
-      }*/
 
     val takePictureLauncher = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.TakePicture()
